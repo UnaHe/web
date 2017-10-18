@@ -4,22 +4,21 @@ namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Passport\HasApiTokens;
 
+/**
+ * 用户表
+ * Class User
+ * @package App\Models
+ */
 class User extends Authenticatable
 {
     protected $table = "xmt_user";
     public $timestamps = false;
 
-    use Notifiable;
+    use Notifiable, HasApiTokens;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
+    protected $guarded = ['id'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -29,4 +28,13 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * passport查找用户
+     * @param $login
+     * @return mixed
+     */
+    public function findForPassport($login){
+        return $this->where('phone', $login)->first();
+    }
 }

@@ -13,19 +13,32 @@ use Illuminate\Http\Request;
 |
 */
 
-\Illuminate\Support\Facades\Auth::routes();
-
 Route::middleware('auth:api')->get('/user', function (Request $request) {
-//    return $request->user();
+    return $request->user();
 });
 
+/**
+ * 注册
+ */
+Route::post('/register', "UserController@register");
 
-///**
-// * 登录
-// */
-//Route::get('/login', "UserController@login");
-//
-///**
-// * 注册
-// */
-//Route::get('/register', "UserController@register");
+
+/**
+ * 商品分类
+ */
+Route::get('/categorys', "CategoryController@getAllCategory");
+
+/**
+ * 商品列表
+ */
+Route::get('/goods', "GoodsController@goodList");
+
+/**
+ * 商品详情
+ */
+Route::get('/goods/{goodsId}', "GoodsController@detail")->where('goodsId', '[0-9]+');
+
+/**
+ * 栏目商品列表
+ */
+Route::get('/columns/{code}/goods', "GoodsController@columnGoods");
