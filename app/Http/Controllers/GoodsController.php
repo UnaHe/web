@@ -23,9 +23,13 @@ class GoodsController extends Controller
     public function goodList(Request $request){
         //商品分类
         $category = $request->get('category');
+        //商品排序
         $sort = $request->get('sort');
+        //搜索关键字
+        $keyword = $request->get('keyword');
 
-        $list = (new GoodsService())->goodList($category, $sort);
+
+        $list = (new GoodsService())->goodList($category, $sort, $keyword);
         return $this->ajaxSuccess($list);
     }
 

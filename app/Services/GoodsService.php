@@ -40,10 +40,13 @@ class GoodsService
     /**
      * 获取商品列表
      */
-    public function goodList($category, $sort){
+    public function goodList($category, $sort, $keyword){
         $query = Goods::query();
         if($category){
             $query->where("catagory_id", $category);
+        }
+        if($keyword){
+            $query->where("title",'like', "%".$keyword."%");
         }
 
         $this->sort($query, $sort);
