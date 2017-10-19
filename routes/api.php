@@ -1,7 +1,4 @@
 <?php
-
-use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,15 +10,10 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 /**
  * 注册
  */
 Route::post('/register', "UserController@register");
-
 
 /**
  * 商品分类
@@ -62,4 +54,9 @@ Route::middleware('auth:api')->group(function(){
      * 删除消息
      */
     Route::delete('/messages/{messageId}', "MessageController@deleteMessage");
+
+    /**
+     * 商品转链
+     */
+    Route::post('/transferLink', "TransferController@transferLink");
 });
