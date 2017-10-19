@@ -7,10 +7,7 @@
  */
 namespace App\Services;
 
-use App\Helpers\QueryHelper;
 use App\Models\ChannelColumn;
-use App\Models\ColumnGoodsRel;
-use App\Models\Goods;
 
 /**
  * 商品栏目

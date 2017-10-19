@@ -2,11 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\InviteCode;
-use App\Models\User;
-use Illuminate\Http\JsonResponse;
+use App\Services\UserService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -21,33 +18,17 @@ class UserController extends Controller
         if(!$inviteCode || !$userName || !$password){
             return $this->ajaxError("参数错误");
         }
+        if(!preg_match('/^1\d{10}$/', $userName)){
+            return $this->ajaxError('请输入正确的手机号码');
+        }
+        if(strlen($password) < 6){
+            return $this->ajaxError('密码长度至少为6位');
+        }
 
-        DB::beginTransaction();
         try{
-            //使用验证码
-            if(!(new InviteCode())->useCode($inviteCode)){
-                throw new \LogicException("验证码无效");
-            }
-
-            //创建用户
-            $isSuccess = User::create([
-                'phone' => $userName,
-                'password' => bcrypt($password),
-                'invite_code' => $inviteCode,
-                'reg_time' => date('Y-m-d H:i:s'),
-                'reg_ip' => $request->ip(),
-            ]);
-
-            if(!$isSuccess){
-                throw new \LogicException("注册失败");
-            }
-            DB::commit();
+            (new UserService())->registerUser($userName, $password, $inviteCode);
         }catch (\Exception $e){
-            DB::rollBack();
-            if($e instanceof \LogicException){
-                return $this->ajaxError($e->getMessage());
-            }
-            return $this->ajaxError("注册失败");
+            return $this->ajaxError($e->getMessage());
         }
 
         return $this->ajaxSuccess();

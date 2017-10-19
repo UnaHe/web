@@ -1,8 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Models\GoodsCategory;
+use App\Services\CategoryService;
 
 
 /**
@@ -16,7 +15,7 @@ class CategoryController extends Controller
      * 获取所有商品分类
      */
     public function getAllCategory(){
-        $data = GoodsCategory::select("id", "name", "icon_url")->get();
+        $data = (new CategoryService())->getAllCategory();
         return $this->ajaxSuccess($data);
     }
 

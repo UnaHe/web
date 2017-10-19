@@ -42,3 +42,24 @@ Route::get('/goods/{goodsId}', "GoodsController@detail")->where('goodsId', '[0-9
  * 栏目商品列表
  */
 Route::get('/columns/{code}/goods', "GoodsController@columnGoods");
+
+/**
+ * 指定位置广告banner列表
+ */
+Route::get('/banners/{position}', "BannerController@getBanner");
+
+
+Route::middleware('auth:api')->group(function(){
+    /**
+     * 获取消息列表
+     */
+    Route::get('/messages', "MessageController@getMessageList");
+    /**
+     * 获取消息详情
+     */
+    Route::get('/messages/{messageId}', "MessageController@getMessage");
+    /**
+     * 删除消息
+     */
+    Route::delete('/messages/{messageId}', "MessageController@deleteMessage");
+});
