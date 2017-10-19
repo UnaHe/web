@@ -34,11 +34,14 @@ class TransferService
         }
 
         //判断结果
-        if(isset($resp['code'])){
-            if (27 == $resp['code']){
+        if(isset($resp['sub_code'])){
+            if ('invalid-sessionkey' == $resp['sub_code']){
                 //session过期
                 throw new \Exception("授权过期");
-            }else if (15 == $resp['code']){
+            }else if ('isv.item-not-exist' == $resp['sub_code']){
+                //pid错误
+                throw new \Exception("宝贝已下架或非淘客宝贝");
+            }else if ('isv.pid-not-correct' == $resp['sub_code']){
                 //pid错误
                 throw new \Exception("PID错误");
             }
