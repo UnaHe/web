@@ -27,7 +27,7 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Passport::routes();
+//        Passport::routes();
 
         //如果不设置，则token为长期有效
         Passport::tokensExpireIn(Carbon::now()->addDays(15));
