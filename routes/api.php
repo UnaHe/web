@@ -55,6 +55,11 @@ Route::namespace('App\Http\Controllers')->group(function (){
      */
     Route::get('/banners/{position}', "BannerController@getBanner");
 
+    /**
+     * 热搜词
+     */
+    Route::get('/hotKeyword', "GoodsController@hotKeyWord");
+    
 
     Route::middleware('auth:api')->group(function(){
         /**

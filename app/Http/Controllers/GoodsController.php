@@ -61,4 +61,13 @@ class GoodsController extends Controller
         return $this->ajaxSuccess($list);
     }
 
+    /**
+     * 热搜词列表
+     * @return static
+     */
+    public function hotKeyWord(){
+        $data = ['耳机', '面膜', '口红', '保温杯', '卫衣', '毛衣女', '睡衣', '女鞋', '洗面奶', '充电宝'];
+        return $this->ajaxSuccess($data);
+    }
+
 }
