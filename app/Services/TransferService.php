@@ -247,10 +247,10 @@ class TransferService
         $isTmall = $result['data']['result']['item']['tmall'];
         $data = [
             'url' => $taoCodeData['url'],
-            'itemUrl' => (new GoodsHelper())->generateTaobaoUrl($itemId, $isTmall),
-            'content' => $taoCodeData['content'],
-            'biz30Day' => $result['data']['result']['item']['biz30Day'],
-            'itemId' => $itemId,
+            'goods_url' => (new GoodsHelper())->generateTaobaoUrl($itemId, $isTmall),
+            'short_title' => $taoCodeData['content'],
+            'sell_num' => $result['data']['result']['item']['biz30Day'],
+            'goodsid' => $itemId,
             'pic' => $result['data']['result']['item']['picUrl'],
             'title' => $result['data']['result']['item']['title'],
             'price_full' => $result['data']['result']['item']['discountPrice'],
@@ -258,8 +258,9 @@ class TransferService
             'coupon_end_time' => $result['data']['result']['effectiveEndTime'],
             'coupon_price' => $result['data']['result']['amount'],
             'coupon_prerequisite' => $result['data']['result']['startFee'],
-            'shopName' => $result['data']['result']['shopName'],
-            'shopLogo' => $result['data']['result']['shopLogo'],
+            'seller_name' => $result['data']['result']['shopName'],
+            'seller_icon_url' => $result['data']['result']['shopLogo'],
+            'is_tmall' => $isTmall,
         ];
 
         return $data;
