@@ -7,9 +7,11 @@
  */
 namespace App\Services;
 
+use App\Helpers\GoodsHelper;
 use App\Models\Banner;
 use App\Models\GoodsCategory;
 use GuzzleHttp\Client;
+use GuzzleHttp\RequestOptions;
 
 class TransferService
 {
@@ -170,21 +172,97 @@ class TransferService
         $sign	= md5($h5Tk.'&'.$t.'&'.$appKey.'&'.$data);
         $url	= $cookieUrl.'&appKey='.$appKey.'&sign='.$sign.'&t='.$t.'&data='.$data;
 
-        $response = (string)$client->request('GET', $url, ['cookies' => $jar])->getBody();
+        $response = $client->request('GET', $url, ['cookies' => $jar])->getBody()->getContents();
         $result = json_decode($response, true);
 
         if(!strstr($response, '调用成功') || !isset($result['data'])){
             return false;
         }
         
-        $data = $result['data'];
-        unset($data['leftButtonText']);
-        unset($data['myTaopwdToast']);
-        unset($data['taopwdOwnerId']);
-        unset($data['templateId']);
-        unset($data['createAppkey']);
-        unset($data['bizId']);
-        unset($data['rightButtonText']);
+        $taoCodeData = $result['data'];
+        $lastUrl = $taoCodeData['url'];
+
+        //不是二合一页面则打开页面并跟踪跳转到二合一界面
+        if(!strpos($lastUrl, 'uland.taobao.com')){
+            $client = new Client();
+            //打开url并跟踪跳转
+            $response = $client->request('GET', $lastUrl, [
+                'verify' => false,
+                RequestOptions::ALLOW_REDIRECTS => [
+                    'max'             => 10,        // allow at most 10 redirects.
+                    'strict'          => true,      // use "strict" RFC compliant redirects.
+                    'referer'         => true,      // add a Referer header
+                    'track_redirects' => true,
+                ],
+            ]);
+
+            //获取最终跳转地址
+            $redirectUriHistory = $response->getHeader('X-Guzzle-Redirect-History'); // retrieve Redirect URI history
+            $lastUrl = array_pop($redirectUriHistory);
+        }
+
+        parse_str(parse_url($lastUrl)['query'], $lastUrlParams);
+
+        //需要传递的参数
+        $apiParamData = [];
+        $params = ['e','me','dx','itemId','activityId','pid','src','scm','engpvid','mt','couponType','ptl'];
+        foreach($params as $param){
+            if(isset($lastUrlParams[$param])){
+                $apiParamData[$param] = $lastUrlParams[$param];
+            }
+        }
+
+        $apiUrl = 'https://acs.m.taobao.com/h5/mtop.alimama.union.hsf.coupon.get/1.0/';
+        $apiParams = [
+            'jsv' => '2.3.16',
+            'appKey' => '12574478',
+            't' => time(),
+            'api' => 'mtop.alimama.union.hsf.coupon.get',
+            'v' => '1.0',
+            'AntiCreep' => 'true',
+            'type' => 'jsonp',
+            'dataType' => 'jsonp',
+            'callback' => 'mtopjsonp1',
+            'data' => str_replace("\\/", "/", json_encode($apiParamData))
+        ];
+
+
+        //拼接实际请求地址
+        $sign	= md5($h5Tk.'&'.$apiParams['t'].'&'.$apiParams['appKey'].'&'.$apiParams['data']);
+        $apiParams['sign'] = $sign;
+        $url	= $apiUrl."?".http_build_query($apiParams);
+
+        $response = $client->request('GET', $url, ['cookies' => $jar, 'verify' => false])->getBody()->getContents();
+        if(!strstr($response, '调用成功')){
+            return false;
+        }
+
+        if(!preg_match('/mtopjsonp1\((.*?)\)/', $response, $matchs)){
+            return false;
+        }
+
+        $result = json_decode($matchs[1], true);
+
+        $itemId = $result['data']['result']['item']['itemId'];
+        $isTmall = $result['data']['result']['item']['tmall'];
+        $data = [
+            'url' => $taoCodeData['url'],
+            'itemUrl' => (new GoodsHelper())->generateTaobaoUrl($itemId, $isTmall),
+            'content' => $taoCodeData['content'],
+            'biz30Day' => $result['data']['result']['item']['biz30Day'],
+            'itemId' => $itemId,
+            'pic' => $result['data']['result']['item']['picUrl'],
+            'title' => $result['data']['result']['item']['title'],
+            'price_full' => $result['data']['result']['item']['discountPrice'],
+            'coupon_start_time' => $result['data']['result']['effectiveStartTime'],
+            'coupon_end_time' => $result['data']['result']['effectiveEndTime'],
+            'coupon_price' => $result['data']['result']['amount'],
+            'coupon_prerequisite' => $result['data']['result']['startFee'],
+            'shopName' => $result['data']['result']['shopName'],
+            'shopLogo' => $result['data']['result']['shopLogo'],
+        ];
+
         return $data;
+
     }
 }

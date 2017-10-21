@@ -55,6 +55,6 @@ class TransferController extends Controller
             return $this->ajaxError("淘口令解析失败");
         }
 
-        return $data;
+        return $this->ajaxSuccess($data);
     }
 }
