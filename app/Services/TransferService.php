@@ -7,6 +7,7 @@
  */
 namespace App\Services;
 
+use App\Helpers\ErrorHelper;
 use App\Helpers\GoodsHelper;
 use App\Models\Banner;
 use App\Models\GoodsCategory;
@@ -49,13 +50,13 @@ class TransferService
         if(isset($resp['sub_code'])){
             if ('invalid-sessionkey' == $resp['sub_code']){
                 //session过期
-                throw new \Exception("授权过期");
+                throw new \Exception("授权过期", ErrorHelper::ERROR_TAOBAO_INVALID_SESSION);
             }else if ('isv.item-not-exist' == $resp['sub_code']){
-                //pid错误
-                throw new \Exception("宝贝已下架或非淘客宝贝");
+                //商品错误
+                throw new \Exception("宝贝已下架或非淘客宝贝", ErrorHelper::ERROR_TAOBAO_INVALID_GOODS);
             }else if ('isv.pid-not-correct' == $resp['sub_code']){
                 //pid错误
-                throw new \Exception("PID错误");
+                throw new \Exception("PID错误", ErrorHelper::ERROR_TAOBAO_INVALID_PID);
             }
             throw new \Exception("转链失败");
         }
@@ -127,6 +128,21 @@ class TransferService
     /**
      * 商品转链
      */
+    public function transferGoodsByUser($goodsId, $title, $userId){
+        try{
+            $token = (new TaobaoService())->getToken($userId);
+            $pid = (new TaobaoService())->getPid($userId);
+            $data = $this->transferGoods($goodsId, $title, $pid, $token);
+        }catch (\Exception $e){
+            throw new \Exception($e->getMessage(), $e->getCode());
+        }
+
+        return $data;
+    }
+
+    /**
+     * 商品转链
+     */
     public function transferGoods($goodsId, $title, $pid, $token){
         try{
             $result = $this->transferLink($goodsId,$pid,$token);
@@ -140,7 +156,7 @@ class TransferService
                 'tao_code' => $taoCode
             ];
         }catch (\Exception $e){
-            throw new \Exception($e->getMessage());
+            throw new \Exception($e->getMessage(), $e->getCode());
         }
 
         return $data;

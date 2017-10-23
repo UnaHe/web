@@ -31,6 +31,11 @@ Route::namespace('App\Http\Controllers')->group(function (){
     Route::post('/captcha/registerSms', "UserController@registerSms");
 
     /**
+     * 淘宝授权登录跳转
+     */
+    Route::get('/taobao/auth', "TaobaoController@auth");
+
+    /**
      * 商品分类
      */
     Route::get('/categorys', "CategoryController@getAllCategory");
@@ -59,9 +64,13 @@ Route::namespace('App\Http\Controllers')->group(function (){
      * 热搜词
      */
     Route::get('/hotKeyword', "GoodsController@hotKeyWord");
-    
 
+
+    /**
+     * 需要登录访问的接口列表
+     */
     Route::middleware('auth:api')->group(function(){
+
         /**
          * 获取消息列表
          */
@@ -84,6 +93,16 @@ Route::namespace('App\Http\Controllers')->group(function (){
          * 淘口令解析
          */
         Route::post('/queryTaoCode', "TransferController@queryTaoCode");
+
+        /**
+         * 保存淘宝授权信息
+         */
+        Route::post('/taobao/saveToken', "TaobaoController@saveAuthToken");
+
+        /**
+         * 保存PID
+         */
+        Route::post('/taobao/savePid', "TaobaoController@savePid");
     });
 
 });

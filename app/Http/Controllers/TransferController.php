@@ -22,8 +22,6 @@ class TransferController extends Controller
      * 转链接
      */
     public function transferLink(Request $request){
-        $token = '70002100147174d2238ce84718120cb3445cc38fd28ee5cc95b3640a8d51d55072ecd15678083733';
-        $pid = 'mm_99303416_7688581_25870399';
         $taobaoGoodsId = $request->post('taobaoId');
         $title = $request->post('title');
         if(!$taobaoGoodsId || !$title){
@@ -35,9 +33,10 @@ class TransferController extends Controller
         }
 
         try{
-            $data = (new TransferService())->transferGoods($taobaoGoodsId, $title,$pid,$token);
+            $data = (new TransferService())->transferGoodsByUser($taobaoGoodsId, $title, $request->user()->id);
         }catch (\Exception $e){
-            return $this->ajaxError($e->getMessage());
+            $errorCode = $e->getCode();
+            return $this->ajaxError($e->getMessage(), $errorCode ?: 300);
         }
         return $this->ajaxSuccess($data);
     }

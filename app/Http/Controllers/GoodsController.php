@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\GoodsHelper;
 use App\Models\ChannelColumn;
 use App\Models\Goods;
 use App\Services\ChannelColumnService;
@@ -30,6 +31,7 @@ class GoodsController extends Controller
 
 
         $list = (new GoodsService())->goodList($category, $sort, $keyword);
+        $list = (new GoodsHelper())->resizeGoodsListPic($list->toArray(), ['pic'=>'310x310']);
         return $this->ajaxSuccess($list);
     }
 
@@ -43,7 +45,7 @@ class GoodsController extends Controller
         if(!$data){
             return $this->ajaxError("商品不存在", 404);
         }
-
+        $data = (new GoodsHelper())->resizeGoodsListPic([$data->toArray()], ['pic'=>'480x480']);
         return $this->ajaxSuccess($data);
     }
 
@@ -58,6 +60,7 @@ class GoodsController extends Controller
         }
 
         $list = (new GoodsService())->columnGoodList($columnCode);
+        $list = (new GoodsHelper())->resizeGoodsListPic($list->toArray(), ['pic'=>'310x310']);
         return $this->ajaxSuccess($list);
     }
 
