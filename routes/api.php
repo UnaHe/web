@@ -121,7 +121,7 @@ Route::namespace('App\Http\Controllers')->group(function (){
         /**
          * 查询pid绑定状态和授权状态
          */
-        Route::get('/taobao/authInfo', "TaobaoController@pidStatus");
+        Route::get('/taobao/authInfo', "TaobaoController@authInfo");
 
         /**
          * 提交意见反馈
