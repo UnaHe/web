@@ -47,16 +47,22 @@ class TransferService
         }
 
         //判断结果
-        if(isset($resp['sub_code'])){
-            if ('invalid-sessionkey' == $resp['sub_code']){
-                //session过期
+        if(isset($resp['code'])){
+            if($resp['code'] == 26){
                 throw new \Exception("授权过期", ErrorHelper::ERROR_TAOBAO_INVALID_SESSION);
-            }else if ('isv.item-not-exist' == $resp['sub_code']){
-                //商品错误
-                throw new \Exception("宝贝已下架或非淘客宝贝", ErrorHelper::ERROR_TAOBAO_INVALID_GOODS);
-            }else if ('isv.pid-not-correct' == $resp['sub_code']){
-                //pid错误
-                throw new \Exception("PID错误", ErrorHelper::ERROR_TAOBAO_INVALID_PID);
+            }
+
+            if(isset($resp['sub_code'])) {
+                if ('invalid-sessionkey' == $resp['sub_code']) {
+                    //session过期
+                    throw new \Exception("授权过期", ErrorHelper::ERROR_TAOBAO_INVALID_SESSION);
+                } else if ('isv.item-not-exist' == $resp['sub_code']) {
+                    //商品错误
+                    throw new \Exception("宝贝已下架或非淘客宝贝", ErrorHelper::ERROR_TAOBAO_INVALID_GOODS);
+                } else if ('isv.pid-not-correct' == $resp['sub_code']) {
+                    //pid错误
+                    throw new \Exception("PID错误", ErrorHelper::ERROR_TAOBAO_INVALID_PID);
+                }
             }
             throw new \Exception("转链失败");
         }
@@ -132,7 +138,16 @@ class TransferService
         try{
             $token = (new TaobaoService())->getToken($userId);
             $pid = (new TaobaoService())->getPid($userId);
+            if(!$token){
+                throw new \Exception("未授权", ErrorHelper::ERROR_TAOBAO_INVALID_SESSION);
+            }
+            if(!$pid){
+                throw new \Exception("PID错误", ErrorHelper::ERROR_TAOBAO_INVALID_PID);
+            }
             $data = $this->transferGoods($goodsId, $title, $pid, $token);
+
+            $wechatUrl = (new WechatPageService())->createPage($goodsId, $data['tao_code'], $data['url'], $userId, $data['s_url']);
+            $data['wechat_url'] = $wechatUrl;
         }catch (\Exception $e){
             throw new \Exception($e->getMessage(), $e->getCode());
         }
