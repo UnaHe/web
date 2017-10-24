@@ -88,11 +88,15 @@ Route::namespace('App\Http\Controllers')->group(function (){
         /**
          * 获取消息详情
          */
-        Route::get('/messages/{messageId}', "MessageController@getMessage");
+        Route::get('/messages/{messageId}', "MessageController@getMessage")->where('messageId', '[0-9]+');
         /**
          * 删除消息
          */
-        Route::delete('/messages/{messageId}', "MessageController@deleteMessage");
+        Route::delete('/messages/{messageId}', "MessageController@deleteMessage")->where('messageId', '[0-9]+');
+        /**
+         * 获取未读消息数量
+         */
+        Route::get('/messages/unReadNum', "MessageController@unReadNum");
 
         /**
          * 商品转链
@@ -117,7 +121,7 @@ Route::namespace('App\Http\Controllers')->group(function (){
         /**
          * 查询pid绑定状态和授权状态
          */
-        Route::get('/taobao/authInfo', "TaobaoController@authInfo");
+        Route::get('/taobao/authInfo', "TaobaoController@pidStatus");
 
         /**
          * 提交意见反馈

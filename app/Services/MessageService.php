@@ -42,9 +42,12 @@ class MessageService
         $messageIds = $list->pluck('id')->toArray();
 
         //查询是否已读
-        $readedIds = UserMessage::whereIn('message_id', $messageIds)->where('is_read', 1)->pluck('message_id')->toArray();
+        $readedIds = UserMessage::whereIn('message_id', $messageIds)->where(['is_read'=>1, 'user_id'=> $userId])->pluck('message_id')->toArray();
 
         foreach ($messages as &$item){
+            unset($item['is_delete']);
+            unset($item['update_time']);
+            unset($item['type']);
             $item['is_read'] = 0;
             if(in_array($item['id'], $readedIds)){
                 $item['is_read'] = 1;
@@ -130,5 +133,30 @@ class MessageService
         }
 
         return false;
+    }
+
+    /**
+     * 未读消息数量
+     * @param $userId
+     */
+    public function unReadNum($userId){
+        //已读已删除的消息
+        $userDeleteMsgIds = UserMessage::where(['user_id'=>$userId])->pluck('message_id')->toArray();
+
+        $query = Message::where(['is_delete'=>0])->whereNotIn('id', $userDeleteMsgIds);
+        //查询消息基础信息
+        $query->where(function($query) use($userId){
+            //私信
+            $query->where(function($query) use($userId){
+                $query->where('type', Message::MSG_TYPE_PRIVATE);
+                $query->where('to_user_id', $userId);
+            });
+            //广播类型
+            $query->orWhere(function($query) use($userId){
+                $query->where('type', Message::MSG_TYPE_BROADCAST);
+            });
+        });
+
+        return ['un_read'=> $query->count()];
     }
 }

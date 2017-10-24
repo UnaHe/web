@@ -45,4 +45,13 @@ class MessageController extends Controller
         return $this->ajaxSuccess($data);
     }
 
+    /**
+     * 未读消息数量
+     * @param Request $request
+     */
+    public function unReadNum(Request $request){
+        $data = (new MessageService())->unReadNum($request->user()->id);
+        return $this->ajaxSuccess($data);
+    }
+
 }
