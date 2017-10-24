@@ -104,4 +104,19 @@ class TaobaoService
         return TaobaoPid::where("user_id", $userId)->pluck("pid")->first();
     }
 
+    /**
+     * 查询用户授权信息
+     * @param $userId
+     */
+    public function authInfo($userId){
+        $pid = $this->getPid($userId);
+        $token = $this->getAuthToken($userId);
+
+        return [
+            'is_auth'=> $token ? true : false,
+            'auth_expire_time' => $token['expires_at'],
+            'pid' => $pid
+        ];
+    }
+
 }

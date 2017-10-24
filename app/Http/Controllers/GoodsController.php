@@ -3,11 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\GoodsHelper;
-use App\Models\ChannelColumn;
-use App\Models\Goods;
 use App\Services\ChannelColumnService;
 use App\Services\GoodsService;
-use Illuminate\Database\Schema\Grammars\ChangeColumn;
 use Illuminate\Http\Request;
 
 
@@ -28,9 +25,12 @@ class GoodsController extends Controller
         $sort = $request->get('sort');
         //搜索关键字
         $keyword = $request->get('keyword');
+        //淘抢购筛选
+        $isTaoqianggou = $request->get('tqg');
+        //聚划算筛选
+        $isJuhuashuan = $request->get('jhs');
 
-
-        $list = (new GoodsService())->goodList($category, $sort, $keyword);
+        $list = (new GoodsService())->goodList($category, $sort, $keyword, $isTaoqianggou, $isJuhuashuan);
         $list = (new GoodsHelper())->resizeGoodsListPic($list->toArray(), ['pic'=>'310x310']);
         return $this->ajaxSuccess($list);
     }
@@ -46,7 +46,7 @@ class GoodsController extends Controller
             return $this->ajaxError("商品不存在", 404);
         }
         $data = (new GoodsHelper())->resizeGoodsListPic([$data->toArray()], ['pic'=>'480x480']);
-        return $this->ajaxSuccess($data);
+        return $this->ajaxSuccess($data[0]);
     }
 
     /**

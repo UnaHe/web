@@ -55,4 +55,29 @@ class UserService
             throw new \Exception($error);
         }
     }
+
+    /**
+     * 修改密码
+     * @param $userName
+     * @param $password
+     * @throws \Exception
+     */
+    public function modifyPassword($userName, $password){
+        try{
+            $user = User::where("phone", $userName)->first();
+            if(!$user){
+                throw new \LogicException("用户不存在");
+            }
+            $user['password'] = bcrypt($password);
+
+            $user->save();
+        }catch (\Exception $e){
+            if($e instanceof \LogicException){
+                $error = $e->getMessage();
+            }else{
+                $error = '修改密码失败';
+            }
+            throw new \Exception($error);
+        }
+    }
 }

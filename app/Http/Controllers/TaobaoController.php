@@ -72,4 +72,14 @@ class TaobaoController extends Controller
 
         return $this->ajaxSuccess();
     }
+
+    /**
+     * 查询淘宝授权状态
+     * @param Request $request
+     */
+    public function authInfo(Request $request){
+        $data = (new TaobaoService())->authInfo($request->user()->id);
+        return $this->ajaxSuccess($data);
+    }
+
 }

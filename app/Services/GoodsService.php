@@ -39,14 +39,26 @@ class GoodsService
 
     /**
      * 获取商品列表
+     * @param $category 分类
+     * @param $sort 排序
+     * @param $keyword 关键字
+     * @param int $isTaoqianggou 是否淘抢购
+     * @param int $isJuhuashuan 是否聚划算
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function goodList($category, $sort, $keyword){
+    public function goodList($category, $sort, $keyword, $isTaoqianggou=0, $isJuhuashuan=0){
         $query = Goods::query();
         if($category){
             $query->where("catagory_id", $category);
         }
         if($keyword){
             $query->where("title",'like', "%".$keyword."%");
+        }
+        if($isTaoqianggou){
+            $query->where("is_taoqianggou", 1);
+        }
+        if($isJuhuashuan){
+            $query->where("is_juhuashuan", 1);
         }
 
         $this->sort($query, $sort);

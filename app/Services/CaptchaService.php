@@ -17,11 +17,30 @@ class CaptchaService
      * @param $mobile
      */
     public function registerSms($mobile){
+        return $this->sendCodeSms($mobile, 'SMS_105510071');
+    }
+
+    /**
+     * 修改密码验证码
+     * @param $mobile
+     * @return bool|string
+     */
+    public function modifyPasswordSms($mobile){
+        return $this->sendCodeSms($mobile, 'SMS_105895041');
+    }
+
+    /**
+     * 发送验证码
+     * @param $mobile
+     * @param $templateCode
+     * @return bool|string
+     */
+    public function sendCodeSms($mobile, $templateCode){
         $code = mt_rand(1000, 9999);
         $codeId = md5(__METHOD__.uniqid().time());
         $cacheKey = "smsCode.".$codeId;
 
-        if((new SmsHelper())->sms($mobile, env('SMS_SIGNNAME'), 'SMS_105225367', ['code'=>$code])){
+        if((new SmsHelper())->sms($mobile, env('SMS_SIGNNAME'), $templateCode, ['code'=>$code])){
             Cache::put($cacheKey, $code, env('SMS_CODE_EXPIRE_TIME', 5));
             return $codeId;
         }
@@ -35,7 +54,7 @@ class CaptchaService
      * @param $code
      * @return bool
      */
-    public function checkRegisterSms($codeId, $code){
+    public function checkSmsCode($codeId, $code){
         $cacheKey = "smsCode.".$codeId;
 
         if(Cache::get($cacheKey) == $code){
@@ -44,4 +63,5 @@ class CaptchaService
 
         return false;
     }
+
 }

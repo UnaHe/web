@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\SmsHelper;
 use App\Services\CaptchaService;
 use App\Services\UserService;
 use Illuminate\Http\Request;
@@ -29,7 +28,7 @@ class UserController extends Controller
             return $this->ajaxError('密码长度至少为6位');
         }
 
-        if(!(new CaptchaService())->checkRegisterSms($codeId, $captcha)){
+        if(!(new CaptchaService())->checkSmsCode($codeId, $captcha)){
             return $this->ajaxError("验证码错误");
         }
 
@@ -60,5 +59,59 @@ class UserController extends Controller
 
         return $this->ajaxSuccess(['codeId' => $codeId]);
     }
+
+    /**
+     * 修改密码验证码
+     * @param Request $request
+     * @return static
+     */
+    public function modifyPasswordSms(Request $request){
+        $mobile = $request->post('mobile');
+        if(!preg_match('/^1\d{10}$/', $mobile)){
+            return $this->ajaxError('请输入正确的手机号码');
+        }
+
+        $codeId = (new CaptchaService())->modifyPasswordSms($mobile);
+        if(!$codeId){
+            return $this->ajaxError("短信发送失败");
+        }
+
+        return $this->ajaxSuccess(['codeId' => $codeId]);
+    }
+
+    /**
+     * 修改密码
+     * @param Request $request
+     * @return static
+     */
+    public function modifyPassword(Request $request){
+        $userName = $request->post('username');
+        $password = $request->post('password');
+        $codeId = $request->post('codeId');
+        $captcha = $request->post('captcha');
+
+        if(!$userName || !$password || !$codeId){
+            return $this->ajaxError("参数错误");
+        }
+        if(!preg_match('/^1\d{10}$/', $userName)){
+            return $this->ajaxError('请输入正确的手机号码');
+        }
+        if(strlen($password) < 6){
+            return $this->ajaxError('密码长度至少为6位');
+        }
+
+        if(!(new CaptchaService())->checkSmsCode($codeId, $captcha)){
+            return $this->ajaxError("验证码错误");
+        }
+
+        try{
+            (new UserService())->modifyPassword($userName, $password);
+        }catch (\Exception $e){
+            return $this->ajaxError($e->getMessage());
+        }
+
+        return $this->ajaxSuccess();
+    }
+
 
 }

@@ -31,6 +31,16 @@ Route::namespace('App\Http\Controllers')->group(function (){
     Route::post('/captcha/registerSms', "UserController@registerSms");
 
     /**
+     * 修改密码验证码
+     */
+    Route::post('/captcha/modifyPasswordSms', "UserController@modifyPasswordSms");
+
+    /**
+     * 修改密码，忘记密码
+     */
+    Route::post('/modifyPassword', "UserController@modifyPassword");
+
+    /**
      * 淘宝授权登录跳转
      */
     Route::get('/taobao/auth', "TaobaoController@auth");
@@ -103,6 +113,17 @@ Route::namespace('App\Http\Controllers')->group(function (){
          * 保存PID
          */
         Route::post('/taobao/savePid', "TaobaoController@savePid");
+
+        /**
+         * 查询pid绑定状态和授权状态
+         */
+        Route::get('/taobao/authInfo', "TaobaoController@authInfo");
+
+        /**
+         * 提交意见反馈
+         */
+        Route::post('/feedback', "FeedbackController@feedback");
+
     });
 
 });
