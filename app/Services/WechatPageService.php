@@ -21,28 +21,22 @@ class WechatPageService
 {
     /**
      * 创建微信单页
-     * @param $taotaoGoodsId 淘宝商品id
-     * @param $taoCode 淘口令
-     * @param $url 二合一链接
-     * @param $userId 用户id
-     * @param $shortUrl 短链接
-     * @param $goodsLibId 商品库id
      */
-    public function createPage($taotaoGoodsId, $taoCode, $url, $userId, $shortUrl=null){
-        $goodsLibId = Goods::where('goodsid', $taotaoGoodsId)->pluck('id')->first();
+    public function createPage($goodsInfo, $userId){
         $data = [
             'user_id' => $userId,
-            'goods_id' => $taotaoGoodsId,
-            'url' => $url,
-            'tao_code' => $taoCode,
-            'create_time' => date('Y-m-d h:i:s')
+            'goods_id' => $goodsInfo['goods_id'],
+            'url' => $goodsInfo['url'],
+            'tao_code' => $goodsInfo['tao_code'],
+            'create_time' => date('Y-m-d h:i:s'),
+            'price_full' => $goodsInfo['price_full'] ?: 0,
+            'coupon_price' => $goodsInfo['coupon_price']?:0,
+            'coupon_time' => date('Y-m-d h:i:s'),
+            'pic' => $goodsInfo['pic'],
+            'title' => $goodsInfo['title'],
+            'description' => $goodsInfo['description'],
+            'short_url' => $goodsInfo['s_url'],
         ];
-        if($shortUrl){
-            $data['short_url'] = $shortUrl;
-        }
-        if($goodsLibId){
-            $data['goods_lib_id'] = $goodsLibId;
-        }
 
         $id = WechatPage::create($data);
         if($id){
@@ -65,9 +59,6 @@ class WechatPageService
      * @param $id
      */
     public function getPage($id){
-        $wechatPage = WechatPage::where("id", $id)->first();
-        if(!$wechatPage){
-            throw new \Exception("商品不存在");
-        }
+        return WechatPage::where("id", $id)->first();
     }
 }

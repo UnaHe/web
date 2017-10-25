@@ -134,7 +134,7 @@ class TransferService
     /**
      * 商品转链
      */
-    public function transferGoodsByUser($goodsId, $title, $userId){
+    public function transferGoodsByUser($goodsId, $couponId, $title, $description, $pic, $priceFull, $couponPrice, $userId){
         try{
             $token = (new TaobaoService())->getToken($userId);
             $pid = (new TaobaoService())->getPid($userId);
@@ -144,9 +144,20 @@ class TransferService
             if(!$pid){
                 throw new \Exception("PID错误", ErrorHelper::ERROR_TAOBAO_INVALID_PID);
             }
-            $data = $this->transferGoods($goodsId, $title, $pid, $token);
+            $data = $this->transferGoods($goodsId, $couponId, $title, $pid, $token);
 
-            $wechatUrl = (new WechatPageService())->createPage($goodsId, $data['tao_code'], $data['url'], $userId, $data['s_url']);
+            $goodsInfo = [
+                'goods_id' => $goodsId,
+                'tao_code' => $data['tao_code'],
+                'url' => $data['url'],
+                's_url' => $data['s_url'],
+                'pic' => $pic,
+                'title' => $title,
+                'description' => $description,
+                'coupon_price' => $couponPrice,
+                'price_full' => $priceFull,
+            ];
+            $wechatUrl = (new WechatPageService())->createPage($goodsInfo, $userId);
             $data['wechat_url'] = $wechatUrl;
         }catch (\Exception $e){
             throw new \Exception($e->getMessage(), $e->getCode());
@@ -157,11 +168,21 @@ class TransferService
 
     /**
      * 商品转链
+     * @param $goodsId 淘宝商品id
+     * @param $couponId 指定优惠券
+     * @param $title 标题
+     * @param $pid pid
+     * @param $token 淘宝session
+     * @return array
+     * @throws \Exception
      */
-    public function transferGoods($goodsId, $title, $pid, $token){
+    public function transferGoods($goodsId, $couponId, $title, $pid, $token){
         try{
             $result = $this->transferLink($goodsId,$pid,$token);
             $url = $result['coupon_click_url'];
+            if($couponId){
+                $url .= "&activityId=".$couponId;
+            }
             $slickUrl = $this->transferSclick($url);
             $taoCode = $this->transferTaoCode($title, $slickUrl);
             $data = [
@@ -276,6 +297,7 @@ class TransferService
 
         $itemId = $result['data']['result']['item']['itemId'];
         $isTmall = $result['data']['result']['item']['tmall'];
+
         $data = [
             'url' => $taoCodeData['url'],
             'goods_url' => (new GoodsHelper())->generateTaobaoUrl($itemId, $isTmall),
@@ -285,16 +307,15 @@ class TransferService
             'pic' => $result['data']['result']['item']['picUrl'],
             'title' => $result['data']['result']['item']['title'],
             'price_full' => $result['data']['result']['item']['discountPrice'],
-            'coupon_start_time' => $result['data']['result']['effectiveStartTime'],
-            'coupon_end_time' => $result['data']['result']['effectiveEndTime'],
-            'coupon_price' => $result['data']['result']['amount'],
-            'coupon_prerequisite' => $result['data']['result']['startFee'],
+            'coupon_start_time' => isset($result['data']['result']['effectiveStartTime']) ? $result['data']['result']['effectiveStartTime'] : null,
+            'coupon_end_time' => isset($result['data']['result']['effectiveEndTime']) ? $result['data']['result']['effectiveEndTime'] : null,
+            'coupon_price' => isset($result['data']['result']['amount']) ? $result['data']['result']['amount'] : 0,
+            'coupon_prerequisite' => isset($result['data']['result']['startFee']) ? $result['data']['result']['startFee'] : 0,
             'seller_name' => $result['data']['result']['shopName'],
-            'seller_icon_url' => $result['data']['result']['shopLogo'],
+            'seller_icon_url' => isset($result['data']['result']['shopLogo']) ? $result['data']['result']['shopLogo'] : '',
             'is_tmall' => $isTmall,
         ];
 
         return $data;
-
     }
 }

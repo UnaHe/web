@@ -23,8 +23,13 @@ class TransferController extends Controller
      */
     public function transferLink(Request $request){
         $taobaoGoodsId = $request->post('taobaoId');
+        $couponId = $request->post('couponId');
         $title = $request->post('title');
-        if(!$taobaoGoodsId || !$title){
+        $description = $request->post('description');
+        $pic = $request->post('pic');
+        $priceFull = $request->post('priceFull');
+        $couponPrice = $request->post('couponPrice');
+        if(!$taobaoGoodsId || !$title || !$pic || !$priceFull || !$couponPrice){
             return $this->ajaxError("参数错误");
         }
 
@@ -33,7 +38,7 @@ class TransferController extends Controller
         }
 
         try{
-            $data = (new TransferService())->transferGoodsByUser($taobaoGoodsId, $title, $request->user()->id);
+            $data = (new TransferService())->transferGoodsByUser($taobaoGoodsId, $couponId, $title, $description, $pic, $priceFull, $couponPrice, $request->user()->id);
         }catch (\Exception $e){
             $errorCode = $e->getCode();
             return $this->ajaxError($e->getMessage(), $errorCode ?: 300);
