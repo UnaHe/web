@@ -2,6 +2,7 @@
     $price = floatval($pageInfo['price_full'] - $pageInfo['coupon_price']);
     $taoCode = $pageInfo['tao_code'];
     $couponPrice = floatval($pageInfo['coupon_price']);
+    $pic = (new \App\Helpers\GoodsHelper())->resizePic($pageInfo['pic'], "310x310");
 ?>
 <!DOCTYPE html>
 <html lang="en-US">
@@ -17,7 +18,7 @@
     <div class="scroll-box">
         <div class="content detail-product-head">
             <div class="detail-product-img" onclick="openTips();">
-                <img src="{{$pageInfo['pic']}}_310x310" alt="{{$pageInfo['title']}}">
+                <img src="{{$pic}}_310x310" alt="{{$pageInfo['title']}}">
             </div>
             <!--商品信息-->
             <div class="media-list line-btm">
