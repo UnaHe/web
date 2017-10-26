@@ -18,7 +18,7 @@
     <div class="scroll-box">
         <div class="content detail-product-head">
             <div class="detail-product-img" onclick="openTips();">
-                <img src="{{$pic}}_310x310" alt="{{$pageInfo['title']}}">
+                <img src="{{$pic}}" alt="{{$pageInfo['title']}}">
             </div>
             <!--商品信息-->
             <div class="media-list line-btm">
