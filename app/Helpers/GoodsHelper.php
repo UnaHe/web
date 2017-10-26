@@ -60,6 +60,6 @@ class GoodsHelper
      * @return mixed
      */
     public function resetPic($picUrl){
-        return preg_replace('/_\d*?x\d*?[A-Za-z0-9]*?\.[A-Za-z]+/', '', $picUrl);
+        return preg_replace('/_\d+x\d+([A-Za-z0-9]*?\.[A-Za-z]+)?/', '', $picUrl);
     }
 }
