@@ -51,6 +51,15 @@ class GoodsHelper
      * @return string
      */
     public function resizePic($pic, $size){
-        return $pic."_".$size;
+        return $this->resetPic($pic)."_".$size;
+    }
+
+    /**
+     * 移除淘宝图片大小信息
+     * @param $pic_url
+     * @return mixed
+     */
+    public function resetPic($picUrl){
+        return preg_replace('/_\d*?x\d*?[A-Za-z0-9]*?\.[A-Za-z]+/', '', $picUrl);
     }
 }

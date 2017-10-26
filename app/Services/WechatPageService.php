@@ -32,7 +32,7 @@ class WechatPageService
             'price_full' => $goodsInfo['price_full'] ?: 0,
             'coupon_price' => $goodsInfo['coupon_price']?:0,
             'coupon_time' => date('Y-m-d h:i:s'),
-            'pic' => $goodsInfo['pic'],
+            'pic' => (new GoodsHelper())->resetPic($goodsInfo['pic']),
             'title' => $goodsInfo['title'],
             'description' => $goodsInfo['description'],
             'short_url' => $goodsInfo['s_url'],
