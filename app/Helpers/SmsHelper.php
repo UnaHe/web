@@ -31,8 +31,8 @@ class SmsHelper
     public function __construct(){
         require_once app_path('Librarys/Sms/api_sdk/vendor/autoload.php');
         Config::load();
-        $this->accessKeyId = env('SMS_ACCESSKEYID');
-        $this->accessKeySecret = env('SMS_ACCESSKEYSECRET');
+        $this->accessKeyId = config('sms.app_id');
+        $this->accessKeySecret = config('sms.app_secret');
         if(!$this->accessKeyId || !$this->accessKeySecret){
             throw new \Exception('短信配置错误');
         }

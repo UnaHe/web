@@ -20,7 +20,7 @@ class TransferService
 
     public function __construct(){
         include_once app_path("Librarys/Taobao/TopSdk.php");
-        $this->topClient = new \TopClient(env('TAOBAO_OPEN_APPKEY'), env('TAOBAO_OPEN_SECRETKEY'));
+        $this->topClient = new \TopClient(config('taobao.appkey'), config('taobao.secretkey'));
         $this->topClient->format="json";
     }
 

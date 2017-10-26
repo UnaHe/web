@@ -40,8 +40,8 @@ class CaptchaService
         $codeId = md5(__METHOD__.uniqid().time());
         $cacheKey = "smsCode.".$codeId;
 
-        if((new SmsHelper())->sms($mobile, env('SMS_SIGNNAME'), $templateCode, ['code'=>$code])){
-            Cache::put($cacheKey, $code, env('SMS_CODE_EXPIRE_TIME', 5));
+        if((new SmsHelper())->sms($mobile, config('sms.signname'), $templateCode, ['code'=>$code])){
+            Cache::put($cacheKey, $code, config('sms.code_expire_time'));
             return $codeId;
         }
 

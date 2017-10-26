@@ -35,10 +35,9 @@ class WechatPageController extends Controller
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function redirect($id){
-        $redirectDomain = env('REDIRECT_DOMAIN');
-        $domainConfig = trim(env('WECHAT_DOMAINS'), ',');
-        $domains = explode(',', $domainConfig);
-        if($domainConfig && !in_array($redirectDomain, $domains)){
+        $redirectDomain = config('domains.redirect_domain');
+        $domains = config('domains.wechat_domains');
+        if($domains && !in_array($redirectDomain, $domains)){
             $domain = array_random($domains, 1)[0];
             $url = URL::action('WechatPageController@page', ['id' => $id], false);
             $redirectUrl = "http://".$domain.$url;

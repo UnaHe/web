@@ -10,7 +10,7 @@
 |
 */
 
-Route::domain(env('API_DOMAIN'))->namespace('App\Http\Controllers')->group(function (){
+Route::domain(config('domains.api_domain'))->namespace('App\Http\Controllers')->group(function (){
     /**
      * 授权登录
      */
