@@ -45,7 +45,7 @@ class GoodsController extends Controller
         if(!$data){
             return $this->ajaxError("商品不存在", 404);
         }
-        $data = (new GoodsHelper())->resizeGoodsListPic([$data->toArray()], ['pic'=>'480x480']);
+        $data = (new GoodsHelper())->resizeGoodsListPic([$data], ['pic'=>'480x480']);
         return $this->ajaxSuccess($data[0]);
     }
 

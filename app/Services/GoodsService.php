@@ -88,7 +88,56 @@ class GoodsService
      */
     public function detail($goodId){
         $data = Goods::whereId($goodId)->first();
+        if(!$data){
+            return null;
+        }
+        $data = $data->toArray();
+        $shareData = [
+            'title' => $data['title'],
+            'price' => $data['price_full'],
+            'used_price' => $data['price'],
+            'coupon_price' => $data['coupon_price'],
+            'description' => $data['des']
+        ];
+        //分享描述
+        $data['share_desc'] = $this->getShareDesc($shareData);
         return $data;
+    }
+
+    /**
+     * 商品分享描述
+     * @param $shareData
+     * @return mixed|null
+     */
+    public function getShareDesc($shareData){
+        $shareDesc = (new SysConfigService())->get("share_desc");
+        if(!$shareDesc){
+            return null;
+        }
+
+        /**
+         * 模板内需要替换的变量
+         */
+        $templateData = [];
+        //标题
+        $templateData['title'] = isset($shareData['title']) ? $shareData['title'] : '';
+        //原价
+        $templateData['price'] = isset($shareData['price']) ? $shareData['price'] : 0;
+        //券后价
+        $templateData['used_price'] = isset($shareData['used_price']) ? $shareData['used_price'] : 0;
+        //优惠券金额
+        $templateData['coupon_price'] = isset($shareData['coupon_price']) ? $shareData['coupon_price'] : 0;
+        //淘口令
+        $templateData['tao_code'] = isset($shareData['tao_code']) ? $shareData['tao_code'] : '(复制后生成)';
+        //微信单页地址
+        $templateData['wechat_url'] = isset($shareData['wechat_url']) ? $shareData['wechat_url'] : '(复制后生成)';
+        //详情
+        $templateData['description'] = isset($shareData['description']) ? $shareData['description'] : '';
+
+        foreach ($templateData as $name=>$value){
+            $shareDesc = str_replace('{'.$name.'}', $value, $shareDesc);
+        }
+        return $shareDesc;
     }
 
     /**

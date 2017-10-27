@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * 意见反馈
- * Class Feedback
+ * 系统配置
+ * Class SysConfig
  * @package App\Models
  */
-class Feedback extends Model
+class SysConfig extends Model
 {
-    protected $table = "xmt_feedback";
+    protected $table = "xmt_sys_config";
     protected $guarded = ['id'];
-    public $timestamps = false;
+
 }

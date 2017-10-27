@@ -159,6 +159,19 @@ class TransferService
             ];
             $wechatUrl = (new WechatPageService())->createPage($goodsInfo, $userId);
             $data['wechat_url'] = $wechatUrl;
+
+            $shareData = [
+                'title' => $title,
+                'price' => $priceFull,
+                'used_price' => bcsub($priceFull, $couponPrice, 2),
+                'coupon_price' => $couponPrice,
+                'description' => $description,
+                'tao_code' => $data['tao_code'],
+                'wechat_url' => $wechatUrl,
+            ];
+            //分享描述
+            $data['share_desc'] = (new GoodsService())->getShareDesc($shareData);
+
         }catch (\Exception $e){
             throw new \Exception($e->getMessage(), $e->getCode());
         }
