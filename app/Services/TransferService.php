@@ -9,6 +9,7 @@ namespace App\Services;
 
 use App\Helpers\ErrorHelper;
 use App\Helpers\GoodsHelper;
+use App\Helpers\UrlHelper;
 use App\Models\Banner;
 use App\Models\GoodsCategory;
 use GuzzleHttp\Client;
@@ -158,6 +159,8 @@ class TransferService
                 'price_full' => $priceFull,
             ];
             $wechatUrl = (new WechatPageService())->createPage($goodsInfo, $userId);
+            //使用短网址
+            $wechatUrl = (new UrlHelper())->shortUrl($wechatUrl);
             $data['wechat_url'] = $wechatUrl;
 
             $shareData = [
