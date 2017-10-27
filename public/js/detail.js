@@ -89,8 +89,22 @@ function loadData() {
     });
 }
 
+//是否是微信浏览器
+function isWeixn(){
+    var ua = navigator.userAgent.toLowerCase();
+    if(ua.match(/MicroMessenger/i)=="micromessenger") {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 //打开提示框
 function openTips() {
+    if(!isWeixn()){
+        window.location.href = redirect_url;
+        return;
+    }
     var a  = oneKeyCopy(13);
     if(a != null) {
         a.clipboardAction.trigger.disabled = false;
