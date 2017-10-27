@@ -17,6 +17,6 @@ class BannerService
      * @return mixed
      */
     public function getBanner($position){
-        return Banner::select('name', 'pic', 'click_url')->where('position', $position)->get();
+        return Banner::select('name', 'pic', 'click_url')->where(['position'=>$position, 'is_delete'=>0])->get();
     }
 }

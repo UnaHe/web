@@ -20,4 +20,11 @@ class ErrorHelper
         self::ERROR_TAOBAO_INVALID_GOODS => '宝贝已下架或非淘客宝贝',
     ];
 
+    /**
+     * 查询错误信息
+     * @param $code
+     */
+    public static function getMessage($code){
+        return isset(self::ERROR_MSG[$code]) ? self::ERROR_MSG[$code] : null;
+    }
 }

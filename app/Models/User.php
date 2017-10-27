@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Passport\HasApiTokens;
+use League\OAuth2\Server\Exception\OAuthServerException;
 
 /**
  * 用户表
@@ -35,6 +36,13 @@ class User extends Authenticatable
      * @return mixed
      */
     public function findForPassport($login){
-        return $this->where('phone', $login)->first();
+        $user = $this->where('phone', $login)->first();
+        if(!$user){
+            throw  new OAuthServerException("用户未注册", 0, 'unregister_user');
+        }
+        if($user['is_forbid']){
+            throw  new OAuthServerException("用户已禁用", 0, 'forbidden_user');
+        }
+        return $user;
     }
 }
