@@ -16,6 +16,6 @@ class CategoryService
      * @return mixed
      */
     public function getAllCategory(){
-        return GoodsCategory::select("id", "name", "icon_url")->get();
+        return GoodsCategory::select("id", "name", "icon_url")->orderBy("sort", "desc")->get();
     }
 }

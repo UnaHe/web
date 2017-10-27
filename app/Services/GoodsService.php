@@ -75,6 +75,7 @@ class GoodsService
         $query->where('ref.column_code', $columnCode);
 
         $query->select('goods.*', 'ref.goods_col_title', 'ref.goods_col_pic', 'ref.goods_col_des');
+        $query->orderBy('ref.id', 'desc');
 
         $list = (new QueryHelper())->pagination($query)->get();
         return $list;
