@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ErrorHelper;
 use App\Helpers\TaobaoHelper;
 use App\Services\TaobaoService;
 use Illuminate\Http\Request;
@@ -66,8 +67,15 @@ class TaobaoController extends Controller
             return $this->ajaxError("PID格式错误");
         }
 
-        if(!(new TaobaoService())->savePid($userId, $pid)){
-            return $this->ajaxError("绑定PID失败");
+        try{
+            if(!(new TaobaoService())->savePid($userId, $pid)){
+                throw new \Exception("绑定PID失败");
+            }
+        }catch (\Exception $e){
+            $errorCode = $e->getCode() ?: 300;
+            $errMsg = ($errorCode == ErrorHelper::ERROR_TAOBAO_INVALID_PID || $errorCode == ErrorHelper::ERROR_TAOBAO_INVALID_SESSION) ? $e->getMessage() : "绑定PID失败";
+
+            return $this->ajaxError($errMsg, $errorCode);
         }
 
         return $this->ajaxSuccess();

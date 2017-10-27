@@ -8,6 +8,8 @@
 namespace App\Services;
 
 
+use App\Helpers\ErrorHelper;
+use App\Models\Goods;
 use App\Models\TaobaoPid;
 use App\Models\TaobaoToken;
 
@@ -55,6 +57,9 @@ class TaobaoService
     public function savePid($userId, $pid){
         $time = time();
         $now  = date('Y-m-d H:i:s', $time);
+
+        $token = $this->getToken($userId);
+        $this->testPid($token, $pid);
 
         $model = TaobaoPid::where("user_id", $userId)->first();
         if(!$model){
@@ -117,6 +122,17 @@ class TaobaoService
             'auth_expire_time' => $token['expires_at'],
             'pid' => $pid
         ];
+    }
+
+    /**
+     * 检测用户pid是否正确
+     * @param $token
+     * @param $pid
+     */
+    public function testPid($token, $pid){
+        $goodsId = Goods::orderBy("id", 'desc')->pluck("goodsid")->first();
+        (new TransferService())->transferLink($goodsId, $pid, $token);
+        return true;
     }
 
 }
