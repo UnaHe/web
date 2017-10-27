@@ -122,11 +122,11 @@ class GoodsService
         //标题
         $templateData['title'] = isset($shareData['title']) ? $shareData['title'] : '';
         //原价
-        $templateData['price'] = isset($shareData['price']) ? $shareData['price'] : 0;
+        $templateData['price'] = isset($shareData['price']) ? floatval($shareData['price']) : 0;
         //券后价
-        $templateData['used_price'] = isset($shareData['used_price']) ? $shareData['used_price'] : 0;
+        $templateData['used_price'] = isset($shareData['used_price']) ? floatval($shareData['used_price']) : 0;
         //优惠券金额
-        $templateData['coupon_price'] = isset($shareData['coupon_price']) ? $shareData['coupon_price'] : 0;
+        $templateData['coupon_price'] = isset($shareData['coupon_price']) ? floatval($shareData['coupon_price']) : 0;
         //淘口令
         $templateData['tao_code'] = isset($shareData['tao_code']) ? $shareData['tao_code'] : '(复制后生成)';
         //微信单页地址
