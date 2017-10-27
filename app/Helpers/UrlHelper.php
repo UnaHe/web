@@ -17,7 +17,8 @@ class UrlHelper
      * @return null
      */
     public function shortUrl($url){
-        $apiUrl = "http://api.t.sina.com.cn/short_url/shorten.json?source=3271760578&url_long=".$url;
+        $appId = config('services.sina_open.key');
+        $apiUrl = "http://api.t.sina.com.cn/short_url/shorten.json?source={$appId}&url_long=".$url;
         $client = new Client();
         $response = $client->get($apiUrl)->getBody()->getContents();
         if(!$response){
