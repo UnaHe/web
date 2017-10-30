@@ -12,15 +12,23 @@ use App\Helpers\ErrorHelper;
 use App\Models\Goods;
 use App\Models\TaobaoPid;
 use App\Models\TaobaoToken;
+use GuzzleHttp\Client;
+use GuzzleHttp\RequestOptions;
 
 class TaobaoService
 {
+    private $appKey;
+    private $version;
+    private $h5Tk;
+    private $client;
+    private $cookieJar;
+
     /**
      * 保存淘宝token
      * @param $userId
      * @param $tokens
      */
-    public function saveAuthToken($userId, $tokens){
+    public function saveAuthToken($userId, $tokens, $cookie){
         $time = time();
         $now  = date('Y-m-d H:i:s', $time);
 
@@ -41,8 +49,14 @@ class TaobaoService
             $token['update_time'] = $now;
             $token->save();
 
+            if($cookie){
+                $pid = $this->getTaobaoPid($cookie);
+                if($pid){
+                    $this->savePid($userId, $pid);
+                }
+            }
         }catch (\Exception $e){
-            return false;
+            throw new \Exception($e->getMessage(), $e->getCode());
         }
 
         return true;
@@ -135,4 +149,83 @@ class TaobaoService
         return true;
     }
 
+    /**
+     * 同步阿里妈妈pid
+     */
+    public function getTaobaoPid($cookie){
+        $this->client = new Client(['cookie'=>true]);
+
+        try{
+            //解析cookie字符串为数组
+            $cookie = explode(";", $cookie);
+            $cookieArray = [];
+            foreach ($cookie as $cookieItem){
+                $item = explode("=", trim($cookieItem));
+                $cookieArray[$item[0]] = $item[1];
+            }
+            $jar = new \GuzzleHttp\Cookie\CookieJar;
+            $this->cookieJar = $jar->fromArray($cookieArray, "acs.m.taobao.com");
+        }catch (\Exception $e){
+            throw new \Exception("cookie格式错误", 300);
+        }
+
+        $this->appKey = 12574478;
+        $this->version = "1.0";
+
+        //查询用户pid memberid
+        $userInfo = $this->pidRequest('mtop.alimama.moon.provider.user.gradedetail.get', '{}');
+        if(!isset($userInfo['data']) || !isset($userInfo['data']['memberId'])){
+            throw new \Exception("cookie无效", 300);
+        }
+        $memberId = $userInfo['data']['memberId'];
+
+        //默认网站
+        $defaultSite = null;
+        try{
+            $siteList = $this->pidRequest('mtop.alimama.moon.adzone.site.list', '{"siteGcid":"8"}');
+            $siteList = $siteList['data']['result'];
+            foreach ($siteList as $site){
+                if(strpos($site['name'], "微信") !== false){
+                    $defaultSite = $site['siteid'];
+                }
+            }
+            if(!$defaultSite){
+                $defaultSite = $siteList[0]['siteid'];
+            }
+        }catch (\Exception $e){
+            throw new \Exception("无可用推广位", 201);
+        }
+
+        try{
+            $adzoneList = $this->pidRequest('mtop.alimama.moon.adzone.list', '{"gcid":"8","siteId":"'.$defaultSite.'","tag":"29","page":"1","pageSize":"20"}');
+            $adzone = $adzoneList['data']['result'][0];
+        }catch (\Exception $e){
+            throw new \Exception("无可用推广位", 201);
+        }
+
+        return "mm_".$memberId."_".$adzone['siteId']."_".$adzone['adzoneId'];
+    }
+
+    public function pidRequest($api, $data, $extraData = null){
+        $appKey = $this->appKey;
+        $v		= $this->version;
+        $h5Tk   = $this->h5Tk;
+        $t		= time()."000";
+        $cookieUrl	= 'https://acs.m.taobao.com/h5/'.$api.'/1.0/?type=json&api='.$api.'&v='.$v;
+
+        //拼接实际请求地址
+        $sign	= md5($h5Tk.'&'.$t.'&'.$appKey.'&'.$data);
+        $url	= $cookieUrl.'&appKey='.$appKey.'&sign='.$sign.'&t='.$t.'&data='.$data;
+
+        //第一次取cookie参数
+        $response = $this->client->request('GET', $url, ['cookies' => $this->cookieJar])->getBody()->getContents();
+
+        if(strpos($response, "令牌为空")){
+            $h5TkCookie = $this->cookieJar->getCookieByName('_m_h5_tk')->getValue();
+            $this->h5Tk = explode('_', $h5TkCookie)[0];
+            return $this->pidRequest($api, $data);
+        }
+
+        return json_decode($response, true);
+    }
 }

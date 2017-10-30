@@ -28,6 +28,7 @@ class TaobaoController extends Controller
      */
     public function saveAuthToken(Request $request){
         $tokens = $request->post('tokens');
+        $cookie = $request->post('cookie');
         $userId = $request->user()->id;
 
         $tokens = json_decode($tokens, true);
@@ -45,8 +46,14 @@ class TaobaoController extends Controller
             return $this->ajaxError("参数错误");
         }
 
-        if(!(new TaobaoService())->saveAuthToken($userId, $tokens)){
-            return $this->ajaxError("绑定淘宝账号失败");
+        try{
+            (new TaobaoService())->saveAuthToken($userId, $tokens, $cookie);
+        }catch (\Exception $e){
+            $message = "绑定淘宝账号失败";
+            if($e->getCode() == 300){
+                $message = $e->getMessage();
+            }
+            return $this->ajaxError($message);
         }
 
         return $this->ajaxSuccess();
