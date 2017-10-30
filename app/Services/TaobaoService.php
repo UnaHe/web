@@ -174,8 +174,11 @@ class TaobaoService
 
         //查询用户pid memberid
         $userInfo = $this->pidRequest('mtop.alimama.moon.provider.user.gradedetail.get', '{}');
-        if(!isset($userInfo['data']) || !isset($userInfo['data']['memberId'])){
+        if(!isset($userInfo['data'])){
             throw new \Exception("cookie无效", 300);
+        }
+        if(!isset($userInfo['data']['memberId'])){
+            throw new \Exception("您可能没有阿里妈妈账户哦", 201);
         }
         $memberId = $userInfo['data']['memberId'];
 

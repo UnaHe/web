@@ -50,10 +50,12 @@ class TaobaoController extends Controller
             (new TaobaoService())->saveAuthToken($userId, $tokens, $cookie);
         }catch (\Exception $e){
             $message = "绑定淘宝账号失败";
-            if($e->getCode() == 300){
+            $code = $e->getCode();
+            if($e->getCode() == 300 || $e->getCode() == 201){
                 $message = $e->getMessage();
             }
-            return $this->ajaxError($message);
+            $code = $code ?: 300;
+            return $this->ajaxError($message, $code);
         }
 
         return $this->ajaxSuccess();
