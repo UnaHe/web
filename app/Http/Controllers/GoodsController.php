@@ -29,8 +29,12 @@ class GoodsController extends Controller
         $isTaoqianggou = $request->get('tqg');
         //聚划算筛选
         $isJuhuashuan = $request->get('jhs');
+        //最低价格筛选
+        $minPrice = $request->get('min_price');
+        //最高价格筛选
+        $maxPrice = $request->get('max_price');
 
-        $list = (new GoodsService())->goodList($category, $sort, $keyword, $isTaoqianggou, $isJuhuashuan);
+        $list = (new GoodsService())->goodList($category, $sort, $keyword, $isTaoqianggou, $isJuhuashuan, $minPrice, $maxPrice);
         $list = (new GoodsHelper())->resizeGoodsListPic($list->toArray(), ['pic'=>'310x310']);
         return $this->ajaxSuccess($list);
     }

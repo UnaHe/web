@@ -22,7 +22,7 @@ trait AjaxResponse
             'msg'=>'success',
             'data'=>$data
         );
-        return JsonResponse::create($ret);
+        return $this->ajaxReturn($ret);
     }
 
     /**
@@ -38,7 +38,19 @@ trait AjaxResponse
             'msg'=>$msg,
             'data'=>$data
         );
-        return JsonResponse::create($ret);
+        return $this->ajaxReturn($ret);
+    }
+
+    /**
+     * ajax返回
+     * @param $data
+     * @return static
+     */
+    protected function ajaxReturn($data){
+        $data = json_encode($data, JSON_NUMERIC_CHECK);
+        $data = str_replace(":null", ':""', $data);
+        $data = json_decode($data, true);
+        return JsonResponse::create($data);
     }
 
 }
