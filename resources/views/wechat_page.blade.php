@@ -77,7 +77,7 @@
 </div>
 
 <!--底总按钮-->
-<div class="pr detail-footer-bar line-top">
+<div class="pr detail-footer-bar line-top" style="display: none;">
     <a class="detail-coupon-after detail-ft-bar text-left" href="javascript:;">
         <p class="price-tit">
             <span class="fl">券后</span><i class="fl media-arial">&yen;</i>
