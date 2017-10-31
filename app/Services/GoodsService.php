@@ -7,6 +7,7 @@
  */
 namespace App\Services;
 
+use App\Helpers\CacheHelper;
 use App\Helpers\QueryHelper;
 use App\Models\ColumnGoodsRel;
 use App\Models\Goods;
@@ -94,6 +95,10 @@ class GoodsService
      * @return mixed
      */
     public function detail($goodId){
+        if($cache = CacheHelper::getCache()){
+            return $cache;
+        }
+
         $data = Goods::whereId($goodId)->first();
         if(!$data){
             return null;
@@ -108,6 +113,7 @@ class GoodsService
         ];
         //分享描述
         $data['share_desc'] = $this->getShareDesc($shareData);
+        CacheHelper::setCache($data, 2);
         return $data;
     }
 

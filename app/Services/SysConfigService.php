@@ -7,8 +7,7 @@
  */
 namespace App\Services;
 
-use App\Models\Banner;
-use App\Models\GoodsCategory;
+use App\Helpers\CacheHelper;
 use App\Models\SysConfig;
 
 class SysConfigService
@@ -20,7 +19,11 @@ class SysConfigService
      * @return null
      */
     public function get($key, $default=null){
-        $value = SysConfig::where('key', $key)->pluck("value")->first();
+        if(!$value = CacheHelper::getCache([$key])){
+            $value = SysConfig::where('key', $key)->pluck("value")->first();
+            CacheHelper::setCache($value, 5, [$key]);
+        }
+
         return $value ?: $default;
     }
 }

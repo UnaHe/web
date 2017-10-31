@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\CacheHelper;
 use App\Helpers\GoodsHelper;
 use App\Services\ChannelColumnService;
 use App\Services\GoodsService;
@@ -34,8 +35,12 @@ class GoodsController extends Controller
         //最高价格筛选
         $maxPrice = $request->get('max_price');
 
-        $list = (new GoodsService())->goodList($category, $sort, $keyword, $isTaoqianggou, $isJuhuashuan, $minPrice, $maxPrice);
-        $list = (new GoodsHelper())->resizeGoodsListPic($list->toArray(), ['pic'=>'310x310']);
+        $params = $request->all();
+        if(!$list = CacheHelper::getCache($params)){
+            $list = (new GoodsService())->goodList($category, $sort, $keyword, $isTaoqianggou, $isJuhuashuan, $minPrice, $maxPrice);
+            $list = (new GoodsHelper())->resizeGoodsListPic($list->toArray(), ['pic'=>'310x310']);
+            CacheHelper::setCache($list, 1, $params);
+        }
         return $this->ajaxSuccess($list);
     }
 
@@ -58,13 +63,17 @@ class GoodsController extends Controller
      * @param $columnCode 栏目代码
      * @return static
      */
-    public function columnGoods($columnCode){
+    public function columnGoods(Request $request, $columnCode){
         if(!(new ChannelColumnService())->getByCode($columnCode)){
             return $this->ajaxError("栏目不存在");
         }
 
-        $list = (new GoodsService())->columnGoodList($columnCode);
-        $list = (new GoodsHelper())->resizeGoodsListPic($list->toArray(), ['pic'=>'310x310']);
+        $params = $request->all();
+        if(!$list = CacheHelper::getCache($params)){
+            $list = (new GoodsService())->columnGoodList($columnCode);
+            $list = (new GoodsHelper())->resizeGoodsListPic($list->toArray(), ['pic'=>'310x310']);
+            CacheHelper::setCache($list, 1, $params);
+        }
         return $this->ajaxSuccess($list);
     }
 

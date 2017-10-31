@@ -7,8 +7,8 @@
  */
 namespace App\Services;
 
+use App\Helpers\CacheHelper;
 use App\Models\Banner;
-use App\Models\GoodsCategory;
 
 class BannerService
 {
@@ -17,6 +17,14 @@ class BannerService
      * @return mixed
      */
     public function getBanner($position){
-        return Banner::select('name', 'pic', 'click_url')->where(['position'=>$position, 'is_delete'=>0])->get();
+        if($cache = CacheHelper::getCache()){
+            return $cache;
+        }
+
+        $data = Banner::select('name', 'pic', 'click_url')->where(['position'=>$position, 'is_delete'=>0])->get();
+        if($data){
+            CacheHelper::setCache($data, 5);
+        }
+        return $data;
     }
 }

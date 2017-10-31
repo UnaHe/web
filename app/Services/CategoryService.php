@@ -7,6 +7,7 @@
  */
 namespace App\Services;
 
+use App\Helpers\CacheHelper;
 use App\Models\GoodsCategory;
 
 class CategoryService
@@ -16,6 +17,14 @@ class CategoryService
      * @return mixed
      */
     public function getAllCategory(){
-        return GoodsCategory::select("id", "name", "icon_url")->orderBy("sort", "desc")->get();
+        if($cache = CacheHelper::getCache()){
+            return $cache;
+        }
+
+        $data = GoodsCategory::select("id", "name", "icon_url")->orderBy("sort", "desc")->get();
+        if($data){
+            CacheHelper::setCache($data, 5);
+        }
+        return $data;
     }
 }

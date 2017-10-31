@@ -7,11 +7,13 @@
  */
 namespace App\Services;
 
+use App\Helpers\CacheHelper;
 use App\Helpers\ErrorHelper;
 use App\Helpers\GoodsHelper;
 use App\Helpers\UrlHelper;
 use App\Models\Banner;
 use App\Models\GoodsCategory;
+use Carbon\Carbon;
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
 
@@ -34,6 +36,10 @@ class TransferService
      * @throws \Exception
      */
     public function transferLink($taobaoGoodsId, $pid, $token){
+        if($cache = CacheHelper::getCache()){
+            return $cache;
+        }
+
         $pids = explode('_',$pid);
         $req = new \TbkPrivilegeGetRequest;
         $req->setItemId($taobaoGoodsId);
@@ -68,7 +74,9 @@ class TransferService
             throw new \Exception("转链失败");
         }
 
-        return $resp['result']['data'];
+        $result = $resp['result']['data'];
+        CacheHelper::setCache($result, 5);
+        return $result;
     }
 
     /**
@@ -77,6 +85,10 @@ class TransferService
      * @return mixed
      */
     public function transferSclick($url){
+        if($cache = CacheHelper::getCache()){
+            return $cache;
+        }
+
         try{
             $req = new \TbkSpreadGetRequest;
             $requests = new \TbkSpreadRequest;
@@ -105,6 +117,7 @@ class TransferService
             throw new \Exception($e->getMessage());
         }
 
+        CacheHelper::setCache($data, 5);
         return $data;
     }
 
@@ -114,13 +127,17 @@ class TransferService
      * @param $url
      * @return mixed
      */
-    public function transferTaoCode($title, $url){
+    public function transferTaoCode($title, $url, $pic=""){
+        if($cache = CacheHelper::getCache()){
+            return $cache;
+        }
+
         try{
             $req = new \TbkTpwdCreateRequest;
             $req->setUserId("1");
             $req->setText($title);
             $req->setUrl($url);
-            $req->setLogo("");
+            $req->setLogo($pic);
             $req->setExt("{}");
             $resp = $this->topClient->execute($req);
             $result = (array)$resp;
@@ -129,6 +146,7 @@ class TransferService
             throw new \Exception('淘口令转换失败');
         }
 
+        CacheHelper::setCache($data);
         return $data;
     }
 
@@ -136,6 +154,10 @@ class TransferService
      * 商品转链
      */
     public function transferGoodsByUser($goodsId, $couponId, $title, $description, $pic, $priceFull, $couponPrice, $userId){
+        if($cache = CacheHelper::getCache()){
+            return $cache;
+        }
+
         try{
             $token = (new TaobaoService())->getToken($userId);
             $pid = (new TaobaoService())->getPid($userId);
@@ -145,7 +167,7 @@ class TransferService
             if(!$pid){
                 throw new \Exception("PID错误", ErrorHelper::ERROR_TAOBAO_INVALID_PID);
             }
-            $data = $this->transferGoods($goodsId, $couponId, $title, $pid, $token);
+            $data = $this->transferGoods($goodsId, $couponId, $title, $pic, $pid, $token);
 
             $goodsInfo = [
                 'goods_id' => $goodsId,
@@ -179,6 +201,7 @@ class TransferService
             throw new \Exception($e->getMessage(), $e->getCode());
         }
 
+        CacheHelper::setCache($data, 5);
         return $data;
     }
 
@@ -192,7 +215,11 @@ class TransferService
      * @return array
      * @throws \Exception
      */
-    public function transferGoods($goodsId, $couponId, $title, $pid, $token){
+    public function transferGoods($goodsId, $couponId, $title, $pic, $pid, $token){
+        if($cache = CacheHelper::getCache()){
+            return $cache;
+        }
+
         try{
             $result = $this->transferLink($goodsId,$pid,$token);
             $url = $result['coupon_click_url'];
@@ -200,7 +227,7 @@ class TransferService
                 $url .= "&activityId=".$couponId;
             }
             $slickUrl = $this->transferSclick($url);
-            $taoCode = $this->transferTaoCode($title, $slickUrl);
+            $taoCode = $this->transferTaoCode($title, $slickUrl, $pic);
             $data = [
                 'goods_id' => $goodsId,
                 'url' => $url,
@@ -211,6 +238,7 @@ class TransferService
             throw new \Exception($e->getMessage(), $e->getCode());
         }
 
+        CacheHelper::setCache($data, 5);
         return $data;
     }
 
@@ -221,6 +249,10 @@ class TransferService
      * @return mixed
      */
     public function queryTaoCode($taoCode){
+        if($cache = CacheHelper::getCache()){
+            return $cache;
+        }
+
         $client = new Client(['cookie'=>true]);
         $jar = new \GuzzleHttp\Cookie\CookieJar;
 
@@ -246,7 +278,7 @@ class TransferService
         if(!strstr($response, '调用成功') || !isset($result['data'])){
             return false;
         }
-        
+
         $taoCodeData = $result['data'];
         $lastUrl = $taoCodeData['url'];
 
@@ -332,6 +364,7 @@ class TransferService
             'is_tmall' => $isTmall,
         ];
 
+        CacheHelper::setCache($data, Carbon::createFromTimestamp(substr($taoCodeData['validDate'], 0, 10)));
         return $data;
     }
 }
