@@ -74,6 +74,11 @@ Route::domain(config('domains.api_domain'))->namespace('App\Http\Controllers')->
      */
     Route::get('/hotKeyword', "GoodsController@hotKeyWord");
 
+    /**
+     * 全网搜索
+     */
+    Route::get('/queryAllGoods', "GoodsController@queryAllGoods");
+
 
     /**
      * 需要登录访问的接口列表

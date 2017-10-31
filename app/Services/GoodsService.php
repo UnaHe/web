@@ -11,6 +11,7 @@ use App\Helpers\CacheHelper;
 use App\Helpers\QueryHelper;
 use App\Models\ColumnGoodsRel;
 use App\Models\Goods;
+use GuzzleHttp\Client;
 
 class GoodsService
 {
@@ -180,6 +181,73 @@ class GoodsService
                 break;
             }
         }
+    }
+
+    /**
+     * 全网搜索
+     * @param $keyword
+     */
+    public function queryAllGoods($keyword, $page, $limit){
+        $url = "http://pub.alimama.com/items/search.json?q={$keyword}&toPage={$page}&perPageSize={$limit}&freeShipment=1&dpyhq=1&auctionTag=&shopTag=yxjh,dpyhq&t=".time();
+        $response = (new Client())->get($url)->getBody()->getContents();
+        $response = json_decode($response, true);
+        if(!isset($response['data']) || !isset($response['data']['pageList']) || !isset($response['data']['pageList'][0])) {
+            return null;
+        }
+
+        $allGoods = $response['data']['pageList'];
+        $result = [];
+        foreach ($allGoods as $goods){
+            $title = strip_tags($goods['title']);
+            $data = [
+                'goodsid' => $goods['auctionId'],
+                'goods_url' => $goods['auctionUrl'],
+                'short_title' => $title,
+                'title' => $title,
+                'sell_num' => $goods['biz30day'],
+                'pic' => "http:".$goods['pictUrl'],
+                'price' => bcsub($goods['zkPrice'], $goods['couponAmount'], 2),
+                'price_full' => $goods['zkPrice'],
+                'coupon_time' => $goods['couponEffectiveEndTime']." 23:59:59",
+                'coupon_price' => $goods['couponAmount'],
+                'coupon_prerequisite' => $goods['couponStartFee'],
+                'coupon_num' => $goods['couponTotalCount'],
+                'coupon_over' => $goods['couponLeftCount'],
+                'seller_name' => $goods['shopTitle'],
+                'seller_icon_url' => '',
+                'is_tmall' => $goods['userType'] == 1 ? 1 : 0,
+                'coupon_id' => $goods['couponActivityId'],
+                'coupon_m_link'=> '',
+                'coupon_link'=> '',
+                'catagory_id' => 0,
+                'dsr' => 0,
+                'seller_id' => $goods['sellerId'],
+                'is_juhuashuan' => 0,
+                'is_taoqianggou' => 0,
+                'is_delivery_fee' => 1,
+                'des' => '',
+                'plan_link' => null,
+                'plan_apply' => null,
+                'commission_type' => 0,
+                'commission' => $goods['tkRate'],
+                'commission_marketing' => 0,
+                'commission_plan' => 0,
+                'commission_bridge' => 0,
+            ];
+            $shareData = [
+                'title' => $data['title'],
+                'price' => $data['price_full'],
+                'used_price' => $data['price'],
+                'coupon_price' => $data['coupon_price'],
+                'description' => $data['des']
+            ];
+            //分享描述
+            $data['share_desc'] = (new GoodsService())->getShareDesc($shareData);
+
+            $result[] = $data;
+        }
+
+        return $result;
     }
 
 }

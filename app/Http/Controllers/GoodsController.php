@@ -86,4 +86,28 @@ class GoodsController extends Controller
         return $this->ajaxSuccess($data);
     }
 
+    /**
+     * 全网搜索
+     */
+    public function queryAllGoods(Request $request){
+        //搜索关键字
+        $keyword = $request->get('keyword');
+        $page = intval($request->input("page", 1));
+        $limit = intval($request->input("limit", 20));
+        $page = $page > 0 ? $page : 1;
+        $limit = $limit > 0 ? $limit : 20;
+
+        if(!$keyword){
+            return $this->ajaxError("参数错误");
+        }
+
+        $params = $request->all();
+        if(!$list = CacheHelper::getCache($params)){
+            $list = (new GoodsService())->queryAllGoods($keyword, $page, $limit);
+            $list = (new GoodsHelper())->resizeGoodsListPic($list, ['pic'=>'310x310']);
+            CacheHelper::setCache($list, 1, $params);
+        }
+        return $this->ajaxSuccess($list);
+    }
+
 }
