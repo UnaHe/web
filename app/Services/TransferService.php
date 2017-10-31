@@ -346,23 +346,57 @@ class TransferService
         $itemId = $result['data']['result']['item']['itemId'];
         $isTmall = $result['data']['result']['item']['tmall'];
 
+        $priceFull = $result['data']['result']['item']['discountPrice'];
+        $couponPrice = isset($result['data']['result']['amount']) ? $result['data']['result']['amount'] : 0;
+
         $data = [
-            'url' => $taoCodeData['url'],
+            'goodsid' => $itemId,
+//            'url' => $taoCodeData['url'],
             'goods_url' => (new GoodsHelper())->generateTaobaoUrl($itemId, $isTmall),
             'short_title' => $taoCodeData['content'],
-            'sell_num' => $result['data']['result']['item']['biz30Day'],
-            'goodsid' => $itemId,
-            'pic' => $result['data']['result']['item']['picUrl'],
             'title' => $result['data']['result']['item']['title'],
-            'price_full' => $result['data']['result']['item']['discountPrice'],
+            'sell_num' => $result['data']['result']['item']['biz30Day'],
+            'pic' => $result['data']['result']['item']['picUrl'],
+            'price' => bcsub($priceFull, $couponPrice, 2),
+            'price_full' => $priceFull,
             'coupon_start_time' => isset($result['data']['result']['effectiveStartTime']) ? $result['data']['result']['effectiveStartTime'] : null,
-            'coupon_end_time' => isset($result['data']['result']['effectiveEndTime']) ? $result['data']['result']['effectiveEndTime'] : null,
-            'coupon_price' => isset($result['data']['result']['amount']) ? $result['data']['result']['amount'] : 0,
+            'coupon_time' => isset($result['data']['result']['effectiveEndTime']) ? $result['data']['result']['effectiveEndTime'] : null,
+            'coupon_price' => $couponPrice,
             'coupon_prerequisite' => isset($result['data']['result']['startFee']) ? $result['data']['result']['startFee'] : 0,
+            'coupon_num' => 0,
+            'coupon_over' => 0,
             'seller_name' => $result['data']['result']['shopName'],
             'seller_icon_url' => isset($result['data']['result']['shopLogo']) ? $result['data']['result']['shopLogo'] : '',
             'is_tmall' => $isTmall,
+            'coupon_id' => isset($lastUrlParams['activityId']) ? $lastUrlParams['activityId'] : null,
+            'coupon_m_link'=> '',
+            'coupon_link'=> '',
+            'catagory_id' => 0,
+            'dsr' => 0,
+            'seller_id' => null,
+            'is_juhuashuan' => 0,
+            'is_taoqianggou' => 0,
+            'is_delivery_fee' => 0,
+            'des' => '',
+            'plan_link' => null,
+            'plan_apply' => null,
+            'commission_type' => 0,
+            'commission' => 0,
+            'commission_marketing' => 0,
+            'commission_plan' => 0,
+            'commission_bridge' => 0,
         ];
+
+        $shareData = [
+            'title' => $data['title'],
+            'price' => $data['price_full'],
+            'used_price' => $data['price'],
+            'coupon_price' => $data['coupon_price'],
+            'description' => $data['des']
+        ];
+        //分享描述
+        $data['share_desc'] = (new GoodsService())->getShareDesc($shareData);
+
 
         CacheHelper::setCache($data, Carbon::createFromTimestamp(substr($taoCodeData['validDate'], 0, 10)));
         return $data;
