@@ -367,13 +367,14 @@ class TransferService
 
         $priceFull = $result['data']['result']['item']['discountPrice'];
         $couponPrice = isset($result['data']['result']['amount']) ? $result['data']['result']['amount'] : 0;
+        $title = $result['data']['result']['item']['title'];
 
         $data = [
             'goodsid' => $itemId,
 //            'url' => $taoCodeData['url'],
             'goods_url' => (new GoodsHelper())->generateTaobaoUrl($itemId, $isTmall),
-            'short_title' => $taoCodeData['content'],
-            'title' => $result['data']['result']['item']['title'],
+            'short_title' => $title,
+            'title' => $title,
             'sell_num' => $result['data']['result']['item']['biz30Day'],
             'pic' => $result['data']['result']['item']['picUrl'],
             'price' => bcsub($priceFull, $couponPrice, 2),
