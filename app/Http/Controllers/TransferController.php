@@ -55,9 +55,14 @@ class TransferController extends Controller
         if(!preg_match('/￥(.*?)￥/', $content, $matchs)){
             return $this->ajaxError("请求内容中无淘口令");
         }
-        $data = (new TransferService())->queryTaoCode($matchs[1]);
-        if($data === false){
-            return $this->ajaxError("淘口令解析失败");
+        try{
+            $data = (new TransferService())->queryTaoCode($matchs[1], $request->user()->id);
+            if($data === false){
+                throw new \Exception('淘口令解析失败');
+            }
+        }catch (\Exception $e){
+            $errorCode = $e->getCode();
+            return $this->ajaxError($e->getMessage(), $errorCode ?: 300);
         }
 
         return $this->ajaxSuccess($data);

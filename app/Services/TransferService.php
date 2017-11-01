@@ -249,7 +249,7 @@ class TransferService
      * @param $taoCode
      * @return mixed
      */
-    public function queryTaoCode($taoCode){
+    public function queryTaoCode($taoCode, $userId){
         if($cache = CacheHelper::getCache()){
             return $cache;
         }
@@ -283,8 +283,8 @@ class TransferService
         $taoCodeData = $result['data'];
         $lastUrl = $taoCodeData['url'];
 
-        //不是二合一页面则打开页面并跟踪跳转到二合一界面
-        if(!strpos($lastUrl, 'uland.taobao.com')){
+        //淘宝短链接则打开页面并跟踪跳转到二合一界面
+        if(strpos($lastUrl, 's.click.taobao.com')){
             $client = new Client();
             //打开url并跟踪跳转
             $response = $client->request('GET', $lastUrl, [
@@ -300,6 +300,24 @@ class TransferService
             //获取最终跳转地址
             $redirectUriHistory = $response->getHeader('X-Guzzle-Redirect-History'); // retrieve Redirect URI history
             $lastUrl = array_pop($redirectUriHistory);
+        }else if(strpos($lastUrl, 'item.taobao.com')){
+            parse_str(parse_url($lastUrl)['query'], $taobaoUrlQuery);
+            $itemId = $taobaoUrlQuery['id'];
+
+            $token = (new TaobaoService())->getToken($userId);
+            $pid = (new TaobaoService())->getPid($userId);
+            if(!$token){
+                throw new \Exception("未授权", ErrorHelper::ERROR_TAOBAO_INVALID_SESSION);
+            }
+            if(!$pid){
+                throw new \Exception("PID错误", ErrorHelper::ERROR_TAOBAO_INVALID_PID);
+            }
+            try{
+                $result = $this->transferLink($itemId, $pid, $token);
+                $lastUrl = $result['coupon_click_url'];
+            }catch (\Exception $e){
+                throw new \Exception($e->getMessage(), $e->getCode());
+            }
         }
 
         parse_str(parse_url($lastUrl)['query'], $lastUrlParams);
@@ -338,7 +356,7 @@ class TransferService
             return false;
         }
 
-        if(!preg_match('/mtopjsonp1\((.*?)\)/', $response, $matchs)){
+        if(!preg_match('/mtopjsonp1\((.*)\)/', $response, $matchs)){
             return false;
         }
 
