@@ -300,9 +300,16 @@ class TransferService
             //获取最终跳转地址
             $redirectUriHistory = $response->getHeader('X-Guzzle-Redirect-History'); // retrieve Redirect URI history
             $lastUrl = array_pop($redirectUriHistory);
-        }else if(strpos($lastUrl, 'item.taobao.com')){
-            parse_str(parse_url($lastUrl)['query'], $taobaoUrlQuery);
-            $itemId = $taobaoUrlQuery['id'];
+        }else{
+            if(preg_match("/item\.taobao\.com.*?[\?&]id=(\d+)/", $lastUrl, $matchItemId)){
+                $matchItemId = $matchItemId[1];
+            }else if(preg_match("/a.m.taobao.com\/i(\d+)/", $lastUrl, $matchItemId)){
+                $matchItemId = $matchItemId[1];
+            }
+            if(!$matchItemId){
+                throw new \Exception("淘口令解析失败");
+            }
+            $itemId = $matchItemId;
 
             $token = (new TaobaoService())->getToken($userId);
             $pid = (new TaobaoService())->getPid($userId);
@@ -318,6 +325,10 @@ class TransferService
             }catch (\Exception $e){
                 throw new \Exception($e->getMessage(), $e->getCode());
             }
+        }
+
+        if(!strpos($lastUrl, "uland.taobao.com")){
+            throw new \Exception("淘口令解析失败");
         }
 
         parse_str(parse_url($lastUrl)['query'], $lastUrlParams);
