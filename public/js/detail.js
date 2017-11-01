@@ -131,7 +131,7 @@ function openTips() {
 }
 
 function iosOpen() {
-    window.location.href="https://t.asczwa.com/taobao?backurl="+redirect_url;
+    window.location.href="https://t.asczwa.com/taobao?backurl="+encodeURIComponent(redirect_url);
 }
 
 //文字输入
