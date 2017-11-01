@@ -733,3 +733,17 @@ p {
         font-size: 70%;
     }
 }
+
+.ios-btn a{
+    float: right;
+    display: inline-block;
+    height: 25px;
+    line-height: 25px;
+    border-radius: 18px;
+    padding: 0 15px;
+    color: #fff;
+    font-size: 14px;
+    background-color: #ff5000;
+    text-align: center;
+    margin-top: 5px;
+}

@@ -10,7 +10,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>{{$pageInfo['title']}}</title>
-    <link href="/css/wechat_page.css" rel="stylesheet">
+    <link href="/css/wechat_page.css?v=1" rel="stylesheet">
 </head>
 <body>
 
@@ -40,6 +40,9 @@
                                 <i class="media-arial">{{$couponPrice}}</i></b>
                             <img src="/images/quan_03.png" alt="">
                         </span>
+                        <div class="ios-btn">
+                            <a href="javascript:iosOpen();">苹果一键购</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -145,7 +148,7 @@
 <script src="/js/layer/layer.js"></script>
 <script src="/js/imgLazy.v1.js"></script>
 <script src="/js/clip-board.min.js"></script>
-<script src="/js/detail.js?v=1"></script>
+<script src="/js/detail.js?v=3"></script>
 
 </body>
 </html>

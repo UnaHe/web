@@ -130,6 +130,10 @@ function openTips() {
     }, false);
 }
 
+function iosOpen() {
+    window.location.href="https://t.asczwa.com/taobao?backurl="+redirect_url;
+}
+
 //文字输入
 function iptNum(ths,sta) {
     if(sta) {
