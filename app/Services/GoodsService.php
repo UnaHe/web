@@ -110,7 +110,8 @@ class GoodsService
             'price' => $data['price_full'],
             'used_price' => $data['price'],
             'coupon_price' => $data['coupon_price'],
-            'description' => $data['des']
+            'description' => $data['des'],
+            'sell_num' => $data['sell_num']
         ];
         //分享描述
         $data['share_desc'] = $this->getShareDesc($shareData);
@@ -147,6 +148,8 @@ class GoodsService
         $templateData['wechat_url'] = isset($shareData['wechat_url']) ? $shareData['wechat_url'] : '(复制后生成)';
         //详情
         $templateData['description'] = isset($shareData['description']) ? $shareData['description'] : '';
+        //销量
+        $templateData['sell_num'] = isset($shareData['sell_num']) ? $shareData['sell_num'] : 0;
 
         foreach ($templateData as $name=>$value){
             $shareDesc = str_replace('{'.$name.'}', $value, $shareDesc);
@@ -239,7 +242,8 @@ class GoodsService
                 'price' => $data['price_full'],
                 'used_price' => $data['price'],
                 'coupon_price' => $data['coupon_price'],
-                'description' => $data['des']
+                'description' => $data['des'],
+                'sell_num' => $data['sell_num']
             ];
             //分享描述
             $data['share_desc'] = (new GoodsService())->getShareDesc($shareData);

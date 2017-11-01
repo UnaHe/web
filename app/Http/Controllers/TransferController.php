@@ -29,6 +29,7 @@ class TransferController extends Controller
         $pic = $request->post('pic');
         $priceFull = $request->post('priceFull');
         $couponPrice = $request->post('couponPrice');
+        $sellNum = $request->post('sell_num', 0);
         if(!$taobaoGoodsId || !$title || !$pic || !$priceFull || !$couponPrice){
             return $this->ajaxError("参数错误");
         }
@@ -38,7 +39,7 @@ class TransferController extends Controller
         }
 
         try{
-            $data = (new TransferService())->transferGoodsByUser($taobaoGoodsId, $couponId, $title, $description, $pic, $priceFull, $couponPrice, $request->user()->id);
+            $data = (new TransferService())->transferGoodsByUser($taobaoGoodsId, $couponId, $title, $description, $pic, $priceFull, $couponPrice, $sellNum, $request->user()->id);
         }catch (\Exception $e){
             $errorCode = $e->getCode();
             return $this->ajaxError($e->getMessage(), $errorCode ?: 300);

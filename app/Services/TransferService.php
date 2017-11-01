@@ -153,7 +153,7 @@ class TransferService
     /**
      * 商品转链
      */
-    public function transferGoodsByUser($goodsId, $couponId, $title, $description, $pic, $priceFull, $couponPrice, $userId){
+    public function transferGoodsByUser($goodsId, $couponId, $title, $description, $pic, $priceFull, $couponPrice, $sellNum, $userId){
         if($cache = CacheHelper::getCache()){
             return $cache;
         }
@@ -193,6 +193,7 @@ class TransferService
                 'description' => $description,
                 'tao_code' => $data['tao_code'],
                 'wechat_url' => $wechatUrl,
+                'sell_num' => $sellNum,
             ];
             //分享描述
             $data['share_desc'] = (new GoodsService())->getShareDesc($shareData);
@@ -392,7 +393,8 @@ class TransferService
             'price' => $data['price_full'],
             'used_price' => $data['price'],
             'coupon_price' => $data['coupon_price'],
-            'description' => $data['des']
+            'description' => $data['des'],
+            'sell_num' => $data['sell_num'],
         ];
         //分享描述
         $data['share_desc'] = (new GoodsService())->getShareDesc($shareData);
