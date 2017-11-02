@@ -48,7 +48,7 @@ class GoodsService
      * @param int $isJuhuashuan 是否聚划算
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function goodList($category, $sort, $keyword, $isTaoqianggou=0, $isJuhuashuan=0, $minPrice=null, $maxPrice=null){
+    public function goodList($category, $sort, $keyword, $isTaoqianggou, $isJuhuashuan, $minPrice, $maxPrice, $isTmall, $minCommission, $minSellNum, $minCouponPrice, $maxCouponPrice){
         $query = Goods::query();
         if($category){
             $query->where("catagory_id", $category);
@@ -67,6 +67,21 @@ class GoodsService
         }
         if($maxPrice){
             $query->where("price", '<=', $maxPrice);
+        }
+        if($isTmall){
+            $query->where("is_tmall", 1);
+        }
+        if($minCommission){
+            $query->where("commission", '>=', $minCommission);
+        }
+        if($minSellNum){
+            $query->where("sell_num", '>=', $minSellNum);
+        }
+        if($minCouponPrice){
+            $query->where("coupon_price", '>=', $minCouponPrice);
+        }
+        if($maxCouponPrice){
+            $query->where("coupon_price", '<=', $maxCouponPrice);
         }
 
         $this->sort($query, $sort);
