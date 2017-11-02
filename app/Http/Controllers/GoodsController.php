@@ -69,6 +69,7 @@ class GoodsController extends Controller
         }
 
         $params = $request->all();
+        $params['column_code'] = $columnCode;
         if(!$list = CacheHelper::getCache($params)){
             $list = (new GoodsService())->columnGoodList($columnCode);
             $list = (new GoodsHelper())->resizeGoodsListPic($list->toArray(), ['pic'=>'310x310']);
