@@ -161,6 +161,9 @@ class TaobaoService
             $cookieArray = [];
             foreach ($cookie as $cookieItem){
                 $item = explode("=", trim($cookieItem));
+                if(in_array($item[0], ['_m_h5_tk_enc', '_m_h5_tk'])){
+                    continue;
+                }
                 $cookieArray[$item[0]] = $item[1];
             }
             $jar = new \GuzzleHttp\Cookie\CookieJar;
@@ -172,41 +175,50 @@ class TaobaoService
         $this->appKey = 12574478;
         $this->version = "1.0";
 
-        //查询用户pid memberid
-        $userInfo = $this->pidRequest('mtop.alimama.moon.provider.user.gradedetail.get', '{}');
-        if(!isset($userInfo['data'])){
-            throw new \Exception("cookie无效", 300);
-        }
-        if(!isset($userInfo['data']['memberId'])){
+        //查询用户默认pid
+        $defautPidInfo = $this->pidRequest('mtop.alimama.moon.adzone.default.get', '{"tag":"29"}');
+        if(strpos($defautPidInfo['ret'][0], "ERROR_NOT_EXISTS_MAMA") !== false){
             throw new \Exception("您可能没有阿里妈妈账户哦", 201);
         }
-        $memberId = $userInfo['data']['memberId'];
-
-        //默认网站
-        $defaultSite = null;
-        try{
-            $siteList = $this->pidRequest('mtop.alimama.moon.adzone.site.list', '{"siteGcid":"8"}');
-            $siteList = $siteList['data']['result'];
-            foreach ($siteList as $site){
-                if(strpos($site['name'], "微信") !== false){
-                    $defaultSite = $site['siteid'];
+        if(strpos($defautPidInfo['ret'][0], "FAIL_SYS_SESSION_EXPIRED") !== false){
+            throw new \Exception("cookie过期", 201);
+        }
+        if(!isset($defautPidInfo['data'])){
+            throw new \Exception("cookie无效", 300);
+        }
+        if(!isset($defautPidInfo['data']['pid'])){
+            throw new \Exception("您还没有设置默认推广位，请在淘宝联盟设置", 201);
+        }
+        $pid = $defautPidInfo['data']['pid'];
+        if(!$pid){
+            //默认网站
+            $defaultSite = null;
+            try{
+                $siteList = $this->pidRequest('mtop.alimama.moon.adzone.site.list', '{"siteGcid":"8"}');
+                $siteList = $siteList['data']['result'];
+                foreach ($siteList as $site){
+                    if(strpos($site['name'], "微信") !== false){
+                        $defaultSite = $site['siteid'];
+                    }
                 }
+                if(!$defaultSite){
+                    $defaultSite = $siteList[0]['siteid'];
+                }
+            }catch (\Exception $e){
+                throw new \Exception("无可用推广位", 201);
             }
-            if(!$defaultSite){
-                $defaultSite = $siteList[0]['siteid'];
+
+            try{
+                $adzoneList = $this->pidRequest('mtop.alimama.moon.adzone.list', '{"gcid":"8","siteId":"'.$defaultSite.'","tag":"29","page":"1","pageSize":"20"}');
+                $adzone = $adzoneList['data']['result'][0];
+            }catch (\Exception $e){
+                throw new \Exception("无可用推广位", 201);
             }
-        }catch (\Exception $e){
-            throw new \Exception("无可用推广位", 201);
+
+            $pid = "mm_123_".$adzone['siteId']."_".$adzone['adzoneId'];
         }
 
-        try{
-            $adzoneList = $this->pidRequest('mtop.alimama.moon.adzone.list', '{"gcid":"8","siteId":"'.$defaultSite.'","tag":"29","page":"1","pageSize":"20"}');
-            $adzone = $adzoneList['data']['result'][0];
-        }catch (\Exception $e){
-            throw new \Exception("无可用推广位", 201);
-        }
-
-        return "mm_".$memberId."_".$adzone['siteId']."_".$adzone['adzoneId'];
+        return $pid;
     }
 
     public function pidRequest($api, $data, $extraData = null){
