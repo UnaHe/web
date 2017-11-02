@@ -287,11 +287,16 @@ class TransferService
             $url = $this->getRedirectUrl($tu, $url);
             return $url;
         }else if(strpos($url, 's.click.taobao.com/')){
-            return $this->getRedirectUrl($url);
+            $url = $this->getRedirectUrl($url);
+            return $this->getFinalUrl($url);
         }else if(strpos($url, 'item.taobao.com/item.htm')){
             return $url;
         }else if(strpos($url, 'a.m.taobao.com/i')){
             return $this->getRedirectUrl($url);
+        }else if(strpos($url, 'uland.taobao.com')){
+            return $url;
+        }else if(strpos($url, 'detail.tmall.com')){
+            return $url;
         }
     }
 
