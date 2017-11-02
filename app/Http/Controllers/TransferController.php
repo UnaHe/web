@@ -28,9 +28,9 @@ class TransferController extends Controller
         $description = $request->post('description');
         $pic = $request->post('pic');
         $priceFull = $request->post('priceFull');
-        $couponPrice = $request->post('couponPrice');
+        $couponPrice = $request->post('couponPrice', 0);
         $sellNum = $request->post('sell_num', 0);
-        if(!$taobaoGoodsId || !$title || !$pic || !$priceFull || !$couponPrice){
+        if(!$taobaoGoodsId || !$title || !$pic || !$priceFull){
             return $this->ajaxError("参数错误");
         }
 
