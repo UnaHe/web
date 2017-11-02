@@ -147,7 +147,7 @@ class GoodsService
         //微信单页地址
         $templateData['wechat_url'] = isset($shareData['wechat_url']) ? $shareData['wechat_url'] : '(复制后生成)';
         //详情
-        $templateData['description'] = isset($shareData['description']) ? $shareData['description'] : '';
+        $templateData['description'] = isset($shareData['description']) ? $shareData['description'] : '优惠券数量有限，赶快来抢购吧！';
         //销量
         $templateData['sell_num'] = isset($shareData['sell_num']) ? $shareData['sell_num'] : 0;
 
