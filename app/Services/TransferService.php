@@ -243,6 +243,57 @@ class TransferService
         return $data;
     }
 
+    /**
+     * 获取跳转地址
+     * @param $url
+     * @param null $referer
+     * @return mixed
+     */
+    public function getRedirectUrl($url, $referer=null){
+        static $client;
+        if(!$client){
+            $client = new Client();
+        }
+        $response = $client->request('GET', $url, [
+            'verify' => false,
+            'headers' => [
+                'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36',
+                'Referer' => $referer,
+            ],
+            RequestOptions::ALLOW_REDIRECTS => [
+                'max'             => 10,        // allow at most 10 redirects.
+                'strict'          => true,      // use "strict" RFC compliant redirects.
+                'referer'         => true,      // add a Referer header
+                'track_redirects' => true,
+            ],
+        ]);
+
+        $redirectUriHistory = $response->getHeader('X-Guzzle-Redirect-History'); // retrieve Redirect URI history
+        return array_pop($redirectUriHistory);
+    }
+
+    /**
+     * 获取最终跳转链接地址
+     * @param $url
+     * @return mixed
+     */
+    public function getFinalUrl($url){
+        if(strpos($url, 's.click.taobao.com/t?')){
+            $url = $this->getRedirectUrl($url);
+            return $this->getFinalUrl($url);
+        }else if(strpos($url, 's.click.taobao.com/t_js?tu=')){
+            parse_str(parse_url($url)['query'], $query);
+            $tu = $query['tu'];
+            $url = $this->getRedirectUrl($tu, $url);
+            return $url;
+        }else if(strpos($url, 's.click.taobao.com/')){
+            return $this->getRedirectUrl($url);
+        }else if(strpos($url, 'item.taobao.com/item.htm')){
+            return $url;
+        }else if(strpos($url, 'a.m.taobao.com/i')){
+            return $this->getRedirectUrl($url);
+        }
+    }
 
     /**
      * 解析淘口令
@@ -283,29 +334,16 @@ class TransferService
         $taoCodeData = $result['data'];
         $lastUrl = $taoCodeData['url'];
 
-        //淘宝短链接则打开页面并跟踪跳转到二合一界面
-        if(strpos($lastUrl, 's.click.taobao.com')){
-            $client = new Client();
-            //打开url并跟踪跳转
-            $response = $client->request('GET', $lastUrl, [
-                'verify' => false,
-                RequestOptions::ALLOW_REDIRECTS => [
-                    'max'             => 10,        // allow at most 10 redirects.
-                    'strict'          => true,      // use "strict" RFC compliant redirects.
-                    'referer'         => true,      // add a Referer header
-                    'track_redirects' => true,
-                ],
-            ]);
+        //获取最终跳转地址
+        $lastUrl = $this->getFinalUrl($lastUrl);
 
-            //获取最终跳转地址
-            $redirectUriHistory = $response->getHeader('X-Guzzle-Redirect-History'); // retrieve Redirect URI history
-            $lastUrl = array_pop($redirectUriHistory);
-        }else{
+        if(!strpos($lastUrl, "uland.taobao.com")){
             if(preg_match("/item\.taobao\.com.*?[\?&]id=(\d+)/", $lastUrl, $matchItemId)){
                 $matchItemId = $matchItemId[1];
-            }else if(preg_match("/a.m.taobao.com\/i(\d+)/", $lastUrl, $matchItemId)){
+            }else if(preg_match("/detail\.tmall\.com.*?[\?&]id=(\d+)/", $lastUrl, $matchItemId)){
                 $matchItemId = $matchItemId[1];
             }
+
             if(!$matchItemId){
                 throw new \Exception("淘口令解析失败");
             }
@@ -325,10 +363,6 @@ class TransferService
             }catch (\Exception $e){
                 throw new \Exception($e->getMessage(), $e->getCode());
             }
-        }
-
-        if(!strpos($lastUrl, "uland.taobao.com")){
-            throw new \Exception("淘口令解析失败");
         }
 
         parse_str(parse_url($lastUrl)['query'], $lastUrlParams);
