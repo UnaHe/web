@@ -54,7 +54,17 @@ class GoodsService
             $query->where("catagory_id", $category);
         }
         if($keyword){
-            $query->where("title",'like', "%".$keyword."%");
+            try{
+                $response = (new Client(['headers'=>['X-Token'=>'V3kXaZ2F.18648.4wa4IAxv-aQZ', 'Content-Type'=>'application/json', 'Accept'=>'application/json']]))
+                    ->request('POST','http://api.bosonnlp.com/tag/analysis?space_mode=0&oov_level=3&t2s=0', ['body'=>'"'.$keyword.'"'])->getBody()->getContents();
+                $keywords = json_decode($response, true)[0]['word'];
+                $query->where(function($query) use($keywords){
+                    foreach ($keywords as $keyword){
+                        $query->orWhere("title",'like', "%".$keyword."%");
+                    }
+                });
+            }catch (\Exception $e){
+            }
         }
         if($isTaoqianggou){
             $query->where("is_taoqianggou", 1);
