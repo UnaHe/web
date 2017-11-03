@@ -19,7 +19,7 @@ class TaobaoController extends Controller
      * 重定向到淘宝授权登录地址
      */
     public function auth(){
-        return redirect('https://oauth.taobao.com/authorize?response_type=token&client_id=23225630&state=pyt&view=wap');
+        return redirect('https://oauth.taobao.com/authorize?response_type=token&client_id='.config("taobao.appkey").'&state=pyt&view=wap');
     }
 
     /**
