@@ -16,6 +16,7 @@ use App\Models\GoodsCategory;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
+use Illuminate\Support\Facades\Log;
 
 class TransferService
 {
@@ -473,7 +474,9 @@ class TransferService
                         $couponOver = $mamaDetail['couponLeftCount'];
                         $couponId = $mamaDetail['couponActivityId'];
                     }
-                }catch (\Exception $e){}
+                }catch (\Exception $e){
+                    Log::error("查询联盟商品佣金失败， 商品id:".$itemId);
+                }
             }
         }
 
