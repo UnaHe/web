@@ -414,14 +414,49 @@ class TransferService
 
         $itemId = $result['data']['result']['item']['itemId'];
         $isTmall = $result['data']['result']['item']['tmall'];
-
         $priceFull = $result['data']['result']['item']['discountPrice'];
-        $couponPrice = isset($result['data']['result']['amount']) ? $result['data']['result']['amount'] : 0;
         $title = $result['data']['result']['item']['title'];
+        $sellerName = $result['data']['result']['shopName'];
+        $sellerIcon = isset($result['data']['result']['shopLogo']) ? $result['data']['result']['shopLogo'] : '';
+        $couponId = isset($lastUrlParams['activityId']) ? $lastUrlParams['activityId'] : null;
+        $couponPrice = isset($result['data']['result']['amount']) ? $result['data']['result']['amount'] : 0;
+        $couponTime = isset($result['data']['result']['effectiveEndTime']) ? $result['data']['result']['effectiveEndTime'] : null;
+        $couponPrerequisite = isset($result['data']['result']['startFee']) ? $result['data']['result']['startFee'] : 0;
+
+        //从数据库获取信息填充
+        $detail = (new GoodsService())->getByGoodsId($itemId);
+        $couponId = (!$couponId && $detail) ? $detail['coupon_id'] : $couponId;
+        $couponMLink = (!$couponId && $detail) ? $detail['coupon_m_link'] : null;
+        $couponLink = (!$couponId && $detail) ? $detail['coupon_link']: null;
+        $couponPrice = (!$couponId && $detail) ? $detail['coupon_price'] : $couponPrice;
+        $couponTime = (!$couponId && $detail) ? $detail['coupon_time'] : $couponTime;
+        $couponPrerequisite = (!$couponId && $detail) ? $detail['coupon_prerequisite'] : $couponPrerequisite;
+        $couponNum = (!$couponId && $detail) ? $detail['coupon_num'] : 0;
+        $couponOver = (!$couponId && $detail) ? $detail['coupon_over'] : 0;
+
+        $commissionType = $detail ? $detail['commission_type'] : 0;
+        $commission = $detail? $detail['commission'] : 0;
+        $commissionMarketing = $detail? $detail['commission_marketing'] : 0;
+        $commissionPlan = $detail? $detail['commission_plan'] : 0;
+        $commissionBridge = $detail? $detail['commission_bridge'] : 0;
+
+        $sellerId = $detail ? $detail['seller_id'] : null;
+        $sellerName = (!$sellerName && $detail) ? $detail['seller_name'] : $sellerName;
+        $sellerIcon = (!$sellerIcon && $detail) ? $detail['seller_icon_url'] : $sellerIcon;
+
+        $isJuhuashuan = $detail ? $detail['is_juhuashuan'] : 0;
+        $isTaoqianggou = $detail ? $detail['is_taoqianggou'] : 0;
+        $isDeliveryFee = $detail ? $detail['is_delivery_fee'] : 0;
+
+        $planLink = $detail ? $detail['plan_link'] : 0;
+        $planApply = $detail ? $detail['plan_apply'] : 0;
+
+        $catagoryId = $detail ? $detail['catagory_id'] : 0;
+        $dsr = $detail ? $detail['dsr'] : 0;
+        $des = $detail ? $detail['des'] : "";
 
         $data = [
             'goodsid' => $itemId,
-//            'url' => $taoCodeData['url'],
             'goods_url' => (new GoodsHelper())->generateTaobaoUrl($itemId, $isTmall),
             'short_title' => $title,
             'title' => $title,
@@ -429,32 +464,31 @@ class TransferService
             'pic' => $result['data']['result']['item']['picUrl'],
             'price' => bcsub($priceFull, $couponPrice, 2),
             'price_full' => $priceFull,
-            'coupon_start_time' => isset($result['data']['result']['effectiveStartTime']) ? $result['data']['result']['effectiveStartTime'] : null,
-            'coupon_time' => isset($result['data']['result']['effectiveEndTime']) ? $result['data']['result']['effectiveEndTime'] : null,
+            'coupon_time' => $couponTime,
             'coupon_price' => $couponPrice,
-            'coupon_prerequisite' => isset($result['data']['result']['startFee']) ? $result['data']['result']['startFee'] : 0,
-            'coupon_num' => 0,
-            'coupon_over' => 0,
-            'seller_name' => $result['data']['result']['shopName'],
-            'seller_icon_url' => isset($result['data']['result']['shopLogo']) ? $result['data']['result']['shopLogo'] : '',
+            'coupon_prerequisite' => $couponPrerequisite,
+            'coupon_num' => $couponNum,
+            'coupon_over' => $couponOver,
+            'seller_name' => $sellerName,
+            'seller_icon_url' => $sellerIcon,
             'is_tmall' => $isTmall,
-            'coupon_id' => isset($lastUrlParams['activityId']) ? $lastUrlParams['activityId'] : null,
-            'coupon_m_link'=> '',
-            'coupon_link'=> '',
-            'catagory_id' => 0,
-            'dsr' => 0,
-            'seller_id' => null,
-            'is_juhuashuan' => 0,
-            'is_taoqianggou' => 0,
-            'is_delivery_fee' => 0,
-            'des' => '',
-            'plan_link' => null,
-            'plan_apply' => null,
-            'commission_type' => 0,
-            'commission' => 0,
-            'commission_marketing' => 0,
-            'commission_plan' => 0,
-            'commission_bridge' => 0,
+            'coupon_id' => $couponId,
+            'coupon_m_link'=> $couponMLink,
+            'coupon_link'=> $couponLink,
+            'catagory_id' => $catagoryId,
+            'dsr' => $dsr,
+            'seller_id' => $sellerId,
+            'is_juhuashuan' => $isJuhuashuan,
+            'is_taoqianggou' => $isTaoqianggou,
+            'is_delivery_fee' => $isDeliveryFee,
+            'des' => $des,
+            'plan_link' => $planLink,
+            'plan_apply' => $planApply,
+            'commission_type' => $commissionType,
+            'commission' => $commission,
+            'commission_marketing' => $commissionMarketing,
+            'commission_plan' => $commissionPlan,
+            'commission_bridge' => $commissionBridge,
         ];
 
         $shareData = [

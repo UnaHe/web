@@ -134,6 +134,27 @@ class GoodsService
         return $data;
     }
 
+
+    /**
+     * 商品详情
+     * @param $goodId
+     * @return \Illuminate\Cache\CacheManager|mixed|null
+     */
+    public function getByGoodsId($goodId){
+        if($cache = CacheHelper::getCache()){
+            return $cache;
+        }
+
+        $data = Goods::where("goodsid", $goodId)->first();
+        if(!$data){
+            return null;
+        }
+        $data = $data->toArray();
+        CacheHelper::setCache($data, 2);
+        return $data;
+    }
+
+
     /**
      * 商品分享描述
      * @param $shareData
