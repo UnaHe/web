@@ -454,10 +454,32 @@ class TransferService
         $catagoryId = $detail ? $detail['catagory_id'] : 0;
         $dsr = $detail ? $detail['dsr'] : 0;
         $des = $detail ? $detail['des'] : "";
+        $goodsUrl = (new GoodsHelper())->generateTaobaoUrl($itemId, $isTmall);
+
+        //没有佣金则从联盟查询
+        if(!$commission){
+            $url = "http://pub.alimama.com/items/search.json?q=".urlencode($goodsUrl)."&auctionTag=&perPageSize=40&shopTag=";
+            $mamaDetail = $client->get($url)->getBody()->getContents();
+            if($mamaDetail){
+                try{
+                    $mamaDetail = json_decode($mamaDetail, true);
+                    $mamaDetail = $mamaDetail['data']['pageList'][0];
+                    $commission = $commission?: $mamaDetail['tkRate'];
+                    if(!$couponId && $mamaDetail['couponAmount']){
+                        $couponTime = $mamaDetail['couponEffectiveEndTime']." 23:59:59";
+                        $couponPrice = $mamaDetail['couponAmount'];
+                        $couponPrerequisite = $mamaDetail['couponStartFee'];
+                        $couponNum = $mamaDetail['couponTotalCount'];
+                        $couponOver = $mamaDetail['couponLeftCount'];
+                        $couponId = $mamaDetail['couponActivityId'];
+                    }
+                }catch (\Exception $e){}
+            }
+        }
 
         $data = [
             'goodsid' => $itemId,
-            'goods_url' => (new GoodsHelper())->generateTaobaoUrl($itemId, $isTmall),
+            'goods_url' => $goodsUrl,
             'short_title' => $title,
             'title' => $title,
             'sell_num' => $result['data']['result']['item']['biz30Day'],
