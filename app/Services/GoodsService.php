@@ -8,6 +8,7 @@
 namespace App\Services;
 
 use App\Helpers\CacheHelper;
+use App\Helpers\EsHelper;
 use App\Helpers\QueryHelper;
 use App\Models\ColumnGoodsRel;
 use App\Models\Goods;
@@ -49,22 +50,86 @@ class GoodsService
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
     public function goodList($category, $sort, $keyword, $isTaoqianggou, $isJuhuashuan, $minPrice, $maxPrice, $isTmall, $minCommission, $minSellNum, $minCouponPrice, $maxCouponPrice){
+        $sortVal = $this->sort($sort);
+
+        if($keyword){
+            $request = app('request');
+            //分页参数
+            $page = $request->input("page");
+            $limit = $request->input("limit", 20);
+            $start = ($page - 1)*$limit;
+
+            $esParams = [
+                'index' => 'pyt',
+                'type' => 'good',
+                'body' => [
+                    'from' => $start,
+                    'size' => $limit,
+                    'query' =>[
+                        'bool' => [
+                            'must' =>[
+                                'match' => [
+                                    'title' => $keyword
+                                ],
+                            ],
+                            'filter'=>[],
+                        ],
+                    ]
+                ]
+            ];
+
+            if($category){
+                $esParams['body']['query']['bool']['filter'][] = ['term'=>['catagory_id' => $category]];
+            }
+            if($isTaoqianggou){
+                $esParams['body']['query']['bool']['filter'][] = ['term'=>['is_taoqianggou' => 1]];
+            }
+            if($isJuhuashuan){
+                $esParams['body']['query']['bool']['filter'][] = ['term'=>['is_juhuashuan' => 1]];
+            }
+            if($minPrice || $maxPrice){
+                $priceData = [];
+                if($minPrice){
+                    $priceData['gte'] = $minPrice;
+                }
+                if($maxPrice){
+                    $priceData['lte'] = $maxPrice;
+                }
+                $esParams['body']['query']['bool']['filter'][] = ['range'=>['price' => $priceData]];
+            }
+
+            if($isTmall){
+                $esParams['body']['query']['bool']['filter'][] = ['term'=>['is_tmall' => 1]];
+            }
+            if($minCommission){
+                $esParams['body']['query']['bool']['filter'][] = ['range'=>['commission' => ['gte'=>$minCommission]]];
+            }
+            if($minSellNum){
+                $esParams['body']['query']['bool']['filter'][] = ['range'=>['sell_num' => ['gte'=>$minSellNum]]];
+            }
+
+            if($minCouponPrice || $maxCouponPrice){
+                $couponPriceData = [];
+                if($minCouponPrice){
+                    $couponPriceData['gte'] = $minCouponPrice;
+                }
+                if($maxCouponPrice){
+                    $couponPriceData['lte'] = $maxCouponPrice;
+                }
+                $esParams['body']['query']['bool']['filter'][] = ['range'=>['coupon_price' => $couponPriceData]];
+            }
+
+            if($sortVal){
+                $esParams['body']['sort'][] = [$sortVal[0] => ['order'=> $sortVal[1]]];
+            }
+
+
+            return (new EsHelper())->search($esParams);
+        }
+
         $query = Goods::query();
         if($category){
             $query->where("catagory_id", $category);
-        }
-        if($keyword){
-            try{
-                $response = (new Client(['headers'=>['X-Token'=>'V3kXaZ2F.18648.4wa4IAxv-aQZ', 'Content-Type'=>'application/json', 'Accept'=>'application/json']]))
-                    ->request('POST','http://api.bosonnlp.com/tag/analysis?space_mode=0&oov_level=3&t2s=0', ['body'=>'"'.$keyword.'"'])->getBody()->getContents();
-                $keywords = json_decode($response, true)[0]['word'];
-                $query->where(function($query) use($keywords){
-                    foreach ($keywords as $keyword){
-                        $query->orWhere("title",'like', "%".$keyword."%");
-                    }
-                });
-            }catch (\Exception $e){
-            }
         }
         if($isTaoqianggou){
             $query->where("is_taoqianggou", 1);
@@ -94,9 +159,11 @@ class GoodsService
             $query->where("coupon_price", '<=', $maxCouponPrice);
         }
 
-        $this->sort($query, $sort);
+        if($sortVal){
+            $query->orderBy($sortVal[0], $sortVal[1]);
+        }
         $list = (new QueryHelper())->pagination($query)->get();
-        return $list;
+        return $list->toArray();
     }
 
     /**
@@ -208,28 +275,29 @@ class GoodsService
      * @param $query
      * @param $sort
      */
-    private function sort($query, $sort){
+    private function sort($sort){
         switch ($sort){
             case self::SORT_RENQI:{
                 break;
             }
             case self::SORT_NEW:{
-                $query->orderBy('create_time', 'desc');
+                return ['create_time', 'desc'];
                 break;
             }
             case self::SORT_SELL_NUM:{
-                $query->orderBy('sell_num', 'desc');
+                return ['sell_num', 'desc'];
                 break;
             }
             case self::SORT_PRICE:{
-                $query->orderBy('price', 'desc');
+                return ['price', 'desc'];
                 break;
             }
             case self::SORT_COUPON_PRICE:{
-                $query->orderBy('coupon_price', 'desc');
+                return ['coupon_price', 'desc'];
                 break;
             }
         }
+        return null;
     }
 
     /**

@@ -48,7 +48,7 @@ class GoodsController extends Controller
         $params = $request->all();
         if(!$list = CacheHelper::getCache($params)){
             $list = (new GoodsService())->goodList($category, $sort, $keyword, $isTaoqianggou, $isJuhuashuan, $minPrice, $maxPrice, $isTmall, $minCommission, $minSellNum, $minCouponPrice, $maxCouponPrice);
-            $list = (new GoodsHelper())->resizeGoodsListPic($list->toArray(), ['pic'=>'310x310']);
+            $list = (new GoodsHelper())->resizeGoodsListPic($list, ['pic'=>'310x310']);
             CacheHelper::setCache($list, 1, $params);
         }
         return $this->ajaxSuccess($list);
