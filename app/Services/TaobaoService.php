@@ -14,11 +14,12 @@ use App\Models\TaobaoPid;
 use App\Models\TaobaoToken;
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
+use Illuminate\Support\Facades\Log;
 
 class TaobaoService
 {
-    private $appKey;
-    private $version;
+    private $appKey = 12574478;
+    private $version = "1.0";
     private $h5Tk;
     private $client;
     private $cookieJar;
@@ -231,6 +232,9 @@ class TaobaoService
         //拼接实际请求地址
         $sign	= md5($h5Tk.'&'.$t.'&'.$appKey.'&'.$data);
         $url	= $cookieUrl.'&appKey='.$appKey.'&sign='.$sign.'&t='.$t.'&data='.$data;
+        if($extraData){
+            $url .= "&".http_build_query($extraData);
+        }
 
         //第一次取cookie参数
         $response = $this->client->request('GET', $url, ['cookies' => $this->cookieJar])->getBody()->getContents();
@@ -238,9 +242,80 @@ class TaobaoService
         if(strpos($response, "令牌为空")){
             $h5TkCookie = $this->cookieJar->getCookieByName('_m_h5_tk')->getValue();
             $this->h5Tk = explode('_', $h5TkCookie)[0];
-            return $this->pidRequest($api, $data);
+            return $this->pidRequest($api, $data, $extraData);
         }
 
         return json_decode($response, true);
+    }
+
+    /**
+     * 查询淘宝优惠券信息
+     * @param $goodsId
+     * @param $couponId
+     */
+    public function getTaobaoCoupon($goodsId, $couponId=""){
+        $this->client = new Client(['cookie'=>true]);
+        if($couponId){
+            //需要传递的参数
+            $apiParamData = [
+                'itemId'=>$goodsId,
+                'activityId' => $couponId
+            ];
+            $this->cookieJar = new \GuzzleHttp\Cookie\CookieJar;
+            $result = $this->pidRequest('mtop.alimama.union.hsf.coupon.get', json_encode($apiParamData));
+            try{
+                $status = $result['data']['result']['retStatus'];
+            }catch (\Exception $e){
+                Log::error(__METHOD__."  系统错误".var_export($result, true));
+                throw new \Exception("系统错误", 500);
+            }
+
+            try{
+                if($status != 0){
+                    throw new \Exception("券已失效", 300);
+                }
+
+                $couponPrice = $result['data']['result']['amount'];
+                $couponTime = $result['data']['result']['effectiveEndTime'];
+                $couponPrerequisite = $result['data']['result']['startFee'];
+                $couponNum = 0;
+                $couponOver = 0;
+            }catch (\Exception $e){
+                if($e->getCode() != 300){
+                    Log::error(__METHOD__."  ".$e->getMessage().var_export($result, true));
+                }
+                throw new \Exception("券已失效");
+            }
+        }else{
+            $url = "http://pub.alimama.com/items/search.json?q=".urlencode("https://item.taobao.com/item.htm?id=".$goodsId)."&auctionTag=&perPageSize=40&shopTag=";
+            $mamaDetail = $this->client->get($url)->getBody()->getContents();
+            if(!$mamaDetail){
+                throw new \Exception("系统错误", 500);
+            }
+
+            if($mamaDetail){
+                $mamaDetail = json_decode($mamaDetail, true);
+                $mamaDetail = $mamaDetail['data']['pageList'][0];
+                if(!$mamaDetail['couponAmount']){
+                    throw new \Exception("券已失效");
+                }
+                $couponTime = $mamaDetail['couponEffectiveEndTime']." 23:59:59";
+                $couponPrice = $mamaDetail['couponAmount'];
+                $couponPrerequisite = $mamaDetail['couponStartFee'];
+                $couponNum = $mamaDetail['couponTotalCount'];
+                $couponOver = $mamaDetail['couponLeftCount'];
+                $couponId = $mamaDetail['couponActivityId'];
+            }
+        }
+
+        $data = [
+            'coupon_id' => $couponId,
+            'coupon_time' => $couponTime,
+            'coupon_price' => $couponPrice,
+            'coupon_prerequisite' => $couponPrerequisite,
+            'coupon_num' => $couponNum,
+            'coupon_over' => $couponOver,
+        ];
+        return $data;
     }
 }

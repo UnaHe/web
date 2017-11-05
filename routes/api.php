@@ -12,6 +12,11 @@
 
 Route::domain(config('domains.api_domain'))->namespace('App\Http\Controllers')->group(function (){
     /**
+     * 查询券信息
+     */
+    Route::get('/coupon', "TaobaoController@getTaobaoCoupon");
+
+    /**
      * 授权登录
      */
     Route::post('/oauth/token', [

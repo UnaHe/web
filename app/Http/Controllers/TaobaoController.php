@@ -99,4 +99,25 @@ class TaobaoController extends Controller
         return $this->ajaxSuccess($data);
     }
 
+    /**
+     * 查询淘宝优惠券信息
+     * @param Request $request
+     */
+    public function getTaobaoCoupon(Request $request){
+        $goodsId = $request->get('goodsId');
+        $couponId = $request->get('couponId');
+        if(!$goodsId){
+            return $this->ajaxError("参数错误");
+        }
+        try{
+            $data = (new TaobaoService())->getTaobaoCoupon($goodsId, $couponId);
+        }catch (\Exception $e){
+            $errCode = $e->getCode();
+            $errCode = $errCode == 0 ? 300 : $errCode;
+            $errMsg = $errCode == 300 ? "券已失效" :"系统错误";
+            return $this->ajaxError($errMsg, $errCode);
+        }
+        return $this->ajaxSuccess($data);
+    }
+
 }
