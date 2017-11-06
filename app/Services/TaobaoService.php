@@ -8,6 +8,7 @@
 namespace App\Services;
 
 
+use App\Helpers\CacheHelper;
 use App\Helpers\ErrorHelper;
 use App\Helpers\ProxyClient;
 use App\Models\Goods;
@@ -255,6 +256,10 @@ class TaobaoService
      * @param $couponId
      */
     public function getTaobaoCoupon($goodsId, $couponId=""){
+        if($cache = CacheHelper::getCache()){
+            return $cache;
+        }
+
         $this->client = new ProxyClient(['cookie'=>true]);
         if($couponId){
             //需要传递的参数
@@ -317,6 +322,8 @@ class TaobaoService
             'coupon_num' => $couponNum,
             'coupon_over' => $couponOver,
         ];
+
+        CacheHelper::setCache($data, 1);
         return $data;
     }
 }
