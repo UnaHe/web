@@ -342,7 +342,7 @@ class GoodsService
                 'seller_id' => $goods['sellerId'],
                 'is_juhuashuan' => 0,
                 'is_taoqianggou' => 0,
-                'is_delivery_fee' => 1,
+                'is_delivery_fee' => 0,
                 'des' => '',
                 'plan_link' => null,
                 'plan_apply' => null,
