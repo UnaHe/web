@@ -309,6 +309,7 @@ class GoodsService
      * @param $keyword
      */
     public function queryAllGoods($keyword, $page, $limit){
+        $keyword = urlencode($keyword);
         $url = "http://pub.alimama.com/items/search.json?q={$keyword}&toPage={$page}&perPageSize={$limit}&freeShipment=&dpyhq=&auctionTag=&shopTag=&t=".time();
         $response = (new ProxyClient())->get($url)->getBody()->getContents();
         $response = json_decode($response, true);
@@ -350,7 +351,7 @@ class GoodsService
                 'plan_link' => null,
                 'plan_apply' => null,
                 'commission_type' => 0,
-                'commission' => $goods['tkRate'],
+                'commission' => $goods['eventRate'] > $goods['tkRate'] ? $goods['eventRate'] : $goods['tkRate'],
                 'commission_marketing' => 0,
                 'commission_plan' => 0,
                 'commission_bridge' => 0,
