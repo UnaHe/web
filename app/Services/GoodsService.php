@@ -70,7 +70,10 @@ class GoodsService
                         'bool' => [
                             'must' =>[
                                 'match' => [
-                                    'title' => $keyword
+                                    'title' => [
+                                        'query' => $keyword,
+                                        'operator' => 'and'
+                                    ]
                                 ],
                             ],
                             'filter'=>[],
