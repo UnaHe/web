@@ -306,7 +306,7 @@ class GoodsService
      * @param $keyword
      */
     public function queryAllGoods($keyword, $page, $limit){
-        $url = "http://pub.alimama.com/items/search.json?q={$keyword}&toPage={$page}&perPageSize={$limit}&freeShipment=1&dpyhq=1&auctionTag=&shopTag=yxjh,dpyhq&t=".time();
+        $url = "http://pub.alimama.com/items/search.json?q={$keyword}&toPage={$page}&perPageSize={$limit}&freeShipment=&dpyhq=&auctionTag=&shopTag=&t=".time();
         $response = (new ProxyClient())->get($url)->getBody()->getContents();
         $response = json_decode($response, true);
         if(!isset($response['data']) || !isset($response['data']['pageList']) || !isset($response['data']['pageList'][0])) {
