@@ -52,11 +52,11 @@ class TransferController extends Controller
      */
     public function queryTaoCode(Request $request){
         $content = $request->post('content');
-        if(!preg_match('/[《￥]+(.*?)[《￥]+/', $content, $matchs)){
+        if(!preg_match('/([\x{300a}\x{ffe5}]){1}([0-9A-Za-z]+?)\1/u', $content, $matchs)){
             return $this->ajaxError("请求内容中无淘口令");
         }
         try{
-            $data = (new TransferService())->queryTaoCode($matchs[1], $request->user()->id);
+            $data = (new TransferService())->queryTaoCode($matchs[2], $request->user()->id);
             if($data === false){
                 throw new \Exception('淘口令解析失败');
             }

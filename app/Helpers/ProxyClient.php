@@ -25,10 +25,18 @@ class ProxyClient extends Client {
         if(!isset($config['proxy'])){
             $config['proxy'] = $this->getProxy();
         }
+        if(!isset($config['connect_timeout'])){
+            $config['connect_timeout'] = 5;
+        }
+        if(!isset($config['timeout'])){
+            $config['timeout'] = 5;
+        }
+
         parent::__construct($config);
     }
 
     public function request($method, $uri = '', array $options = []){
+        $response = null;
         try{
             try{
                 $response = parent::request($method, $uri, $options);
@@ -38,12 +46,16 @@ class ProxyClient extends Client {
                     Log::error(__METHOD__." "."代理IP无法连接，刷新重试");
                     $options['proxy'] = $this->getProxy(true);
                     $response = parent::request($method, $uri, $options);
+                }else{
+                    throw $e;
                 }
             }
         }catch (\Exception $e){
             //代理过期
             if($e instanceof ConnectException){
                 Log::error(__METHOD__." "."新代理IP无法连接");
+            }else{
+                Log::error($e);
             }
         }
 
