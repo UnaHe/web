@@ -465,7 +465,7 @@ class TransferService
                 try{
                     $mamaDetail = json_decode($mamaDetail, true);
                     $mamaDetail = $mamaDetail['data']['pageList'][0];
-                    $commission = $commission?: $mamaDetail['tkRate'];
+                    $commission = $commission?: ($mamaDetail['eventRate'] > $mamaDetail['tkRate'] ? $mamaDetail['eventRate'] : $mamaDetail['tkRate']);
                     if(!$couponId && $mamaDetail['couponAmount']){
                         $couponTime = $mamaDetail['couponEffectiveEndTime']." 23:59:59";
                         $couponPrice = $mamaDetail['couponAmount'];
