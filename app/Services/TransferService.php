@@ -259,7 +259,6 @@ class TransferService
         $response = $client->request('GET', $url, [
             'verify' => false,
             'headers' => [
-                'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36',
                 'Referer' => $referer,
             ],
             RequestOptions::ALLOW_REDIRECTS => [
@@ -269,7 +268,6 @@ class TransferService
                 'track_redirects' => true,
             ],
         ]);
-
         $redirectUriHistory = $response->getHeader('X-Guzzle-Redirect-History'); // retrieve Redirect URI history
         return array_pop($redirectUriHistory);
     }
@@ -294,7 +292,8 @@ class TransferService
         }else if(strpos($url, 'item.taobao.com/item.htm')){
             return $url;
         }else if(strpos($url, 'a.m.taobao.com/i')){
-            return $this->getRedirectUrl($url);
+            preg_match("/a\.m\.taobao\.com\/i(\d+)/", $url, $matchItemId);
+            return "http://item.taobao.com/item.htm?id=".$matchItemId[1];
         }else if(strpos($url, 'uland.taobao.com')){
             return $url;
         }else if(strpos($url, 'detail.tmall.com')){
