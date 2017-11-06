@@ -10,6 +10,7 @@ namespace App\Services;
 use App\Helpers\CacheHelper;
 use App\Helpers\ErrorHelper;
 use App\Helpers\GoodsHelper;
+use App\Helpers\ProxyClient;
 use App\Helpers\UrlHelper;
 use App\Models\Banner;
 use App\Models\GoodsCategory;
@@ -311,7 +312,7 @@ class TransferService
             return $cache;
         }
 
-        $client = new Client(['cookie'=>true]);
+        $client = new ProxyClient(['cookie'=>true]);
         $jar = new \GuzzleHttp\Cookie\CookieJar;
 
         $data	= '{"password":"'.$taoCode.'"}';
