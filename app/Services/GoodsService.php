@@ -9,6 +9,7 @@ namespace App\Services;
 
 use App\Helpers\CacheHelper;
 use App\Helpers\EsHelper;
+use App\Helpers\ProxyClient;
 use App\Helpers\QueryHelper;
 use App\Models\ColumnGoodsRel;
 use App\Models\Goods;
@@ -306,7 +307,7 @@ class GoodsService
      */
     public function queryAllGoods($keyword, $page, $limit){
         $url = "http://pub.alimama.com/items/search.json?q={$keyword}&toPage={$page}&perPageSize={$limit}&freeShipment=1&dpyhq=1&auctionTag=&shopTag=yxjh,dpyhq&t=".time();
-        $response = (new Client())->get($url)->getBody()->getContents();
+        $response = (new ProxyClient())->get($url)->getBody()->getContents();
         $response = json_decode($response, true);
         if(!isset($response['data']) || !isset($response['data']['pageList']) || !isset($response['data']['pageList'][0])) {
             return null;

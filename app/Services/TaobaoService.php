@@ -9,6 +9,7 @@ namespace App\Services;
 
 
 use App\Helpers\ErrorHelper;
+use App\Helpers\ProxyClient;
 use App\Models\Goods;
 use App\Models\TaobaoPid;
 use App\Models\TaobaoToken;
@@ -154,7 +155,7 @@ class TaobaoService
      * 同步阿里妈妈pid
      */
     public function getTaobaoPid($cookie){
-        $this->client = new Client(['cookie'=>true]);
+        $this->client = new ProxyClient(['cookie'=>true]);
 
         try{
             //解析cookie字符串为数组
@@ -254,7 +255,7 @@ class TaobaoService
      * @param $couponId
      */
     public function getTaobaoCoupon($goodsId, $couponId=""){
-        $this->client = new Client(['cookie'=>true]);
+        $this->client = new ProxyClient(['cookie'=>true]);
         if($couponId){
             //需要传递的参数
             $apiParamData = [

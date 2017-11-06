@@ -254,7 +254,7 @@ class TransferService
     public function getRedirectUrl($url, $referer=null){
         static $client;
         if(!$client){
-            $client = new Client();
+            $client = new ProxyClient();
         }
         $response = $client->request('GET', $url, [
             'verify' => false,
