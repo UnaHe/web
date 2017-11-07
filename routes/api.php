@@ -10,7 +10,7 @@
 |
 */
 
-Route::domain(config('domains.api_domain'))->namespace('App\Http\Controllers')->group(function (){
+Route::domain(config('domains.api_domain'))->middleware(\App\Http\Middleware\ApiLog::class)->namespace('App\Http\Controllers')->group(function (){
     /**
      * 查询券信息
      */
