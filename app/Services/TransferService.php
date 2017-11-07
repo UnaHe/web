@@ -455,7 +455,6 @@ class TransferService
 
         //从数据库获取信息填充
         $detail = (new GoodsService())->getByGoodsId($itemId);
-        $couponId = (!$couponId && $detail) ? $detail['coupon_id'] : $couponId;
         $couponMLink = (!$couponId && $detail) ? $detail['coupon_m_link'] : null;
         $couponLink = (!$couponId && $detail) ? $detail['coupon_link']: null;
         $couponPrice = (!$couponId && $detail) ? $detail['coupon_price'] : $couponPrice;
@@ -463,6 +462,7 @@ class TransferService
         $couponPrerequisite = (!$couponId && $detail) ? $detail['coupon_prerequisite'] : $couponPrerequisite;
         $couponNum = (!$couponId && $detail) ? $detail['coupon_num'] : 0;
         $couponOver = (!$couponId && $detail) ? $detail['coupon_over'] : 0;
+        $couponId = (!$couponId && $detail) ? $detail['coupon_id'] : $couponId;
 
         $commissionType = $detail ? $detail['commission_type'] : 0;
         $commission = $detail? $detail['commission'] : 0;
