@@ -298,6 +298,12 @@ class TransferService
             return $url;
         }else if(strpos($url, 'detail.tmall.com')){
             return $url;
+        }else if(strpos($url, 'detail.ju.taobao.com')){
+            preg_match("/detail\.ju\.taobao\.com.*?[\?&]item_id=(\d+)/", $url, $matchItemId);
+            return "http://item.taobao.com/item.htm?id=".$matchItemId[1];
+        }else if(strpos($url, 'tqg.taobao.com')){
+            preg_match("/tqg\.taobao\.com.*?[\?&]itemId=(\d+)/", $url, $matchItemId);
+            return "http://item.taobao.com/item.htm?id=".$matchItemId[1];
         }
     }
 
