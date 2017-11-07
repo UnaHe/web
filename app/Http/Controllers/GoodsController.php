@@ -74,6 +74,29 @@ class GoodsController extends Controller
      * @return static
      */
     public function columnGoods(Request $request, $columnCode){
+        //商品分类
+        $category = $request->get('category');
+        //商品排序
+        $sort = $request->get('sort');
+        //淘抢购筛选
+        $isTaoqianggou = $request->get('tqg');
+        //聚划算筛选
+        $isJuhuashuan = $request->get('jhs');
+        //最低价格筛选
+        $minPrice = $request->get('min_price');
+        //最高价格筛选
+        $maxPrice = $request->get('max_price');
+        //天猫筛选
+        $isTmall = $request->get('is_tmall', 0);
+        //最低佣金筛选
+        $minCommission = $request->get('min_commission', 0);
+        //最低销量筛选
+        $minSellNum = $request->get('min_sell_num', 0);
+        //最低券金额筛选
+        $minCouponPrice = $request->get('min_coupon_price');
+        //最高券金额筛选
+        $maxCouponPrice = $request->get('max_coupon_price');
+
         if(!(new ChannelColumnService())->getByCode($columnCode)){
             return $this->ajaxError("栏目不存在");
         }
@@ -81,7 +104,7 @@ class GoodsController extends Controller
         $params = $request->all();
         $params['column_code'] = $columnCode;
         if(!$list = CacheHelper::getCache($params)){
-            $list = (new GoodsService())->columnGoodList($columnCode);
+            $list = (new GoodsService())->columnGoodList($columnCode, $category, $sort, $isTaoqianggou, $isJuhuashuan, $minPrice, $maxPrice, $isTmall, $minCommission, $minSellNum, $minCouponPrice, $maxCouponPrice);
             $list = (new GoodsHelper())->resizeGoodsListPic($list->toArray(), ['pic'=>'310x310']);
             CacheHelper::setCache($list, 1, $params);
         }
@@ -105,6 +128,8 @@ class GoodsController extends Controller
         $keyword = $request->get('keyword');
         $page = intval($request->input("page", 1));
         $limit = intval($request->input("limit", 20));
+        //商品排序
+        $sort = $request->get('sort');
         $page = $page > 0 ? $page : 1;
         $limit = $limit > 0 ? $limit : 20;
 
@@ -114,7 +139,7 @@ class GoodsController extends Controller
 
         $params = $request->all();
         if(!$list = CacheHelper::getCache($params)){
-            $list = (new GoodsService())->queryAllGoods($keyword, $page, $limit);
+            $list = (new GoodsService())->queryAllGoods($keyword, $page, $limit, $sort);
             $list = (new GoodsHelper())->resizeGoodsListPic($list, ['pic'=>'310x310']);
             CacheHelper::setCache($list, 1, $params);
         }

@@ -28,18 +28,34 @@ class GoodsService
     CONST SORT_NEW = 2;
 
     /**
-     * 销量排序
+     * 销量排序：高到低
      */
     CONST SORT_SELL_NUM = 3;
+
     /**
-     * 价格排序
+     * 销量排序：低到高
+     */
+    CONST SORT_SELL_NUM_ASC = -3;
+
+    /**
+     * 价格排序：高到低
      */
     CONST SORT_PRICE = 4;
+
     /**
-     * 优惠券金额排序
+     * 价格排序：低到高
+     */
+    CONST SORT_PRICE_ASC = -4;
+
+    /**
+     * 优惠券金额排序: 高到低
      */
     CONST SORT_COUPON_PRICE = 5;
 
+    /**
+     * 优惠券金额排序：低到高
+     */
+    CONST SORT_COUPON_PRICE_ASC = -5;
 
     /**
      * 获取商品列表
@@ -52,134 +68,135 @@ class GoodsService
      */
     public function goodList($category, $sort, $keyword, $isTaoqianggou, $isJuhuashuan, $minPrice, $maxPrice, $isTmall, $minCommission, $minSellNum, $minCouponPrice, $maxCouponPrice){
         $sortVal = $this->sort($sort);
+        $request = app('request');
+        //分页参数
+        $page = $request->input("page");
+        $limit = $request->input("limit", 20);
+        $start = ($page - 1)*$limit;
 
-        if($keyword){
-            $request = app('request');
-            //分页参数
-            $page = $request->input("page");
-            $limit = $request->input("limit", 20);
-            $start = ($page - 1)*$limit;
-
-            $esParams = [
-                'index' => 'pyt',
-                'type' => 'good',
-                'body' => [
-                    'from' => $start,
-                    'size' => $limit,
-                    'query' =>[
-                        'bool' => [
-                            'must' =>[
-                                'match' => [
-                                    'title' => [
-                                        'query' => $keyword,
-                                        'operator' => 'and'
-                                    ]
-                                ],
-                            ],
-                            'filter'=>[],
-                        ],
-                    ]
-                ]
-            ];
-
-            if($category){
-                $esParams['body']['query']['bool']['filter'][] = ['term'=>['catagory_id' => $category]];
-            }
-            if($isTaoqianggou){
-                $esParams['body']['query']['bool']['filter'][] = ['term'=>['is_taoqianggou' => 1]];
-            }
-            if($isJuhuashuan){
-                $esParams['body']['query']['bool']['filter'][] = ['term'=>['is_juhuashuan' => 1]];
-            }
-            if($minPrice || $maxPrice){
-                $priceData = [];
-                if($minPrice){
-                    $priceData['gte'] = $minPrice;
-                }
-                if($maxPrice){
-                    $priceData['lte'] = $maxPrice;
-                }
-                $esParams['body']['query']['bool']['filter'][] = ['range'=>['price' => $priceData]];
-            }
-
-            if($isTmall){
-                $esParams['body']['query']['bool']['filter'][] = ['term'=>['is_tmall' => 1]];
-            }
-            if($minCommission){
-                $esParams['body']['query']['bool']['filter'][] = ['range'=>['commission' => ['gte'=>$minCommission]]];
-            }
-            if($minSellNum){
-                $esParams['body']['query']['bool']['filter'][] = ['range'=>['sell_num' => ['gte'=>$minSellNum]]];
-            }
-
-            if($minCouponPrice || $maxCouponPrice){
-                $couponPriceData = [];
-                if($minCouponPrice){
-                    $couponPriceData['gte'] = $minCouponPrice;
-                }
-                if($maxCouponPrice){
-                    $couponPriceData['lte'] = $maxCouponPrice;
-                }
-                $esParams['body']['query']['bool']['filter'][] = ['range'=>['coupon_price' => $couponPriceData]];
-            }
-
-            if($sortVal){
-                $esParams['body']['sort'][] = [$sortVal[0] => ['order'=> $sortVal[1]]];
-            }
-
-
-            return (new EsHelper())->search($esParams);
-        }
-
-        $query = Goods::query();
+        $filters = [];
         if($category){
-            $query->where("catagory_id", $category);
+            $filters[] = ['term'=>['catagory_id' => $category]];
         }
         if($isTaoqianggou){
-            $query->where("is_taoqianggou", 1);
+            $filters[] = ['term'=>['is_taoqianggou' => 1]];
         }
         if($isJuhuashuan){
-            $query->where("is_juhuashuan", 1);
+            $filters[] = ['term'=>['is_juhuashuan' => 1]];
         }
-        if($minPrice){
-            $query->where("price", '>=', $minPrice);
-        }
-        if($maxPrice){
-            $query->where("price", '<=', $maxPrice);
-        }
-        if($isTmall){
-            $query->where("is_tmall", 1);
-        }
-        if($minCommission){
-            $query->where("commission", '>=', $minCommission);
-        }
-        if($minSellNum){
-            $query->where("sell_num", '>=', $minSellNum);
-        }
-        if($minCouponPrice){
-            $query->where("coupon_price", '>=', $minCouponPrice);
-        }
-        if($maxCouponPrice){
-            $query->where("coupon_price", '<=', $maxCouponPrice);
+        if($minPrice || $maxPrice){
+            $priceData = [];
+            if($minPrice){
+                $priceData['gte'] = $minPrice;
+            }
+            if($maxPrice){
+                $priceData['lte'] = $maxPrice;
+            }
+            $filters[] = ['range'=>['price' => $priceData]];
         }
 
-        if($sortVal){
-            $query->orderBy($sortVal[0], $sortVal[1]);
+        if($isTmall){
+            $filters[] = ['term'=>['is_tmall' => 1]];
         }
-        $list = (new QueryHelper())->pagination($query)->get();
-        return $list->toArray();
+        if($minCommission){
+            $filters[] = ['range'=>['commission' => ['gte'=>$minCommission]]];
+        }
+        if($minSellNum){
+            $filters[] = ['range'=>['sell_num' => ['gte'=>$minSellNum]]];
+        }
+
+        if($minCouponPrice || $maxCouponPrice){
+            $couponPriceData = [];
+            if($minCouponPrice){
+                $couponPriceData['gte'] = $minCouponPrice;
+            }
+            if($maxCouponPrice){
+                $couponPriceData['lte'] = $maxCouponPrice;
+            }
+            $filters[] = ['range'=>['coupon_price' => $couponPriceData]];
+        }
+
+        $esParams = [
+            'index' => 'pyt',
+            'type' => 'good',
+            'body' => [
+                'from' => $start,
+                'size' => $limit,
+                'query' =>[
+                    'bool' => [
+                        'filter'=>$filters,
+                    ],
+                ]
+            ]
+        ];
+
+        //搜索关键词
+        if($keyword){
+            $esParams['body']['query']['bool']['must'] = [
+                'match' => [
+                    'title' => [
+                        'query' => $keyword,
+                        'operator' => 'and'
+                    ]
+                ],
+            ];
+        }
+
+        //排序
+        if($sortVal){
+            $esParams['body']['sort'][] = [$sortVal[0] => ['order'=> $sortVal[1]]];
+        }
+
+        return (new EsHelper())->search($esParams);
     }
 
     /**
      * 获取栏目商品列表
      */
-    public function columnGoodList($columnCode){
+    public function columnGoodList($columnCode, $category, $sort, $isTaoqianggou, $isJuhuashuan, $minPrice, $maxPrice, $isTmall, $minCommission, $minSellNum, $minCouponPrice, $maxCouponPrice){
         $query = Goods::query()->from((new Goods())->getTable().' as goods');
         $query->leftJoin((new ColumnGoodsRel())->getTable().' as ref', 'goods.id', '=', 'ref.goods_id');
         $query->where('ref.column_code', $columnCode);
 
         $query->select('goods.*', 'ref.goods_col_title', 'ref.goods_col_pic', 'ref.goods_col_des');
-        $query->orderBy('ref.id', 'desc');
+
+        if($category){
+            $query->where("goods.catagory_id", $category);
+        }
+        if($isTaoqianggou){
+            $query->where("goods.is_taoqianggou", 1);
+        }
+        if($isJuhuashuan){
+            $query->where("goods.is_juhuashuan", 1);
+        }
+        if($minPrice){
+            $query->where("goods.price", '>=', $minPrice);
+        }
+        if($maxPrice){
+            $query->where("goods.price", '<=', $maxPrice);
+        }
+        if($isTmall){
+            $query->where("goods.is_tmall", 1);
+        }
+        if($minCommission){
+            $query->where("goods.commission", '>=', $minCommission);
+        }
+        if($minSellNum){
+            $query->where("goods.sell_num", '>=', $minSellNum);
+        }
+        if($minCouponPrice){
+            $query->where("goods.coupon_price", '>=', $minCouponPrice);
+        }
+        if($maxCouponPrice){
+            $query->where("goods.coupon_price", '<=', $maxCouponPrice);
+        }
+
+        $sortVal = $this->sort($sort);
+        if($sortVal){
+            $query->orderBy("goods.".$sortVal[0], $sortVal[1]);
+        }else{
+            $query->orderBy('ref.id', 'desc');
+        }
 
         $list = (new QueryHelper())->pagination($query)->get();
         return $list;
@@ -292,12 +309,24 @@ class GoodsService
                 return ['sell_num', 'desc'];
                 break;
             }
+            case self::SORT_SELL_NUM_ASC:{
+                return ['sell_num', 'asc'];
+                break;
+            }
             case self::SORT_PRICE:{
                 return ['price', 'desc'];
                 break;
             }
+            case self::SORT_PRICE_ASC:{
+                return ['price', 'asc'];
+                break;
+            }
             case self::SORT_COUPON_PRICE:{
                 return ['coupon_price', 'desc'];
+                break;
+            }
+            case self::SORT_COUPON_PRICE_ASC:{
+                return ['coupon_price', 'asc'];
                 break;
             }
         }
@@ -308,9 +337,27 @@ class GoodsService
      * 全网搜索
      * @param $keyword
      */
-    public function queryAllGoods($keyword, $page, $limit){
+    public function queryAllGoods($keyword, $page, $limit, $sort){
         $keyword = urlencode($keyword);
-        $url = "http://pub.alimama.com/items/search.json?q={$keyword}&toPage={$page}&perPageSize={$limit}&freeShipment=&dpyhq=&auctionTag=&shopTag=&t=".time();
+        $url = "http://pub.alimama.com/items/search.json?q={$keyword}&toPage={$page}&perPageSize={$limit}&auctionTag=&shopTag=&t=".time();
+        switch ($sort){
+            case self::SORT_RENQI:{
+                $url .= "&queryType=2";
+                break;
+            }
+            case self::SORT_SELL_NUM:{
+                $url .= "&sortType=9";
+                break;
+            }
+            case self::SORT_PRICE:{
+                $url .= "&sortType=3";
+                break;
+            }
+            case self::SORT_PRICE_ASC:{
+                $url .= "&sortType=4";
+                break;
+            }
+        }
         $response = (new ProxyClient())->get($url)->getBody()->getContents();
         $response = json_decode($response, true);
         if(!isset($response['data']) || !isset($response['data']['pageList']) || !isset($response['data']['pageList'][0])) {
