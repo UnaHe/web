@@ -304,6 +304,15 @@ class TransferService
         }else if(strpos($url, 'tqg.taobao.com')){
             preg_match("/tqg\.taobao\.com.*?[\?&]itemId=(\d+)/", $url, $matchItemId);
             return "http://item.taobao.com/item.htm?id=".$matchItemId[1];
+        }else{
+            //默认查询关键字拼url
+            if(preg_match("/(taobao|tmall)\.com.*?[\?&]itemId=(\d+)/", $url, $matchItemId)){
+                return "http://item.taobao.com/item.htm?id=".$matchItemId[2];
+            }else if(preg_match("/(taobao|tmall)\.com.*?[\?&]item_id=(\d+)/", $url, $matchItemId)){
+                return "http://item.taobao.com/item.htm?id=".$matchItemId[2];
+            }else if(preg_match("/(taobao|tmall)\.com.*?[\?&]id=(\d+)/", $url, $matchItemId)){
+                return "http://item.taobao.com/item.htm?id=".$matchItemId[2];
+            }
         }
     }
 
