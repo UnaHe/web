@@ -142,7 +142,7 @@
 
 <script type="text/javascript">
     window.goods_id = '{{$pageInfo['goods_id']}}';
-    window.redirect_url = '{{$pageInfo['url']}}';
+    window.redirect_url = '{!!$pageInfo['url']!!}';
 </script>
 <script src="/js/jquery.2.1.4.js"></script>
 <script src="/js/layer/layer.js"></script>
