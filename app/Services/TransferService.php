@@ -321,7 +321,7 @@ class TransferService
      * @param $taoCode
      * @return mixed
      */
-    public function queryTaoCode($taoCode, $userId){
+    public function queryTaoCode($code, $isMiao, $userId){
         if($cache = CacheHelper::getCache()){
             return $cache;
         }
@@ -329,7 +329,8 @@ class TransferService
         $client = new ProxyClient(['cookie'=>true]);
         $jar = new \GuzzleHttp\Cookie\CookieJar;
 
-        $data	= '{"password":"'.$taoCode.'"}';
+        //淘口令解析
+        $data	= '{"password":"'.$code.'"}';
         $api	= 'com.taobao.redbull.getpassworddetail';
         $appKey = '21646297';
         $v		= '1.0';
@@ -341,22 +342,35 @@ class TransferService
         $h5TkCookie = $jar->getCookieByName('_m_h5_tk')->getValue();
         $h5Tk = explode('_', $h5TkCookie)[0];
 
-        //拼接实际请求地址
-        $sign	= md5($h5Tk.'&'.$t.'&'.$appKey.'&'.$data);
-        $url	= $cookieUrl.'&appKey='.$appKey.'&sign='.$sign.'&t='.$t.'&data='.$data;
+        if(!$isMiao){
+            //拼接实际请求地址
+            $sign	= md5($h5Tk.'&'.$t.'&'.$appKey.'&'.$data);
+            $url	= $cookieUrl.'&appKey='.$appKey.'&sign='.$sign.'&t='.$t.'&data='.$data;
 
-        $response = $client->request('GET', $url, ['cookies' => $jar])->getBody()->getContents();
-        $result = json_decode($response, true);
+            $response = $client->request('GET', $url, ['cookies' => $jar])->getBody()->getContents();
+            $result = json_decode($response, true);
 
-        if(!strstr($response, '调用成功') || !isset($result['data'])){
-            return false;
+            if(!strstr($response, '调用成功') || !isset($result['data'])){
+                return false;
+            }
+
+            $taoCodeData = $result['data'];
+            $lastUrl = $taoCodeData['url'];
+
+            //获取最终跳转地址
+            $lastUrl = $this->getFinalUrl($lastUrl);
+        }else{
+            //喵口令解析
+            $response = $client->get($code);
+            if(!$response){
+                throw new \Exception("喵口令解析失败");
+            }
+            $content = $response->getBody()->getContents();
+            if(!preg_match("/\"itemId\":(\d+)/", $content, $matchItemId)){
+                throw new \Exception("喵口令解析失败");
+            }
+            $lastUrl =  "http://item.taobao.com/item.htm?id=".$matchItemId[1];
         }
-
-        $taoCodeData = $result['data'];
-        $lastUrl = $taoCodeData['url'];
-
-        //获取最终跳转地址
-        $lastUrl = $this->getFinalUrl($lastUrl);
 
         if(!strpos($lastUrl, "uland.taobao.com")){
             if(preg_match("/item\.taobao\.com.*?[\?&]id=(\d+)/", $lastUrl, $matchItemId)){
@@ -542,8 +556,13 @@ class TransferService
         //分享描述
         $data['share_desc'] = (new GoodsService())->getShareDesc($shareData);
 
-
-        CacheHelper::setCache($data, Carbon::createFromTimestamp(substr($taoCodeData['validDate'], 0, 10)));
+        $expireTime = null;
+        if(!$isMiao){
+            $expireTime = Carbon::createFromTimestamp(substr($taoCodeData['validDate'], 0, 10));
+        }else{
+            $expireTime = Carbon::now()->addDay(5);
+        }
+        CacheHelper::setCache($data, $expireTime);
         return $data;
     }
 }
