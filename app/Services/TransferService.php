@@ -412,7 +412,7 @@ class TransferService
             }
         }
 
-        var_dump($apiParamData);exit;
+        var_dump($lastUrlParams);exit;
 
         $apiUrl = 'https://acs.m.taobao.com/h5/mtop.alimama.union.hsf.coupon.get/1.0/';
         $apiParams = [
