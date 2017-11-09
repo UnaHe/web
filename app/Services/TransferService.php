@@ -412,7 +412,7 @@ class TransferService
             }
         }
         //TODO 增加地址无itemId activityId的判断
-        if(!$apiParamData['itemId']|| $apiParamData['activityId']){
+        if(!isset($apiParamData['itemId'])|| !isset($apiParamData['activityId']){
             throw new \Exception("淘口令解析失败,请联系技术处理！");
         }
         var_dump("测试");exit;
