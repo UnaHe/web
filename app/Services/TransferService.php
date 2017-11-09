@@ -383,7 +383,7 @@ class TransferService
                 throw new \Exception("淘口令解析失败");
             }
             $itemId = $matchItemId;
-
+            var_dump($itemId);exit;
             $token = (new TaobaoService())->getToken($userId);
             $pid = (new TaobaoService())->getPid($userId);
             if(!$token){
@@ -395,7 +395,7 @@ class TransferService
             try{
                 $result = $this->transferLink($itemId, $pid, $token);
                 $lastUrl = $result['coupon_click_url'];
-                var_dump($lastUrl);exit;
+
             }catch (\Exception $e){
                 throw new \Exception($e->getMessage(), $e->getCode());
             }
