@@ -371,7 +371,7 @@ class TransferService
             }
             $lastUrl =  "http://item.taobao.com/item.htm?id=".$matchItemId[1];
         }
-       
+
         if(!strpos($lastUrl, "uland.taobao.com")){
             if(preg_match("/item\.taobao\.com.*?[\?&]id=(\d+)/", $lastUrl, $matchItemId)){
                 $matchItemId = $matchItemId[1];
@@ -395,6 +395,7 @@ class TransferService
             try{
                 $result = $this->transferLink($itemId, $pid, $token);
                 $lastUrl = $result['coupon_click_url'];
+                var_dump($lastUrl);exit;
             }catch (\Exception $e){
                 throw new \Exception($e->getMessage(), $e->getCode());
             }
