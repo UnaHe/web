@@ -341,7 +341,7 @@ class TransferService
         $client->request('GET', $cookieUrl, ['cookies' => $jar]);
         $h5TkCookie = $jar->getCookieByName('_m_h5_tk')->getValue();
         $h5Tk = explode('_', $h5TkCookie)[0];
-
+        var_dump($h5Tk);exit;
         if(!$isMiao){
             //拼接实际请求地址
             $sign	= md5($h5Tk.'&'.$t.'&'.$appKey.'&'.$data);
@@ -371,7 +371,7 @@ class TransferService
             }
             $lastUrl =  "http://item.taobao.com/item.htm?id=".$matchItemId[1];
         }
-        var_dump($lastUrl);exit;
+
         if(!strpos($lastUrl, "uland.taobao.com")){
             if(preg_match("/item\.taobao\.com.*?[\?&]id=(\d+)/", $lastUrl, $matchItemId)){
                 $matchItemId = $matchItemId[1];
