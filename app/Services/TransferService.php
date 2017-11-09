@@ -378,12 +378,12 @@ class TransferService
             }else if(preg_match("/edtail\.tmall\.com.*?[\?&]id=(\d+)/", $lastUrl, $matchItemId)){
                 $matchItemId = $matchItemId[1];
             }
-
+            var_dump($matchItemId);exit;
             if(!$matchItemId){
                 throw new \Exception("淘口令解析失败");
             }
             $itemId = $matchItemId;
-            var_dump($itemId);exit;
+
             $token = (new TaobaoService())->getToken($userId);
             $pid = (new TaobaoService())->getPid($userId);
             if(!$token){
