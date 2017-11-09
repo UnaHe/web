@@ -375,6 +375,7 @@ class TransferService
         if(!strpos($lastUrl, "uland.taobao.com")){
             if(preg_match("/item\.taobao\.com.*?[\?&]id=(\d+)/", $lastUrl, $matchItemId)){
                 $matchItemId = $matchItemId[1];
+                //TODO detail 是否修改为 edetail，请确认! david
             }else if(preg_match("/edetail\.tmall\.com.*?[\?&]id=(\d+)/", $lastUrl, $matchItemId)){
                 $matchItemId = $matchItemId[1];
             }
@@ -402,7 +403,6 @@ class TransferService
         }
 
         parse_str(parse_url($lastUrl)['query'], $lastUrlParams);
-
         //需要传递的参数
         $apiParamData = [];
         $params = ['e','me','dx','itemId','activityId','pid','src','scm','engpvid','mt','couponType','ptl'];
@@ -411,8 +411,11 @@ class TransferService
                 $apiParamData[$param] = $lastUrlParams[$param];
             }
         }
-        var_dump($lastUrl);
-        var_dump($lastUrlParams);exit;
+        //TODO 增加地址无itemId activityId的判断
+        if(!$apiParamData['itemId']|| $apiParamData['activityId']){
+            throw new \Exception("淘口令解析失败,请联系技术处理！");
+        }
+        var_dump("测试");exit;
 
         $apiUrl = 'https://acs.m.taobao.com/h5/mtop.alimama.union.hsf.coupon.get/1.0/';
         $apiParams = [
