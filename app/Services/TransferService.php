@@ -371,7 +371,7 @@ class TransferService
             }
             $lastUrl =  "http://item.taobao.com/item.htm?id=".$matchItemId[1];
         }
-
+        var_dump($lastUrl);exit;
         if(!strpos($lastUrl, "uland.taobao.com")){
             if(preg_match("/item\.taobao\.com.*?[\?&]id=(\d+)/", $lastUrl, $matchItemId)){
                 $matchItemId = $matchItemId[1];
