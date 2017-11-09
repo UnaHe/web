@@ -371,7 +371,7 @@ class TransferService
             }
             $lastUrl =  "http://item.taobao.com/item.htm?id=".$matchItemId[1];
         }
-        //var_dump($lastUrl);exit;
+
         if(!strpos($lastUrl, "uland.taobao.com")){
             if(preg_match("/item\.taobao\.com.*?[\?&]id=(\d+)/", $lastUrl, $matchItemId)){
                 $matchItemId = $matchItemId[1];
@@ -411,6 +411,8 @@ class TransferService
                 $apiParamData[$param] = $lastUrlParams[$param];
             }
         }
+
+        var_dump($apiParamData);exit;
 
         $apiUrl = 'https://acs.m.taobao.com/h5/mtop.alimama.union.hsf.coupon.get/1.0/';
         $apiParams = [
