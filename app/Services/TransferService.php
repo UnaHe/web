@@ -371,14 +371,14 @@ class TransferService
             }
             $lastUrl =  "http://item.taobao.com/item.htm?id=".$matchItemId[1];
         }
-
+        var_dump($lastUrl);exit;
         if(!strpos($lastUrl, "uland.taobao.com")){
             if(preg_match("/item\.taobao\.com.*?[\?&]id=(\d+)/", $lastUrl, $matchItemId)){
                 $matchItemId = $matchItemId[1];
             }else if(preg_match("/edtail\.tmall\.com.*?[\?&]id=(\d+)/", $lastUrl, $matchItemId)){
                 $matchItemId = $matchItemId[1];
             }
-            var_dump($matchItemId);exit;
+
             if(!$matchItemId){
                 throw new \Exception("淘口令解析失败");
             }
