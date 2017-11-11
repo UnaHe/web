@@ -376,8 +376,7 @@ class TransferService
         if(!strpos($lastUrl, "uland.taobao.com")){
             if(preg_match("/item\.taobao\.com.*?[\?&]id=(\d+)/", $lastUrl, $matchItemId)){
                 $matchItemId = $matchItemId[1];
-                //TODO detail 是否修改为 edetail，请确认! david
-            }else if(preg_match("/edetail\.tmall\.com.*?[\?&]id=(\d+)/", $lastUrl, $matchItemId)){
+            }else if(preg_match("/detail\.tmall\.com.*?[\?&]id=(\d+)/", $lastUrl, $matchItemId)){
                 $matchItemId = $matchItemId[1];
             }
 
@@ -411,10 +410,6 @@ class TransferService
             if(isset($lastUrlParams[$param])){
                 $apiParamData[$param] = $lastUrlParams[$param];
             }
-        }
-        //TODO 增加地址无itemId activityId的判断
-        if(!isset($apiParamData['itemId'])|| !isset($apiParamData['activityId'])) {
-            throw new \Exception("淘口令解析失败,请联系技术处理！");
         }
 
         $apiUrl = 'https://acs.m.taobao.com/h5/mtop.alimama.union.hsf.coupon.get/1.0/';
