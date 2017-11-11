@@ -56,6 +56,8 @@ class TransferController extends Controller
         $isMiao = false;
         if(preg_match('/([\x{300a}\x{ffe5}]){1}([0-9A-Za-z]+?)\1/u', $content, $matchs)){
             $code = $matchs[2];
+        }else if(preg_match('/🔑([0-9A-Za-z]+?)🔑/', $content, $matchs)){
+            $code = $matchs[1];
         }else if(preg_match('/(http:\/\/[\w0-9\.\/\?\&=\-\+%]+).*?喵口令/', $content, $matchs)){
             $code = $matchs[1];
             $isMiao = true;

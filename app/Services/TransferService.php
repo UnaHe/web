@@ -357,6 +357,7 @@ class TransferService
             $taoCodeData = $result['data'];
             $lastUrl = $taoCodeData['url'];
 
+
             //获取最终跳转地址
             $lastUrl = $this->getFinalUrl($lastUrl);
         }else{
