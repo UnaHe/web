@@ -322,7 +322,7 @@ class TransferService
      * @return mixed
      */
     public function queryTaoCode($code, $isMiao, $isLink, $userId){
-        if($cache = CacheHelper::getCache()){
+        if($cache = CacheHelper::getCache($code)){
             return $cache;
         }
 
@@ -459,14 +459,14 @@ class TransferService
 
         //从数据库获取信息填充
         $detail = (new GoodsService())->getByGoodsId($itemId);
-        $couponMLink = (!$couponId && $detail) ? $detail['coupon_m_link'] : null;
-        $couponLink = (!$couponId && $detail) ? $detail['coupon_link']: null;
-        $couponPrice = (!$couponId && $detail) ? $detail['coupon_price'] : $couponPrice;
-        $couponTime = (!$couponId && $detail) ? $detail['coupon_time'] : $couponTime;
-        $couponPrerequisite = (!$couponId && $detail) ? $detail['coupon_prerequisite'] : $couponPrerequisite;
-        $couponNum = (!$couponId && $detail) ? $detail['coupon_num'] : 0;
-        $couponOver = (!$couponId && $detail) ? $detail['coupon_over'] : 0;
-        $couponId = (!$couponId && $detail) ? $detail['coupon_id'] : $couponId;
+        $couponMLink = (!$couponId && $detail && $detail['is_del'] == 0) ? $detail['coupon_m_link'] : null;
+        $couponLink = (!$couponId && $detail  && $detail['is_del'] == 0) ? $detail['coupon_link']: null;
+        $couponPrice = (!$couponId && $detail && $detail['is_del'] == 0) ? $detail['coupon_price'] : $couponPrice;
+        $couponTime = (!$couponId && $detail && $detail['is_del'] == 0) ? $detail['coupon_time'] : $couponTime;
+        $couponPrerequisite = (!$couponId && $detail && $detail['is_del'] == 0) ? $detail['coupon_prerequisite'] : $couponPrerequisite;
+        $couponNum = (!$couponId && $detail && $detail['is_del'] == 0) ? $detail['coupon_num'] : 0;
+        $couponOver = (!$couponId && $detail && $detail['is_del'] == 0) ? $detail['coupon_over'] : 0;
+        $couponId = (!$couponId && $detail && $detail['is_del'] == 0) ? $detail['coupon_id'] : $couponId;
 
         $commissionType = $detail ? $detail['commission_type'] : 0;
         $commission = $detail? $detail['commission'] : 0;
@@ -565,13 +565,7 @@ class TransferService
         //分享描述
         $data['share_desc'] = (new GoodsService())->getShareDesc($shareData);
 
-        $expireTime = null;
-        if(isset($taoCodeData) && isset($taoCodeData['validDate'])){
-            $expireTime = Carbon::createFromTimestamp(substr($taoCodeData['validDate'], 0, 10));
-        }else{
-            $expireTime = Carbon::now()->addDay(5);
-        }
-        CacheHelper::setCache($data, $expireTime);
+        CacheHelper::setCache($data, 5, $code);
         return $data;
     }
 }
