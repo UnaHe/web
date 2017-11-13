@@ -21,7 +21,9 @@ class QueryHelper
         $request = app('request');
         //分页参数
         $page = $request->input("page");
-        $limit = $request->input("limit", 20);
+        $page = $page ?: 1;
+        $limit = $request->input("limit");
+        $limit = $limit ?: 20;
         $start = ($page - 1)*$limit;
 
         return $query->skip($start)->take($limit);
