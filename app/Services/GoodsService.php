@@ -372,6 +372,12 @@ class GoodsService
         $result = [];
         foreach ($allGoods as $goods){
             $title = strip_tags($goods['title']);
+            $commission = 0;
+            if($goods['tkSpecialCampaignIdRateMap']){
+                $commission = max(array_values($goods['tkSpecialCampaignIdRateMap']));
+            }
+            $commission = max($commission, $goods['eventRate'], $goods['tkRate']);
+
             $data = [
                 'goodsid' => $goods['auctionId'],
                 'goods_url' => $goods['auctionUrl'],
@@ -402,7 +408,7 @@ class GoodsService
                 'plan_link' => null,
                 'plan_apply' => null,
                 'commission_type' => 0,
-                'commission' => $goods['eventRate'] > $goods['tkRate'] ? $goods['eventRate'] : $goods['tkRate'],
+                'commission' => $commission,
                 'commission_marketing' => 0,
                 'commission_plan' => 0,
                 'commission_bridge' => 0,
