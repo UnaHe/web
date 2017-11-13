@@ -490,31 +490,29 @@ class TransferService
         $des = $detail ? $detail['des'] : "";
         $goodsUrl = (new GoodsHelper())->generateTaobaoUrl($itemId, $isTmall);
 
-        //没有佣金则从联盟查询
-        if(!$commission){
-            $url = "http://pub.alimama.com/items/search.json?q=".urlencode($goodsUrl)."&auctionTag=&perPageSize=40&shopTag=";
-            $mamaDetail = $client->get($url)->getBody()->getContents();
-            if($mamaDetail){
-                try{
-                    $mamaDetail = json_decode($mamaDetail, true);
-                    $mamaDetail = $mamaDetail['data']['pageList'][0];
-                    if(!$commission){
-                        if($mamaDetail['tkSpecialCampaignIdRateMap']){
-                            $commission = max(array_values($mamaDetail['tkSpecialCampaignIdRateMap']));
-                        }
-                        $commission = max($commission, $mamaDetail['eventRate'], $mamaDetail['tkRate']);
+        //从联盟查询
+        $url = "http://pub.alimama.com/items/search.json?q=".urlencode($goodsUrl)."&auctionTag=&perPageSize=40&shopTag=";
+        $mamaDetail = $client->get($url)->getBody()->getContents();
+        if($mamaDetail){
+            try{
+                $mamaDetail = json_decode($mamaDetail, true);
+                $mamaDetail = $mamaDetail['data']['pageList'][0];
+                if(!$commission){
+                    if($mamaDetail['tkSpecialCampaignIdRateMap']){
+                        $commission = max(array_values($mamaDetail['tkSpecialCampaignIdRateMap']));
                     }
-                    if(!$couponId && $mamaDetail['couponAmount']){
-                        $couponTime = $mamaDetail['couponEffectiveEndTime']." 23:59:59";
-                        $couponPrice = $mamaDetail['couponAmount'];
-                        $couponPrerequisite = $mamaDetail['couponStartFee'];
-                        $couponNum = $mamaDetail['couponTotalCount'];
-                        $couponOver = $mamaDetail['couponLeftCount'];
-                        $couponId = $mamaDetail['couponActivityId'];
-                    }
-                }catch (\Exception $e){
-                    Log::error("查询联盟商品佣金失败， 商品id:".$itemId);
+                    $commission = max($commission, $mamaDetail['eventRate'], $mamaDetail['tkRate']);
                 }
+                if(!$couponId && $mamaDetail['couponAmount']){
+                    $couponTime = $mamaDetail['couponEffectiveEndTime']." 23:59:59";
+                    $couponPrice = $mamaDetail['couponAmount'];
+                    $couponPrerequisite = $mamaDetail['couponStartFee'];
+                    $couponNum = $mamaDetail['couponTotalCount'];
+                    $couponOver = $mamaDetail['couponLeftCount'];
+                    $couponId = $mamaDetail['couponActivityId'];
+                }
+            }catch (\Exception $e){
+                Log::error("查询联盟商品佣金失败， 商品id:".$itemId);
             }
         }
 
