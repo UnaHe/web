@@ -497,12 +497,11 @@ class TransferService
             try{
                 $mamaDetail = json_decode($mamaDetail, true);
                 $mamaDetail = $mamaDetail['data']['pageList'][0];
-                if(!$commission){
-                    if($mamaDetail['tkSpecialCampaignIdRateMap']){
-                        $commission = max(array_values($mamaDetail['tkSpecialCampaignIdRateMap']));
-                    }
-                    $commission = max($commission, $mamaDetail['eventRate'], $mamaDetail['tkRate']);
+                if($mamaDetail['tkSpecialCampaignIdRateMap']){
+                    $commission = max(array_values($mamaDetail['tkSpecialCampaignIdRateMap']));
                 }
+                $commission = max($commission, $mamaDetail['eventRate'], $mamaDetail['tkRate']);
+                
                 if(!$couponId && $mamaDetail['couponAmount']){
                     $couponTime = $mamaDetail['couponEffectiveEndTime']." 23:59:59";
                     $couponPrice = $mamaDetail['couponAmount'];
