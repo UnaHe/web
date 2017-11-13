@@ -77,6 +77,7 @@ class GoodsService
         $start = ($page - 1)*$limit;
 
         $filters = [];
+        $filters[] = ['term'=>['is_del' => 0]];
         if($category){
             $filters[] = ['term'=>['catagory_id' => $category]];
         }
@@ -161,6 +162,7 @@ class GoodsService
         $query->where('ref.column_code', $columnCode);
 
         $query->select('goods.*', 'ref.goods_col_title', 'ref.goods_col_pic', 'ref.goods_col_des');
+        $query->where("goods.is_del", 0);
 
         if($category){
             $query->where("goods.catagory_id", $category);
