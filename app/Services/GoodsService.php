@@ -341,9 +341,9 @@ class GoodsService
      * 全网搜索
      * @param $keyword
      */
-    public function queryAllGoods($keyword, $page, $limit, $sort){
+    public function queryAllGoods($keyword, $hasShopCoupon, $isHighPayRate, $isTmall, $minSellNum, $minCommission, $maxCommission, $minPrice, $maxPrice, $page, $limit, $sort){
         $keyword = urlencode($keyword);
-        $url = "http://pub.alimama.com/items/search.json?q={$keyword}&toPage={$page}&perPageSize={$limit}&auctionTag=&shopTag=&t=".time();
+        $url = "http://pub.alimama.com/items/search.json?q={$keyword}&toPage={$page}&perPageSize={$limit}&auctionTag=&t=".time();
         switch ($sort){
             case self::SORT_RENQI:{
                 $url .= "&queryType=2";
@@ -362,6 +362,44 @@ class GoodsService
                 break;
             }
         }
+        $shopTag = [];
+        //店铺优惠券筛选
+        if($hasShopCoupon){
+            $shopTag[] = 'dpyhq';
+            $url .= "&dpyhq=1";
+        }
+        //月成交转化率高于行业均值
+        if($isHighPayRate){
+            $url .= "&hPayRate30=1";
+        }
+        //天猫
+        if($isTmall){
+            $shopTag[] = 'b2c';
+            $url .= "&b2c=1";
+        }
+        //最低销量筛选
+        if($minSellNum){
+            $url .= "&startBiz30day=".$minSellNum;
+        }
+        //最低佣金筛选
+        if($minCommission){
+            $url .= "&startTkRate=".$minCommission;
+        }
+        //最高佣金筛选
+        if($maxCommission){
+            $url .= "&endTkRate=".$maxCommission;
+        }
+        //最低价格筛选
+        if($minPrice){
+            $url .= "&startPrice=".$minPrice;
+        }
+        //最高价格筛选
+        if($maxPrice){
+            $url .= "&endPrice=".$maxPrice;
+        }
+
+        $url.= "&shopTag=".implode(',', $shopTag);
+
         $response = (new ProxyClient())->get($url)->getBody()->getContents();
         $response = json_decode($response, true);
         if(!isset($response['data']) || !isset($response['data']['pageList']) || !isset($response['data']['pageList'][0])) {

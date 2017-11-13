@@ -48,7 +48,9 @@ class GoodsController extends Controller
         $params = $request->all();
         if(!$list = CacheHelper::getCache($params)){
             $list = (new GoodsService())->goodList($category, $sort, $keyword, $isTaoqianggou, $isJuhuashuan, $minPrice, $maxPrice, $isTmall, $minCommission, $minSellNum, $minCouponPrice, $maxCouponPrice);
-            $list = (new GoodsHelper())->resizeGoodsListPic($list, ['pic'=>'310x310']);
+            if($list){
+                $list = (new GoodsHelper())->resizeGoodsListPic($list, ['pic'=>'310x310']);
+            }
             CacheHelper::setCache($list, 1, $params);
         }
         return $this->ajaxSuccess($list);
@@ -105,7 +107,9 @@ class GoodsController extends Controller
         $params['column_code'] = $columnCode;
         if(!$list = CacheHelper::getCache($params)){
             $list = (new GoodsService())->columnGoodList($columnCode, $category, $sort, $isTaoqianggou, $isJuhuashuan, $minPrice, $maxPrice, $isTmall, $minCommission, $minSellNum, $minCouponPrice, $maxCouponPrice);
-            $list = (new GoodsHelper())->resizeGoodsListPic($list->toArray(), ['pic'=>'310x310']);
+            if($list){
+                $list = (new GoodsHelper())->resizeGoodsListPic($list->toArray(), ['pic'=>'310x310']);
+            }
             CacheHelper::setCache($list, 1, $params);
         }
         return $this->ajaxSuccess($list);
@@ -128,6 +132,23 @@ class GoodsController extends Controller
         $keyword = $request->get('keyword');
         $page = intval($request->input("page", 1));
         $limit = intval($request->input("limit", 20));
+        //是否有店铺优惠券
+        $hasShopCoupon = $request->get('has_shop_coupon', 0);
+        //月成交转化率高于行业均值
+        $isHighPayRate = $request->get('is_high_pay_rate', 0);
+        //天猫旗舰店
+        $isTmall = $request->get('is_tmall', 0);
+        //最低销量筛选
+        $minSellNum = $request->get('min_sell_num', 0);
+        //最低佣金筛选
+        $minCommission = $request->get('min_commission', 0);
+        //最高佣金筛选
+        $maxCommission = $request->get('max_commission', 0);
+        //最低价格筛选
+        $minPrice = $request->get('min_price');
+        //最高价格筛选
+        $maxPrice = $request->get('max_price');
+
         //商品排序
         $sort = $request->get('sort');
         $page = $page > 0 ? $page : 1;
@@ -139,8 +160,10 @@ class GoodsController extends Controller
 
         $params = $request->all();
         if(!$list = CacheHelper::getCache($params)){
-            $list = (new GoodsService())->queryAllGoods($keyword, $page, $limit, $sort);
-            $list = (new GoodsHelper())->resizeGoodsListPic($list, ['pic'=>'310x310']);
+            $list = (new GoodsService())->queryAllGoods($keyword, $hasShopCoupon, $isHighPayRate, $isTmall, $minSellNum, $minCommission, $maxCommission, $minPrice, $maxPrice, $page, $limit, $sort);
+            if($list){
+                $list = (new GoodsHelper())->resizeGoodsListPic($list, ['pic'=>'310x310']);
+            }
             CacheHelper::setCache($list, 1, $params);
         }
         return $this->ajaxSuccess($list);
