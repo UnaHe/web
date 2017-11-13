@@ -321,7 +321,7 @@ class TransferService
      * @param $taoCode
      * @return mixed
      */
-    public function queryTaoCode($code, $isMiao, $userId){
+    public function queryTaoCode($code, $isMiao, $isLink, $userId){
         if($cache = CacheHelper::getCache()){
             return $cache;
         }
@@ -343,20 +343,23 @@ class TransferService
         $h5Tk = explode('_', $h5TkCookie)[0];
 
         if(!$isMiao){
-            //拼接实际请求地址
-            $sign	= md5($h5Tk.'&'.$t.'&'.$appKey.'&'.$data);
-            $url	= $cookieUrl.'&appKey='.$appKey.'&sign='.$sign.'&t='.$t.'&data='.$data;
+            if(!$isLink){
+                //拼接实际请求地址
+                $sign	= md5($h5Tk.'&'.$t.'&'.$appKey.'&'.$data);
+                $url	= $cookieUrl.'&appKey='.$appKey.'&sign='.$sign.'&t='.$t.'&data='.$data;
 
-            $response = $client->request('GET', $url, ['cookies' => $jar])->getBody()->getContents();
-            $result = json_decode($response, true);
+                $response = $client->request('GET', $url, ['cookies' => $jar])->getBody()->getContents();
+                $result = json_decode($response, true);
 
-            if(!strstr($response, '调用成功') || !isset($result['data'])){
-                return false;
+                if(!strstr($response, '调用成功') || !isset($result['data'])){
+                    return false;
+                }
+
+                $taoCodeData = $result['data'];
+                $lastUrl = $taoCodeData['url'];
+            }else{
+                $lastUrl = $code;
             }
-
-            $taoCodeData = $result['data'];
-            $lastUrl = $taoCodeData['url'];
-
 
             //获取最终跳转地址
             $lastUrl = $this->getFinalUrl($lastUrl);
@@ -563,7 +566,7 @@ class TransferService
         $data['share_desc'] = (new GoodsService())->getShareDesc($shareData);
 
         $expireTime = null;
-        if(!$isMiao){
+        if(isset($taoCodeData) && isset($taoCodeData['validDate'])){
             $expireTime = Carbon::createFromTimestamp(substr($taoCodeData['validDate'], 0, 10));
         }else{
             $expireTime = Carbon::now()->addDay(5);
