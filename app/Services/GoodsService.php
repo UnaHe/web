@@ -103,10 +103,14 @@ class GoodsService
         }
         if($minCommission){
             $filters[] = ['range'=>['commission' => ['gte'=>$minCommission]]];
+        }else{
+            $filters[] = ['range'=>['commission' => ['gt'=>0]]];
         }
+
         if($minSellNum){
             $filters[] = ['range'=>['sell_num' => ['gte'=>$minSellNum]]];
         }
+
 
         if($minCouponPrice || $maxCouponPrice){
             $couponPriceData = [];
@@ -184,6 +188,8 @@ class GoodsService
         }
         if($minCommission){
             $query->where("goods.commission", '>=', $minCommission);
+        }else{
+            $query->where("goods.commission", '>', 0);
         }
         if($minSellNum){
             $query->where("goods.sell_num", '>=', $minSellNum);
