@@ -49,7 +49,7 @@ class GoodsController extends Controller
         if(!$list = CacheHelper::getCache($params)){
             $list = (new GoodsService())->goodList($category, $sort, $keyword, $isTaoqianggou, $isJuhuashuan, $minPrice, $maxPrice, $isTmall, $minCommission, $minSellNum, $minCouponPrice, $maxCouponPrice);
             if($list){
-                $list = (new GoodsHelper())->resizeGoodsListPic($list, ['pic'=>'310x310']);
+                $list = (new GoodsHelper())->resizeGoodsListPic($list, ['pic'=>'240x240']);
             }
             CacheHelper::setCache($list, 1, $params);
         }
@@ -108,7 +108,7 @@ class GoodsController extends Controller
         if(!$list = CacheHelper::getCache($params)){
             $list = (new GoodsService())->columnGoodList($columnCode, $category, $sort, $isTaoqianggou, $isJuhuashuan, $minPrice, $maxPrice, $isTmall, $minCommission, $minSellNum, $minCouponPrice, $maxCouponPrice);
             if($list){
-                $list = (new GoodsHelper())->resizeGoodsListPic($list->toArray(), ['pic'=>'310x310']);
+                $list = (new GoodsHelper())->resizeGoodsListPic($list->toArray(), ['pic'=>'240x240']);
             }
             CacheHelper::setCache($list, 1, $params);
         }
