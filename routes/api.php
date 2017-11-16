@@ -12,7 +12,7 @@
 
 Route::domain(config('domains.api_domain'))->middleware(\App\Http\Middleware\ApiLog::class)->namespace('App\Http\Controllers')->group(function (){
     /**
-     * 查询券信息
+     * 查询券信息, 工具验证券有效性调用
      */
     Route::get('/coupon', "TaobaoController@getTaobaoCoupon");
 
@@ -48,41 +48,6 @@ Route::domain(config('domains.api_domain'))->middleware(\App\Http\Middleware\Api
      * 淘宝授权登录跳转
      */
     Route::get('/taobao/auth', "TaobaoController@auth");
-
-    /**
-     * 商品分类
-     */
-    Route::get('/categorys', "CategoryController@getAllCategory");
-
-    /**
-     * 商品列表
-     */
-    Route::get('/goods', "GoodsController@goodList");
-
-    /**
-     * 商品详情
-     */
-    Route::get('/goods/{goodsId}', "GoodsController@detail")->where('goodsId', '[0-9]+');
-
-    /**
-     * 栏目商品列表
-     */
-    Route::get('/columns/{code}/goods', "GoodsController@columnGoods");
-
-    /**
-     * 指定位置广告banner列表
-     */
-    Route::get('/banners/{position}', "BannerController@getBanner");
-
-    /**
-     * 热搜词
-     */
-    Route::get('/hotKeyword', "GoodsController@hotKeyWord");
-
-    /**
-     * 全网搜索
-     */
-    Route::get('/queryAllGoods', "GoodsController@queryAllGoods");
 
 
     /**
@@ -136,6 +101,41 @@ Route::domain(config('domains.api_domain'))->middleware(\App\Http\Middleware\Api
          * 提交意见反馈
          */
         Route::post('/feedback', "FeedbackController@feedback");
+
+        /**
+         * 商品分类
+         */
+        Route::get('/categorys', "CategoryController@getAllCategory");
+
+        /**
+         * 商品列表
+         */
+        Route::get('/goods', "GoodsController@goodList");
+
+        /**
+         * 商品详情
+         */
+        Route::get('/goods/{goodsId}', "GoodsController@detail")->where('goodsId', '[0-9]+');
+
+        /**
+         * 栏目商品列表
+         */
+        Route::get('/columns/{code}/goods', "GoodsController@columnGoods");
+
+        /**
+         * 指定位置广告banner列表
+         */
+        Route::get('/banners/{position}', "BannerController@getBanner");
+
+        /**
+         * 热搜词
+         */
+        Route::get('/hotKeyword', "GoodsController@hotKeyWord");
+
+        /**
+         * 全网搜索
+         */
+        Route::get('/queryAllGoods', "GoodsController@queryAllGoods");
 
     });
 

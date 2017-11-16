@@ -45,13 +45,10 @@ class GoodsController extends Controller
         //最高券金额筛选
         $maxCouponPrice = $request->get('max_coupon_price');
 
-        $params = $request->all();
-        if(!$list = CacheHelper::getCache($params)){
-            $list = (new GoodsService())->goodList($category, $sort, $keyword, $isTaoqianggou, $isJuhuashuan, $minPrice, $maxPrice, $isTmall, $minCommission, $minSellNum, $minCouponPrice, $maxCouponPrice);
-            if($list){
-                $list = (new GoodsHelper())->resizeGoodsListPic($list, ['pic'=>'240x240']);
-            }
-            CacheHelper::setCache($list, 1, $params);
+        $userId = $request->user()->id;
+        $list = (new GoodsService())->goodList($category, $sort, $keyword, $isTaoqianggou, $isJuhuashuan, $minPrice, $maxPrice, $isTmall, $minCommission, $minSellNum, $minCouponPrice, $maxCouponPrice, $userId);
+        if($list){
+            $list = (new GoodsHelper())->resizeGoodsListPic($list, ['pic'=>'240x240']);
         }
         return $this->ajaxSuccess($list);
     }

@@ -66,7 +66,7 @@ class GoodsService
      * @param int $isJuhuashuan 是否聚划算
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function goodList($category, $sort, $keyword, $isTaoqianggou, $isJuhuashuan, $minPrice, $maxPrice, $isTmall, $minCommission, $minSellNum, $minCouponPrice, $maxCouponPrice){
+    public function goodList($category, $sort, $keyword, $isTaoqianggou, $isJuhuashuan, $minPrice, $maxPrice, $isTmall, $minCommission, $minSellNum, $minCouponPrice, $maxCouponPrice, $userId){
         $sortVal = $this->sort($sort);
         $request = app('request');
         //分页参数
@@ -74,87 +74,108 @@ class GoodsService
         $page = $page ?: 1;
         $limit = $request->input("limit");
         $limit = $limit ?: 20;
-        $start = ($page - 1)*$limit;
 
-        $filters = [];
-        $filters[] = ['term'=>['is_del' => 0]];
-        if($category){
-            $filters[] = ['term'=>['catagory_id' => $category]];
-        }
-        if($isTaoqianggou){
-            $filters[] = ['term'=>['is_taoqianggou' => 1]];
-        }
-        if($isJuhuashuan){
-            $filters[] = ['term'=>['is_juhuashuan' => 1]];
-        }
-        if($minPrice || $maxPrice){
-            $priceData = [];
-            if($minPrice){
-                $priceData['gte'] = $minPrice;
+        if($page == 1){
+            $filters = [];
+            $filters[] = ['term'=>['is_del' => 0]];
+            if($category){
+                $filters[] = ['term'=>['catagory_id' => $category]];
             }
-            if($maxPrice){
-                $priceData['lte'] = $maxPrice;
+            if($isTaoqianggou){
+                $filters[] = ['term'=>['is_taoqianggou' => 1]];
             }
-            $filters[] = ['range'=>['price' => $priceData]];
-        }
-
-        if($isTmall){
-            $filters[] = ['term'=>['is_tmall' => 1]];
-        }
-        if($minCommission){
-            $filters[] = ['range'=>['commission' => ['gte'=>$minCommission]]];
-        }else{
-            $filters[] = ['range'=>['commission' => ['gt'=>0]]];
-        }
-
-        if($minSellNum){
-            $filters[] = ['range'=>['sell_num' => ['gte'=>$minSellNum]]];
-        }
-
-
-        if($minCouponPrice || $maxCouponPrice){
-            $couponPriceData = [];
-            if($minCouponPrice){
-                $couponPriceData['gte'] = $minCouponPrice;
+            if($isJuhuashuan){
+                $filters[] = ['term'=>['is_juhuashuan' => 1]];
             }
-            if($maxCouponPrice){
-                $couponPriceData['lte'] = $maxCouponPrice;
+            if($minPrice || $maxPrice){
+                $priceData = [];
+                if($minPrice){
+                    $priceData['gte'] = $minPrice;
+                }
+                if($maxPrice){
+                    $priceData['lte'] = $maxPrice;
+                }
+                $filters[] = ['range'=>['price' => $priceData]];
             }
-            $filters[] = ['range'=>['coupon_price' => $couponPriceData]];
-        }
 
-        $esParams = [
-            'index' => 'pyt',
-            'type' => 'good',
-            'body' => [
-                'from' => $start,
-                'size' => $limit,
-                'query' =>[
-                    'bool' => [
-                        'filter'=>$filters,
-                    ],
-                ]
-            ]
-        ];
+            if($isTmall){
+                $filters[] = ['term'=>['is_tmall' => 1]];
+            }
+            if($minCommission){
+                $filters[] = ['range'=>['commission' => ['gte'=>$minCommission]]];
+            }else{
+                $filters[] = ['range'=>['commission' => ['gt'=>0]]];
+            }
 
-        //搜索关键词
-        if($keyword){
-            $esParams['body']['query']['bool']['must'] = [
-                'match' => [
-                    'title' => [
-                        'query' => $keyword,
-                        'operator' => 'and'
+            if($minSellNum){
+                $filters[] = ['range'=>['sell_num' => ['gte'=>$minSellNum]]];
+            }
+
+
+            if($minCouponPrice || $maxCouponPrice){
+                $couponPriceData = [];
+                if($minCouponPrice){
+                    $couponPriceData['gte'] = $minCouponPrice;
+                }
+                if($maxCouponPrice){
+                    $couponPriceData['lte'] = $maxCouponPrice;
+                }
+                $filters[] = ['range'=>['coupon_price' => $couponPriceData]];
+            }
+
+            $esParams = [
+                'scroll' => '15m',
+                'index' => 'pyt',
+                'type' => 'good',
+                'body' => [
+                    'size' => $limit,
+                    'query' =>[
+                        'bool' => [
+                            'filter'=>$filters,
+                        ],
                     ]
-                ],
+                ]
             ];
+
+            //搜索关键词
+            if($keyword){
+                $esParams['body']['query']['bool']['must'] = [
+                    'match' => [
+                        'title' => [
+                            'query' => $keyword,
+                            'operator' => 'and'
+                        ]
+                    ],
+                ];
+            }
+
+            //排序
+            if($sortVal){
+                $esParams['body']['sort'][] = [$sortVal[0] => ['order'=> $sortVal[1]]];
+            }
+
+            $esHelper = new EsHelper();
+            $results = $esHelper->search($esParams);
+            CacheHelper::setCache($esHelper->getScrollId(), 15);
+            return $results;
+        }else{
+            $results = [];
+            try{
+                $scrollId = CacheHelper::getCache();
+                if($scrollId){
+                    $results = (new EsHelper())->scroll([
+                        'scroll_id' => $scrollId,
+                        'scroll' => "15m"
+                    ]);
+                    CacheHelper::setCache($scrollId, 15);
+                }
+                return $results;
+            }catch (\Exception $e){
+            }
+
+            return $results;
         }
 
-        //排序
-        if($sortVal){
-            $esParams['body']['sort'][] = [$sortVal[0] => ['order'=> $sortVal[1]]];
-        }
-
-        return (new EsHelper())->search($esParams);
     }
 
     /**
