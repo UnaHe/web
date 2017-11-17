@@ -13,9 +13,19 @@ use GuzzleHttp\Exception\ConnectException;
 use Illuminate\Support\Facades\Log;
 
 class ProxyClient extends Client {
-    private $ipUrl = "http://dynamic.goubanjia.com/dynamic/get/4b42767ae5ae9f10345782f0e6d7a116.html?random=yes";
+    /**
+     * 代理ip获取地址
+     */
+    private $ipUrl;
+    /**
+     * 固定代理ip
+     */
+    private $ip;
 
     public function __construct(array $config = []){
+        $this->ipUrl = config('proxy.proxy_ip_url');
+        $this->ip = config('proxy.proxy_ip');
+
         if(!isset($config['headers'])){
             $config['headers']=[];
         }
@@ -67,6 +77,10 @@ class ProxyClient extends Client {
      * @param bool $refresh 是否刷新
      */
     public function getProxy($refresh = false){
+        if($this->ip){
+            return $this->ip;
+        }
+        
         $ip = CacheHelper::getCache("ip");
         if($ip && !$refresh){
             return $ip;
