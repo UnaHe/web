@@ -137,7 +137,7 @@ class TransferService
         try{
             $req = new \TbkTpwdCreateRequest;
             $req->setUserId("1");
-            $req->setText($title);
+            $req->setText(trim($title, " \t\n\r\0\x0B@"));
             $req->setUrl($url);
             $req->setLogo($pic);
             $req->setExt("{}");
