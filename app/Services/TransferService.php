@@ -184,7 +184,10 @@ class TransferService
             ];
             $wechatUrl = (new WechatPageService())->createPage($goodsInfo, $userId);
             //使用短网址
-            $wechatUrl = (new UrlHelper())->shortUrl($wechatUrl);
+            try{
+                $wechatUrl = (new UrlHelper())->shortUrl($wechatUrl);
+            }catch (\Exception $e){
+            }
             $data['wechat_url'] = $wechatUrl;
 
             $shareData = [
