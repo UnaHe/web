@@ -66,7 +66,7 @@ class GoodsService
      * @param int $isJuhuashuan 是否聚划算
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function goodList($category, $sort, $keyword, $isTaoqianggou, $isJuhuashuan, $minPrice, $maxPrice, $isTmall, $minCommission, $minSellNum, $minCouponPrice, $maxCouponPrice, $userId){
+    public function goodList($category, $sort, $keyword, $isTaoqianggou, $isJuhuashuan, $minPrice, $maxPrice, $isTmall, $minCommission, $minSellNum, $minCouponPrice, $maxCouponPrice, $isJpseller, $isQjd, $isHaitao, $isJyj, $isYfx, $userId){
         $sortVal = $this->sort($sort);
         $request = app('request');
         //分页参数
@@ -121,6 +121,33 @@ class GoodsService
                     $couponPriceData['lte'] = $maxCouponPrice;
                 }
                 $filters[] = ['range'=>['coupon_price' => $couponPriceData]];
+            }
+
+            //金牌卖家
+            if($isJpseller){
+                $filters[] = ['term'=>['is_jpseller' => 2]];
+            }
+            //旗舰店
+            if($isQjd){
+                $filters[] = ['term'=>['is_qjd' => 2]];
+            }
+            //海淘
+            if($isHaitao){
+                $filters[] = [
+                    'bool' => [
+                        'should' => [
+                            ['term'=>['is_haitao' => 2]],
+                            ['term'=>['is_tmallgj' => 2]],
+                        ]
+                    ]
+                ];
+            }
+            //极有家
+            if($isJyj){
+                $filters[] = ['term'=>['is_jyjseller' => 2]];
+            }
+            if($isYfx){
+                $filters[] = ['term'=>['is_freight_insurance' => 2]];
             }
 
             $esParams = [

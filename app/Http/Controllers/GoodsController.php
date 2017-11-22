@@ -44,10 +44,31 @@ class GoodsController extends Controller
         $minCouponPrice = $request->get('min_coupon_price');
         //最高券金额筛选
         $maxCouponPrice = $request->get('max_coupon_price');
+        //金牌卖家
+        $isJpseller = $request->get('is_jpseller', 0);
+        //旗舰店
+        $isQjd = $request->get('is_qjd', 0);
+        //海淘
+        $isHaitao = $request->get('is_haitao', 0);
+        //极有家
+        $isJyj = $request->get('is_jyj', 0);
+        //运费险
+        $isYfx = $request->get('is_yfx', 0);
 
         $userId = $request->user()->id;
-        $list = (new GoodsService())->goodList($category, $sort, $keyword, $isTaoqianggou, $isJuhuashuan, $minPrice, $maxPrice, $isTmall, $minCommission, $minSellNum, $minCouponPrice, $maxCouponPrice, $userId);
+        $list = (new GoodsService())->goodList($category, $sort, $keyword, $isTaoqianggou, $isJuhuashuan, $minPrice, $maxPrice, $isTmall, $minCommission, $minSellNum, $minCouponPrice, $maxCouponPrice, $isJpseller, $isQjd, $isHaitao, $isJyj, $isYfx, $userId);
         if($list){
+            foreach ($list as &$item){
+                $keys = ['is_jpseller', 'is_qjd', 'is_haitao', 'is_tmallgj', 'is_jyjseller', 'is_freight_insurance'];
+                foreach ($keys as $key){
+                    $value = $item[$key];
+                    if($value == 1){
+                        $item[$key] = 0;
+                    }else if($value == 2){
+                        $item[$key] = 1;
+                    }
+                }
+            }
             $list = (new GoodsHelper())->resizeGoodsListPic($list, ['pic'=>'240x240']);
         }
         return $this->ajaxSuccess($list);
