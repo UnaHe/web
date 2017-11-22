@@ -21,6 +21,7 @@ class UrlHelper
         $apiUrl = "http://api.weibo.com/2/short_url/shorten.json?source=5786724301&url_long=".$url;
         $client = new Client(['timeout' => 1]);
         try{
+            throw new \Exception('暂停使用新浪');
             $response = $client->get($apiUrl)->getBody()->getContents();
             if(!$response){
                 throw new \Exception('短网址转换失败');
