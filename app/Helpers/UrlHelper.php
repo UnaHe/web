@@ -18,18 +18,18 @@ class UrlHelper
      */
     public function shortUrl($url){
         $appId = config('services.sina_open.key');
-        $apiUrl = "http://api.t.sina.com.cn/short_url/shorten.json?source={$appId}&url_long=".$url;
-        $client = new Client(['timeout' => 2]);
+        $apiUrl = "http://api.weibo.com/2/short_url/shorten.json?source=5786724301&url_long=".$url;
+        $client = new Client(['timeout' => 1]);
         try{
             $response = $client->get($apiUrl)->getBody()->getContents();
             if(!$response){
                 throw new \Exception('短网址转换失败');
             }
             $response = json_decode($response, true);
-            if(!isset($response[0]['url_short'])){
+            if(!isset($response['urls'][0]['url_short'])){
                 return null;
             }
-            return $response[0]['url_short'];
+            return $response['urls'][0]['url_short'];
         }catch (\Exception $e){
             $apiUrl = "http://6du.in/?is_api=1&lurl=".$url;
             $response = $client->get($apiUrl)->getBody()->getContents();
