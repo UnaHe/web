@@ -54,6 +54,29 @@ class GoodsController extends Controller
     }
 
     /**
+     * 推荐商品列表
+     * @param Request $request
+     * @return static
+     */
+    public function recommendGoods(Request $request){
+        //当前商品标题
+        $title = $request->get('title');
+        //淘宝商品id
+        $taobaoGoodsId = $request->get('taobao_id');
+
+        if(!$title){
+            return $this->ajaxError("参数错误");
+        }
+
+        $list = (new GoodsService())->recommendGoods($title, $taobaoGoodsId);
+        if($list){
+            $list = (new GoodsHelper())->resizeGoodsListPic($list, ['pic'=>'240x240']);
+        }
+        return $this->ajaxSuccess($list);
+    }
+
+
+    /**
      * 商品详情
      * @param $goodId
      * @return static

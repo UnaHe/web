@@ -113,6 +113,11 @@ Route::domain(config('domains.api_domain'))->middleware(\App\Http\Middleware\Api
         Route::get('/goods', "GoodsController@goodList");
 
         /**
+         * 推荐商品列表
+         */
+        Route::get('/recommendGoods', "GoodsController@recommendGoods");
+
+        /**
          * 商品详情
          */
         Route::get('/goods/{goodsId}', "GoodsController@detail")->where('goodsId', '[0-9]+');

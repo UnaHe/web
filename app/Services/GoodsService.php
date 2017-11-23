@@ -179,6 +179,57 @@ class GoodsService
     }
 
     /**
+     * 商品推荐列表
+     * @param $keyword 搜索关键词
+     * @param null $excludeTaobaoId 排除的淘宝商品id
+     * @return array
+     */
+    public function recommendGoods($keyword, $excludeTaobaoId=null){
+        if($cache = CacheHelper::getCache()){
+            return $cache;
+        }
+
+        $filters = [];
+        $filters[] = ['term'=>['is_del' => 0]];
+        $size = $excludeTaobaoId ? 11 : 10;
+
+        $esParams = [
+            'index' => 'pyt',
+            'type' => 'good',
+            'body' => [
+                'size' => $size,
+                'query' =>[
+                    'bool' => [
+                        'filter'=>$filters,
+                        'must' => [
+                            'match' => [
+                                'title' => [
+                                    'query' => $keyword,
+                                    'operator' => 'or'
+                                ]
+                            ],
+                        ],
+                    ],
+                ]
+            ]
+        ];
+
+        $esHelper = new EsHelper();
+        $results = $esHelper->search($esParams);
+        if($excludeTaobaoId){
+            foreach ($results as $key => $result){
+                if($result['goodsid'] == $excludeTaobaoId){
+                    unset($results[$key]);
+                }
+            }
+            $results = array_values($results);
+        }
+
+        CacheHelper::setCache($results, 5);
+        return $results;
+    }
+
+    /**
      * 获取栏目商品列表
      */
     public function columnGoodList($columnCode, $category, $sort, $isTaoqianggou, $isJuhuashuan, $minPrice, $maxPrice, $isTmall, $minCommission, $minSellNum, $minCouponPrice, $maxCouponPrice){
