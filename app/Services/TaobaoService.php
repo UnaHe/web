@@ -261,7 +261,7 @@ class TaobaoService
         }
 
         $this->client = new ProxyClient(['cookie'=>true]);
-        if($couponId && $couponId != 1){
+        if($couponId && $couponId != '1'){
             //需要传递的参数
             $apiParamData = [
                 'itemId'=>$goodsId,

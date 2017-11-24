@@ -264,7 +264,7 @@ class TransferService
                 $result = $this->transferLink($goodsId,$pid,$token);
                 $url = $result['coupon_click_url'];
                 //不是阿里妈妈券则指定优惠券id
-                if($couponId != 1){
+                if($couponId != '1'){
                     $url .= "&activityId=".$couponId;
                 }
                 $slickUrl = $this->transferSclick($url);
