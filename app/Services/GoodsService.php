@@ -541,7 +541,7 @@ class GoodsService
                 'seller_name' => $goods['shopTitle'],
                 'seller_icon_url' => '',
                 'is_tmall' => $goods['userType'] == 1 ? 1 : 0,
-                'coupon_id' => $goods['couponActivityId'] ?: 1,
+                'coupon_id' => $goods['couponAmount'] ? 1 : '',
                 'coupon_m_link'=> '',
                 'coupon_link'=> '',
                 'catagory_id' => 0,
