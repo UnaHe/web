@@ -15,7 +15,7 @@ class GoodsHelper
      * @param $taobaoGoodsId
      * @param $isTmall
      */
-    public function generateTaobaoUrl($taobaoGoodsId, $isTmall){
+    public function generateTaobaoUrl($taobaoGoodsId, $isTmall=0){
         $taobaoUrl = 'https://item.taobao.com/item.htm?id=%s';
         $tmallUrl = 'https://detail.tmall.com/item.htm?id=%s';
         $url = $isTmall ? $tmallUrl : $taobaoUrl;

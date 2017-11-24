@@ -124,7 +124,7 @@ class TransferService
     }
 
     /**
-     * 转淘口令
+     * 淘客链接转淘口令
      * @param $title
      * @param $url
      * @return mixed
@@ -144,6 +144,39 @@ class TransferService
             $resp = $this->topClient->execute($req);
             $result = (array)$resp;
             $data = $result['data']['model'];
+        }catch (\Exception $e){
+            throw new \Exception('淘口令转换失败');
+        }
+
+        CacheHelper::setCache($data);
+        return $data;
+    }
+
+    /**
+     * 非淘客链接转淘口令
+     * @param $title
+     * @param $url
+     * @param string $pic
+     * @return \Illuminate\Cache\CacheManager|mixed
+     * @throws \Exception
+     */
+    public function transferCommonTaoCode($title, $url, $pic=""){
+        if($cache = CacheHelper::getCache()){
+            return $cache;
+        }
+
+        try{
+            $req = new \WirelessShareTpwdCreateRequest;
+            $tpwd_param = new \GenPwdIsvParamDto;
+            $tpwd_param->ext="{}";
+            $tpwd_param->logo=$pic;
+            $tpwd_param->url=$url;
+            $tpwd_param->text=trim($title, " \t\n\r\0\x0B@");
+            $tpwd_param->user_id="1";
+            $req->setTpwdParam(json_encode($tpwd_param));
+            $resp = $this->topClient->execute($req);
+            $result = (array)$resp;
+            $data = $result['model'];
         }catch (\Exception $e){
             throw new \Exception('淘口令转换失败');
         }
@@ -227,13 +260,22 @@ class TransferService
         }
 
         try{
-            $result = $this->transferLink($goodsId,$pid,$token);
-            $url = $result['coupon_click_url'];
             if($couponId){
-                $url .= "&activityId=".$couponId;
+                $result = $this->transferLink($goodsId,$pid,$token);
+                $url = $result['coupon_click_url'];
+                //不是阿里妈妈券则指定优惠券id
+                if($couponId != 1){
+                    $url .= "&activityId=".$couponId;
+                }
+                $slickUrl = $this->transferSclick($url);
+                $taoCode = $this->transferTaoCode($title, $slickUrl, $pic);
+            }else{
+                //无优惠券的的商品直接拼接链接
+                $url = (new GoodsHelper())->generateTaobaoUrl($goodsId);
+                $url .= "&pid=".$pid;
+                $slickUrl = $url;
+                $taoCode = $this->transferCommonTaoCode($title, $slickUrl, $pic);
             }
-            $slickUrl = $this->transferSclick($url);
-            $taoCode = $this->transferTaoCode($title, $slickUrl, $pic);
             $data = [
                 'goods_id' => $goodsId,
                 'url' => $url,
@@ -511,7 +553,7 @@ class TransferService
                     $couponPrerequisite = $mamaDetail['couponStartFee'];
                     $couponNum = $mamaDetail['couponTotalCount'];
                     $couponOver = $mamaDetail['couponLeftCount'];
-                    $couponId = $mamaDetail['couponActivityId'];
+                    $couponId = $mamaDetail['couponActivityId'] ?: 1;
                 }
             }catch (\Exception $e){
                 Log::error("查询联盟商品佣金失败， 商品id:".$itemId);
