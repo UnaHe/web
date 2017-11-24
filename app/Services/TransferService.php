@@ -389,19 +389,14 @@ class TransferService
 
         if(!$isMiao){
             if(!$isLink){
-                //拼接实际请求地址
-                $sign	= md5($h5Tk.'&'.$t.'&'.$appKey.'&'.$data);
-                $url	= $cookieUrl.'&appKey='.$appKey.'&sign='.$sign.'&t='.$t.'&data='.$data;
-
-                $response = $client->request('GET', $url, ['cookies' => $jar])->getBody()->getContents();
-                $result = json_decode($response, true);
-
-                if(!strstr($response, '调用成功') || !isset($result['data'])){
-                    return false;
+                $req = new \WirelessShareTpwdQueryRequest;
+                $req->setPasswordContent($code);
+                $resp = $this->topClient->execute($req);
+                $resp = (array)$resp;
+                if(isset($resp['code']) || (isset($resp['suc']) && $resp['suc'] == false)){
+                    throw new \Exception("淘口令解析失败");
                 }
-
-                $taoCodeData = $result['data'];
-                $lastUrl = $taoCodeData['url'];
+                $lastUrl = $resp['url'];
             }else{
                 $lastUrl = $code;
             }
