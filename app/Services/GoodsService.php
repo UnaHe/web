@@ -11,6 +11,7 @@ use App\Helpers\CacheHelper;
 use App\Helpers\EsHelper;
 use App\Helpers\ProxyClient;
 use App\Helpers\QueryHelper;
+use App\Helpers\UtilsHelper;
 use App\Models\ColumnGoodsRel;
 use App\Models\Goods;
 use GuzzleHttp\Client;
@@ -251,6 +252,8 @@ class GoodsService
             }
             $results = array_values($results);
         }
+
+        $results = UtilsHelper::arraySort($results, 'commission', SORT_DESC);
 
         CacheHelper::setCache($results, 5);
         return $results;
