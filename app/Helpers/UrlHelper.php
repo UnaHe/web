@@ -19,7 +19,7 @@ class UrlHelper
     public function shortUrl($url){
         $appId = config('services.sina_open.key');
         $apiUrl = "http://api.weibo.com/2/short_url/shorten.json?source=5786724301&url_long=".$url;
-        $client = new Client(['timeout' => 1]);
+        $client = new Client(['timeout' => 3]);
         try{
 //            throw new \Exception('暂停使用新浪');
             $response = $client->get($apiUrl)->getBody()->getContents();
