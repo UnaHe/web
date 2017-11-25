@@ -260,15 +260,16 @@ class TransferService
         }
 
         try{
-            if($couponId){
+//            if($couponId){
                 $result = $this->transferLink($goodsId,$pid,$token);
                 $url = $result['coupon_click_url'];
                 //不是阿里妈妈券则指定优惠券id
-                if($couponId != '1'){
+                if(strlen($couponId) > 1){
                     $url .= "&activityId=".$couponId;
                 }
                 $slickUrl = $this->transferSclick($url);
                 $taoCode = $this->transferTaoCode($title, $slickUrl, $pic);
+/*
             }else{
                 //无优惠券的的商品直接拼接链接
                 $url = (new GoodsHelper())->generateTaobaoUrl($goodsId);
@@ -276,6 +277,7 @@ class TransferService
                 $slickUrl = $url;
                 $taoCode = $this->transferCommonTaoCode($title, $slickUrl, $pic);
             }
+*/
             $data = [
                 'goods_id' => $goodsId,
                 'url' => $url,

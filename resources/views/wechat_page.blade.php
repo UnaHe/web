@@ -3,13 +3,20 @@
     $taoCode = $pageInfo['tao_code'];
     $couponPrice = floatval($pageInfo['coupon_price']);
     $pic = (new \App\Helpers\GoodsHelper())->resizePic($pageInfo['pic'], "310x310");
+    $titles = [
+        '生活百科',
+        '网址导航',
+        '今日头条',
+        '生活常识',
+    ];
+    $pageTitle = array_random($titles);
 ?>
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>{{$pageInfo['title']}}</title>
+    <title>{{$pageTitle}}</title>
     <link href="/css/wechat_page.css?v=1" rel="stylesheet">
 </head>
 <body>
