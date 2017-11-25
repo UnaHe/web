@@ -388,8 +388,14 @@ class GoodsService
         $templateData['used_price'] = isset($shareData['used_price']) ? floatval($shareData['used_price']) : 0;
         //优惠券金额
         $templateData['coupon_price'] = isset($shareData['coupon_price']) ? floatval($shareData['coupon_price']) : 0;
+
+        $taoCode = null;
+        if(isset($shareData['tao_code'])){
+            preg_match('/([0-9A-Za-z]+)/', $shareData['tao_code'], $matchs);
+            $taoCode = $matchs[1];
+        }
         //淘口令
-        $templateData['tao_code'] = isset($shareData['tao_code']) ? $shareData['tao_code'] : '(复制后生成)';
+        $templateData['tao_code'] = $taoCode ? $taoCode : '(复制后生成)';
         //微信单页地址
         $templateData['wechat_url'] = isset($shareData['wechat_url']) ? $shareData['wechat_url'] : '(复制后生成)';
         //详情
