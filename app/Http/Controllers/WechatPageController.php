@@ -26,7 +26,10 @@ class WechatPageController extends Controller
         $data = [
             'pageInfo' => $wechatPage,
         ];
-        return view('wechat_page', $data);
+
+        $pageContent = view('wechat_page', $data);
+
+        return view('wechat_page_wrap', ['content' => base64_encode($pageContent)]);
     }
 
     /**

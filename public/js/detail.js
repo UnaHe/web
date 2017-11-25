@@ -7,7 +7,7 @@ var loading = true;
 var taoKeyNum = "";
 var clipboard = null;
 var timer = null;
-$(function () {
+//$(function () {
     //详情加载失败点击
     $(".detail-load-failed").on("click", function () {
         loadData();
@@ -57,7 +57,7 @@ $(function () {
     //一键复制
     oneKeyCopy();
 
-});
+//});
 
 //加载详情
 function loadData() {

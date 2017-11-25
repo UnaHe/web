@@ -155,7 +155,7 @@
 <script src="/js/layer/layer.js"></script>
 <script src="/js/imgLazy.v1.js"></script>
 <script src="/js/clip-board.min.js"></script>
-<script src="/js/detail.js?v=5"></script>
+<script src="/js/detail.js?v=6"></script>
 
 </body>
 </html>
