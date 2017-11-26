@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\UtilsHelper;
+use App\Models\WechatDomain;
 use App\Services\CaptchaService;
 use App\Services\UserService;
 use App\Services\WechatPageService;
@@ -39,11 +41,15 @@ class WechatPageController extends Controller
      */
     public function redirect($id){
         $redirectDomain = config('domains.redirect_domain');
-        $domains = config('domains.wechat_domains');
+        $domains = WechatDomain::get();
+        if($domains){
+            $domains = $domains->pluck("domain")->toArray();
+        }
         if($domains && !in_array($redirectDomain, $domains)){
             $domain = array_random($domains, 1)[0];
             $url = URL::action('WechatPageController@page', ['id' => $id], false);
-            $redirectUrl = "http://".$domain.$url;
+            $domain = str_replace("*", UtilsHelper::randStr(5), $domain);
+            $redirectUrl = $domain.$url;
             return redirect($redirectUrl);
         }else{
             return $this->page($id);
