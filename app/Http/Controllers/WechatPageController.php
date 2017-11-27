@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\UtilsHelper;
+use App\Models\SysConfig;
 use App\Models\WechatDomain;
 use App\Services\SysConfigService;
 use App\Services\WechatPageService;
@@ -63,7 +64,7 @@ class WechatPageController extends Controller
     public function redirect($id, Request $request){
         $wechatShowType = $request->get('wechat_show_type');
         if(!$wechatShowType){
-            $wechatShowType = (new SysConfigService())->get('wechat_show_type', 1);
+            $wechatShowType = SysConfig::where('key', 'wechat_show_type')->pluck("value")->first();
         }
 
         switch ($wechatShowType){
@@ -92,7 +93,7 @@ class WechatPageController extends Controller
      */
     public function typePage($id, $encode=1){
         $redirectDomain = config('domains.redirect_domain');
-        $domains = WechatDomain::get();
+        $domains = WechatDomain::where("type", 1)->get();
         if($domains){
             $domains = $domains->pluck("domain")->toArray();
         }
@@ -128,7 +129,11 @@ class WechatPageController extends Controller
         $taoCode = $matchs[1];
         $pic = urlencode($wechatPage['pic']);
 
-        $url = "https://pty02.kuaizhan.com/?code={$taoCode}&pic=$pic";
+        $domains = WechatDomain::where("type", 2)->get();
+        $domains = $domains->pluck("domain")->toArray();
+        $domain = array_random($domains);
+
+        $url = $domain."/?code={$taoCode}&pic=$pic";
         return redirect($url);
     }
 
