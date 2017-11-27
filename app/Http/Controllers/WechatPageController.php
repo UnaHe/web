@@ -19,13 +19,13 @@ class WechatPageController extends Controller
      * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function page(Request $request, $id){
-        //是否加密内容
-        $encode = $request->get('encode', 1);
-
-        $code = $request->get('c');
-        if(!cache("redirect_limit_code.".$code)){
-            return $this->redirect($id, $request);
+    public function page(Request $request, $id, $checkCode=true){
+        //检查跳转限制
+        if($checkCode){
+            $code = $request->get('c');
+            if(!cache("redirect_limit_code.".$code)){
+                return $this->redirect($id, $request);
+            }
         }
 
         $wechatPage = (new WechatPageService())->getPage($id);
@@ -38,11 +38,21 @@ class WechatPageController extends Controller
         ];
 
         $pageContent = view('wechat_page', $data);
-        if(!$encode){
+        if(!$checkCode){
             return $pageContent;
         }
 
         return view('wechat_page_wrap', ['content' => base64_encode($pageContent)]);
+    }
+
+    /**
+     * 不检查验证方式
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function page2(Request $request, $id){
+        return $this->page($request, $id, false);
     }
 
     /**
@@ -88,11 +98,15 @@ class WechatPageController extends Controller
         }
         if($domains && !in_array($redirectDomain, $domains)){
             $domain = array_random($domains);
-            $url = URL::action('WechatPageController@page', ['id' => $id], false);
+            if($encode){
+                $url = URL::action('WechatPageController@page', ['id' => $id], false);
+            }else{
+                $url = URL::action('WechatPageController@page2', ['id' => $id], false);
+            }
             $domain = str_replace("*", UtilsHelper::randStr(5), $domain);
             $code = microtime(true).".".uniqid();
-            cache(["redirect_limit_code.".$code => 1], (new Carbon())->addSecond(10));
-            $redirectUrl = $domain.$url."?encode={$encode}&c=".$code;
+            cache(["redirect_limit_code.".$code => 1], (new Carbon())->addSecond(5));
+            $redirectUrl = $domain.$url."?c=".$code;
             return redirect($redirectUrl);
         }else{
             return $this->page($id, $encode);
@@ -126,7 +140,7 @@ class WechatPageController extends Controller
      */
     public function typeFanyi($id){
         $redirectUrl = urlencode($this->typePage($id, 0)->getTargetUrl());
-        $url = "http://fanyi.baidu.com/transpage?query={$redirectUrl}&source=url&ie=utf8&from=auto&to=zh&render=1";
+        $url = "http://fanyi.baidu.com/transpage?query={$redirectUrl}&source=url&ie=utf8&from=en&to=zh&render=1";
         return redirect($url);
     }
 
