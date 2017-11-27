@@ -83,6 +83,11 @@ class WechatPageController extends Controller
                 return $this->typeFanyi($id);
                 break;
             }
+            //有道翻译方式
+            case 4:{
+                return $this->typeYoudaoFanyi($id);
+                break;
+            }
         }
 
     }
@@ -146,6 +151,17 @@ class WechatPageController extends Controller
     public function typeFanyi($id){
         $redirectUrl = urlencode($this->typePage($id, 0)->getTargetUrl());
         $url = "http://fanyi.baidu.com/transpage?query={$redirectUrl}&source=url&ie=utf8&from=en&to=zh&render=1";
+        return redirect($url);
+    }
+
+    /**
+     * 有道翻译方式
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function typeYoudaoFanyi($id){
+        $redirectUrl = urlencode($this->typePage($id, 0)->getTargetUrl());
+        $url = "http://fanyi.youdao.com/WebpageTranslate?keyfrom=webfanyi.top&url={$redirectUrl}&type=EN2ZH_CN";
         return redirect($url);
     }
 
