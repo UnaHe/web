@@ -91,7 +91,7 @@ class WechatPageController extends Controller
             $url = URL::action('WechatPageController@page', ['id' => $id], false);
             $domain = str_replace("*", UtilsHelper::randStr(5), $domain);
             $code = microtime(true).".".uniqid();
-            cache(["redirect_limit_code.".$code => 1], (new Carbon())->addSecond(5));
+            cache(["redirect_limit_code.".$code => 1], (new Carbon())->addSecond(10));
             $redirectUrl = $domain.$url."?encode={$encode}&c=".$code;
             return redirect($redirectUrl);
         }else{
