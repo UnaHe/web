@@ -44,6 +44,19 @@ class WechatPageController extends Controller
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function redirect($id){
+        $wechatPage = (new WechatPageService())->getPage($id);
+        if(!$wechatPage){
+            throw  new NotFoundHttpException();
+        }
+
+        preg_match('/([0-9A-Za-z]+)/', $wechatPage['tao_code'], $matchs);
+        $taoCode = $matchs[1];
+        $pic = urlencode($wechatPage['pic']);
+
+        $url = "https://pty02.kuaizhan.com/?code={$taoCode}&pic=$pic";
+        return redirect($url);
+
+
         $redirectDomain = config('domains.redirect_domain');
         $domains = WechatDomain::get();
         if($domains){
