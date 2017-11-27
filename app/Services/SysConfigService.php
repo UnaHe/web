@@ -21,7 +21,7 @@ class SysConfigService
     public function get($key, $default=null){
         if(!$value = CacheHelper::getCache([$key])){
             $value = SysConfig::where('key', $key)->pluck("value")->first();
-            CacheHelper::setCache($value, 5, [$key]);
+            CacheHelper::setCache($value, 1, [$key]);
         }
 
         return $value ?: $default;
