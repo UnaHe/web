@@ -4,9 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Helpers\UtilsHelper;
 use App\Models\WechatDomain;
-use App\Services\CaptchaService;
-use App\Services\UserService;
 use App\Services\WechatPageService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -19,7 +18,12 @@ class WechatPageController extends Controller
      * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function page($id){
+    public function page(Request $request, $id){
+        $code = $request->get('c');
+        if(!cache("redirect_limit_code.".$code)){
+            return $this->redirect($id);
+        }
+
         $wechatPage = (new WechatPageService())->getPage($id);
         if(!$wechatPage){
             throw  new NotFoundHttpException();
@@ -46,10 +50,12 @@ class WechatPageController extends Controller
             $domains = $domains->pluck("domain")->toArray();
         }
         if($domains && !in_array($redirectDomain, $domains)){
-            $domain = array_random($domains, 1)[0];
+            $domain = array_random($domains);
             $url = URL::action('WechatPageController@page', ['id' => $id], false);
             $domain = str_replace("*", UtilsHelper::randStr(5), $domain);
-            $redirectUrl = $domain.$url;
+            $code = microtime(true).".".uniqid();
+            cache(["redirect_limit_code.".$code => 1], (new Carbon())->addSecond(3));
+            $redirectUrl = $domain.$url."?c=".$code;
             return redirect($redirectUrl);
         }else{
             return $this->page($id);
