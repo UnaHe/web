@@ -14,6 +14,7 @@ use App\Helpers\QueryHelper;
 use App\Helpers\UtilsHelper;
 use App\Models\ColumnGoodsRel;
 use App\Models\Goods;
+use Carbon\Carbon;
 use GuzzleHttp\Client;
 
 class GoodsService
@@ -79,6 +80,21 @@ class GoodsService
         if($page == 1){
             $filters = [];
             $filters[] = ['term'=>['is_del' => 0]];
+            $filters[] = [
+                'bool' => [
+                    'should' => [
+                        ['range'=>['starttime' => ['gte'=>(new Carbon())->toDateTimeString()]]],
+                        [
+                            'bool' => [
+                                'must_not' => [
+                                    ['exists'=>['field' => "starttime"]],
+                                ]
+                            ]
+                        ]
+                    ]
+                ]
+            ];
+
             if($category){
                 $filters[] = ['term'=>['catagory_id' => $category]];
             }
@@ -270,6 +286,11 @@ class GoodsService
         $query->select('goods.*', 'ref.goods_col_title', 'ref.goods_col_pic', 'ref.goods_col_des');
         $query->where("goods.is_del", 0);
 
+        $query->where(function($query){
+            $query->where("goods.starttime", '>=', (new Carbon())->toDateTimeString());
+            $query->orWhere("goods.starttime", null);
+        });
+
         if($category){
             $query->where("goods.catagory_id", $category);
         }
@@ -340,6 +361,23 @@ class GoodsService
         ];
         //分享描述
         $data['share_desc'] = $this->getShareDesc($shareData);
+
+        //秒杀信息查询
+        $data['is_miaosha'] = 0;
+        $data['active_time'] = null;
+        if($data['starttime']){
+            //查询秒杀时间
+            $miaoshaTime = ColumnGoodsRel::where([
+                ["column_code", "zhengdianmiaosha"],
+                ["goods_id", "=", $data['id']],
+                ["active_time", ">=", (new Carbon())->startOfDay()->toDateTimeString()],
+            ])->select("active_time")->orderby("active_time", "desc")->pluck("active_time")->first();
+            if($miaoshaTime){
+                $data['active_time'] = $miaoshaTime;
+                $data['is_miaosha'] = 1;
+            }
+        }
+
         CacheHelper::setCache($data, 2);
         return $data;
     }

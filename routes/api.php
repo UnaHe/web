@@ -142,6 +142,16 @@ Route::domain(config('domains.api_domain'))->middleware(\App\Http\Middleware\Api
          */
         Route::get('/queryAllGoods', "GoodsController@queryAllGoods");
 
+        /**
+         * 秒杀时间点
+         */
+        Route::get('/miaosha/times', "MiaoshaController@getTimes");
+
+        /**
+         * 秒杀商品列表
+         */
+        Route::get('/miaosha/goods', "MiaoshaController@getGoods");
+
     });
 
 });
