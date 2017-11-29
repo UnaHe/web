@@ -50,7 +50,11 @@ trait AjaxResponse
         $data = json_encode($data, JSON_NUMERIC_CHECK);
         $data = str_replace(":null", ':""', $data);
         $data = json_decode($data, true);
-        return JsonResponse::create($data)->header('environment', config('app.env'));
+        $response = JsonResponse::create($data);
+        if(config('app.debug')){
+            $response->header('environment', config('app.env'));
+        }
+        return $response;
     }
 
 }
