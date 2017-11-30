@@ -365,17 +365,15 @@ class GoodsService
         //秒杀信息查询
         $data['is_miaosha'] = 0;
         $data['active_time'] = null;
-        if($data['starttime']){
-            //查询秒杀时间
-            $miaoshaTime = ColumnGoodsRel::where([
-                ["column_code", "zhengdianmiaosha"],
-                ["goods_id", "=", $data['id']],
-                ["active_time", ">=", (new Carbon())->startOfDay()->toDateTimeString()],
-            ])->select("active_time")->orderby("active_time", "desc")->pluck("active_time")->first();
-            if($miaoshaTime){
-                $data['active_time'] = $miaoshaTime;
-                $data['is_miaosha'] = 1;
-            }
+        //查询秒杀时间
+        $miaoshaTime = ColumnGoodsRel::where([
+            ["column_code", "zhengdianmiaosha"],
+            ["goods_id", "=", $data['id']],
+            ["active_time", ">=", (new Carbon())->startOfDay()->toDateTimeString()],
+        ])->select("active_time")->orderby("active_time", "desc")->pluck("active_time")->first();
+        if($miaoshaTime){
+            $data['active_time'] = $miaoshaTime;
+            $data['is_miaosha'] = 1;
         }
 
         CacheHelper::setCache($data, 2);
