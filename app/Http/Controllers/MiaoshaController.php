@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\CacheHelper;
+use App\Helpers\GoodsHelper;
 use App\Services\ChannelColumnService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -37,6 +38,9 @@ class MiaoshaController extends Controller
         $params = $request->all();
         if(!$data = CacheHelper::getCache($params)){
             $data = (new ChannelColumnService())->miaoshaGoods($activeTime);
+            if($data){
+                $data = (new GoodsHelper())->resizeGoodsListPic($data->toArray(), ['pic'=>'240x240']);
+            }
             CacheHelper::setCache($data, 5, $params);
         }
 
