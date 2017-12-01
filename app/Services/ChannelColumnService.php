@@ -61,7 +61,6 @@ class ChannelColumnService
         $query->select('goods.*', 'ref.goods_col_title', 'ref.goods_col_pic', 'ref.goods_col_des', 'ref.active_time');
         $query->where("goods.is_del", 0);
         $query->where("ref.active_time", '=', $activeTime);
-        $query->where("goods.starttime", '>=', $activeTime);
         $query->where(function($query) use($activeTime){
             $query->where("goods.starttime", '>=', $activeTime);
             $query->orWhere("goods.starttime", null);
