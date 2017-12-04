@@ -20,8 +20,18 @@ class MiaoshaController extends Controller
      */
     public function getTimes(){
         if(!$data = CacheHelper::getCache()){
-            $startTime = (new Carbon())->startOfDay()->toDateTimeString();
-            $endTime = ((new Carbon())->endOfDay() + 86400)->toDateTimeString();
+//            $startTime = (new Carbon())->startOfDay()->toDateTimeString();
+//            $endTime = (new Carbon())->endOfDay()->toDateTimeString();
+
+            $year = date("Y");
+            $month = date("m");
+            $day = date("d");
+            $start = mktime(0,0,0,$month,$day,$year);//当天开始时间戳
+            $end= mktime(23,59,59,$month,$day+1,$year);//明天结束时间戳
+
+            $startTime = date('Y-m-d H:i:s', $start);
+            $endTime =date('Y-m-d H:i:s', $end);
+
             $data = (new ChannelColumnService())->miaoshaTimes($startTime, $endTime);
             CacheHelper::setCache($data, 5);
         }
