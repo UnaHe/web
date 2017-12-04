@@ -21,7 +21,7 @@ class MiaoshaController extends Controller
     public function getTimes(){
         if(!$data = CacheHelper::getCache()){
             $startTime = (new Carbon())->startOfDay()->toDateTimeString();
-            $endTime = (new Carbon())->endOfDay()->toDateTimeString();
+            $endTime = ((new Carbon())->endOfDay() + 86400)->toDateTimeString();
             $data = (new ChannelColumnService())->miaoshaTimes($startTime, $endTime);
             CacheHelper::setCache($data, 5);
         }
