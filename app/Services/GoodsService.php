@@ -328,6 +328,7 @@ class GoodsService
         if($sortVal){
             $query->orderBy("goods.".$sortVal[0], $sortVal[1]);
         }else{
+            $query->orderBy('ref.is_top', 'desc');
             $query->orderBy('ref.id', 'desc');
         }
 
