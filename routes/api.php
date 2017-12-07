@@ -148,6 +148,11 @@ Route::domain(config('domains.api_domain'))->middleware(\App\Http\Middleware\Api
         Route::get('/miaosha/times', "MiaoshaController@getTimes");
 
         /**
+         * 服务器时间
+         */
+        Route::get('/miaosha/servertime', "MiaoshaController@getServerTime");
+
+        /**
          * 秒杀商品列表
          */
         Route::get('/miaosha/goods', "MiaoshaController@getGoods");

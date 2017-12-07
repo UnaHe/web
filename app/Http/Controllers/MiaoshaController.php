@@ -40,6 +40,14 @@ class MiaoshaController extends Controller
     }
 
     /**
+     * 服务器时间
+     */
+    public function getServerTime(){
+        return $this->ajaxSuccess(time());
+    }
+
+
+    /**
      * 获取秒杀时间点商品列表
      */
     public function getGoods(Request $request){
