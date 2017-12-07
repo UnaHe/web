@@ -27,8 +27,13 @@ class UrlHelper
                 throw new \Exception('短网址转换失败');
             }
             $response = json_decode($response, true);
+            $code = parse_url($response['urls'][0]['url_short']);
+            $path = trim($code['path'], '/');
             if(!isset($response['urls'][0]['url_short'])){
                 return null;
+            }
+            if (!(strlen($path) > 1 && strlen($path) <= 8)){
+                $this ->shortUrl($url);
             }
             return $response['urls'][0]['url_short'];
         }catch (\Exception $e){
