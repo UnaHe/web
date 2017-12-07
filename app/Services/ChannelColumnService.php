@@ -42,6 +42,7 @@ class ChannelColumnService
         if($times){
             foreach ($times as &$time){
                 $time['time'] = date('H:i', strtotime($time['active_time']));
+                $time['serverTime'] = time();
             }
         }
         return $times;
