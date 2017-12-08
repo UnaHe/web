@@ -15,6 +15,7 @@ class UrlHelper
      * 网站缩短
      * @param $url
      * @return null
+     * @throws \Exception
      */
     public function shortUrl($url){
         $appId = config('services.sina_open.key');
@@ -33,7 +34,7 @@ class UrlHelper
                 return null;
             }
             if (!(strlen($path) > 1 && strlen($path) <= 8)){
-                $this ->shortUrl($url);
+                throw new \Exception('短网址转换失败');
             }
             return $response['urls'][0]['url_short'];
         }catch (\Exception $e){
