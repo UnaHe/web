@@ -8,6 +8,3 @@ Route::get('/wx/{id}', 'WechatPageController@page')->where('id', '[0-9]+');
 
 //微信中转单页(普通)
 Route::get('/wx2/{id}', 'WechatPageController@page2')->where('id', '[0-9]+');
-
-// QQ群采集
-Route::any('/test', 'CaijiController@caiji');
