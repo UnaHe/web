@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Passport\HasApiTokens;
+use Laravel\Passport\Passport;
 use League\OAuth2\Server\Exception\OAuthServerException;
 
 /**
@@ -43,6 +45,17 @@ class User extends Authenticatable
         if($user['is_forbid']){
             throw  new OAuthServerException("用户已禁用", 0, 'forbidden_user');
         }
+
+        $expireTime = $user['expiry_time'];
+        if($expireTime){
+            $expireTime = new Carbon($expireTime);
+
+            $timeDiff = (new Carbon())->diffInSeconds($expireTime, false);
+            if($timeDiff <= 0){
+                throw  new OAuthServerException("账号已过期", 0, 'user_expired');
+            }
+        }
+
         return $user;
     }
 }

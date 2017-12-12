@@ -7,6 +7,7 @@
  */
 namespace App\Services;
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Models\InviteCode;
 use App\Models\User;
@@ -24,9 +25,17 @@ class UserService
     public function registerUser($userName, $password, $inviteCode){
         DB::beginTransaction();
         try{
+            $inviteCodeInfo = (new InviteCode())->checkUsable($inviteCode);
             //使用邀请码
             if(!(new InviteCode())->useCode($inviteCode)){
                 throw new \LogicException("邀请码无效");
+            }
+
+            //有效期
+            $effectiveDay = $inviteCodeInfo['effective_days'];
+            $expireTime = null;
+            if($effectiveDay>0){
+                $expireTime = (new Carbon())->addDay($effectiveDay)->endOfDay();
             }
 
             //创建用户
@@ -36,6 +45,7 @@ class UserService
                 'invite_code' => $inviteCode,
                 'reg_time' => date('Y-m-d H:i:s'),
                 'reg_ip' => Request::ip(),
+                'expiry_time' => $expireTime,
             ]);
 
             if(!$isSuccess){
