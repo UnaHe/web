@@ -65,6 +65,39 @@ class TaobaoService
         return true;
     }
 
+
+    /**
+     * 刷新token
+     * @param $userId
+     * @return bool
+     */
+    public function refreshUserToken($userId){
+        $token = TaobaoToken::where("user_id", $userId)->first();
+        if(!$token){
+            return false;
+        }
+
+        try{
+            $url = 'https://oauth.taobao.com/token';
+            $client = new Client();
+            $response = $client->post($url, [
+                'form_params' => [
+                    'grant_type' => 'refresh_token',
+                    'client_id' => config('taobao.appkey'),
+                    'client_secret' => config('taobao.secretkey'),
+                    'refresh_token' => $token['refresh_token']
+                ]
+            ])->getBody()->getContents();
+
+            $token = json_decode($response, true);
+            return $this->saveAuthToken($userId, $token, null);
+        }catch (\Exception $e){
+        }
+
+        return false;
+    }
+
+
     /**
      * 保存pid
      * @param $userId
