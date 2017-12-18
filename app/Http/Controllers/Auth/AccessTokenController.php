@@ -6,6 +6,10 @@ use App\Traits\AjaxResponse;
 use Psr\Http\Message\ServerRequestInterface;
 use \Laravel\Passport\Http\Controllers\AccessTokenController as PassportAccessToken;
 use Zend\Diactoros\Response as Psr7Response;
+use App\Models\User;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Cookie;
+use \Firebase\JWT\JWT;
 
 /**
  * 重写passport授权登录过程
@@ -44,5 +48,23 @@ class AccessTokenController extends PassportAccessToken
         }
 
         return $this->ajaxSuccess($content);
+    }
+
+    public function Login($code)
+    {
+        $userid = User::where('invite_code', $code)->first()->id;
+
+        $key = config('app.key');
+        $nbf = time()+1296000;
+        $token = array(
+            "userid" => $userid,
+            "exp" => $nbf
+        );
+        $jwt = JWT::encode($token, $key);
+
+        $response = new Response();
+        $response->withCookie(Cookie::make('token', $jwt, 21600));
+
+        return $response;
     }
 }

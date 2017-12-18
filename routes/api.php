@@ -157,6 +157,11 @@ Route::domain(config('domains.api_domain'))->middleware(\App\Http\Middleware\Api
          */
         Route::get('/miaosha/goods', "MiaoshaController@getGoods");
 
+        /**
+         * 获取分享链接
+         */
+        Route::get('/share', "ShareController@getShare");
+
     });
 
 });
