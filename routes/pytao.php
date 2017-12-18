@@ -6,7 +6,7 @@
 Route::namespace('App\Http\Controllers')->group(function (){
 
     /**
-     * 快速登录
+     * WAP自动登录.
      */
     Route::get('/share/{code}', "Auth\AccessTokenController@Login");
 

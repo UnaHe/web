@@ -57,6 +57,7 @@ class PytaoAuthenticate
      */
     protected function authenticate($request, $guards)
     {
+        // 获取Cookie用户信息.
         $key = config('app.key');
         $jwt = Cookie::get('token');
         $userid = JWT::decode($jwt, $key, array('HS256'))->userid;
@@ -65,6 +66,8 @@ class PytaoAuthenticate
             if($user['expiry_time'] && Carbon::now()->diffInSeconds(new Carbon($user['expiry_time']), false)<=0){
                 throw new AuthenticationException('账号已过期.', $guards);
             }
+
+            // 将用户信息加入请求对象.
             $request->setUserResolver(function() use($user){
                 return $user;
             });

@@ -79,6 +79,7 @@ class RouteServiceProvider extends ServiceProvider
 
     protected function mapWapRoutes()
     {
+        // 朋友淘wap路由.
         Route::prefix('pytao')
             ->group(base_path('routes/pytao.php'));
     }

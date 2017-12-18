@@ -14,7 +14,7 @@ class ShareController extends Controller
 
         // 返回邀请链接.
         $data = parse_url($request->url())['host'];
-        $url = $data.'/pytao/share/'.$code;
+        $url = 'http://'.$data.'/pytao/share/'.$code;
 
         return $this->ajaxSuccess($url);
     }
