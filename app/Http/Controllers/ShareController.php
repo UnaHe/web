@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Helpers\UrlHelper;
 
 class ShareController extends Controller
 {
@@ -12,9 +13,18 @@ class ShareController extends Controller
         // 获取当前用户邀请码.
         $code = $request->user()->invite_code;
 
-        // 返回邀请链接.
+        // 拼接邀请链接.
         $data = parse_url($request->url())['host'];
-        $url = 'http://'.$data.'/pytao/share/'.$code;
+        $longUrl = 'http://'.$data.'/pytao/share/'.$code;
+
+        // 短链接.
+        $shortUrl = (new UrlHelper())->shortUrl($longUrl);
+
+        // 相应邀请链接.
+        $url = [
+            'longUrl' => $longUrl,
+            'shortUrl' => $shortUrl
+        ];
 
         return $this->ajaxSuccess($url);
     }
