@@ -38,7 +38,7 @@ class UrlHelper
             }
             return $response['urls'][0]['url_short'];
         }catch (\Exception $e){
-            $apiUrl = "http://6du.in/?is_api=1&lurl=".$url;
+            $apiUrl = "http://xapi.in/urls/add?&secretkey=00007821516347233wzk.im!@f565ee9&lurl=".$url;
             $response = $client->get($apiUrl)->getBody()->getContents();
             if(!strpos("http", $response) === 0){
                 throw new \Exception('短网址转换失败');
