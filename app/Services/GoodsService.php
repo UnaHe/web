@@ -260,6 +260,9 @@ class GoodsService
 
         $esHelper = new EsHelper();
         $results = $esHelper->search($esParams);
+        if(!$results){
+            return null;
+        }
         if($excludeTaobaoId){
             foreach ($results as $key => $result){
                 if($result['goodsid'] == $excludeTaobaoId){
@@ -268,7 +271,6 @@ class GoodsService
             }
             $results = array_values($results);
         }
-
         $results = UtilsHelper::arraySort($results, 'commission', SORT_DESC);
 
         CacheHelper::setCache($results, 5);
