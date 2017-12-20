@@ -20,7 +20,7 @@ class ShareController extends Controller
         // 短链接.
         $shortUrl = (new UrlHelper())->shortUrl($longUrl);
 
-        // 相应邀请链接.
+        // 响应邀请链接.
         $url = [
             'longUrl' => $longUrl,
             'shortUrl' => $shortUrl
