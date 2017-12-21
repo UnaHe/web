@@ -57,16 +57,16 @@ class AccessTokenController extends PassportAccessToken
     public function Login($code)
     {
         // 获取用户信息JWT编码.
-        $userid = User::where('invite_code', $code)->first()->id;
+        $user = User::where('invite_code', $code)->first();
 
-        if (!$userid) {
+        if (!$user) {
             return $this->ajaxError('该邀请链接不存在');
         }
 
         $key = config('app.key');
         $nbf = time()+1296000;
         $token = array(
-            "userid" => $userid,
+            "userid" => $user->id,
             "exp" => $nbf
         );
         $jwt = JWT::encode($token, $key);
