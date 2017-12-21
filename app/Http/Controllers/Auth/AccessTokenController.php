@@ -60,7 +60,7 @@ class AccessTokenController extends PassportAccessToken
         $user = User::where('invite_code', $code)->first();
 
         if (!$user) {
-            return $this->ajaxError('该邀请链接不存在');
+            return '该分享不存在';
         }
 
         $key = config('app.key');

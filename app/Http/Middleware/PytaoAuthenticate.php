@@ -60,6 +60,9 @@ class PytaoAuthenticate
         // 获取Cookie用户信息.
         $key = config('app.key');
         $jwt = Cookie::get('token');
+        if (!$jwt){
+            throw new AuthenticationException('Unauthenticated.', $guards);
+        }
         $userid = JWT::decode($jwt, $key, array('HS256'))->userid;
         $user = User::find($userid);
         if($user){
