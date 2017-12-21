@@ -53,7 +53,7 @@ Route::domain(config('domains.api_domain'))->middleware(\App\Http\Middleware\Api
     /**
      * 需要登录访问的接口列表
      */
-    Route::middleware('auth:api')->group(function(){
+    Route::middleware('auth.api')->group(function(){
 
         /**
          * 获取消息列表
