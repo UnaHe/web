@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Helpers\UrlHelper;
 
+/**
+ * 分享链接
+ * Class ShareController
+ * @package App\Http\Controllers
+ */
 class ShareController extends Controller
 {
     //

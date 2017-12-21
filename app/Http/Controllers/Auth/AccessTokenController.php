@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Traits\AjaxResponse;
 use Psr\Http\Message\ServerRequestInterface;
 use \Laravel\Passport\Http\Controllers\AccessTokenController as PassportAccessToken;
+use Zend\Diactoros\Request;
 use Zend\Diactoros\Response as Psr7Response;
 use App\Models\User;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cookie;
 use \Firebase\JWT\JWT;
 
@@ -59,6 +59,10 @@ class AccessTokenController extends PassportAccessToken
         // 获取用户信息JWT编码.
         $userid = User::where('invite_code', $code)->first()->id;
 
+        if (!$userid) {
+            return $this->ajaxError('该邀请链接不存在');
+        }
+
         $key = config('app.key');
         $nbf = time()+1296000;
         $token = array(
@@ -67,10 +71,7 @@ class AccessTokenController extends PassportAccessToken
         );
         $jwt = JWT::encode($token, $key);
 
-        // 存入Cookie.
-        $response = new Response();
-        $response->withCookie(Cookie::make('token', $jwt, 21600));
-
-        return $response;
+        // 响应页面,存入Cookie.
+        return redirect('/')->withCookie(Cookie::make('token', $jwt, 21600));
     }
 }
