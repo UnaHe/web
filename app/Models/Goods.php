@@ -14,5 +14,6 @@ class Goods extends Model
 {
     protected $table = "xmt_goods_lib";
     protected $guarded = ['id'];
+    public $timestamps = false;
 
 }

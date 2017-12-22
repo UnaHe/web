@@ -210,4 +210,16 @@ class GoodsController extends Controller
         return $this->ajaxSuccess($list);
     }
 
+    /**
+     * 查询商品佣金
+     */
+    public function commission(Request $request){
+        $taobaoId = $request->get('taobao_id');
+        $data = (new GoodsService())->commission($taobaoId, $request->user()->id);
+        $data = $data ?: -1;
+        return $this->ajaxSuccess([
+            'commission' => $data
+        ]);
+    }
+
 }

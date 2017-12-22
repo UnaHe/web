@@ -13,6 +13,7 @@ use App\Helpers\GoodsHelper;
 use App\Helpers\ProxyClient;
 use App\Helpers\UrlHelper;
 use App\Models\Banner;
+use App\Models\Goods;
 use App\Models\GoodsCategory;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
@@ -77,9 +78,50 @@ class TransferService
         }
 
         $result = $resp['result']['data'];
+        //更新商品佣金
+        if(isset($result['max_commission_rate'])){
+            $time = Carbon::now();
+            Goods::where("goodsid", $taobaoGoodsId)->update([
+                'commission' => $result['max_commission_rate'],
+                'commission_update_time' => $time,
+                'update_time' => $time,
+            ]);
+        }
         CacheHelper::setCache($result, 5);
         return $result;
     }
+
+
+    /**
+     * 高效转链
+     * @param $taobaoGoodsId
+     * @param $userId
+     * @return \Illuminate\Cache\CacheManager|mixed
+     * @throws \Exception
+     */
+    public function transferLinkByUser($taobaoGoodsId, $userId){
+        if($cache = CacheHelper::getCache()){
+            return $cache;
+        }
+
+        $token = (new TaobaoService())->getToken($userId);
+        $pid = (new TaobaoService())->getPid($userId);
+        if(!$token){
+            throw new \Exception("未授权", ErrorHelper::ERROR_TAOBAO_INVALID_SESSION);
+        }
+        if(!$pid){
+            throw new \Exception("PID错误", ErrorHelper::ERROR_TAOBAO_INVALID_PID);
+        }
+        try{
+            $result = $this->transferLink($taobaoGoodsId, $pid, $token);
+        }catch (\Exception $e){
+            throw new \Exception($e->getMessage(), $e->getCode());
+        }
+
+        CacheHelper::setCache($result, 5);
+        return $result;
+    }
+
 
     /**
      * 淘宝短链接sclick转换

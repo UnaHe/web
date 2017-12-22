@@ -621,4 +621,30 @@ class GoodsService
         return $result;
     }
 
+    /**
+     * 查询商品佣金
+     * @param $goodsId
+     */
+    public function commission($goodsId, $userId){
+        if($cache = CacheHelper::getCache($goodsId)){
+            return $cache;
+        }
+        $commission = Goods::where([
+            ['goodsid', '=', $goodsId],
+            ['commission_update_time', '>=', Carbon::now()->subMinute(30)],
+        ])->pluck("commission")->first();
+
+        try{
+            if(!$commission){
+                $data = (new TransferService())->transferLinkByUser($goodsId, $userId);
+                $commission = $data['max_commission_rate'];
+            }
+        }catch (\Exception $e){
+            return false;
+        }
+
+        CacheHelper::setCache($commission, 5, $goodsId);
+        return $commission;
+    }
+
 }

@@ -157,6 +157,12 @@ Route::domain(config('domains.api_domain'))->middleware(\App\Http\Middleware\Api
          */
         Route::get('/miaosha/goods', "MiaoshaController@getGoods");
 
+        /**
+         * 佣金查询
+         */
+        Route::get('/commission', "GoodsController@commission");
+
+
     });
 
 });
