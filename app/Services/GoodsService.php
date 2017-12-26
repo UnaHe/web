@@ -14,8 +14,11 @@ use App\Helpers\QueryHelper;
 use App\Helpers\UtilsHelper;
 use App\Models\ColumnGoodsRel;
 use App\Models\Goods;
+use App\Models\TaobaoToken;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class GoodsService
 {
@@ -625,10 +628,21 @@ class GoodsService
      * 查询商品佣金
      * @param $goodsId
      */
-    public function commission($goodsId, $userId){
+    public function commission($goodsId){
         if($cache = CacheHelper::getCache($goodsId)){
             return $cache;
         }
+
+        $user = Auth::guard('api')->user();
+        if($user){
+            $userId = $user->id;
+        }else{
+            //随机获取一个未过期的用户
+            $userId = TaobaoToken::where([
+                ['expires_at', '>', Carbon::now()->addMinute(mt_rand(5, 100))]
+            ])->limit(1)->pluck("user_id")->first();
+        }
+
         $commission = Goods::where([
             ['goodsid', '=', $goodsId],
             ['commission_update_time', '>=', Carbon::now()->subMinute(30)],
@@ -643,8 +657,23 @@ class GoodsService
             return false;
         }
 
-        CacheHelper::setCache($commission, 5, $goodsId);
-        return $commission;
+        $realCommission = $commission;
+
+        $detail = (new AlimamaGoodsService())->detail($goodsId);
+        //如果当前佣金等于高佣，则实际佣金为95%
+        if($detail && $detail['eventRate'] == $commission){
+            $realCommission = bcmul($commission, 0.95, 2);
+        }
+
+        $result = [
+            //实际佣金
+            'commission' => $realCommission,
+            //原始佣金
+            'originCommission' => $commission
+        ];
+
+        CacheHelper::setCache($result, 5, $goodsId);
+        return $result;
     }
 
 }

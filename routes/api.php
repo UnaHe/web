@@ -17,6 +17,12 @@ Route::domain(config('domains.api_domain'))->middleware(\App\Http\Middleware\Api
     Route::get('/coupon', "TaobaoController@getTaobaoCoupon");
 
     /**
+     * 佣金查询
+     */
+    Route::get('/commission', "GoodsController@commission");
+
+
+    /**
      * 授权登录
      */
     Route::post('/oauth/token', [
@@ -156,11 +162,6 @@ Route::domain(config('domains.api_domain'))->middleware(\App\Http\Middleware\Api
          * 秒杀商品列表
          */
         Route::get('/miaosha/goods', "MiaoshaController@getGoods");
-
-        /**
-         * 佣金查询
-         */
-        Route::get('/commission', "GoodsController@commission");
 
 
     });

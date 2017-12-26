@@ -7,6 +7,7 @@ use App\Helpers\GoodsHelper;
 use App\Services\ChannelColumnService;
 use App\Services\GoodsService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 
 /**
@@ -215,11 +216,14 @@ class GoodsController extends Controller
      */
     public function commission(Request $request){
         $taobaoId = $request->get('taobao_id');
-        $data = (new GoodsService())->commission($taobaoId, $request->user()->id);
-        $data = $data ?: -1;
-        return $this->ajaxSuccess([
-            'commission' => $data
-        ]);
+        $data = (new GoodsService())->commission($taobaoId);
+        $data = $data ?:[
+            //实际佣金
+            'commission' => -1,
+            //原始佣金
+            'originCommission' => -1
+        ];
+        return $this->ajaxSuccess($data);
     }
 
 }
