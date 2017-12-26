@@ -54,7 +54,7 @@ class AccessTokenController extends PassportAccessToken
      * 朋友淘WAP自动登录接口.
      * @param $code.
      */
-    public function Login($code)
+    public function Login($code, $redirect = [])
     {
         // 获取用户信息JWT编码.
         $user = User::where('invite_code', $code)->first();
@@ -72,6 +72,9 @@ class AccessTokenController extends PassportAccessToken
         $jwt = JWT::encode($token, $key);
 
         // 响应页面,存入Cookie.
+        if ($redirect){
+            return $this->ajaxSuccess($jwt);
+        }
         return redirect('/')->withCookie(Cookie::make('token', $jwt, 21600));
     }
 }

@@ -19,8 +19,7 @@ class ShareController extends Controller
         $code = $request->user()->invite_code;
 
         // 拼接邀请链接.
-        $data = parse_url($request->url())['host'];
-        $longUrl = 'http://'.$data.'/pytao/share/'.$code;
+        $longUrl = 'http://'.config('domains.pytao_domains').'/pytao/share/'.$code;
 
         // 短链接.
         $shortUrl = (new UrlHelper())->shortUrl($longUrl);
