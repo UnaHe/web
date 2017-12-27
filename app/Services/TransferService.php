@@ -554,6 +554,18 @@ class TransferService
             }
         }
 
+        if($sellerName == '天猫超市'){
+            $couponNum = null;
+            $couponOver = null;
+            $couponLink = null;
+            $couponPrice = 0;
+            $couponPrerequisite = 0;
+            $couponId = null;
+            $couponMLink = null;
+            $couponTime = null;
+        }
+
+
         $data = [
             'goodsid' => $itemId,
             'goods_url' => $goodsUrl,

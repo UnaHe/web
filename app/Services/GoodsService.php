@@ -357,6 +357,17 @@ class GoodsService
             return null;
         }
         $data = $data->toArray();
+        if($data['seller_name'] == '天猫超市'){
+            $data['coupon_num'] = null;
+            $data['coupon_over'] = null;
+            $data['coupon_link'] = null;
+            $data['coupon_price'] = 0;
+            $data['coupon_prerequisite'] = 0;
+            $data['coupon_id'] = null;
+            $data['coupon_m_link'] = null;
+            $data['coupon_time'] = null;
+        }
+
         $shareData = [
             'title' => $data['title'],
             'price' => $data['price_full'],
