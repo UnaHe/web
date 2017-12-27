@@ -46,4 +46,17 @@ class UrlHelper
             return $response;
         }
     }
+
+    /**
+     * 修复url前缀
+     * @param $url
+     * @return string
+     */
+    public static function fixUrlPrefix($url){
+        if (strpos($url,"http") !== 0){
+            $url = ltrim($url, ":/");
+            return "http://".$url;
+        }
+        return $url;
+    }
 }

@@ -14,6 +14,7 @@ use App\Helpers\ProxyClient;
 use App\Models\Goods;
 use App\Models\TaobaoPid;
 use App\Models\TaobaoToken;
+use App\Services\Requests\CouponGet;
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
 use Illuminate\Support\Facades\Log;
@@ -293,17 +294,10 @@ class TaobaoService
             return $cache;
         }
 
-        $this->client = new ProxyClient(['cookie'=>true]);
         if($couponId && $couponId != '1'){
-            //需要传递的参数
-            $apiParamData = [
-                'itemId'=>$goodsId,
-                'activityId' => $couponId
-            ];
-            $this->cookieJar = new \GuzzleHttp\Cookie\CookieJar;
-            $result = $this->pidRequest('mtop.alimama.union.hsf.coupon.get', json_encode($apiParamData));
+            $result = (new CouponGet())->initWithItemInfo($goodsId, $couponId);
             try{
-                $status = $result['data']['result']['retStatus'];
+                $status = $result->getStatus();
             }catch (\Exception $e){
                 Log::error(__METHOD__."  系统错误".var_export($result, true));
                 throw new \Exception("系统错误", 500);
@@ -314,9 +308,9 @@ class TaobaoService
                     throw new \Exception("券已失效", 300);
                 }
 
-                $couponPrice = $result['data']['result']['amount'];
-                $couponTime = $result['data']['result']['effectiveEndTime'];
-                $couponPrerequisite = $result['data']['result']['startFee'];
+                $couponPrice = $result->getCouponPrice();
+                $couponTime = $result->getCouponEndTime();
+                $couponPrerequisite = $result->getCouponPrerequisite();
                 $couponNum = 0;
                 $couponOver = 0;
             }catch (\Exception $e){
@@ -326,15 +320,12 @@ class TaobaoService
                 throw new \Exception("券已失效");
             }
         }else{
-            $url = "http://pub.alimama.com/items/search.json?q=".urlencode("https://item.taobao.com/item.htm?id=".$goodsId)."&auctionTag=&perPageSize=40&shopTag=";
-            $mamaDetail = $this->client->get($url)->getBody()->getContents();
+            $mamaDetail = (new AlimamaGoodsService())->detail($goodsId);
             if(!$mamaDetail){
                 throw new \Exception("系统错误", 500);
             }
 
             if($mamaDetail){
-                $mamaDetail = json_decode($mamaDetail, true);
-                $mamaDetail = $mamaDetail['data']['pageList'][0];
                 if(!$mamaDetail['couponAmount']){
                     throw new \Exception("券已失效");
                 }

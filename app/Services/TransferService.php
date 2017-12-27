@@ -15,6 +15,7 @@ use App\Helpers\UrlHelper;
 use App\Models\Banner;
 use App\Models\Goods;
 use App\Models\GoodsCategory;
+use App\Services\Requests\CouponGet;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
@@ -302,24 +303,20 @@ class TransferService
         }
 
         try{
-//            if($couponId){
-                $result = $this->transferLink($goodsId,$pid,$token);
-                $url = $result['coupon_click_url'];
-                //不是阿里妈妈券则指定优惠券id
-                if(strlen($couponId) > 1){
-                    $url .= "&activityId=".$couponId;
-                }
-                $slickUrl = $this->transferSclick($url);
-                $taoCode = $this->transferTaoCode($title, $slickUrl, $pic);
-/*
-            }else{
-                //无优惠券的的商品直接拼接链接
-                $url = (new GoodsHelper())->generateTaobaoUrl($goodsId);
-                $url .= "&pid=".$pid;
-                $slickUrl = $url;
-                $taoCode = $this->transferCommonTaoCode($title, $slickUrl, $pic);
+            $result = $this->transferLink($goodsId,$pid,$token);
+            $url = $result['coupon_click_url'];
+            //不是阿里妈妈券则指定优惠券id
+            if(strlen($couponId) > 1){
+                $url .= "&activityId=".$couponId;
             }
-*/
+            //无券商品直接用商品链接
+            if(!$couponId){
+                $url = (new CouponGet())->initWithUlandUrl($url)->getItemClickUrl();
+            }
+            $url = UrlHelper::fixUrlPrefix($url);
+            $slickUrl = $this->transferSclick($url);
+            $taoCode = $this->transferTaoCode($title, $slickUrl, $pic);
+
             $data = [
                 'goods_id' => $goodsId,
                 'url' => $url,
@@ -415,22 +412,6 @@ class TransferService
             return $cache;
         }
 
-        $client = new ProxyClient(['cookie'=>true]);
-        $jar = new \GuzzleHttp\Cookie\CookieJar;
-
-        //淘口令解析
-        $data	= '{"password":"'.$code.'"}';
-        $api	= 'com.taobao.redbull.getpassworddetail';
-        $appKey = '21646297';
-        $v		= '1.0';
-        $t		= '0';
-        $cookieUrl	= 'http://api.m.taobao.com/rest/h5ApiUpdate.do?callback=jsonp11&timeout=10050&type=&api='.$api.'&v='.$v;
-
-        //第一次取cookie参数
-        $client->request('GET', $cookieUrl, ['cookies' => $jar]);
-        $h5TkCookie = $jar->getCookieByName('_m_h5_tk')->getValue();
-        $h5Tk = explode('_', $h5TkCookie)[0];
-
         if(!$isMiao){
             if(!$isLink){
                 $req = new \WirelessShareTpwdQueryRequest;
@@ -448,6 +429,8 @@ class TransferService
             //获取最终跳转地址
             $lastUrl = $this->getFinalUrl($lastUrl);
         }else{
+            $client = new ProxyClient(['cookie'=>true]);
+
             //喵口令解析
             $response = $client->get($code);
             if(!$response){
@@ -489,75 +472,50 @@ class TransferService
             }
         }
 
+        //获取二合一详情信息
+        $ulandDetail  = (new CouponGet())->initWithUlandUrl($lastUrl);
+        $result = $ulandDetail->getResult();
+        if(!$result){
+            return false;
+        }
+
         parse_str(parse_url($lastUrl)['query'], $lastUrlParams);
-        //需要传递的参数
-        $apiParamData = [];
-        $params = ['e','me','dx','itemId','activityId','pid','src','scm','engpvid','mt','couponType','ptl'];
-        foreach($params as $param){
-            if(isset($lastUrlParams[$param])){
-                $apiParamData[$param] = $lastUrlParams[$param];
-            }
-        }
-
-        $apiUrl = 'https://acs.m.taobao.com/h5/mtop.alimama.union.hsf.coupon.get/1.0/';
-        $apiParams = [
-            'jsv' => '2.3.16',
-            'appKey' => '12574478',
-            't' => time(),
-            'api' => 'mtop.alimama.union.hsf.coupon.get',
-            'v' => '1.0',
-            'AntiCreep' => 'true',
-            'type' => 'jsonp',
-            'dataType' => 'jsonp',
-            'callback' => 'mtopjsonp1',
-            'data' => str_replace("\\/", "/", json_encode($apiParamData))
-        ];
-
-
-        //拼接实际请求地址
-        $sign	= md5($h5Tk.'&'.$apiParams['t'].'&'.$apiParams['appKey'].'&'.$apiParams['data']);
-        $apiParams['sign'] = $sign;
-        $url	= $apiUrl."?".http_build_query($apiParams);
-
-        $response = $client->request('GET', $url, ['cookies' => $jar, 'verify' => false])->getBody()->getContents();
-        if(!strstr($response, '调用成功')){
-            return false;
-        }
-
-        if(!preg_match('/mtopjsonp1\((.*)\)/', $response, $matchs)){
-            return false;
-        }
-
-        $result = json_decode($matchs[1], true);
-
-        $itemId = $result['data']['result']['item']['itemId'];
-        $isTmall = $result['data']['result']['item']['tmall'];
-        $priceFull = $result['data']['result']['item']['discountPrice'];
-        $title = $result['data']['result']['item']['title'];
-        $sellerName = $result['data']['result']['shopName'];
-        $sellerIcon = isset($result['data']['result']['shopLogo']) ? $result['data']['result']['shopLogo'] : '';
-        $couponId = isset($lastUrlParams['activityId']) ? $lastUrlParams['activityId'] : null;
-        $couponPrice = isset($result['data']['result']['amount']) ? $result['data']['result']['amount'] : 0;
-        $couponTime = isset($result['data']['result']['effectiveEndTime']) ? $result['data']['result']['effectiveEndTime'] : null;
-        $couponPrerequisite = isset($result['data']['result']['startFee']) ? $result['data']['result']['startFee'] : 0;
+        $itemId = $ulandDetail->getItemId();
+        $isTmall = $ulandDetail->getIsTmall();
+        $sellerName = $ulandDetail->getShopName();
+        $sellerIcon = $ulandDetail->getShopLogo();
 
         //从数据库获取信息填充
         $detail = (new GoodsService())->getByGoodsId($itemId);
-        $couponMLink = (!$couponId && $detail && $detail['is_del'] == 0) ? $detail['coupon_m_link'] : null;
-        $couponLink = (!$couponId && $detail  && $detail['is_del'] == 0) ? $detail['coupon_link']: null;
-        $couponPrice = (!$couponId && $detail && $detail['is_del'] == 0) ? $detail['coupon_price'] : $couponPrice;
-        $couponTime = (!$couponId && $detail && $detail['is_del'] == 0) ? $detail['coupon_time'] : $couponTime;
-        $couponPrerequisite = (!$couponId && $detail && $detail['is_del'] == 0) ? $detail['coupon_prerequisite'] : $couponPrerequisite;
-        $couponNum = (!$couponId && $detail && $detail['is_del'] == 0) ? $detail['coupon_num'] : 0;
-        $couponOver = (!$couponId && $detail && $detail['is_del'] == 0) ? $detail['coupon_over'] : 0;
-        $couponId = (!$couponId && $detail && $detail['is_del'] == 0) ? $detail['coupon_id'] : $couponId;
+        $detail = ($detail && $detail['is_del'] == 0) ? $detail : null;
 
+        //优惠券id
+        $couponId = isset($lastUrlParams['activityId']) ? $lastUrlParams['activityId'] : null;
+
+        //是否使用数据库优惠券信息
+        $isUseDbCoupon = !$couponId && $detail;
+
+        //优惠券信息
+        $couponMLink = $isUseDbCoupon ? $detail['coupon_m_link'] : null;
+        $couponLink = $isUseDbCoupon ? $detail['coupon_link']: null;
+        $couponPrice = $isUseDbCoupon ? $detail['coupon_price'] : $ulandDetail->getCouponPrice();
+        $couponTime = $isUseDbCoupon ? $detail['coupon_time'] : $ulandDetail->getCouponEndTime();
+        $couponPrerequisite = $isUseDbCoupon ? $detail['coupon_prerequisite'] : $ulandDetail->getCouponPrerequisite();
+        $couponNum = $isUseDbCoupon ? $detail['coupon_num'] : 0;
+        $couponOver = $isUseDbCoupon ? $detail['coupon_over'] : 0;
+        $couponId = $isUseDbCoupon ? $detail['coupon_id'] : $couponId;
+
+        $priceFull = $detail ? $detail['price_full'] : $ulandDetail->getPrice();
+        $title = $detail ? $detail['title'] : $ulandDetail->getTitle();
+
+        //佣金信息
         $commissionType = $detail ? $detail['commission_type'] : 0;
         $commission = $detail? $detail['commission'] : 0;
         $commissionMarketing = $detail? $detail['commission_marketing'] : 0;
         $commissionPlan = $detail? $detail['commission_plan'] : 0;
         $commissionBridge = $detail? $detail['commission_bridge'] : 0;
 
+        //卖家信息
         $sellerId = $detail ? $detail['seller_id'] : null;
         $sellerName = (!$sellerName && $detail) ? $detail['seller_name'] : $sellerName;
         $sellerIcon = (!$sellerIcon && $detail) ? $detail['seller_icon_url'] : $sellerIcon;
@@ -575,17 +533,14 @@ class TransferService
         $goodsUrl = (new GoodsHelper())->generateTaobaoUrl($itemId, $isTmall);
 
         //从联盟查询
-        $url = "http://pub.alimama.com/items/search.json?q=".urlencode($goodsUrl)."&auctionTag=&perPageSize=40&shopTag=";
-        $mamaDetail = $client->get($url)->getBody()->getContents();
+        $mamaDetail = (new AlimamaGoodsService())->detail($itemId);
         if($mamaDetail){
             try{
-                $mamaDetail = json_decode($mamaDetail, true);
-                $mamaDetail = $mamaDetail['data']['pageList'][0];
                 if($mamaDetail['tkSpecialCampaignIdRateMap']){
                     $commission = max(array_values($mamaDetail['tkSpecialCampaignIdRateMap']));
                 }
                 $commission = max($commission, $mamaDetail['eventRate'], $mamaDetail['tkRate']);
-                
+
                 if(!$couponId && $mamaDetail['couponAmount']){
                     $couponTime = $mamaDetail['couponEffectiveEndTime']." 23:59:59";
                     $couponPrice = $mamaDetail['couponAmount'];
@@ -604,8 +559,8 @@ class TransferService
             'goods_url' => $goodsUrl,
             'short_title' => $title,
             'title' => $title,
-            'sell_num' => $result['data']['result']['item']['biz30Day'],
-            'pic' => $result['data']['result']['item']['picUrl'],
+            'sell_num' => $ulandDetail->getSellNum(),
+            'pic' => $ulandDetail->getPicUrl(),
             'price' => bcsub($priceFull, $couponPrice, 2),
             'price_full' => $priceFull,
             'coupon_time' => $couponTime,
