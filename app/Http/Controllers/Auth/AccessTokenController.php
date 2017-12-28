@@ -5,7 +5,11 @@ namespace App\Http\Controllers\Auth;
 use App\Traits\AjaxResponse;
 use Psr\Http\Message\ServerRequestInterface;
 use \Laravel\Passport\Http\Controllers\AccessTokenController as PassportAccessToken;
+use Zend\Diactoros\Request;
 use Zend\Diactoros\Response as Psr7Response;
+use App\Models\User;
+use Illuminate\Support\Facades\Cookie;
+use \Firebase\JWT\JWT;
 
 /**
  * 重写passport授权登录过程
@@ -44,5 +48,33 @@ class AccessTokenController extends PassportAccessToken
         }
 
         return $this->ajaxSuccess($content);
+    }
+
+    /**
+     * 朋友淘WAP自动登录接口.
+     * @param $code.
+     */
+    public function Login($code, $redirect = [])
+    {
+        // 获取用户信息JWT编码.
+        $user = User::where('invite_code', $code)->first();
+
+        if (!$user) {
+            return '该分享不存在';
+        }
+
+        $key = config('app.key');
+        $nbf = time()+1296000;
+        $token = array(
+            "userid" => $user->id,
+            "exp" => $nbf
+        );
+        $jwt = JWT::encode($token, $key);
+
+        // 响应页面,存入Cookie.
+        if ($redirect){
+            return $this->ajaxSuccess($jwt);
+        }
+        return redirect('/')->withCookie(Cookie::make('token', $jwt, 21600));
     }
 }

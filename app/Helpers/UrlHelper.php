@@ -33,6 +33,7 @@ class UrlHelper
             if(!isset($response['urls'][0]['url_short'])){
                 return null;
             }
+            // 转换格式不正确进入下一次转换.
             if (!(strlen($path) > 1 && strlen($path) <= 8)){
                 throw new \Exception('短网址转换失败');
             }

@@ -24,5 +24,9 @@ return [
      * 微信单页域名列表
      */
     'wechat_domains' => $domains,
+    /**
+     * 朋友淘域名
+     */
+    'pytao_domains' => env('PYTAO_DOMAINS'),
 
 ];
