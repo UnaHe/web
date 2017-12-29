@@ -109,7 +109,7 @@ class TaobaoService
         $time = time();
         $now  = date('Y-m-d H:i:s', $time);
 
-        $token = $this->getToken($userId);
+        $token = $this->getRefreshToken($userId);
         $this->testPid($token, $pid);
 
         $model = TaobaoPid::where("user_id", $userId)->first();
@@ -149,6 +149,19 @@ class TaobaoService
             return null;
         }
         return $token['access_token'];
+    }
+
+    /**
+     * 获取refresh_token
+     * @param $userId
+     * @return null
+     */
+    public function getRefreshToken($userId){
+        $token = $this->getAuthToken($userId);
+        if(!$token){
+            return null;
+        }
+        return $token['refresh_token'];
     }
 
     /**
