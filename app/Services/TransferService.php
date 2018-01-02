@@ -105,7 +105,7 @@ class TransferService
             return $cache;
         }
 
-        $token = (new TaobaoService())->getRefreshToken($userId);
+        $token = (new TaobaoService())->getToken($userId);
         $pid = (new TaobaoService())->getPid($userId);
         if(!$token){
             throw new \Exception("未授权", ErrorHelper::ERROR_TAOBAO_INVALID_SESSION);
@@ -237,7 +237,7 @@ class TransferService
         }
 
         try{
-            $token = (new TaobaoService())->getRefreshToken($userId);
+            $token = (new TaobaoService())->getToken($userId);
             $pid = (new TaobaoService())->getPid($userId);
             if(!$token){
                 throw new \Exception("未授权", ErrorHelper::ERROR_TAOBAO_INVALID_SESSION);
@@ -455,7 +455,7 @@ class TransferService
             }
             $itemId = $matchItemId;
 
-            $token = (new TaobaoService())->getRefreshToken($userId);
+            $token = (new TaobaoService())->getToken($userId);
             $pid = (new TaobaoService())->getPid($userId);
             if(!$token){
                 throw new \Exception("未授权", ErrorHelper::ERROR_TAOBAO_INVALID_SESSION);
