@@ -183,7 +183,7 @@ class TaobaoService
 
         return [
             'is_auth'=> $token ? true : false,
-            'auth_expire_time' => $token['re_expires_at'],
+            'auth_expire_time' => $token['expires_at'],
             'pid' => $pid
         ];
     }
