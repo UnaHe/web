@@ -309,6 +309,7 @@ class TaobaoService
                 }
 
                 $couponPrice = $result->getCouponPrice();
+                $couponStartTime = $result->getCouponStartTime();
                 $couponTime = $result->getCouponEndTime();
                 $couponPrerequisite = $result->getCouponPrerequisite();
                 $couponNum = 0;
@@ -329,17 +330,18 @@ class TaobaoService
                 if(!$mamaDetail['couponAmount']){
                     throw new \Exception("券已失效");
                 }
+                $couponStartTime = $mamaDetail['couponEffectiveStartTime']." 00:00:00";
                 $couponTime = $mamaDetail['couponEffectiveEndTime']." 23:59:59";
                 $couponPrice = $mamaDetail['couponAmount'];
                 $couponPrerequisite = $mamaDetail['couponStartFee'];
                 $couponNum = $mamaDetail['couponTotalCount'];
                 $couponOver = $mamaDetail['couponLeftCount'];
-                $couponId = $mamaDetail['couponActivityId'];
             }
         }
 
         $data = [
             'coupon_id' => $couponId,
+            'coupon_start_time' => $couponStartTime,
             'coupon_time' => $couponTime,
             'coupon_price' => $couponPrice,
             'coupon_prerequisite' => $couponPrerequisite,
