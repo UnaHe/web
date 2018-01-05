@@ -60,7 +60,7 @@ class AccessTokenController extends PassportAccessToken
         $user = User::where('invite_code', $code)->first();
 
         if (!$user) {
-            return '该分享不存在';
+            return $this->ajaxError("获取token失败");
         }
 
         $key = config('app.key');
@@ -71,10 +71,6 @@ class AccessTokenController extends PassportAccessToken
         );
         $jwt = JWT::encode($token, $key);
 
-        // 响应页面,存入Cookie.
-        if ($redirect){
-            return $this->ajaxSuccess($jwt);
-        }
-        return redirect('/')->withCookie(Cookie::make('token', $jwt, 21600));
+        return $this->ajaxSuccess($jwt);
     }
 }
