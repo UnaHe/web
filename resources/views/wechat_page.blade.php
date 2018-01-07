@@ -40,7 +40,7 @@
                                 <i class="media-arial">{{$couponPrice}}</i></b>
                             <img src="/images/quan_03.png" alt="">
                         </span>
-                        <div class="ios-btn">
+                        <div class="ios-btn" style="display: none">
                             <a href="javascript:iosOpen();">苹果一键购</a>
                         </div>
                     </div>
@@ -148,7 +148,7 @@
 <script src="/js/layer/layer.js"></script>
 <script src="/js/imgLazy.v1.js"></script>
 <script src="/js/clip-board.min.js"></script>
-<script src="/js/detail.js?v=5"></script>
+<script src="/js/detail.js?v=6"></script>
 
 <style>
     #cnzz_stat_icon_1271964621{
