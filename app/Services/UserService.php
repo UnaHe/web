@@ -67,6 +67,53 @@ class UserService
     }
 
     /**
+     * 注册用户
+     * @param $userName
+     * @param $password
+     * @param $inviteCode
+     * @throws \Exception
+     */
+    public function webRegisterUser($userName, $password, $inviteCode){
+        DB::beginTransaction();
+        try{
+            $inviteCodeInfo = (new InviteCode())->checkUsable($inviteCode);
+
+            //有效期
+            $effectiveDay = $inviteCodeInfo['effective_days'];
+            $expireTime = null;
+            if($effectiveDay>0){
+                $expireTime = (new Carbon())->addDay($effectiveDay)->endOfDay();
+            }
+
+            //创建用户
+            $isSuccess = User::create([
+                'phone' => $userName,
+                'password' => bcrypt($password),
+                'invite_code' => $inviteCode,
+                'reg_time' => date('Y-m-d H:i:s'),
+                'reg_ip' => Request::ip(),
+                'expiry_time' => $expireTime,
+            ]);
+
+            if(!$isSuccess){
+                throw new \LogicException("注册失败");
+            }
+            DB::commit();
+        }catch (\Exception $e){
+            DB::rollBack();
+            $error = "注册失败";
+            if($e instanceof \LogicException){
+                $error = $e->getMessage();
+            }else{
+                if(User::where('phone', $userName)->exists()){
+                    $error = '该用户已注册';
+                }
+            }
+            throw new \Exception($error);
+        }
+    }
+
+    /**
      * 修改密码
      * @param $userName
      * @param $password

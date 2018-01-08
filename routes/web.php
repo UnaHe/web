@@ -11,7 +11,11 @@ Route::get('/wx2/{id}', 'WechatPageController@page2')->where('id', '[0-9]+');
 
 
 Route::get('/', 'Web\IndexController@index');
-
+Route::match(['get','post'],'/register', 'Web\IndexController@register');
+Route::match(['get','post'],'/login', 'Web\IndexController@login');
+Route::match(['get','post'],'/forgetPwd', 'Web\IndexController@forgetPwd');
+Route::match(['get','post'],'/updatePwd', 'Web\IndexController@updatePwd');
+Route::post('/getCode', 'Web\IndexController@getCode');
 /**
  * 需要登录访问的接口列表
  */

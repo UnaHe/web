@@ -47,7 +47,6 @@ class RefreshTaobaoToken extends Command
         ];
 
         if(!$refreshAll){
-            $where[] = ['expires_at', ">=", Carbon::now()->subMinute(15)];
             $where[] = ['expires_at', "<=", Carbon::now()->addMinute(15)];
         }
 

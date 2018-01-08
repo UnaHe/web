@@ -11,6 +11,7 @@ use App\Helpers\CacheHelper;
 use App\Helpers\EsHelper;
 use App\Helpers\ProxyClient;
 use App\Helpers\QueryHelper;
+use App\Helpers\UrlHelper;
 use App\Helpers\UtilsHelper;
 use App\Models\ColumnGoodsRel;
 use App\Models\Goods;
@@ -455,6 +456,26 @@ class GoodsService
         $templateData['description'] = isset($shareData['description']) ? $shareData['description'] : '优惠券数量有限，赶快来抢购吧！';
         //销量
         $templateData['sell_num'] = isset($shareData['sell_num']) ? $shareData['sell_num'] : 0;
+
+        //朋友淘分享地址
+        if(strpos($shareDesc, "{pytao_url}") !== false){
+            $templateData['pytao_url'] = "";
+
+            $user = app("request")->user();
+            if($user){
+                // 获取当前用户邀请码.
+                $code = $user->invite_code;
+                $cacheKey = "pytao_url_".$code;
+                if(!$shortUrl = CacheHelper::getCache($cacheKey)){
+                    // 拼接邀请链接.
+                    $longUrl = 'http://'.config('domains.pytao_domains').'/pytao/share/'.$code;
+                    // 短链接.
+                    $shortUrl = (new UrlHelper())->shortUrl($longUrl);
+                    CacheHelper::setCache($shortUrl, 5, $cacheKey);
+                }
+                $templateData['pytao_url'] = $shortUrl;
+            }
+        }
 
         foreach ($templateData as $name=>$value){
             $shareDesc = str_replace('{'.$name.'}', $value, $shareDesc);

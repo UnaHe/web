@@ -37,7 +37,6 @@ class UserController extends Controller
         }catch (\Exception $e){
             return $this->ajaxError($e->getMessage());
         }
-
         return $this->ajaxSuccess();
     }
 
