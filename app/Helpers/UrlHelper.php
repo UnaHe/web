@@ -18,6 +18,7 @@ class UrlHelper
      * @throws \Exception
      */
     public function shortUrl($url){
+        $url = urlencode($url);
         $appId = config('services.sina_open.key');
         $apiUrl = "http://api.weibo.com/2/short_url/shorten.json?source=5786724301&url_long=".$url;
         $client = new Client(['timeout' => 3]);
