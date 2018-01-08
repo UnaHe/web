@@ -12,90 +12,86 @@
 
 </head>
 <body>
-    <div class="layout-header am-hide-sm-only topbar">
-
-        <div class="topbar">
-            <!--公共顶部 start-->
-            <div class="container top">
-                <div class="am-g">
-                    <div class="am-u-md-3">
-                        <div class="topbar-left">
-                            <span class="">给你的不仅是优惠！</span>
-                        </div>
+    <div class="topbar">
+        <!--公共顶部 start-->
+        <div class="container top">
+            <div class="am-g">
+                <div class="am-u-md-3">
+                    <div class="topbar-left">
+                        <span class="">给你的不仅是优惠！</span>
                     </div>
-                    <div class="am-u-md-9">
-                        <div class="topbar-right am-text-right am-fr">
-                            <a href="">登录</a>
-                            <span class="mod_copyright_split">|</span>
-                            <a href="">注册</a>
-                            <span class="mod_copyright_split">|</span>
-                            <a href="">企业官网</a>
-                            <span class="mod_copyright_split">|</span>
-                            <a href="">商家合作</a>
-                            <span class="mod_copyright_split">|</span>
-                            <a href="">微信交流群</a>
-                        </div>
+                </div>
+                <div class="am-u-md-9">
+                    <div class="topbar-right am-text-right am-fr">
+                        <a href="">登录</a>
+                        <span class="mod_copyright_split">|</span>
+                        <a href="">注册</a>
+                        <span class="mod_copyright_split">|</span>
+                        <a href="">企业官网</a>
+                        <span class="mod_copyright_split">|</span>
+                        <a href="">商家合作</a>
+                        <span class="mod_copyright_split">|</span>
+                        <a href="">微信交流群</a>
                     </div>
                 </div>
             </div>
-            <!--公共顶部 end-->
         </div>
-
-        <div class="header-box">
-            <!--头部 start-->
-            <div class="container">
-                <div class="header">
-                    <div class="logo f1">
-                        <a href=""><img src="/images/web/logo.png" alt="" /></a>
-                    </div>
-                    <div class="search bar6 f1">
-                            <span class="search_span">综合搜索</span>
-                            <span class="search_span1"></span>
-                        <form>
-                            <input type="text" placeholder="搜索标题、商品ID、商品链接" name="cname">
-                            <button type="submit"><img src="/images/web/search.png" alt="" /></button>
-                            <span></span>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <!--头部 end-->
-        </div>
-
-        <div class="head-nav">
-            <!--导航菜单 start-->
-            <div class="nav-main">
-                <div class="nav-list clearfix">
-                    <ul class="">
-                        <li class="cur"><a href="">主页</a></li>
-                        <li class="">
-                            <a href="">今日必推</a>
-                        </li>
-                        <li class="">
-                            <a href="">限时快抢</a>
-                        </li>
-                        <li class="">
-                            <a href="">今日精选<i class="sf_new"></i></a>
-                        </li>
-                        <li class="">
-                            <a href="">爆款专区<i class="app_new"></i></a>
-                        </li>
-                        <li>
-                            <a href=""><img src="/images/web/food.png" alt="" />美食精选</a>
-                        </li>
-                        <li>
-                            <a href=""><img src="/images/web/furniture.png" alt="" />家居精选</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <!--导航菜单 end-->
-        </div>
-
+        <!--公共顶部 end-->
     </div>
 
-    <!--广告位-->
+    <div class="header-box">
+        <!--头部 start-->
+        <div class="container">
+            <div class="header">
+                <div class="logo f1">
+                    <a href=""><img src="/images/web/logo.png" alt="" /></a>
+                </div>
+                <div class="search bar6 f1">
+                        <span class="search_span">综合搜索</span>
+                        <span class="search_span1"></span>
+                    <form>
+                        <input type="text" placeholder="搜索标题、商品ID、商品链接" name="cname">
+                        <button type="submit"><img src="/images/web/search.png" alt="" /></button>
+                        <span></span>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--头部 end-->
+    </div>
+
+    <div class="head-nav">
+        <!--导航菜单 start-->
+        <div class="nav-main">
+            <div class="nav-list clearfix">
+                <ul class="">
+                    <li class="cur"><a href="">主页</a></li>
+                    <li class="">
+                        <a href="">今日必推</a>
+                    </li>
+                    <li class="">
+                        <a href="">限时快抢</a>
+                    </li>
+                    <li class="">
+                        <a href="">今日精选<i class="sf_new"></i></a>
+                    </li>
+                    <li class="">
+                        <a href="">爆款专区<i class="app_new"></i></a>
+                    </li>
+                    <li>
+                        <a href=""><img src="/images/web/food.png" alt="" />美食精选</a>
+                    </li>
+                    <li>
+                        <a href=""><img src="/images/web/furniture.png" alt="" />家居精选</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--导航菜单 end-->
+    </div>
+    
     <div class="pyt-banner">
+        <!--广告位-->
     </div>
 
     <div class="main">
@@ -106,13 +102,13 @@
                 <div id="goods-items_5069853" data_goodsid="529065425856" data-sellerid="2378275931" class="goods-item ">
                     <div class="goods-item-content">
                         <div class="goods-img">
-                            <a href="goods/{{ $v->id }}" target="_blank">
+                            <a href="/goods/{{ $v->id }}" target="_blank">
                                 <img class="lazy" src="{{ $v->pic }}">
                             </a>
                         </div>
                         <div class="goods-info">
                             <span class="goods-tit">
-                                <a href="goods/{{ $v->id }}" target="_blank">
+                                <a href="/goods/{{ $v->id }}" target="_blank">
                                     {{ $v->short_title }}
                                 </a>
                             </span>
