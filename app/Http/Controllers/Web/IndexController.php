@@ -13,8 +13,9 @@ class IndexController extends Controller
     /**
      * 主页
      */
-    public function index(Request $request){
-        echo 1111;
+    public function index(){
+        $title = '官网';
+        return  view('web.index', compact('title'));
     }
 
 }

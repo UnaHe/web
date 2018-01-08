@@ -1,0 +1,66 @@
+/*清除浮动公共类*/
+.clearfix:after {
+    content: "\200B";
+    display: block;
+    height: 0;
+    clear: both;
+}
+/*公共顶部*/
+.topbar {
+    width: 100%;
+}
+.container {
+    width: 1100px!important;
+    margin: 0 auto;
+}
+.top {
+    height: 40px;
+    line-height: 40px;
+    font-size: 14px;
+    background:rgba(238,238,238,1);
+}
+.topbar-left {
+    color: rgba(153,153,153,1);
+}
+.topbar-right {
+    color: rgba(153,153,153,1);
+}
+.topbar .container .am-g .topbar-right a {
+    color: rgba(153,153,153,1);
+}
+.topbar .container .am-g .topbar-right a:hover {
+    color: rgba(224,171,74,1);
+}
+
+/*公共底部*/
+.footer {
+    width: 100%;
+    border-top: 1px solid rgba(225,176,90,1);
+    margin-top: 120px;
+    height:14px;
+    font-size:14px;
+    color:rgba(153,153,153,1);
+    line-height:0px;
+}
+.footer a {
+    color:rgba(153,153,153,1);
+}
+.footer-in {
+    width:1100px;
+    height:1px;
+    margin: 0 auto;
+    background:rgba(238,238,238,1);
+}
+.center-block {
+    width: 1100px;
+    height: 50px;
+    margin: 0 auto;
+    line-height: 55px;
+}
+.mod_copyright_links {
+    margin: 0;
+}
+.mod_copyright_split {
+    margin: 0 15px;
+    color: rgba(153,153,153,1);
+}

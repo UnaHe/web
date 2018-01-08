@@ -1,0 +1,232 @@
+/*头部*/
+.header {
+    height: 120px;
+    position: relative;
+}
+.f1 {
+    float: left;
+}
+.logo {
+    margin-top: 36px;
+}
+.search {
+    width: 748px;
+    height: 40px;
+    margin-top: 50px;
+    margin-left: 57px;
+    position: relative;
+}
+.search_span {
+    width: 60px;
+    height: 13px;
+    font-size: 14px;
+    color: rgba(153,153,153,1);
+    line-height: 0;
+    position: absolute;
+    top: 20px;
+    left: 19px;
+}
+.search_span1 {
+    width: 1px;
+    height: 14px;
+    background: rgba(153,153,153,1);
+    position: absolute;
+    top: 13px;
+    left: 94px;
+}
+input,button {
+    border:none;
+    outline:none;
+}
+.bar6 input {
+    width: 100%;
+    height: 40px;
+    font-size: 14px;
+    padding-left: 115px;
+    border: 2px solid rgba(238,238,238,1);
+    background: transparent;
+}
+::placeholder {
+    color: rgba(221,221,221,1);
+}
+.bar6 button {
+    height: 40px;
+    width :40px;
+    cursor: pointer;
+    background: rgba(225,176,90,1);
+    padding: 0;
+    position: absolute;
+    top: 0;
+    left: 708px;
+}
+/*导航菜单*/
+.head-nav {
+    width: 100%;
+    background:rgba(51,51,51,1);
+}
+.nav-main {
+    width: 1100px;
+    height: 40px;
+    margin: 0 auto 10px auto;
+    line-height: 40px;
+}
+.nav-list {
+    margin-left: -30px;
+}
+.nav-main ul {
+    display: block;
+    margin: 0;
+}
+.nav-main ul li{
+    float: left;
+    list-style: none;
+}
+.nav-main ul > li > a {
+    font-size:16px;
+    color:rgba(255,255,255,1);
+    margin-right: 38px;
+}
+.nav-main ul > li > a:hover {
+    color:rgba(225,176,90,1);
+}
+.nav-main ul > li > a > img {
+    position: relative;
+    top: -2px;
+    left: -6px;
+}
+/*广告位*/
+.pyt-banner {
+    width: 1100px!important;
+    height: 334px;
+    margin: 10px auto;
+    background:url(../../images/web/push_banner.png);
+}
+/*主体商品遍历部分*/
+.main {
+    width: 1100px;
+    margin: 0 auto;
+}
+.wrapper .goods-list {
+    position: relative;
+}
+.goods-list {
+    width: 1225px;
+}
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+.goods-item {
+    width: 204px;
+    height: 330px;
+    float: left;
+    margin-top: 10px;
+    margin-right: 20px;
+    box-sizing: border-box;
+    position: relative;
+    margin-bottom: 10px;
+}
+.goods-item-content {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    top: 0;
+    left: 0;
+    background: white;
+    border: 1px solid #fff;
+}
+.goods-item-content:hover {
+    border: 1px solid rgba(225,176,90,1);
+}
+.goods-item-content .goods-img img {
+    width: 100%;
+    height: 100%;
+    vertical-align: middle;
+}
+.goods-info {
+    position: relative;
+    padding: 10px;
+    height: 126px;
+    word-wrap: initial;
+}
+.goods-tit {
+    font-size:14px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    display: block;
+}
+.goods-tit a {
+    color: rgba(102,102,102,1);
+}
+.goods-quan {
+    width: 100%;
+    font-size: 12px;
+    color: rgba(153,153,153,1);
+    margin-top: 10px;
+    white-space: nowrap;
+    display: inline-block;
+}
+.goods-coupon-price {
+    height: 22px;
+    font-size: 14px;
+    background: rgba(255,85,0,1);
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
+    color: rgba(255,255,255,1);
+    float: left;
+    position: relative;
+}
+.goods-coupon {
+    padding: 3px;
+}
+.goods-coupon-1 {
+    height: 22px;
+    border: 1px solid rgba(255,85,0,1);
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
+    background: rgba(255,255,255,1);
+    color:rgba(255,85,0,1);
+    position: absolute;
+    top: 0;
+    left: 20px;
+}
+.goods-sales {
+    float: right;
+}
+.goods-qjy {
+    width: 100%;
+    font-size: 12px;
+    height: 22px;
+    color: rgba(153,153,153,1);
+    white-space: nowrap;
+    display: inline-block;
+}
+.goods-price {
+    float: left;
+}
+.goods-yj {
+    float: right;
+}
+.rmb-style {
+    color: rgba(225,176,90,1);
+}
+.goods-qjy b {
+    font-size: 18px;
+    color: rgba(225,176,90,1);
+}
+.icon-tmail {
+    width:18px;
+    height:18px;
+    background:url(../../images/web/tmail.png);
+    float: right;
+}
+.icon-taobao {
+    width:18px;
+    height:18px;
+    background:url(../../images/web/taobao.png);
+    float: right;
+}

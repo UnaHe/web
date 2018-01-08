@@ -1,0 +1,20 @@
+.pyt-banner {
+    width: 1100px!important;
+    height: 588px;
+    margin: 0 auto;
+    background:url(../../assets/i/index/bing-1.jpg);
+}
+.start {
+    display: block;
+    width: 145px;
+    height: 49px;
+    color: #fff;
+    background: #e22;
+    border: 0;
+    font-size: 14px;
+    line-height: 49px;
+    text-align: center;
+    position: relative;
+    top: 450px;
+    left: 560px;
+}
