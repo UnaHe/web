@@ -18,17 +18,6 @@ use Illuminate\Support\Facades\Validator;
 class IndexController extends Controller
 {
 
-
-    /**
-     * 主页
-     */
-    public function index(Request $request)
-    {
-        echo "<pre>";
-        var_dump(Auth::user());
-        exit;
-    }
-
     /**
      * 登录
      * @param Request $request
@@ -147,7 +136,11 @@ class IndexController extends Controller
         } else {
             return view('web.user.forgetPwd');
         }
+    }
 
+    public function index(){
+        $title = '官网';
+        return  view('web.index', compact('title'));
     }
 
     /**

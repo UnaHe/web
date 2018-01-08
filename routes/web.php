@@ -9,13 +9,25 @@ Route::get('/wx/{id}', 'WechatPageController@page')->where('id', '[0-9]+');
 //微信中转单页(普通)
 Route::get('/wx2/{id}', 'WechatPageController@page2')->where('id', '[0-9]+');
 
-
+/**
+ * 首页
+ */
 Route::get('/', 'Web\IndexController@index');
 Route::match(['get','post'],'/register', 'Web\IndexController@register');
 Route::match(['get','post'],'/login', 'Web\IndexController@login');
 Route::match(['get','post'],'/forgetPwd', 'Web\IndexController@forgetPwd');
 Route::match(['get','post'],'/updatePwd', 'Web\IndexController@updatePwd');
 Route::post('/getCode', 'Web\IndexController@getCode');
+/**
+ * 今日必推列表
+ */
+Route::get('/columns/{code}/goods', 'Web\GoodsController@columnGoods');
+
+/**
+ * 商品详情
+ */
+Route::get('/goods/{goodsId}', "Web\GoodsController@detail")->where('goodsId', '[0-9]+');
+
 /**
  * 需要登录访问的接口列表
  */
