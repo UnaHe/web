@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Helpers\CacheHelper;
 use App\Helpers\GoodsHelper;
+use App\Services\CategoryService;
 use App\Services\ChannelColumnService;
 use App\Services\GoodsService;
 use Illuminate\Http\Request;
@@ -20,7 +21,8 @@ class GoodsController extends Controller
     /**
      * 获取商品列表
      */
-    public function goodList(Request $request){
+    public function goodList(Request $request)
+    {
         //商品分类
         $category = $request->get('category');
         //商品排序
@@ -58,19 +60,19 @@ class GoodsController extends Controller
 
         $userId = $request->user()->id;
         $list = (new GoodsService())->goodList($category, $sort, $keyword, $isTaoqianggou, $isJuhuashuan, $minPrice, $maxPrice, $isTmall, $minCommission, $minSellNum, $minCouponPrice, $maxCouponPrice, $isJpseller, $isQjd, $isHaitao, $isJyj, $isYfx, $userId);
-        if($list){
-            foreach ($list as &$item){
+        if ($list) {
+            foreach ($list as &$item) {
                 $keys = ['is_jpseller', 'is_qjd', 'is_haitao', 'is_tmallgj', 'is_jyjseller', 'is_freight_insurance'];
-                foreach ($keys as $key){
+                foreach ($keys as $key) {
                     $value = $item[$key];
-                    if($value == 1){
+                    if ($value == 1) {
                         $item[$key] = 0;
-                    }else if($value == 2){
+                    } else if ($value == 2) {
                         $item[$key] = 1;
                     }
                 }
             }
-            $list = (new GoodsHelper())->resizeGoodsListPic($list, ['pic'=>'240x240']);
+            $list = (new GoodsHelper())->resizeGoodsListPic($list, ['pic' => '240x240']);
         }
         return $this->ajaxSuccess($list);
     }
@@ -80,19 +82,20 @@ class GoodsController extends Controller
      * @param Request $request
      * @return static
      */
-    public function recommendGoods(Request $request){
+    public function recommendGoods(Request $request)
+    {
         //当前商品标题
         $title = $request->get('title');
         //淘宝商品id
         $taobaoGoodsId = $request->get('taobao_id');
 
-        if(!$title){
+        if (!$title) {
             return $this->ajaxError("参数错误");
         }
 
         $list = (new GoodsService())->recommendGoods($title, $taobaoGoodsId);
-        if($list){
-            $list = (new GoodsHelper())->resizeGoodsListPic($list, ['pic'=>'240x240']);
+        if ($list) {
+            $list = (new GoodsHelper())->resizeGoodsListPic($list, ['pic' => '240x240']);
         }
         return $this->ajaxSuccess($list);
     }
@@ -103,12 +106,13 @@ class GoodsController extends Controller
      * @param $goodId
      * @return static
      */
-    public function detail($goodId){
+    public function detail($goodId)
+    {
         $data = (new GoodsService())->detail($goodId);
-        if(!$data){
+        if (!$data) {
             return $this->ajaxError("商品不存在", 404);
         }
-        $data = (new GoodsHelper())->resizeGoodsListPic([$data], ['pic'=>'480x480']);
+        $data = (new GoodsHelper())->resizeGoodsListPic([$data], ['pic' => '480x480']);
         return $data[0];
     }
 
@@ -117,55 +121,82 @@ class GoodsController extends Controller
      * @param $columnCode 栏目代码
      * @return static
      */
-    public function columnGoods(Request $request, $columnCode){
+    public function columnGoods(Request $request, $columnCode)
+    {
         //商品分类
         $category = $request->get('category');
         //商品排序
         $sort = $request->get('sort');
-        //淘抢购筛选
-        $isTaoqianggou = $request->get('tqg');
-        //聚划算筛选
-        $isJuhuashuan = $request->get('jhs');
-        //最低价格筛选
-        $minPrice = $request->get('min_price');
-        //最高价格筛选
-        $maxPrice = $request->get('max_price');
+        if($isTmall = $request->get('today')){
+            $sort=2;
+        }
         //天猫筛选
-        $isTmall = $request->get('is_tmall', 0);
-        //最低佣金筛选
-        $minCommission = $request->get('min_commission', 0);
-        //最低销量筛选
-        $minSellNum = $request->get('min_sell_num', 0);
-        //最低券金额筛选
-        $minCouponPrice = $request->get('min_coupon_price');
-        //最高券金额筛选
-        $maxCouponPrice = $request->get('max_coupon_price');
+        $isTmall = $request->get('isTmall', 0);
+        $isJpseller = $request->get('isJpseller', 0);
+        $isQjd = $request->get('isQjd', 0);
+        $isHaitao = $request->get('isHaitao', 0);
+        $isJyj = $request->get('isJyj', 0);
+        $isYfx = $request->get('isYfx', 0);
+        //淘抢购筛选
+        $isTaoqianggou = $request->get('isTaoqianggou');
+        //聚划算筛选
+        $isJuhuashuan = $request->get('isJuhuashuan');
 
-        if(!(new ChannelColumnService())->getByCode($columnCode)){
+
+        //最低价格筛选
+        $minPrice = $request->get('minPrice');
+        //最高价格筛选
+        $maxPrice = $request->get('maxPrice');
+        $maxPrice= $request->get('isNine')?9.9:$maxPrice;
+        $maxPrice= $request->get('isTwenty')?20:$maxPrice;
+
+        //最低佣金筛选
+        $minCommission = $request->get('minCommission', 0);
+        //最低销量筛选
+        $minSellNum = $request->get('minSellNum', 0);
+        //最低券金额筛选
+        $minCouponPrice = $request->get('minCouponPrice');
+        //最高券金额筛选
+        $maxCouponPrice = $request->get('maxCouponPrice');
+        //  关键字
+        $keyword =  $request->get('keyword');
+        if (!(new ChannelColumnService())->getByCode($columnCode)) {
             return $this->ajaxError("栏目不存在");
         }
 
         $params = $request->all();
         $params['column_code'] = $columnCode;
-        if(!$list = CacheHelper::getCache($params)){
-            $list = (new GoodsService())->columnGoodList($columnCode, $category, $sort, $isTaoqianggou, $isJuhuashuan, $minPrice, $maxPrice, $isTmall, $minCommission, $minSellNum, $minCouponPrice, $maxCouponPrice);
+
+
+
+        if (!$list = CacheHelper::getCache($params)) {
+            $list = (new GoodsService())->goodList($category, $sort, $keyword, $isTaoqianggou, $isJuhuashuan, $minPrice, $maxPrice, $isTmall, $minCommission, $minSellNum, $minCouponPrice, $maxCouponPrice, $isJpseller, $isQjd, $isHaitao, $isJyj, $isYfx, 0);
+
+//            $list = (new GoodsService())->columnGoodList($columnCode, $category, $sort, $isTaoqianggou, $isJuhuashuan, $minPrice, $maxPrice, $isTmall, $minCommission, $minSellNum, $minCouponPrice, $maxCouponPrice);
 //            if($list){
 //                $list = (new GoodsHelper())->resizeGoodsListPic($list->toArray(), ['pic'=>'240x240']);
 //            }
             foreach($list as $k=> $v) {
-                $list[$k]['commission_finally'] = round($v->commission*($v->price> 0 ? $v->price : $v->price_full)/100, 1);
+                $list[$k]['commission_finally'] = round($v['commission']*($v['price']> 0 ? $v['price'] : $v['price_full'])/100, 1);
             }
             CacheHelper::setCache($list, 1, $params);
         }
+//        echo "<pre>";
+//        var_dump($list);
+//        exit;
         $title = '今日必推';
-        return  view('web.push_list', compact('list', 'title'));
+        $categorys = (new CategoryService())->getAllCategory();
+        $active_category = empty($category) ? '' : $category;
+        $active = ['active_category' => $active_category];
+        return view('web.push_list', compact('list', 'title', 'categorys', 'active'));
     }
 
     /**
      * 热搜词列表
      * @return static
      */
-    public function hotKeyWord(){
+    public function hotKeyWord()
+    {
         $data = ['耳机', '面膜', '口红', '保温杯', '卫衣', '毛衣女', '睡衣', '女鞋', '洗面奶', '充电宝'];
         return $this->ajaxSuccess($data);
     }
@@ -173,7 +204,8 @@ class GoodsController extends Controller
     /**
      * 全网搜索
      */
-    public function queryAllGoods(Request $request){
+    public function queryAllGoods(Request $request)
+    {
         //搜索关键字
         $keyword = $request->get('keyword');
         $page = intval($request->input("page", 1));
@@ -200,15 +232,15 @@ class GoodsController extends Controller
         $page = $page > 0 ? $page : 1;
         $limit = $limit > 0 ? $limit : 20;
 
-        if(!$keyword){
+        if (!$keyword) {
             return $this->ajaxError("参数错误");
         }
 
         $params = $request->all();
-        if(!$list = CacheHelper::getCache($params)){
+        if (!$list = CacheHelper::getCache($params)) {
             $list = (new GoodsService())->queryAllGoods($keyword, $hasShopCoupon, $isHighPayRate, $isTmall, $minSellNum, $minCommission, $maxCommission, $minPrice, $maxPrice, $page, $limit, $sort);
-            if($list){
-                $list = (new GoodsHelper())->resizeGoodsListPic($list, ['pic'=>'310x310']);
+            if ($list) {
+                $list = (new GoodsHelper())->resizeGoodsListPic($list, ['pic' => '310x310']);
             }
             CacheHelper::setCache($list, 1, $params);
         }
@@ -218,10 +250,11 @@ class GoodsController extends Controller
     /**
      * 查询商品佣金
      */
-    public function commission(Request $request){
+    public function commission(Request $request)
+    {
         $taobaoId = $request->get('taobao_id');
         $data = (new GoodsService())->commission($taobaoId);
-        $data = $data ?:[
+        $data = $data ?: [
             //实际佣金
             'commission' => -1,
             //原始佣金

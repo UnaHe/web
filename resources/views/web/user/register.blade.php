@@ -17,7 +17,7 @@
         <div class="am-input-group user-captcha">
             <input type="text" class="am-form-field input-captcha" name="captcha" placeholder="验证码">
 
-            <p class="am-input-group-label" id="clock" onclick="Register.getCode()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;获取手机验证码&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+            <p class="am-input-group-label" id="clock" onclick="Common.getCode()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;获取手机验证码&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
         </div>
 
 
@@ -32,7 +32,7 @@
 
     </form>
     <div class="am-cf">
-        <input type="submit" name="" onclick="Register.submit(this)" value="注 册"
+        <input type="submit" name="" onclick="Common.submit(this)" value="注 册"
                class="am-btn am-btn-primary am-btn-sm">
     </div>
 @stop
@@ -48,6 +48,6 @@
         var formPost = "{{url('register')}}";
         var url = "{{url('login')}}";
     </script>
-    <script src="{{ asset('/js/web/register.js') }}"></script>
+    <script src="js/web/common.js"></script>
 @stop
 

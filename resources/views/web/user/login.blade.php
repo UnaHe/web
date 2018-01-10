@@ -23,14 +23,14 @@
         <br/>
     </div>
     <div class="am-cf">
-        <input type="submit" name="" id="form_submit" onclick="login.submit(this)" value="登 录" class="am-btn am-btn-primary am-btn-sm">
+        <input type="submit" name="" id="form_submit" onclick="Common.submit(this)" value="登 录" class="am-btn am-btn-primary am-btn-sm">
     </div>
 @stop
 @section('js')
-    <script type="text/javascript" src="{{asset('js/web/login.js')}}"></script>
+    {{--<script type="text/javascript" src="js/web/common.js"></script>--}}
     <script type="text/javascript">
        var formPost="{{url('login')}}";
-       var homeUrl="{{url('/')}}";
+       var url="{{url('/')}}";
 
     </script>
 @stop

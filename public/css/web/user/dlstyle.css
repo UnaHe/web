@@ -25,7 +25,7 @@ time, mark, audio, video {
 }
 
 html, body {
-    height: 1080px;
+    height: auto;
 }
 
 a {
@@ -220,12 +220,8 @@ input#code {
     border-radius: 0px;
 }
 
-/*底部*/
-.footer {
-    text-align: left;
-    font-size: 14px;
-    padding-top: 5px;
-}
+
+
 
 @media screen and (min-width: 640px) {
     form, .am-cf, .partner {
@@ -233,9 +229,7 @@ input#code {
         margin: 20px auto;
     }
 
-    .footer-bd {
-        display: block;
-    }
+
 
     .partner h3 {
         text-align: left;
@@ -255,40 +249,6 @@ input#code {
     .am-cf input {
         width: 100%;
         font-size: 24px;
-    }
-
-    /*底部*/
-    .footer {
-        text-align: left;
-        display: block;
-        position: relative;
-        margin: 0px auto;
-        padding: 7px 0px 9px;
-        margin-top: 20px;
-        max-width: 1200px;
-    }
-
-    .footer .footer-bd p, .footer .footer-hd p {
-        margin-bottom: 8px;
-        line-height: 27px;
-        text-align: left;
-    }
-
-    .footer .footer-hd a {
-        margin: 0px 4px;
-        white-space: nowrap;
-        color: #6C6C6C;
-    }
-
-    .footer .footer-hd b {
-        margin: 0px 3px;
-        font-weight: 400;
-        color: #DDD;
-    }
-
-    .footer .footer-bd p {
-        border: none;
-        font-size: 14px;
     }
 
 }
@@ -409,9 +369,6 @@ input#code {
 .login-box .am-cf input {
     line-height: 1.1;margin-top: 10px;background:rgba(224,171,74,1);border-color: rgba(224,171,74,1);
 }
-
-
-
 /*忘记密码字体颜色*/
 .login-links a{
     color:rgba(204,204,204,1);
@@ -422,11 +379,11 @@ form input{
     width: 419px;
 }
 
-/*layer 样式*/
-body .layui-layer-lan .layui-layer-title{background:rgba(224,171,74,1); color:#fff; border: none;}
-body .layui-layer-lan .layui-layer-btn{border-top:1px solid #E9E7E7}
-body .layui-layer-lan .layui-layer-btn a{background:rgba(224,171,74,1);}
-body .layui-layer-lan .layui-layer-btn .layui-layer-btn1{background:#fff;}
+
+
+
+
+
 
 
 
