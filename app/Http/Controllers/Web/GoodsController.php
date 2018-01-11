@@ -59,9 +59,11 @@ class GoodsController extends Controller
         $isYfx = $request->get('is_yfx', 0);
 
         $userId = $request->user()->id;
+
         $list = (new GoodsService())->goodList($category, $sort, $keyword, $isTaoqianggou, $isJuhuashuan, $minPrice, $maxPrice, $isTmall, $minCommission, $minSellNum, $minCouponPrice, $maxCouponPrice, $isJpseller, $isQjd, $isHaitao, $isJyj, $isYfx, $userId);
         if ($list) {
-            foreach ($list as &$item) {
+            foreach ($list as $k => &$item) {
+                $list[$k]['commission_finally'] = round($item['commission'] * ($item['price'] > 0 ? $item['price'] : $item['price_full']) / 100, 1);
                 $keys = ['is_jpseller', 'is_qjd', 'is_haitao', 'is_tmallgj', 'is_jyjseller', 'is_freight_insurance'];
                 foreach ($keys as $key) {
                     $value = $item[$key];
@@ -74,6 +76,7 @@ class GoodsController extends Controller
             }
             $list = (new GoodsHelper())->resizeGoodsListPic($list, ['pic' => '240x240']);
         }
+
         return $this->ajaxSuccess($list);
     }
 
@@ -108,6 +111,7 @@ class GoodsController extends Controller
      */
     public function detail($goodId)
     {
+//        var_dump();exit;
         $data = (new GoodsService())->detail($goodId);
         if (!$data) {
             return $this->ajaxError("商品不存在", 404);
@@ -127,8 +131,8 @@ class GoodsController extends Controller
         $category = $request->get('category');
         //商品排序
         $sort = $request->get('sort');
-        if($isTmall = $request->get('today')){
-            $sort=2;
+        if ($isTmall = $request->get('today')) {
+            $sort = 2;
         }
         //天猫筛选
         $isTmall = $request->get('isTmall', 0);
@@ -141,14 +145,12 @@ class GoodsController extends Controller
         $isTaoqianggou = $request->get('isTaoqianggou');
         //聚划算筛选
         $isJuhuashuan = $request->get('isJuhuashuan');
-
-
         //最低价格筛选
         $minPrice = $request->get('minPrice');
         //最高价格筛选
         $maxPrice = $request->get('maxPrice');
-        $maxPrice= $request->get('isNine')?9.9:$maxPrice;
-        $maxPrice= $request->get('isTwenty')?20:$maxPrice;
+        $maxPrice = $request->get('isNine') ? 9.9 : $maxPrice;
+        $maxPrice = $request->get('isTwenty') ? 20 : $maxPrice;
 
         //最低佣金筛选
         $minCommission = $request->get('minCommission', 0);
@@ -158,37 +160,84 @@ class GoodsController extends Controller
         $minCouponPrice = $request->get('minCouponPrice');
         //最高券金额筛选
         $maxCouponPrice = $request->get('maxCouponPrice');
-        //  关键字
-        $keyword =  $request->get('keyword');
-        if (!(new ChannelColumnService())->getByCode($columnCode)) {
-            return $this->ajaxError("栏目不存在");
-        }
+        //关键字
+        $keyword = $request->get('keyword');
 
+        if ($columnCode == 'meishijingxuan' || $columnCode == 'jiajujingxuan') {
+            $category = $columnCode == 'meishijingxuan' ? 6 : 4;
+        } else {
+            if (!(new ChannelColumnService())->getByCode($columnCode)) {
+                return $this->ajaxError("栏目不存在");
+            }
+        }
         $params = $request->all();
         $params['column_code'] = $columnCode;
 
-
-
         if (!$list = CacheHelper::getCache($params)) {
-            $list = (new GoodsService())->goodList($category, $sort, $keyword, $isTaoqianggou, $isJuhuashuan, $minPrice, $maxPrice, $isTmall, $minCommission, $minSellNum, $minCouponPrice, $maxCouponPrice, $isJpseller, $isQjd, $isHaitao, $isJyj, $isYfx, 0);
-
-//            $list = (new GoodsService())->columnGoodList($columnCode, $category, $sort, $isTaoqianggou, $isJuhuashuan, $minPrice, $maxPrice, $isTmall, $minCommission, $minSellNum, $minCouponPrice, $maxCouponPrice);
+            if (!empty($keyword) || !empty($isJpseller) || !empty($isQjd) || !empty($isHaitao) || !empty($isJyj) || !empty($isYfx) ||
+                $columnCode == 'meishijingxuan' || $columnCode == 'jiajujingxuan'
+            ) {
+                $list = (new GoodsService())->goodList($category, $sort, $keyword, $isTaoqianggou, $isJuhuashuan, $minPrice, $maxPrice, $isTmall, $minCommission, $minSellNum, $minCouponPrice, $maxCouponPrice, $isJpseller, $isQjd, $isHaitao, $isJyj, $isYfx, 0);
+            } else {
+                $list = (new GoodsService())->columnGoodList($columnCode, $category, $sort, $isTaoqianggou, $isJuhuashuan, $minPrice, $maxPrice, $isTmall, $minCommission, $minSellNum, $minCouponPrice, $maxCouponPrice);
+            }
 //            if($list){
 //                $list = (new GoodsHelper())->resizeGoodsListPic($list->toArray(), ['pic'=>'240x240']);
 //            }
-            foreach($list as $k=> $v) {
-                $list[$k]['commission_finally'] = round($v['commission']*($v['price']> 0 ? $v['price'] : $v['price_full'])/100, 1);
+            foreach ($list as $k => $v) {
+                $list[$k]['commission_finally'] = round($v['commission'] * ($v['price'] > 0 ? $v['price'] : $v['price_full']) / 100, 1);
             }
             CacheHelper::setCache($list, 1, $params);
         }
-//        echo "<pre>";
-//        var_dump($list);
-//        exit;
-        $title = '今日必推';
+
+        $titles = ['today_tui' => '今日必推', 'today_jing' => '今日精选', 'xiaoliangbaokuan' => '爆款专区',
+            'zhengdianmiaosha' => '限时快抢', 'meishijingxuan' => '美食精选', 'jiajujingxuan' => '家居精选'];
+        $title = $titles[$columnCode];
         $categorys = (new CategoryService())->getAllCategory();
         $active_category = empty($category) ? '' : $category;
-        $active = ['active_category' => $active_category];
+        $active = ['active_category' => $active_category, 'active_sort' => $sort, 'active_column_code' => $columnCode];
+        if ($columnCode == 'zhengdianmiaosha') {
+            $time_step = $this->getTimes();
+//echo "<pre>";
+//            var_dump($list);
+//            exit;
+            return view('web.zhengdianmiaosha', compact('list', 'title', 'categorys', 'active','time_step'));
+        }
         return view('web.push_list', compact('list', 'title', 'categorys', 'active'));
+    }
+
+
+    public function getTimes()
+    {
+        if (!$data = CacheHelper::getCache()) {
+//            $startTime = (new Carbon())->startOfDay()->toDateTimeString();
+//            $endTime = (new Carbon())->endOfDay()->toDateTimeString();
+
+            $year = date("Y");
+            $month = date("m");
+            $day = date("d");
+            $start = mktime(0, 0, 0, $month, $day, $year);//当天开始时间戳
+            $end = mktime(23, 59, 59, $month, $day + 1, $year);//明天结束时间戳
+
+            $startTime = date('Y-m-d H:i:s', $start);
+            $endTime = date('Y-m-d H:i:s', $end);
+
+            $data = (new ChannelColumnService())->miaoshaTimes($startTime, $endTime);
+            CacheHelper::setCache($data, 5);
+        }
+        $times = [];
+
+        foreach ($data as $key => $val) {
+            $times[$key]['time'] = $val['time'];
+            $times[$key]['active_time'] = $val['active_time'];
+            if (strtotime($val['active_time']) < time()) {
+                $times[$key]['status'] = '进行中';
+            } else {
+
+                $times[$key]['status'] = '即将开始';
+            }
+        }
+        return $times;
     }
 
     /**

@@ -1,0 +1,209 @@
+/*时间段选项*/
+.main .step {
+    width: 1099px;
+    height: 40px;
+    margin: 20px auto;
+    background: rgba(225, 176, 90, 1);
+    overflow: hidden;
+    position: relative;
+
+}
+
+.big_step {
+    position: absolute;
+}
+
+.step .big_step div {
+    width: 216px;
+    height: 40px;
+    text-align: center;
+    font-family: NotoSansHans-Medium;
+    display: inline-block;
+
+}
+
+.step div .step-time {
+    display: block;
+    height: 12px;
+    font-size: 16px;
+    color: rgba(255, 255, 255, 1);
+}
+
+.step div .step-status {
+    height: 12px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 1);
+
+}
+
+.step_div {
+    width: 22px;
+    height: 22px;
+    line-height: 40px;
+    position: absolute;
+    z-index: 9;
+}
+
+.step_go_div {
+    width: 22px;
+    height: 22px;
+    line-height: 40px;
+    position: absolute;
+    z-index: 9;
+    left: 1075px;
+    top: -18px;
+
+}
+
+/*商品item*/
+.goods-item {
+    width: 540px;
+    height: 334px;
+    background: black;
+}
+/*商品图片*/
+.good-img {
+    display: inline-block;
+    width: 300px;
+    height: 300px;
+    background: white;
+    margin: 17px 10px;
+}
+
+.good-img img {
+    width: 300px;
+    height: 300px;
+}
+/*商品title信息*/
+.good-info {
+    display: inline-block;
+    width: 202px;
+    height: 300px;
+    margin: 17px auto;
+    background: red;
+    position: absolute;
+}
+
+.good-info-msg {
+    width: 202px;
+    height: 120px;
+    position: relative;
+    background: white;
+}
+
+.good-info-msg .good_short_title {
+    font-size: 14px;
+    font-family: NotoSansHans-Regular;
+    color: rgba(51, 51, 51, 1);
+
+}
+
+.good-info-msg .good_des {
+    font-size: 14px;
+    font-family: NotoSansHans-Regular;
+    color: rgba(225, 109, 90, 1);
+    line-height: 22px;
+}
+/*劵样式*/
+.good-info-coupon {
+    width: 202px;
+    height: 25px;
+    position: relative;
+    background: yellow;
+}
+/*券后价和佣金*/
+.good-info-money {
+    width: 202px;
+    height: 20px;
+    position: relative;
+    background: green;
+}
+
+.good-info-money-num {
+    width: 202px;
+    height: 50px;
+
+}
+
+.good-info-money .good-info-money-price, .good-info-money-profit {
+    font-size: 14px;
+    font-family: NotoSansHans-Regular;
+    color: rgba(153, 153, 153, 1);
+}
+
+.good-info-money-price-num, .good-info-money-profit-num {
+    font-size: 30px;
+    font-family: NotoSansHans-Regular;
+    color: rgba(225, 176, 90, 1);
+}
+
+.good-info-money-price, .good-info-money-price-num {
+    float: left;
+}
+
+.good-info-money-price-num {
+    margin-left: -40px;
+}
+
+.good-info-money-profit-num {
+    margin-top: -2px;
+    margin-left: 40px;
+}
+
+.good-info-money-profit, .good-info-money-profit-num {
+    float: right;
+}
+/*销量和马上推*/
+.good-info-action {
+    width: 202px;
+    height: 85px;
+    position: relative;
+    background: gold;
+}
+
+.good-info-sell-num {
+    position: relative;
+    width: 142px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 14px;
+    font-family: NotoSansHans-Regular;
+    float: left;
+    border: 1px solid rgba(225, 176, 90, 1);
+    margin-top: 27px;
+}
+
+.good-info-sell-num span {
+    font-size: 14px;
+    font-family: NotoSansHans-Regular;
+    color: rgba(225, 109, 90, 1);
+}
+
+.good-info-action-btn {
+    position: relative;
+    width: 60px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    font-size: 14px;
+    font-family: NotoSansHans-Regular;
+    color: rgba(255, 255, 255, 1);
+    background: rgba(225, 176, 90, 1);
+    float: right;
+    margin-top: 27px;
+}
+
+.good-info-coupon .goods-coupon {
+    font-size: 14px;;
+    background: rgba(255, 85, 0, 1);
+    padding: 0px;
+}
+
+.good-info-coupon  .goods-coupon-1 {
+    height: 19px;
+    font-size: 14px;
+    font-family: NotoSansHans-Regular;
+    color: rgba(255, 85, 0, 1);
+    top: 4px;
+    left: 14px
+}

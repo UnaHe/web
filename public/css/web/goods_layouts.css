@@ -1,0 +1,158 @@
+/*登录下拉菜单*/
+.container .topbar-right{
+    display: inline;
+}
+ul {
+    list-style: none;
+}
+
+.nav > li {
+    float: left;
+}
+
+.nav a {
+    display: block;
+    text-decoration: none;
+    width: auto;
+    height: 40px;
+    text-align: center;
+    line-height: 42px;
+    color: rgba(238, 238, 238, 1);
+    background-color: rgba(238, 238, 238, 1);
+}
+
+.drop-down {
+    position: relative;
+}
+
+.drop-down li {
+    width: 100px;
+}
+
+.drop-down-content {
+    padding: 0;
+    display: none;
+    position: absolute;
+    margin-top: 0px;
+    z-index: 9999;
+}
+
+.drop-down-content li a {
+    background: white;
+    line-height: 30px;
+    height: 30px;
+}
+
+#login {
+    width: 100px;
+    margin-right: -10px;
+}
+
+/*分类/筛选/排序样式*/
+.category, .screen, .sort {
+    width: 1100px;
+    height: 40px;
+    background: white;
+    border: 1px solid #F0F0F0;
+}
+
+/*筛选样式*/
+.screen {
+    margin-top: 20px;
+    padding-top: 5px;
+    height: auto;
+}
+
+/*排序样式*/
+.sort {
+    background: white;
+    margin-top: 20px;
+    height: 38px;
+}
+
+/*分类span样式*/
+.category span {
+    margin-left: 19px;
+    width: 59px;
+    height: 13px;
+    font-size: 14px;
+    font-family: NotoSansHans-Regular;
+    color: rgba(153, 153, 153, 1);
+    line-height: 40px;
+}
+
+/*筛选排序span样式*/
+.screen span, .sort span {
+    margin-left: 5px;
+    font-family: NotoSansHans-Regular;
+    color: rgba(153, 153, 153, 1);
+    font-size: 14px;
+}
+
+/*筛选input样式*/
+.screen input {
+    margin-left: 20px;
+    font-family: NotoSansHans-Regular;
+    color: rgba(153, 153, 153, 1);
+    font-size: 14px;
+}
+
+.screen .screen-input-text {
+    margin-left: 115px;
+    margin-top: 9px;
+    border-top: 2px dashed #F0F0F0;
+    font-size: 14px;
+    color: rgba(153, 153, 153, 1);
+}
+
+.screen-input-text input {
+    margin: 9px 0px;
+    border: 1px solid;
+    width: 60px;
+    line-height: 20px;
+}
+
+.screen-input-text span {
+    margin-left: 20px;
+}
+
+/*金额输入框自带人民币符号*/
+.money-input {
+    background-image: url('/images/web/money.png');
+    background-repeat: no-repeat;
+    background-position: left;
+    text-indent: 10px;
+}
+
+/*筛选按钮样式*/
+.screen-btn {
+    background-color: rgba(225, 176, 90, 1);
+    color: white
+}
+
+/*排序内容样式*/
+.sort div {
+    display: inline-block;
+    text-align: center;
+    width: 62px;
+    height: 38px;
+    line-height: 38px;
+}
+
+/*分类/高级筛选/排序的状态样式*/
+.main .active {
+    background: rgba(246, 246, 246, 1);
+    color: rgba(225, 176, 90, 1);
+}
+
+.nav-list .active {
+    color: rgba(225, 176, 90, 1);
+}
+
+/*排序a标签*/
+.sort a:link, .sort a:visited {
+    text-decoration: none;
+    font-size: 14px;
+    font-family: NotoSansHans-Regular;
+    color: rgba(102, 102, 102, 1);
+}
