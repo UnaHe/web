@@ -11,6 +11,7 @@ namespace App\Services\Requests;
 
 use App\Helpers\ProxyClient;
 use GuzzleHttp\Cookie\CookieJar;
+use Illuminate\Support\Facades\Cache;
 
 class TaobaoRequest{
 
@@ -20,9 +21,26 @@ class TaobaoRequest{
     protected $client;
     protected $cookieJar;
 
+    /**
+     * 淘宝请求cookie缓存
+     * @var string
+     */
+    private $cookieCacheKey = __CLASS__.':cookies';
+
+    /**
+     * cookie缓存时间
+     * @var int
+     */
+    private $cookieCacheTime = 20;
+
     public function __construct(){
         $this->client = new ProxyClient(['cookie'=>true]);
         $this->cookieJar = new CookieJar;
+
+        $cookies = Cache::get($this->cookieCacheKey);
+        if($cookies){
+            $this->cookieJar = $cookies;
+        }
     }
 
     /**
@@ -35,6 +53,10 @@ class TaobaoRequest{
     public function requestWithH5tk($api, $data, $extraData = null){
         if(is_array($data)){
             $data = json_encode($data);
+        }
+        $h5TkCookie = $this->cookieJar->getCookieByName('_m_h5_tk');
+        if($h5TkCookie){
+            $this->h5Tk = explode('_', $h5TkCookie->getValue())[0];
         }
 
         $t		= intval(microtime(true)*1000);
@@ -50,9 +72,8 @@ class TaobaoRequest{
         //第一次取cookie参数
         $response = $this->client->request('GET', $url, ['cookies' => $this->cookieJar])->getBody()->getContents();
 
-        if(strpos($response, "令牌为空")){
-            $h5TkCookie = $this->cookieJar->getCookieByName('_m_h5_tk')->getValue();
-            $this->h5Tk = explode('_', $h5TkCookie)[0];
+        if(strpos($response, "令牌为空") || strpos($response, '令牌过期')){
+            Cache::put($this->cookieCacheKey, $this->cookieJar, $this->cookieCacheTime);
             return $this->requestWithH5tk($api, $data, $extraData);
         }
 
