@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Services\UserService;
 use App\Traits\AjaxResponse;
 use Carbon\Carbon;
 use Psr\Http\Message\ServerRequestInterface;
@@ -57,8 +58,7 @@ class AccessTokenController extends PassportAccessToken
      */
     public function Login($code, $redirect = [])
     {
-        // 获取用户信息JWT编码.
-        $user = User::where('invite_code', $code)->first();
+        $user = (new UserService())->getUserByReferralCode($code);
 
         if (!$user) {
             return $this->ajaxError("邀请码错误");
