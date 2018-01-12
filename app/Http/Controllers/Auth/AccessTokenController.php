@@ -61,7 +61,7 @@ class AccessTokenController extends PassportAccessToken
         $user = (new UserService())->getUserByReferralCode($code);
 
         if (!$user) {
-            return $this->ajaxError("邀请码错误");
+            return $this->ajaxError("推荐码错误");
         }
 
         if($user['expiry_time'] && Carbon::now()->diffInSeconds(new Carbon($user['expiry_time']), false)<=0){
