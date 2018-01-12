@@ -13,9 +13,11 @@
 
             <div class="big_step">
                 @foreach($time_step as $v)
-                    <div class="step-time-div">
+                    <div class="step-time-div @if($active['active_time']== $v['active_time']) curr-step @endif">
+                        <a href="{{url('/miaosha/goods').'?active_time='.$v['active_time']}}">
                         <span class="step-time">{{$v['time']}}</span>
                         <span class="step-status">{{$v['status']}}</span>
+                            </a>
                     </div>
                 @endforeach
             </div>
@@ -30,7 +32,7 @@
 
                 @foreach($list as $key=>$val)
                     <div class="goods-item ">
-                        <a href="/goods/{{ $val['id'] }}" target="_blank">
+                        <a href="{{url('/goods/'. $val['id']).'?columnCode='.$active['active_column_code']}} " target="_blank">
                             <div class="good-img">
                                 <img src="{{$val['pic']}}">
                             </div>

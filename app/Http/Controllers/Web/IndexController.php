@@ -1,6 +1,8 @@
 <?php
 namespace App\Http\Controllers\Web;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Request;
 
 
 /**
@@ -10,11 +12,19 @@ use Illuminate\Support\Facades\Auth;
  */
 class IndexController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
+
+
         $title = '官网';
-//        echo "<pre>";
-//        var_dump(Auth::user());
-//        exit;
+
         return  view('web.index', compact('title'));
+    }
+
+
+    public function business(){
+        $title='商务合作';
+        $columnCode='today_tui';
+        $active = ['active_column_code' => $columnCode];
+        return  view('web.business',compact( 'title', 'active'));
     }
 }

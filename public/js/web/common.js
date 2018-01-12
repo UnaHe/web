@@ -47,18 +47,21 @@ Common = {
             dataType: "json",
             success: function (data) {
                 if (data.code==200) {
-                    if(data.data.message){
+                    if (data.data.message) {
                         layer.alert(data.data.message, {
                             skin: 'layui-layer-lan' //样式类名
-                            ,closeBtn: 0
+                            , closeBtn: 0
                         },function(){
-                            window.location.href=url;
+                            if (typeof url !='undefined') {
+                                window.location.href = url;
+                            } else {
+                                window.location.reload()
+                            }
                         });
                     }else{
-                        window.location.href=url;
+                        window.location.reload()
                     }
-
-                } else {
+                }else {
                     layer.alert(data.msg.msg, {
                         skin: 'layui-layer-lan' //样式类名
                         ,closeBtn: 0

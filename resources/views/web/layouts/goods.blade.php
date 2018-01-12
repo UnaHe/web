@@ -38,23 +38,23 @@
                             <li class="drop-down">
                                 <a href="#" id="login">{{\Illuminate\Support\Facades\Auth::user()->phone}}</a>
                                 <ul class="drop-down-content">
-                                    <li><a href="#">个人中心</a></li>
+                                    <li><a href="{{url('/userCenter')}}">个人中心</a></li>
                                     <li><a href="#">授权管理</a></li>
-                                    <li><a href="#">账号安全</a></li>
-                                    <li><a href="#">退出</a></li>
+                                    <li><a href="{{url('/accountSecurity')}}">账号安全</a></li>
+                                    <li><a href="{{url('/logout')}}">退出</a></li>
                                 </ul>
                             </li>
                         @else
                             <li><a href="{{url('login')}}">登录</a></li>
                         @endif
-                        <li class="mod_copyright_split">|</li>
-                        <li><a href="#">注册</a></li>
-                        <li class="mod_copyright_split">|</li>
-                        <li><a href="#">企业官网</a></li>
-                        <li class="mod_copyright_split">|</li>
-                        <li><a href="#">商家合作</a></li>
-                        <li class="mod_copyright_split">|</li>
-                        <li><a href="#">微信交流群</a></li>
+                            <li class="mod_copyright_split">|</li>
+                            <li><a href="{{url('register')}}">注册</a></li>
+                            <li class="mod_copyright_split">|</li>
+                            <li><a href="#">企业官网</a></li>
+                            <li class="mod_copyright_split">|</li>
+                            <li><a href="{{url('/business')}}">商家合作</a></li>
+                            <li class="mod_copyright_split">|</li>
+                            <li><a href="#">微信交流群</a></li>
                     </ul>
 
                 </div>
@@ -98,7 +98,7 @@
                 </li>
                 <li class="">
                     <a class="@if($active['active_column_code']=='zhengdianmiaosha') active @endif"
-                       href="{{url('/columns/zhengdianmiaosha/goods')}}">限时快抢</a>
+                       href="{{url('/miaosha/goods')}}">限时快抢</a>
                 </li>
                 <li class="">
                     <a class="@if($active['active_column_code']=='today_jing') active @endif"

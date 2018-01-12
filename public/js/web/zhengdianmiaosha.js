@@ -1,6 +1,13 @@
 /**
  * Created by tk on 2018/1/11.
  */
+
+    //window.onload=function(){
+    //   //$('.step-time-div').css('width',1094/2);
+    //}
+
+
+
 $('.step_back').click(function () {
     var left = parseInt($('.big_step').css('left')) - 220;
     if (left < -660) {

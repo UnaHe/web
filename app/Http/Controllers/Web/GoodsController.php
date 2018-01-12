@@ -100,7 +100,8 @@ class GoodsController extends Controller
         if ($list) {
             $list = (new GoodsHelper())->resizeGoodsListPic($list, ['pic' => '240x240']);
         }
-        return $this->ajaxSuccess($list);
+        return $list;
+
     }
 
 
@@ -109,15 +110,36 @@ class GoodsController extends Controller
      * @param $goodId
      * @return static
      */
-    public function detail($goodId)
+    public function detail(Request $request, $goodId)
     {
-//        var_dump();exit;
+        $columnCode = $request->get('columnCode');
         $data = (new GoodsService())->detail($goodId);
         if (!$data) {
             return $this->ajaxError("商品不存在", 404);
         }
         $data = (new GoodsHelper())->resizeGoodsListPic([$data], ['pic' => '480x480']);
-        return $data[0];
+
+        $title = '商品详情';
+        $good = $data[0];
+        $good['commission_finally'] = round($good['commission'] * ($good['price'] > 0 ? $good['price'] : $good['price_full']) / 100, 1);
+
+        $request->offsetSet('title', $good['short_title']);
+        $request->offsetSet('taobao_id', $good['id']);
+        $list = $this->recommendGoods($request);
+        $this->commissionHandler($list);
+
+        $active = ['active_column_code' => $columnCode];
+        return view('web.info', compact('good', 'list', 'title', 'active'));
+    }
+
+
+    protected function  commissionHandler(&$list)
+    {
+        foreach ($list as $k => &$v) {
+            $list[$k]['coupon_price']=floatval($v['coupon_price']);
+            $list[$k]['commission_finally'] = round($v['commission'] * ($v['price'] > 0 ? $v['price'] : $v['price_full']) / 100, 1);
+        }
+        return $list;
     }
 
     /**
@@ -184,9 +206,8 @@ class GoodsController extends Controller
 //            if($list){
 //                $list = (new GoodsHelper())->resizeGoodsListPic($list->toArray(), ['pic'=>'240x240']);
 //            }
-            foreach ($list as $k => $v) {
-                $list[$k]['commission_finally'] = round($v['commission'] * ($v['price'] > 0 ? $v['price'] : $v['price_full']) / 100, 1);
-            }
+            $this->commissionHandler($list);
+
             CacheHelper::setCache($list, 1, $params);
         }
 
@@ -196,23 +217,53 @@ class GoodsController extends Controller
         $categorys = (new CategoryService())->getAllCategory();
         $active_category = empty($category) ? '' : $category;
         $active = ['active_category' => $active_category, 'active_sort' => $sort, 'active_column_code' => $columnCode];
-        if ($columnCode == 'zhengdianmiaosha') {
-            $time_step = $this->getTimes();
-//echo "<pre>";
-//            var_dump($list);
-//            exit;
-            return view('web.zhengdianmiaosha', compact('list', 'title', 'categorys', 'active','time_step'));
-        }
         return view('web.push_list', compact('list', 'title', 'categorys', 'active'));
+    }
+
+
+    public function getMiaoshaGoods(Request $request)
+    {
+        $time_step = $this->getTimes();
+
+        $active_time = null;
+        foreach ($time_step as $key => $val) {
+            if ($val['status'] == '即将开始') {
+                $key = $key - 1 >= 0 ? $key - 1 : 0;
+                $active_time = $time_step[$key]['active_time'];
+                break;
+            }
+        }
+        //如果没有即将开始就让当前最接近时间做作为当前抢购时间
+        if (!$active_time) {
+            $active_time = $time_step[sizeof($time_step) - 1]['active_time'];
+        }
+
+
+        //秒杀时间点
+        $activeTime = $request->get('active_time', $active_time);
+        $params = $request->all();
+        if (!$list = CacheHelper::getCache($params)) {
+            $list = (new ChannelColumnService())->miaoshaGoods($activeTime);
+            if ($list) {
+                $list = (new GoodsHelper())->resizeGoodsListPic($list->toArray(), ['pic' => '240x240']);
+            }
+            $this->commissionHandler($list);
+
+            CacheHelper::setCache($list, 5, $params);
+        }
+        $columnCode = 'zhengdianmiaosha';
+        $titles = ['today_tui' => '今日必推', 'today_jing' => '今日精选', 'xiaoliangbaokuan' => '爆款专区',
+            'zhengdianmiaosha' => '限时快抢', 'meishijingxuan' => '美食精选', 'jiajujingxuan' => '家居精选'];
+        $title = $titles[$columnCode];
+        $active = ['active_column_code' => $columnCode, 'active_time' => $activeTime];
+        return view('web.zhengdianmiaosha', compact('list', 'title', 'active', 'time_step'));
+
     }
 
 
     public function getTimes()
     {
         if (!$data = CacheHelper::getCache()) {
-//            $startTime = (new Carbon())->startOfDay()->toDateTimeString();
-//            $endTime = (new Carbon())->endOfDay()->toDateTimeString();
-
             $year = date("Y");
             $month = date("m");
             $day = date("d");
@@ -233,7 +284,6 @@ class GoodsController extends Controller
             if (strtotime($val['active_time']) < time()) {
                 $times[$key]['status'] = '进行中';
             } else {
-
                 $times[$key]['status'] = '即将开始';
             }
         }

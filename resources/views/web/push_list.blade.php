@@ -87,7 +87,7 @@
                          class="goods-item ">
                         <div class="goods-item-content">
                             <div class="goods-img">
-                                <a href="/goods/{{ $v['id'] }}" target="_blank">
+                                <a href="{{url('/goods/'. $v['id']).'?columnCode='.$active['active_column_code']}}" target="_blank">
                                     <img class="lazy" src="{{ $v['pic'] }}">
                                 </a>
                             </div>

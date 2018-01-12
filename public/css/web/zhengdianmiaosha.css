@@ -61,6 +61,7 @@
     height: 334px;
     background: black;
 }
+
 /*商品图片*/
 .good-img {
     display: inline-block;
@@ -74,6 +75,7 @@
     width: 300px;
     height: 300px;
 }
+
 /*商品title信息*/
 .good-info {
     display: inline-block;
@@ -104,6 +106,7 @@
     color: rgba(225, 109, 90, 1);
     line-height: 22px;
 }
+
 /*劵样式*/
 .good-info-coupon {
     width: 202px;
@@ -111,6 +114,7 @@
     position: relative;
     background: yellow;
 }
+
 /*券后价和佣金*/
 .good-info-money {
     width: 202px;
@@ -153,6 +157,7 @@
 .good-info-money-profit, .good-info-money-profit-num {
     float: right;
 }
+
 /*销量和马上推*/
 .good-info-action {
     width: 202px;
@@ -199,11 +204,15 @@
     padding: 0px;
 }
 
-.good-info-coupon  .goods-coupon-1 {
+.good-info-coupon .goods-coupon-1 {
     height: 19px;
     font-size: 14px;
     font-family: NotoSansHans-Regular;
     color: rgba(255, 85, 0, 1);
     top: 4px;
     left: 14px
+}
+
+.main .step .curr-step {
+    background: #CA9E51;
 }

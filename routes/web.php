@@ -13,10 +13,13 @@ Route::get('/wx2/{id}', 'WechatPageController@page2')->where('id', '[0-9]+');
  * 首页
  */
 Route::get('/', 'Web\IndexController@index');
+Route::get('/business ', 'Web\IndexController@business');
+Route::get('/logout', 'Web\UserController@logout');
 /**
  * 用户路由
  */
 Route::match(['get','post'],'/register', 'Web\UserController@register');
+Route::match(['get','post'],'/isExist', 'Web\UserController@isExist');
 Route::match(['get','post'],'/login', 'Web\UserController@login');
 Route::match(['get','post'],'/forgetPwd', 'Web\UserController@forgetPwd');
 
@@ -26,7 +29,7 @@ Route::post('/getCode', 'Web\UserController@getCode');
  * 今日必推列表
  */
 Route::get('/columns/{code}/goods', 'Web\GoodsController@columnGoods');
-
+Route::get('/miaosha/goods', 'Web\GoodsController@getMiaoshaGoods');
 /**
  * 商品详情
  */
@@ -42,4 +45,6 @@ Route::middleware(['middleware' => ['web']])->group(function(){
 Route::group(['middleware' => 'auth'],function(){
     Route::match(['get','post'],'/updatePwd', 'Web\UserController@updatePwd');
     Route::match(['get','post'],'/updatePwdSucc', 'Web\UserController@updatePwdSucc');
+    Route::match(['get','post'],'/userCenter', 'Web\UserController@userCenter');
+    Route::match(['get','post'],'/accountSecurity', 'Web\UserController@accountSecurity');
 });

@@ -47,6 +47,28 @@
         var getCodeUrl = "{{url('getCode')}}";
         var formPost = "{{url('register')}}";
         var url = "{{url('login')}}";
+        var isExistUrl="{{url('isExist')}}";
+
+        $('#username').blur(function(){
+           var  phone=$('#username').val();
+            $.ajax({
+                type: "POST",
+                url: isExistUrl,
+                data: {phone:phone},
+                dataType: "json",
+                success: function (data) {
+                    if (data.code!=200)  {
+                        layer.alert(data.msg.msg, {
+                            skin: 'layui-layer-lan' //样式类名
+                            ,closeBtn: 0
+                        });
+                    }
+                }
+            });
+
+
+
+        })
     </script>
     <script src="js/web/common.js"></script>
 @stop
