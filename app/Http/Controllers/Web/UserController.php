@@ -113,8 +113,9 @@ class UserController extends Controller
      */
     public function getCode(Request $request)
     {
+        $ip=$request->getClientIp();
         $redis = Redis::connection();
-        if ($redis->get('isdo')) {
+        if ($redis->get($ip)) {
             return $this->ajaxError(['msg' => '操作太频繁']);
         }
         $mobile = $request->post('username');
@@ -129,7 +130,7 @@ class UserController extends Controller
         if (!$codeId) {
             return $this->ajaxError(['msg' => '验证码发送失败']);
         }
-        $redis->setex('isdo', 60, 'yes');
+        $redis->setex($ip, 60, 'yes');
         return $this->ajaxSuccess([$codeId]);
     }
 

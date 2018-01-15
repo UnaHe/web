@@ -32,7 +32,10 @@ Common = {
                         layer.alert(data.msg.msg, {
                             skin: 'layui-layer-lan' //样式类名
                             ,closeBtn: 0
+                        },function(){
+                            window.location.reload()
                         });
+
                     }
                 }
             });
