@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Services\UserService;
 use App\Traits\AjaxResponse;
+use Carbon\Carbon;
 use Psr\Http\Message\ServerRequestInterface;
 use \Laravel\Passport\Http\Controllers\AccessTokenController as PassportAccessToken;
 use Zend\Diactoros\Request;
@@ -56,11 +58,14 @@ class AccessTokenController extends PassportAccessToken
      */
     public function Login($code, $redirect = [])
     {
-        // 获取用户信息JWT编码.
-        $user = User::where('invite_code', $code)->first();
+        $user = (new UserService())->getUserByReferralCode($code);
 
         if (!$user) {
-            return $this->ajaxError("获取token失败");
+            return $this->ajaxError("推荐码错误");
+        }
+
+        if($user['expiry_time'] && Carbon::now()->diffInSeconds(new Carbon($user['expiry_time']), false)<=0){
+            return $this->ajaxError("账号已过期");
         }
 
         $key = config('app.key');

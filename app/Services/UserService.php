@@ -7,6 +7,7 @@
  */
 namespace App\Services;
 
+use App\Models\UserReferralCode;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Models\InviteCode;
@@ -90,4 +91,38 @@ class UserService
             throw new \Exception($error);
         }
     }
+
+    /**
+     * 获取推荐码
+     * @param User $user
+     * @return null
+     */
+    public function getReferralCode($user){
+        $code = (new UserReferralCode())->getByUserId($user->id);
+        $referralCode = null;
+        if(!$code){
+            $inviteCode = $user['invite_code'];
+            if($inviteCode && (new UserReferralCode())->updateCode($inviteCode, $user->id)){
+                $referralCode = $inviteCode;
+            }
+        }else{
+            $referralCode = $code['referral_code'];
+        }
+
+        return $referralCode;
+    }
+
+    /**
+     * 通过推荐码获取用户信息
+     * @param $code
+     * @return User
+     */
+    public function getUserByReferralCode($code){
+        $code = (new UserReferralCode())->getByCode($code);
+        if(!$code){
+            return false;
+        }
+        return User::find($code['user_id']);
+    }
+
 }

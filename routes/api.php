@@ -168,6 +168,11 @@ Route::domain(config('domains.api_domain'))->middleware(\App\Http\Middleware\Api
          */
         Route::get('/share', "ShareController@getShare");
 
+        /**
+         * 获取推荐码
+         */
+        Route::get('/share/referralCode', "ShareController@getReferralCode");
+
     });
 
 });
