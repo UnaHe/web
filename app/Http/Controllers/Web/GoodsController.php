@@ -129,6 +129,7 @@ class GoodsController extends Controller
         $this->commissionHandler($list);
 
         $active = ['active_column_code' => $columnCode];
+
         return view('web.info', compact('good', 'list', 'title', 'active'));
     }
 

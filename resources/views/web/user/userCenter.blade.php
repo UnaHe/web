@@ -13,6 +13,11 @@
     </style>
 </head>
 <body>
+<div>
+    <a href="{{url('userCenter')}}">个人中心</a>
+    <a href="{{url('accountAuth')}}">授权管理</a>
+    <a href="{{url('accountSecurity')}}">账号安全</a>
+</div>
 <form action="{{url('/userCenter')}}">
     <div>
         性别:

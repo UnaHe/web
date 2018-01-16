@@ -143,7 +143,7 @@ class UserService
     }
 
     /**
-     * 通过个人中心修改部门信息
+     * 通过个人中心修改部分信息
      * @param $data
      * @return mixed
      * @throws \Exception
@@ -178,5 +178,18 @@ class UserService
     {
         $user = DB::table('xmt_pygj_user_info')->where('user_id', '=', $user_id)->first();
         return $user;
+    }
+
+
+
+    /**
+     * 获取用户个人中心信息
+     * @param $user_id
+     * @return mixed
+     */
+    public function getUserTaobao($user_id)
+    {
+        $userTaobao = DB::table('xmt_taobao_token')->where('user_id', '=', $user_id)->get();
+        return $userTaobao;
     }
 }

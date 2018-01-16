@@ -68,7 +68,7 @@
         .sell-tpl-qq-btn button {
             width: 296px;
             height: 40px;
-            margin-bottom: -334px;
+            margin-bottom: -180px;
             line-height: 40px;
         }
 
@@ -103,6 +103,11 @@
             line-height: 40px;
         }
 
+        .copy-main {
+            overflow: hidden;
+            /*display: none;*/
+        }
+
     </style>
 
 @stop
@@ -133,12 +138,13 @@
             </div>
             <div class="main-right-bottom">
                 <div class="sell-tpl-title">
-                    <span>营销模板</span> <span>请<a href="#">登录</a>授权</span>
+                    <span>营销模板</span> <span>请<a href="{{url('auth')}}">登录</a>授权</span>
 
                 </div>
                 <div class="sell-tpl-content">
                     <div class="sell-tpl-qq">
                         <p>QQ文案</p>
+
                         <div class="sell-tpl-qq-content">
                             <img class="sell-tpl-content-img" src="{{$good['pic']}}">
 
@@ -148,7 +154,7 @@
                             <img src="/images/web/QQ_logo.png"/>
                         </div>
                         <div class="sell-tpl-qq-btn">
-                            <button class="qq_generate" type="button">一键生成</button>
+                            <button class="qq-copy" type="button">一键生成</button>
                         </div>
                     </div>
 
@@ -177,75 +183,99 @@
                         </div>
 
                         <div class="sell-tpl-weixin-btn">
-                            <button type="button">一键生成</button>
+                            <button class="wechat-copy" type="button">一键生成</button>
                             <button type="button">生成长图</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
 
+        {{--<div class="main">--}}
+            {{--<!--主体商品遍历部分 start-->--}}
+            {{--<div class="wrapper">--}}
+                {{--<div class="goods-list clearfix">--}}
+                    {{--@foreach($list as $k => $v)--}}
+                        {{--<div id="goods-items_5069853" data_goodsid="529065425856" data-sellerid="2378275931"--}}
+                             {{--class="goods-item ">--}}
+                            {{--<div class="goods-item-content">--}}
+                                {{--<div class="goods-img">--}}
+                                    {{--<a href="{{url('/goods/'. $v['id']).'?columnCode='.$active['active_column_code']}}"--}}
+                                       {{--target="_blank">--}}
+                                        {{--<img class="lazy" src="{{ $v['pic'] }}">--}}
+                                    {{--</a>--}}
+                                {{--</div>--}}
+                                {{--<div class="goods-info">--}}
+    {{--<span class="goods-tit">--}}
+    {{--<a href="/goods/{{ $v['id'] }}" target="_blank">--}}
+        {{--{{ $v['short_title']}}--}}
+    {{--</a>--}}
+    {{--</span>--}}
+
+                                    {{--<div class="goods-quan">--}}
+                                        {{--<div class="goods-coupon-price">--}}
+                                            {{--<span class="goods-coupon">券</span>--}}
+
+                                            {{--<div class="goods-coupon-1">--}}
+                                                {{--<span class="goods-coupon-yuan">&nbsp;{{ $v['coupon_price']}}</span>--}}
+                                                {{--<span class="goods-coupon-unit">元&nbsp;</span>--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="goods-sales">--}}
+                                            {{--<span class="goods-sales-unit">月销: </span>--}}
+                                            {{--<span class="goods-sales-num">{{ $v['sell_num'] }}</span>--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
+                                    {{--<div class="clearfix"></div>--}}
+                                    {{--<div class="goods-qjy">--}}
+                                        {{--<div class="goods-price"><span>券后</span><span--}}
+                                                    {{--class="rmb-style">￥</span><b>{{ $v['price'] }}</b></div>--}}
+                                        {{--<div class="goods-yj"><span>佣金</span><span--}}
+                                                    {{--class="rmb-style">￥</span><b>{{ $v['commission_finally'] }}</b>--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
+                                    {{--<div class="@if ($v['is_tmall'] !== 0) icon-tmail @else icon-taobao @endif">--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                    {{--@endforeach--}}
+                {{--</div>--}}
+            {{--</div>--}}
+            {{--<!--主体商品遍历部分 start-->--}}
+        {{--</div>--}}
 
 
+        <div class="copy-main">
+            <div id="qq-copy-main" class="copy-main">
+                <img src="{{$good['pic']}}">
+                {{--<img src="http://imgproxy.ffquan.cn/imgextra/i4/884909271/*t*b2cif4m*dn*i8*k*jj*sszb*x*xb4*k*f*xa_!!884909271.jpg">--}}
+                <p>{{$good['des']}}</p>
+                <br>
+                <span>[请转换QQ二合一]</span>
 
-    <div class="main">
-        <!--主体商品遍历部分 start-->
-        <div class="wrapper">
-            <div class="goods-list clearfix">
-                @foreach($list as $k => $v)
-                    <div id="goods-items_5069853" data_goodsid="529065425856" data-sellerid="2378275931"
-                         class="goods-item ">
-                        <div class="goods-item-content">
-                            <div class="goods-img">
-                                <a href="{{url('/goods/'. $v['id']).'?columnCode='.$active['active_column_code']}}"
-                                   target="_blank">
-                                    <img class="lazy" src="{{ $v['pic'] }}">
-                                </a>
-                            </div>
-                            <div class="goods-info">
-    <span class="goods-tit">
-    <a href="/goods/{{ $v['id'] }}" target="_blank">
-        {{ $v['short_title']}}
-    </a>
-    </span>
+                <p>{{$good['short_title']}}</p>
+                <br>本群专享优惠！已抢{{$good['sell_num']}}件！
+            </div>
 
-                                <div class="goods-quan">
-                                    <div class="goods-coupon-price">
-                                        <span class="goods-coupon">券</span>
+            <div id="wechat-copy-main" class="copy-main">
+                <img src="{{$good['pic']}}">
+                {{--<img src="http://imgproxy.ffquan.cn/imgextra/i4/884909271/*t*b2cif4m*dn*i8*k*jj*sszb*x*xb4*k*f*xa_!!884909271.jpg">--}}
+                <p>{{$good['short_title']}}</p>
 
-                                        <div class="goods-coupon-1">
-                                            <span class="goods-coupon-yuan">&nbsp;{{ $v['coupon_price']}}</span>
-                                            <span class="goods-coupon-unit">元&nbsp;</span>
-                                        </div>
-                                    </div>
-                                    <div class="goods-sales">
-                                        <span class="goods-sales-unit">月销: </span>
-                                        <span class="goods-sales-num">{{ $v['sell_num'] }}</span>
-                                    </div>
-                                </div>
-                                <div class="clearfix"></div>
-                                <div class="goods-qjy">
-                                    <div class="goods-price"><span>券后</span><span
-                                                class="rmb-style">￥</span><b>{{ $v['price'] }}</b></div>
-                                    <div class="goods-yj"><span>佣金</span><span
-                                                class="rmb-style">￥</span><b>{{ $v['commission_finally'] }}</b></div>
-                                </div>
-                                <div class="@if ($v['is_tmall'] !== 0) icon-tmail @else icon-taobao @endif">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
+                <p>{{$good['des']}}</p>
+                <br>查看商品：复制这条信息
+                <span>[请转换微信淘口令]</span>
+                ，打开☞手机淘宝☜即可查看并下单！
             </div>
         </div>
-        <!--主体商品遍历部分 start-->
     </div>
 @stop
 
 @section('js')
     <script type="text/javascript" src="/js/web/clipboard.js"></script>
+
     <script type="text/javascript">
         /**
          * 设置主图
@@ -256,22 +286,50 @@
             $('#img-show').attr('src', src);
         })
 
+
         /**
-         * 目前只能复制文字
+         * 只能复制到文字,外网的图片和本地的图片可以复制,$good['pic']的图片不能复制,另外要是把推荐列表放出来一键复制点击没反应,复制的文本内容应该隐藏
+         * @type {number}
          */
-        var clipboard = new Clipboard('.qq_generate', {
-            text: function () {
-                return $('#qq-des').html();
+        var ClipboardSupport = 0;
+        if (typeof Clipboard != "undefined") {
+            ClipboardSupport = 1;
+        } else {
+            ClipboardSupport = 0;
+        }
+
+        $('.qq-copy').click(function (e) {
+            var copy = document.getElementById('qq-copy-main');
+            copyFunction(copy, '.qq-copy', "QQ文案复制成功");
+        });
+        $('.wechat-copy').click(function (e) {
+            var copy = document.getElementById('wechat-copy-main');
+            copyFunction(copy, '.wechat-copy', "微信文案复制成功");
+        });
+
+        //设置一键复制
+        var copyFunction = function (copyMain, copyBtn, copyMsg) {
+            if (ClipboardSupport == 0) {
+                alert('浏览器版本过低，请升级或更换浏览器后重新复制！');
+
+            } else {
+                var clipboard = new Clipboard(copyBtn, {
+                    target: function () {
+                        return copyMain;
+                    }
+                });
+
+                clipboard.on('success', function (e) {
+                    alert(copyMsg);
+                    e.clearSelection();
+                });
+
+                clipboard.on('error', function (e) {
+                    alert('复制失败');
+                    e.clearSelection();
+                });
             }
-        });
-        clipboard.on('success', function (e) {
-            alert("复制成功");
-        });
-
-        clipboard.on('error', function (e) {
-            console.log(e);
-        });
-
-
+        }
     </script>
+
 @stop
