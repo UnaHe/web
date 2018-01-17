@@ -47,14 +47,14 @@
                         @else
                             <li><a href="{{url('login')}}">登录</a></li>
                         @endif
-                            <li class="mod_copyright_split">|</li>
-                            <li><a href="{{url('register')}}">注册</a></li>
-                            <li class="mod_copyright_split">|</li>
-                            <li><a href="#">企业官网</a></li>
-                            <li class="mod_copyright_split">|</li>
-                            <li><a href="{{url('/business')}}">商家合作</a></li>
-                            <li class="mod_copyright_split">|</li>
-                            <li><a href="#">微信交流群</a></li>
+                        <li class="mod_copyright_split">|</li>
+                        <li><a href="{{url('register')}}">注册</a></li>
+                        <li class="mod_copyright_split">|</li>
+                        <li><a href="#">企业官网</a></li>
+                        <li class="mod_copyright_split">|</li>
+                        <li><a href="{{url('/business')}}">商家合作</a></li>
+                        <li class="mod_copyright_split">|</li>
+                        <li><a href="#">微信交流群</a></li>
                     </ul>
 
                 </div>
@@ -76,7 +76,8 @@
                 <span class="search_span1"></span>
 
                 <form action="{{url('/columns/'.$active['active_column_code'].'/goods')}}" method="get">
-                    <input type="text" placeholder="搜索标题、商品ID、商品链接" name="keyword" value="@if(isset($keyword)){{$keyword }} @endif">
+                    <input type="text" placeholder="搜索标题、商品ID、商品链接" name="keyword"
+                           value="@if(isset($keyword)){{$keyword }} @endif">
                     <button type="submit"><img src="/images/web/search.png" alt=""/></button>
                     <span></span>
                 </form>

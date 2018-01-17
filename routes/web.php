@@ -42,8 +42,7 @@ Route::get('/miaosha/goods', 'Web\GoodsController@getMiaoshaGoods');
 
 //获取授权code
 Route::any('/taobaoCode', 'Web\UserController@taobaoCode');
-//获取用户信心
-Route::any('/authorizeToken', 'Web\UserController@authorizeToken');
+
 Route::group(['middleware' => 'auth'], function () {
     //忘记密码=>修改密码
     Route::match(['get', 'post'], '/updatePwd', 'Web\UserController@updatePwd');

@@ -393,7 +393,7 @@ class UserController extends Controller
             $data['code'] = $request->get('code');
             $data['client_id'] = config('taobao.appkey');
             $data['client_secret'] = config('taobao.secretkey');
-            $data['redirect_uri'] = url('authorizeToken');
+            $data['redirect_uri'] = url('accountAuth');
             $data['grant_type'] = 'authorization_code';
 
             $ch = curl_init();
@@ -408,6 +408,16 @@ class UserController extends Controller
             var_dump($tokens);
             exit;
             $user = Auth::user();
+            if(!(array_key_exists('access_token', $tokens)
+                && array_key_exists('token_type', $tokens)
+                && array_key_exists('expires_in', $tokens)
+                && array_key_exists('refresh_token', $tokens)
+                && array_key_exists('re_expires_in', $tokens)
+                && array_key_exists('taobao_user_id', $tokens)
+                && array_key_exists('taobao_user_nick', $tokens)
+            )){
+                return $this->ajaxError("参数错误");
+            }
             $res = (new TaobaoService())->saveAuthToken($user->id, $tokens, '');
             if ($res) {
                 return redirect(url('accountAuth'));
@@ -417,12 +427,7 @@ class UserController extends Controller
         }
     }
 
-    public function authorizeToken(Request $request)
-    {
-        echo "<pre>";
-        var_dump($request->all());
-        exit;
-    }
+
 
     /**
      * 删除用户授权

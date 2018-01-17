@@ -432,20 +432,29 @@ class TaobaoService
             $token=$this->getToken($userId);
             $this->testPid($token,$data['weixin_pid']);
             $this->testPid($token,$data['qq_pid']);
-            $weixin_pid = TaobaoPid::where(['user_id' => $userId, 'pid_type' => 1])->get();
             $time = date('Y-m-d H:i:m', time());
-            if (!sizeof($weixin_pid)) {
-                TaobaoPid::create(['user_id' => $userId, 'pid_type' => 1, 'pid' => $data['weixin_pid'], 'create_time' => $time, 'update_time' => $time]);
-            } else {
-                TaobaoPid::where(['user_id' => $userId, 'pid_type' => 1])->update(['pid' => $data['weixin_pid'], 'update_time' => $time]);
+            $weixin_pid = TaobaoPid::where(['user_id'=>$userId,'pid_type'=>1] )->first();
+            if (!$weixin_pid) {
+                $weixin_pid = new TaobaoPid();
+                $weixin_pid['create_time'] = $time;
+                $weixin_pid['user_id'] = $userId;
+                $weixin_pid['pid_type'] = 1;
             }
+            $weixin_pid['pid'] = $data['weixin_pid'];
+            $weixin_pid['update_time'] = $time;
+            $weixin_pid->save();
 
-            $qq_pid = TaobaoPid::where(['user_id' => $userId, 'pid_type' => 2])->get();
-            if (!sizeof($qq_pid)) {
-                TaobaoPid::create(['user_id' => $userId, 'pid_type' => 2, 'pid' => $data['qq_pid'], 'create_time' => $time, 'update_time' => $time]);
-            } else {
-                TaobaoPid::where(['user_id' => $userId, 'pid_type' => 2])->update(['pid' => $data['qq_pid'], 'update_time' => $time]);
+            $qq_pid = TaobaoPid::where(['user_id'=>$userId,'pid_type'=>2] )->first();
+            if (!$qq_pid) {
+                $qq_pid = new TaobaoPid();
+                $qq_pid['create_time'] = $time;
+                $qq_pid['user_id'] = $userId;
+                $qq_pid['pid_type'] = 2;
             }
+            $qq_pid['pid'] = $data['qq_pid'];
+            $qq_pid['update_time'] = $time;
+            $qq_pid->save();
+
             DB::commit();
             return  ['success'=>true];
         } catch (\Exception  $e) {

@@ -10,7 +10,7 @@
 @section('category')
     <div class="main category">
         <span>商品分类:</span>
-        <a href="{{url('/columns/zhengdianmiaosha/goods')}}">
+        <a href="{{url('/columns/'.$active['active_column_code'].'/goods')}}">
             <span class="select_cat_id  @if($active['active_category']=='') active @endif" cat_id="">全部</span>
         </a>
         @foreach($categorys as $v)
@@ -83,8 +83,7 @@
         <div class="wrapper">
             <div class="goods-list clearfix">
                 @foreach($list as $k => $v)
-                    <div id="goods-items_5069853" data_goodsid="529065425856" data-sellerid="2378275931"
-                         class="goods-item ">
+                    <div class="goods-item ">
                         <div class="goods-item-content">
                             <div class="goods-img">
                                 <a href="{{url('/goods/'. $v['id']).'?columnCode='.$active['active_column_code']}}"
@@ -93,11 +92,8 @@
                                 </a>
                             </div>
                             <div class="goods-info">
-    <span class="goods-tit">
-    <a href="/goods/{{ $v['id'] }}" target="_blank">
-        {{ $v['short_title']}}
-    </a>
-    </span>
+                                <span class="goods-tit"><a href="/goods/{{ $v['id'] }}"
+                                                           target="_blank">{{ $v['short_title']}}</a></span>
 
                                 <div class="goods-quan">
                                     <div class="goods-coupon-price">
@@ -130,27 +126,69 @@
         </div>
         <!--主体商品遍历部分 start-->
     </div>
-    {{--<div><a href="javascript:;" class="load-more">加载更多</a></div>--}}
+    <div><a href="javascript:;" class="load-more">加载更多</a></div>
 @stop
 
 @section('js')
     <script type="text/javascript">
-        {{--var next_page = 2;--}}
-        {{--$('.load-more').click(function () {--}}
-            {{--next_page += 1--}}
-            {{--var getListUrl = "{{ \Illuminate\Support\Facades\Request::getRequestUri()}}";--}}
-{{--//            alert(getListUrl);--}}
-            {{--$.ajax({--}}
-                {{--type: "GET",--}}
-                {{--url:getListUrl ,--}}
-                {{--data: {page: next_page},--}}
-                {{--dataType: "json",--}}
-                {{--success: function (data) {--}}
-                   {{--console--}}
-                {{--}--}}
-            {{--});--}}
+        var next_page = 1;
+        $('.load-more').click(function () {
+            next_page += 1
+            var getListUrl = "{{ \Illuminate\Support\Facades\Request::getRequestUri()}}";
+            var goods_url_head = "{{url('/goods/')}}";
+            var goods_url_ext = "{{'?columnCode='.$active['active_column_code']}}";
 
-        {{--});--}}
+            $.get({
+                type: "GET",
+                url: getListUrl,
+                data: {page: next_page},
+                dataType: "json",
+                success: function (data) {
+                    if (data.data.length > 0) {
+                        var html = '';
+                        $.each(data.data, function ($key, $val) {
+                            var val_url = goods_url_head + '/' + $val.id + goods_url_ext;
+                            var pic = $val.pic;
+                            var short_title = $val.short_title;
+                            var coupon_price = $val.coupon_price;
+                            var sell_num = $val.sell_num;
+                            var price = $val.price;
+                            var commission_finally = $val.commission_finally;
+                            var is_tmall = $val.is_tmall !== 0 ? 'icon-tmail' : 'icon-taobao';
+
+                            html += "<div class='goods-item '> " +
+                                    "<div class='goods-item-content'> " +
+                                    "<div class='goods-img'> " +
+                                    "<a href='" + val_url + "'target='_blank'> <img class='lazy' src='" + pic + "'> </a> " +
+                                    "</div> <div class='goods-info'> " +
+                                    "<span class='goods-tit'><a href='" + val_url + "'target='_blank'>" + short_title + "</a></span> " +
+                                    "<div class='goods-quan'> " +
+                                    "<div class='goods-coupon-price'>" +
+                                    " <span class='goods-coupon'>券</span> " +
+                                    "<div class='goods-coupon-1'> " +
+                                    "<span class='goods-coupon-yuan'>&nbsp;" + coupon_price + "</span> " +
+                                    "<span class='goods-coupon-unit'>元&nbsp;</span>" +
+                                    " </div> </div> " +
+                                    "<div class='goods-sales'>" +
+                                    " <span class='goods-sales-unit'>月销: </span>" +
+                                    " <span class='goods-sales-num'>" + sell_num + "</span>" +
+                                    " </div> </div> " +
+                                    "<div class='clearfix'></div>" +
+                                    " <div class='goods-qjy'> <div class='goods-price'>" +
+                                    "<span>券后</span><span class='rmb-style'>￥</span><b>" + price + "</b>" +
+                                    "</div> <div class='goods-yj'>" +
+                                    "<span>佣金</span><span class='rmb-style'>￥</span><b>" + commission_finally + "</b></div> </div> <div class='" + is_tmall + "'> </div> </div> </div> </div>";
+
+                        });
+                        $(html).appendTo('.goods-list');
+                    } else {
+                        alert('加载完了,以后我们努力给你更多!');
+                    }
+
+                }
+            });
+        })
+        ;
     </script>
 @stop
 

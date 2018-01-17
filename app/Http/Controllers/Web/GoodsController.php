@@ -204,12 +204,18 @@ class GoodsController extends Controller
         $params = $request->all();
         $params['column_code'] = $columnCode;
 
-        if (!$list = CacheHelper::getCache($params)) {
-            if (!empty($keyword) || !empty($isJpseller) || !empty($isQjd) || !empty($isHaitao) || !empty($isJyj) || !empty($isYfx) ||
-                $columnCode == 'meishijingxuan' || $columnCode == 'jiajujingxuan'
+
+        if (!$list = CacheHelper::getCache($params) && !empty($list)) {
+            /**
+             *
+             * 有条件的走goodList
+             */
+            if (!empty($keyword) || !empty($isJpseller) || !empty($isQjd) || !empty($isHaitao) || !empty($isJyj) || !empty($isYfx)
+                || $columnCode == 'meishijingxuan' || $columnCode == 'jiajujingxuan'
             ) {
                 $list = (new GoodsService())->goodList($category, $sort, $keyword, $isTaoqianggou, $isJuhuashuan, $minPrice, $maxPrice, $isTmall, $minCommission, $minSellNum, $minCouponPrice, $maxCouponPrice, $isJpseller, $isQjd, $isHaitao, $isJyj, $isYfx, 0);
             } else {
+                //走栏目GoodList
                 $list = (new GoodsService())->columnGoodList($columnCode, $category, $sort, $isTaoqianggou, $isJuhuashuan, $minPrice, $maxPrice, $isTmall, $minCommission, $minSellNum, $minCouponPrice, $maxCouponPrice);
             }
 
@@ -218,22 +224,26 @@ class GoodsController extends Controller
             CacheHelper::setCache($list, 1, $params);
         }
 
+        /**
+         * ajax加载更多
+         */
+        if ($request->ajax() && !empty($request->input('page'))) {
+            return $this->ajaxSuccess($list);
+        }
+
         $titles = ['today_tui' => '今日必推', 'today_jing' => '今日精选', 'xiaoliangbaokuan' => '爆款专区',
             'zhengdianmiaosha' => '限时快抢', 'meishijingxuan' => '美食精选', 'jiajujingxuan' => '家居精选'];
         $title = $titles[$columnCode];
         $categorys = (new CategoryService())->getAllCategory();
         $active_category = empty($category) ? '' : $category;
         $active = ['active_category' => $active_category, 'active_sort' => $sort, 'active_column_code' => $columnCode];
-        return view('web.push_list', compact('list', 'title', 'categorys', 'active','keyword'));
+        return view('web.push_list', compact('list', 'title', 'categorys', 'active', 'keyword'));
     }
 
 
     public function getMiaoshaGoods(Request $request)
     {
         $time_step = $this->getTimes();
-//        echo "<pre>";
-//        var_dump($time_step);
-//        exit;
         $active_time = null;
         foreach ($time_step as $key => $val) {
             if ($val['status'] == '即将开始') {
