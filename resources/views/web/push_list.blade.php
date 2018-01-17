@@ -87,7 +87,8 @@
                          class="goods-item ">
                         <div class="goods-item-content">
                             <div class="goods-img">
-                                <a href="{{url('/goods/'. $v['id']).'?columnCode='.$active['active_column_code']}}" target="_blank">
+                                <a href="{{url('/goods/'. $v['id']).'?columnCode='.$active['active_column_code']}}"
+                                   target="_blank">
                                     <img class="lazy" src="{{ $v['pic'] }}">
                                 </a>
                             </div>
@@ -129,5 +130,27 @@
         </div>
         <!--主体商品遍历部分 start-->
     </div>
+    {{--<div><a href="javascript:;" class="load-more">加载更多</a></div>--}}
+@stop
+
+@section('js')
+    <script type="text/javascript">
+        {{--var next_page = 2;--}}
+        {{--$('.load-more').click(function () {--}}
+            {{--next_page += 1--}}
+            {{--var getListUrl = "{{ \Illuminate\Support\Facades\Request::getRequestUri()}}";--}}
+{{--//            alert(getListUrl);--}}
+            {{--$.ajax({--}}
+                {{--type: "GET",--}}
+                {{--url:getListUrl ,--}}
+                {{--data: {page: next_page},--}}
+                {{--dataType: "json",--}}
+                {{--success: function (data) {--}}
+                   {{--console--}}
+                {{--}--}}
+            {{--});--}}
+
+        {{--});--}}
+    </script>
 @stop
 

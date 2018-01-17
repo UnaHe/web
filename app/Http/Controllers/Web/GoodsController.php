@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Web;
 
 use App\Helpers\CacheHelper;
 use App\Helpers\GoodsHelper;
+use App\Models\TaobaoToken;
+use App\Models\User;
 use App\Services\CategoryService;
 use App\Services\ChannelColumnService;
 use App\Services\GoodsService;
+use App\Services\TaobaoService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -87,6 +90,7 @@ class GoodsController extends Controller
      */
     public function recommendGoods(Request $request)
     {
+
         //当前商品标题
         $title = $request->get('title');
         //淘宝商品id
@@ -118,9 +122,9 @@ class GoodsController extends Controller
             return $this->ajaxError("商品不存在", 404);
         }
         $data = (new GoodsHelper())->resizeGoodsListPic([$data], ['pic' => '480x480']);
-
         $title = '商品详情';
         $good = $data[0];
+
         $good['commission_finally'] = round($good['commission'] * ($good['price'] > 0 ? $good['price'] : $good['price_full']) / 100, 1);
 
         $request->offsetSet('title', $good['short_title']);
@@ -133,11 +137,15 @@ class GoodsController extends Controller
         return view('web.info', compact('good', 'list', 'title', 'active'));
     }
 
-
+    /**
+     * 去掉券后面多余的零计算佣金
+     * @param $list
+     * @return mixed
+     */
     protected function  commissionHandler(&$list)
     {
         foreach ($list as $k => &$v) {
-            $list[$k]['coupon_price']=floatval($v['coupon_price']);
+            $list[$k]['coupon_price'] = floatval($v['coupon_price']);
             $list[$k]['commission_finally'] = round($v['commission'] * ($v['price'] > 0 ? $v['price'] : $v['price_full']) / 100, 1);
         }
         return $list;
@@ -204,9 +212,7 @@ class GoodsController extends Controller
             } else {
                 $list = (new GoodsService())->columnGoodList($columnCode, $category, $sort, $isTaoqianggou, $isJuhuashuan, $minPrice, $maxPrice, $isTmall, $minCommission, $minSellNum, $minCouponPrice, $maxCouponPrice);
             }
-//            if($list){
-//                $list = (new GoodsHelper())->resizeGoodsListPic($list->toArray(), ['pic'=>'240x240']);
-//            }
+
             $this->commissionHandler($list);
 
             CacheHelper::setCache($list, 1, $params);
@@ -218,14 +224,16 @@ class GoodsController extends Controller
         $categorys = (new CategoryService())->getAllCategory();
         $active_category = empty($category) ? '' : $category;
         $active = ['active_category' => $active_category, 'active_sort' => $sort, 'active_column_code' => $columnCode];
-        return view('web.push_list', compact('list', 'title', 'categorys', 'active'));
+        return view('web.push_list', compact('list', 'title', 'categorys', 'active','keyword'));
     }
 
 
     public function getMiaoshaGoods(Request $request)
     {
         $time_step = $this->getTimes();
-
+//        echo "<pre>";
+//        var_dump($time_step);
+//        exit;
         $active_time = null;
         foreach ($time_step as $key => $val) {
             if ($val['status'] == '即将开始') {

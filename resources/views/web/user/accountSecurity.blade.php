@@ -36,7 +36,7 @@
             title: '修改密码',
             shadeClose: true,
             shade: 0.8,
-            area: ['380px', '90%'],
+            area: ['350px', '320px'],
             content: "{{url('accountUpdatePwd')}}", //iframe的url
         });
     });

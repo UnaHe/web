@@ -335,8 +335,8 @@ class UserController extends Controller
     public function accountAuth(Request $request)
     {
         $title = '授权管理';
-//        $user = Auth::user();
-        $user = User::find(54);
+        $user = Auth::user();
+//        $user = User::find(78);
         $authInfo = (new TaobaoService())->accountAuthInfo($user->id);
         return view('web.user.accountAuth', compact('title', 'user', 'authInfo'));
     }
@@ -349,13 +349,15 @@ class UserController extends Controller
      */
     public function updateAuth(Request $request)
     {
-//        $user = Auth::user();
-        $user = User::find(54);
+        $user = Auth::user();
+//        $user = User::find(78);
         if ($request->isMethod('post')) {
-            if ((new TaobaoService())->updateAuth($user->id, $request->all())) {
+            $res=(new TaobaoService())->updateAuth($user->id, $request->all());
+            if ($res['success']) {
                 return $this->ajaxSuccess(['message' => '操作成功']);
             }
-            return $this->ajaxError(['msg' => '修改失败']);
+            $error=$res['msg']?$res['msg']:'修改失败';
+            return $this->ajaxError(['msg' => $error]);
         } else {
             $title = '提示';
             $authInfo = (new TaobaoService())->accountAuthInfo($user->id);
@@ -363,9 +365,63 @@ class UserController extends Controller
         }
     }
 
+
+
+    /**
+     * 跳转淘宝登陆授权页面
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function auth()
     {
-        return redirect('https://oauth.taobao.com/authorize?response_type=token&client_id=' . config("taobao.appkey") . '&state=pyt');
+        $redirect_uri = url('taobaoCode');
+        $url = "https://oauth.taobao.com/authorize?response_type=code&client_id=" . config("taobao.appkey") . "&redirect_uri=" . $redirect_uri . "&state=1212&view=tmall";
+        return redirect($url);
+    }
+
+    /**
+     * 获得了code后再去获取用户的信息
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Exception
+     */
+    public function taobaoCode(Request $request)
+    {
+        if ($request->get('code')) {
+            //得到code的情况
+            $url = 'https://oauth.taobao.com/token';
+            $data = [];
+            $data['code'] = $request->get('code');
+            $data['client_id'] = config('taobao.appkey');
+            $data['client_secret'] = config('taobao.secretkey');
+            $data['redirect_uri'] = url('authorizeToken');
+            $data['grant_type'] = 'authorization_code';
+
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+            $output = curl_exec($ch);
+            curl_close($ch);
+            $tokens = \GuzzleHttp\json_decode($output, true);
+            echo "<pre>";
+            var_dump($tokens);
+            exit;
+            $user = Auth::user();
+            $res = (new TaobaoService())->saveAuthToken($user->id, $tokens, '');
+            if ($res) {
+                return redirect(url('accountAuth'));
+            }
+        } else {
+            return redirect(url('accountAuth'));
+        }
+    }
+
+    public function authorizeToken(Request $request)
+    {
+        echo "<pre>";
+        var_dump($request->all());
+        exit;
     }
 
     /**
@@ -376,6 +432,7 @@ class UserController extends Controller
     public function delAuth(Request $request)
     {
         $user = Auth::user();
+//        $user = User::find(78);
         $res = (new TaobaoService())->delAuth($user->id);
         if ($res) {
             return $this->ajaxSuccess(['message' => '删除成功']);

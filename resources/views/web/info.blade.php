@@ -138,7 +138,7 @@
             </div>
             <div class="main-right-bottom">
                 <div class="sell-tpl-title">
-                    <span>营销模板</span> <span>请<a href="{{url('auth')}}">登录</a>授权</span>
+                    <span>营销模板</span> <span>请<a href="javascript:;" class="auth-login" target="_blank">登录</a>授权</span>
 
                 </div>
                 <div class="sell-tpl-content">
@@ -193,75 +193,75 @@
 
 
         {{--<div class="main">--}}
-            {{--<!--主体商品遍历部分 start-->--}}
-            {{--<div class="wrapper">--}}
-                {{--<div class="goods-list clearfix">--}}
-                    {{--@foreach($list as $k => $v)--}}
-                        {{--<div id="goods-items_5069853" data_goodsid="529065425856" data-sellerid="2378275931"--}}
-                             {{--class="goods-item ">--}}
-                            {{--<div class="goods-item-content">--}}
-                                {{--<div class="goods-img">--}}
-                                    {{--<a href="{{url('/goods/'. $v['id']).'?columnCode='.$active['active_column_code']}}"--}}
-                                       {{--target="_blank">--}}
-                                        {{--<img class="lazy" src="{{ $v['pic'] }}">--}}
-                                    {{--</a>--}}
-                                {{--</div>--}}
-                                {{--<div class="goods-info">--}}
-    {{--<span class="goods-tit">--}}
-    {{--<a href="/goods/{{ $v['id'] }}" target="_blank">--}}
+        {{--<!--主体商品遍历部分 start-->--}}
+        {{--<div class="wrapper">--}}
+        {{--<div class="goods-list clearfix">--}}
+        {{--@foreach($list as $k => $v)--}}
+        {{--<div id="goods-items_5069853" data_goodsid="529065425856" data-sellerid="2378275931"--}}
+        {{--class="goods-item ">--}}
+        {{--<div class="goods-item-content">--}}
+        {{--<div class="goods-img">--}}
+        {{--<a href="{{url('/goods/'. $v['id']).'?columnCode='.$active['active_column_code']}}"--}}
+        {{--target="_blank">--}}
+        {{--<img class="lazy" src="{{ $v['pic'] }}">--}}
+        {{--</a>--}}
+        {{--</div>--}}
+        {{--<div class="goods-info">--}}
+        {{--<span class="goods-tit">--}}
+        {{--<a href="/goods/{{ $v['id'] }}" target="_blank">--}}
         {{--{{ $v['short_title']}}--}}
-    {{--</a>--}}
-    {{--</span>--}}
+        {{--</a>--}}
+        {{--</span>--}}
 
-                                    {{--<div class="goods-quan">--}}
-                                        {{--<div class="goods-coupon-price">--}}
-                                            {{--<span class="goods-coupon">券</span>--}}
+        {{--<div class="goods-quan">--}}
+        {{--<div class="goods-coupon-price">--}}
+        {{--<span class="goods-coupon">券</span>--}}
 
-                                            {{--<div class="goods-coupon-1">--}}
-                                                {{--<span class="goods-coupon-yuan">&nbsp;{{ $v['coupon_price']}}</span>--}}
-                                                {{--<span class="goods-coupon-unit">元&nbsp;</span>--}}
-                                            {{--</div>--}}
-                                        {{--</div>--}}
-                                        {{--<div class="goods-sales">--}}
-                                            {{--<span class="goods-sales-unit">月销: </span>--}}
-                                            {{--<span class="goods-sales-num">{{ $v['sell_num'] }}</span>--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="clearfix"></div>--}}
-                                    {{--<div class="goods-qjy">--}}
-                                        {{--<div class="goods-price"><span>券后</span><span--}}
-                                                    {{--class="rmb-style">￥</span><b>{{ $v['price'] }}</b></div>--}}
-                                        {{--<div class="goods-yj"><span>佣金</span><span--}}
-                                                    {{--class="rmb-style">￥</span><b>{{ $v['commission_finally'] }}</b>--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="@if ($v['is_tmall'] !== 0) icon-tmail @else icon-taobao @endif">--}}
-                                    {{--</div>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                    {{--@endforeach--}}
-                {{--</div>--}}
-            {{--</div>--}}
-            {{--<!--主体商品遍历部分 start-->--}}
+        {{--<div class="goods-coupon-1">--}}
+        {{--<span class="goods-coupon-yuan">&nbsp;{{ $v['coupon_price']}}</span>--}}
+        {{--<span class="goods-coupon-unit">元&nbsp;</span>--}}
+        {{--</div>--}}
+        {{--</div>--}}
+        {{--<div class="goods-sales">--}}
+        {{--<span class="goods-sales-unit">月销: </span>--}}
+        {{--<span class="goods-sales-num">{{ $v['sell_num'] }}</span>--}}
+        {{--</div>--}}
+        {{--</div>--}}
+        {{--<div class="clearfix"></div>--}}
+        {{--<div class="goods-qjy">--}}
+        {{--<div class="goods-price"><span>券后</span><span--}}
+        {{--class="rmb-style">￥</span><b>{{ $v['price'] }}</b></div>--}}
+        {{--<div class="goods-yj"><span>佣金</span><span--}}
+        {{--class="rmb-style">￥</span><b>{{ $v['commission_finally'] }}</b>--}}
+        {{--</div>--}}
+        {{--</div>--}}
+        {{--<div class="@if ($v['is_tmall'] !== 0) icon-tmail @else icon-taobao @endif">--}}
+        {{--</div>--}}
+        {{--</div>--}}
+        {{--</div>--}}
+        {{--</div>--}}
+        {{--@endforeach--}}
+        {{--</div>--}}
+        {{--</div>--}}
+        {{--<!--主体商品遍历部分 start-->--}}
         {{--</div>--}}
 
 
         <div class="copy-main">
             <div id="qq-copy-main" class="copy-main">
-                <img src="{{$good['pic']}}">
-                {{--<img src="http://imgproxy.ffquan.cn/imgextra/i4/884909271/*t*b2cif4m*dn*i8*k*jj*sszb*x*xb4*k*f*xa_!!884909271.jpg">--}}
+                {{--<img src="{{$good['pic']}}">--}}
+                <img src="http://img.alicdn.com/bao/uploaded/i1/725677994/TB1xRyXhf2H8KJjy0FcXXaDlFXa_!!0-item_pic.jpg_430x430q90.jpg">
+
                 <p>{{$good['des']}}</p>
                 <br>
                 <span>[请转换QQ二合一]</span>
-
                 <p>{{$good['short_title']}}</p>
                 <br>本群专享优惠！已抢{{$good['sell_num']}}件！
             </div>
 
             <div id="wechat-copy-main" class="copy-main">
-                <img src="{{$good['pic']}}">
-                {{--<img src="http://imgproxy.ffquan.cn/imgextra/i4/884909271/*t*b2cif4m*dn*i8*k*jj*sszb*x*xb4*k*f*xa_!!884909271.jpg">--}}
+                {{--<img src="{{$good['pic']}}">--}}
+                <img src="http://imgproxy.ffquan.cn/imgextra/i4/884909271/*t*b2cif4m*dn*i8*k*jj*sszb*x*xb4*k*f*xa_!!884909271.jpg">
                 <p>{{$good['short_title']}}</p>
 
                 <p>{{$good['des']}}</p>
@@ -285,6 +285,19 @@
             $('.sell-tpl-content-img').attr('src', src);
             $('#img-show').attr('src', src);
         })
+
+
+        $('.auth-login').click(function () {
+            e = layer.open({
+                type: 2,
+                title: '授权并登陆',
+                shadeClose: true,
+                shade: 0.8,
+                area: ['760px', '550px'],
+                content: "{{url('auth')}}", //iframe的url
+            });
+        });
+
 
 
         /**
@@ -311,7 +324,6 @@
         var copyFunction = function (copyMain, copyBtn, copyMsg) {
             if (ClipboardSupport == 0) {
                 alert('浏览器版本过低，请升级或更换浏览器后重新复制！');
-
             } else {
                 var clipboard = new Clipboard(copyBtn, {
                     target: function () {

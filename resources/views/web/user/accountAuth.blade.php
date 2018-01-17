@@ -18,7 +18,7 @@
 </div>
 @if(!empty($authInfo))
     <div>
-        你当前的授权联盟账号:咿呀咿呀
+        你当前的授权联盟账号:{{$authInfo['taobao_user_nick']}}
     </div>
     <div>
         <table>
@@ -44,7 +44,9 @@
         </table>
         @else
             <div>您当前还未授权,请登录联盟账号授权</div>
-            <div><a href="{{url('auth')}}" target="_blank">登录授权</a></div>
+            <div>
+                <a href="javascript:;" class="auth-login" target="_blank">登录授权</a>
+            </div>
         @endif
     </div>
     <script type="text/javascript" src="/js/jquery.3.2.1.js"></script>
@@ -98,6 +100,17 @@
             });
 
 
+        });
+
+        $('.auth-login').click(function () {
+            e = layer.open({
+                type: 2,
+                title: '授权并登陆',
+                shadeClose: true,
+                shade: 0.8,
+                area: ['760px', '550px'],
+                content: "{{url('auth')}}", //iframe的url
+            });
         });
 
         $('.update-auth').click(function () {

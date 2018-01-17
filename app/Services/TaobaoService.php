@@ -429,6 +429,9 @@ class TaobaoService
     {
         try {
             DB::beginTransaction();
+            $token=$this->getToken($userId);
+            $this->testPid($token,$data['weixin_pid']);
+            $this->testPid($token,$data['qq_pid']);
             $weixin_pid = TaobaoPid::where(['user_id' => $userId, 'pid_type' => 1])->get();
             $time = date('Y-m-d H:i:m', time());
             if (!sizeof($weixin_pid)) {
@@ -444,11 +447,11 @@ class TaobaoService
                 TaobaoPid::where(['user_id' => $userId, 'pid_type' => 2])->update(['pid' => $data['qq_pid'], 'update_time' => $time]);
             }
             DB::commit();
-            return true;
+            return  ['success'=>true];
         } catch (\Exception  $e) {
             DB::rollback();
             $error = $e->getMessage();
-            throw new \Exception($error);
+          return  ['success'=>false,'msg'=>$error];
         }
     }
 
@@ -459,7 +462,15 @@ class TaobaoService
      */
     public function delAuth($userId)
     {
-        $res = TaobaoPid::where(['user_id' => $userId])->delete();
-        return $res;
+        DB::beginTransaction();
+        try {
+            TaobaoToken::where("user_id", $userId)->delete();
+            TaobaoPid::where(['user_id' => $userId])->delete();
+        } catch (\Exception $e) {
+            DB::rollback();
+            return false;
+        }
+        DB::commit();
+        return true;
     }
 }
