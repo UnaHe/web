@@ -15,6 +15,7 @@ use App\Models\GoodsCategory;
 use App\Models\WechatPage;
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 
 class WechatPageService
@@ -38,9 +39,15 @@ class WechatPageService
             'short_url' => $goodsInfo['s_url'],
         ];
 
-        $id = WechatPage::create($data);
-        if($id){
-            return $this->getPageUrl($id);
+        try{
+            DB::beginTransaction();
+            $id = WechatPage::create($data);
+            DB::commit();
+            if($id){
+                return $this->getPageUrl($id);
+            }
+        }catch (\Exception $e){
+            DB::rollBack();
         }
         return false;
     }
