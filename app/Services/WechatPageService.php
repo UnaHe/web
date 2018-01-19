@@ -15,6 +15,7 @@ use App\Models\GoodsCategory;
 use App\Models\WechatPage;
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 
@@ -24,7 +25,12 @@ class WechatPageService
      * 创建微信单页
      */
     public function createPage($goodsInfo, $userId){
+        $id = Cache::increment('xmt_wechat_page_increase_id');
+        if($id === 1){
+            $id = Cache::increment('xmt_wechat_page_increase_id', WechatPage::max('id') + 1000);
+        }
         $data = [
+            'id'    => $id,
             'user_id' => $userId,
             'goods_id' => $goodsInfo['goods_id'],
             'url' => $goodsInfo['url'],
@@ -39,15 +45,8 @@ class WechatPageService
             'short_url' => $goodsInfo['s_url'],
         ];
 
-        try{
-            DB::beginTransaction();
-            $id = WechatPage::create($data);
-            DB::commit();
-            if($id){
-                return $this->getPageUrl($id);
-            }
-        }catch (\Exception $e){
-            DB::rollBack();
+        if(WechatPage::create($data)){
+            return $this->getPageUrl($id);
         }
         return false;
     }
