@@ -1,0 +1,177 @@
+/*去掉a标签默认样式*/
+a:link,a:visited{color:#666;text-decoration:none;}
+a:hover{color:#666;}
+.prod_type_list .active{
+    color: #E1B05A;
+}
+.pro_list{
+    width: 100%;
+    margin-top: 10px;
+}
+.single{
+    width: 18%;
+    height:340px;
+    margin-right: 24px;
+    display: inline-block;
+    margin-top: 10px;
+}
+.pro_list .single:nth-child(5n+1){
+    margin-right: 0px;
+}
+.img_size{
+    display: inline-block;
+    width: 214px;
+    height: 214px;
+}
+.row{
+    background: #f6f6f6;
+    padding-bottom: 0px;
+    border: none;
+}
+/*商品列表的文字*/
+.price_introduce{
+    width: 214px;
+    height: 126px;
+    background: #fff;
+    padding: 10px;
+    position: relative;
+}
+.title{
+    color: #666;
+    font-family:NotoSansHans-Regular;
+}
+.discount,.mouth_num,.coupon_back,.commission,.log_pro{
+    display: inline-block;
+    position: absolute;
+}
+.discount{
+    top: 22px;
+}
+.mouth_num{
+    font-size: 12px;
+    right: 10px;
+    color: #999;
+}
+.coupon_back,.commission{
+    top: 66px;
+    color: #f50;
+}
+.commission{
+    right: 6px;
+}
+.log_pro{
+    bottom: 0px;
+    right: 6px;
+}
+.small_word{
+    font-size: 12px;
+}
+.small_color{
+    color: #999;
+}
+.scree_box{
+    width: 994px;
+    display: inline-block;
+}
+
+/*条件排版*/
+.prod_type_box{
+    width: 100%;
+    text-align: center;
+    border: 1px solid #ddd;
+    float: left;
+    line-height: 40px;
+    margin-top: 10px;
+}
+.line_30{
+    line-height: 30px;
+}
+.prod_type{
+    display: inline-block;
+    width:94px ;
+    height: 40px;
+    float: left;
+    margin: 0px 0px 0px 80px;
+}
+.prod_type_list{
+    display: inline-block;
+    width: 994px;
+    color: #333;
+    float: left;
+
+    margin-bottom: 0px;
+}
+.margin_left4{
+    margin-left: -12px;
+}
+.prod_type_list li{
+    display: inline-block;
+    margin-right: 34px;
+   float: left;
+    list-style-type:none;
+}
+.margin_right{
+    border-bottom: 1px dashed #ddd;
+}
+.margin_right li{
+    margin-right: 40px;
+    position: relative;
+}
+.margin_right li input{
+    position: absolute;
+    top: 4px;
+    left: -14px;
+}
+.section{
+    float: left;
+    margin-left: 40px;
+}
+.section_title{
+    display: inline-block;
+    margin: 6px 20px 0px -14px;
+
+}
+.section_title span{
+    color: #666;
+}
+.section_title input{
+    width: 60px;
+    height: 20px;
+}
+.section_title button{
+    width: 44px;
+    height: 20px;
+    border: 1px solid #E1B05A;
+    color: #fff;
+    line-height: 16px;
+    background: #E1B05A;
+}
+.tab_nav{
+    width: 100%;
+    height: 40px;
+    background: #fff;
+    color: #666;
+    line-height: 40px;
+    border: 1px solid #ddd;
+}
+.tab_nav span{
+    display: inline-block;
+    width: 60px;
+    margin-right: 10px;
+    text-align: center;
+}
+.tab_nav_active{
+    background: #f6f6f6;
+    color:#E1B05A ;
+    height: 38px;
+    border-bottom: 1px solid #E1B05A ;
+}
+
+/*食物和家具*/
+.other_css{
+    margin-top: 0px;
+    padding-top: 4px;
+}
+.active_nav{
+    color: #E1B05A;
+}

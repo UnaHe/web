@@ -124,6 +124,7 @@ class UserController extends Controller
         if (!preg_match('/^1\d{10}$/', $mobile)) {
             return $this->ajaxError(['msg' => '请输入正确的手机号码']);
         }
+
         if (User::where('phone', $mobile)->exists()) {
             $codeId = (new CaptchaService())->modifyPasswordSms($mobile);
         } else {
@@ -249,12 +250,9 @@ class UserController extends Controller
      */
     public function accountSecurity(Request $request)
     {
-        if ($request->isMethod('post')) {
-            return $this->ajaxSuccess();
-        } else {
-            $title = '账户安全';
-            return view('web.user.accountSecurity', compact('title'));
-        }
+        $title = '账户安全';
+        $user = Auth::user();
+        return view('web.user.accountSecurity', compact('title', 'user'));
     }
 
     /**
@@ -275,27 +273,23 @@ class UserController extends Controller
      */
     public function accountUpdatePwd(Request $request)
     {
+
         $user = Auth::user();
-        if ($request->isMethod('post')) {
-            $codeId = $request->post('codeId');
-            $captcha = $request->post('captcha');
-            if (empty($codeId) || empty($captcha) || !(new CaptchaService())->checkSmsCode($codeId, $captcha)) {
-                return $this->ajaxError(['msg' => '验证码错误']);
-            }
-            $error_meg = $this->pwdValidator($request);
-            if ($error_meg != '') {
-                return $this->ajaxError(['msg' => $error_meg]);
-            }
-            $user->password = bcrypt($request->get('password'));
-            if ($user->save()) {
-                return $this->ajaxSuccess(['message' => '密码修改成功']);
-            }
-            return $this->ajaxError(['msg' => '修改失败']);
-        } else {
-            $user = Auth::user();
-            $title = '修改密码';
-            return view('web.user.accountUpdatePwd', compact('title', 'user'));
+        $codeId = $request->post('codeId');
+        $captcha = $request->post('captcha');
+        if (empty($codeId) || empty($captcha) || !(new CaptchaService())->checkSmsCode($codeId, $captcha)) {
+            return $this->ajaxError(['msg' => '验证码错误']);
         }
+        $error_meg = $this->pwdValidator($request);
+        if ($error_meg != '') {
+            return $this->ajaxError(['msg' => $error_meg]);
+        }
+        $user->password = bcrypt($request->get('password'));
+        if ($user->save()) {
+            return $this->ajaxSuccess(['message' => '密码修改成功']);
+        }
+        return $this->ajaxError(['msg' => '修改失败']);
+
 
     }
 
@@ -335,8 +329,8 @@ class UserController extends Controller
     public function accountAuth(Request $request)
     {
         $title = '授权管理';
-        $user = Auth::user();
-//        $user = User::find(78);
+//        $user = Auth::user();
+        $user = User::find(99);
         $authInfo = (new TaobaoService())->accountAuthInfo($user->id);
         return view('web.user.accountAuth', compact('title', 'user', 'authInfo'));
     }
@@ -352,11 +346,11 @@ class UserController extends Controller
         $user = Auth::user();
 //        $user = User::find(78);
         if ($request->isMethod('post')) {
-            $res=(new TaobaoService())->updateAuth($user->id, $request->all());
+            $res = (new TaobaoService())->updateAuth($user->id, $request->all());
             if ($res['success']) {
                 return $this->ajaxSuccess(['message' => '操作成功']);
             }
-            $error=$res['msg']?$res['msg']:'修改失败';
+            $error = $res['msg'] ? $res['msg'] : '修改失败';
             return $this->ajaxError(['msg' => $error]);
         } else {
             $title = '提示';
@@ -364,7 +358,6 @@ class UserController extends Controller
             return view('web.user.updateAuth', compact('title', 'user', 'authInfo'));
         }
     }
-
 
 
     /**
@@ -404,18 +397,16 @@ class UserController extends Controller
             $output = curl_exec($ch);
             curl_close($ch);
             $tokens = \GuzzleHttp\json_decode($output, true);
-            echo "<pre>";
-            var_dump($tokens);
-            exit;
             $user = Auth::user();
-            if(!(array_key_exists('access_token', $tokens)
+            if (!(array_key_exists('access_token', $tokens)
                 && array_key_exists('token_type', $tokens)
                 && array_key_exists('expires_in', $tokens)
                 && array_key_exists('refresh_token', $tokens)
                 && array_key_exists('re_expires_in', $tokens)
                 && array_key_exists('taobao_user_id', $tokens)
                 && array_key_exists('taobao_user_nick', $tokens)
-            )){
+            )
+            ) {
                 return $this->ajaxError("参数错误");
             }
             $res = (new TaobaoService())->saveAuthToken($user->id, $tokens, '');
@@ -426,7 +417,6 @@ class UserController extends Controller
             return redirect(url('accountAuth'));
         }
     }
-
 
 
     /**

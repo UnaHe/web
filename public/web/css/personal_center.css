@@ -1,0 +1,61 @@
+
+.navbar-default .navbar-nav .pyt_active a{
+    color:rgba(224,171,74,1);
+}
+
+
+
+
+.col-sm-4{
+    width: 17.33%;
+    text-align: right;
+    margin-top: 22px;
+}
+
+.col-sm-8{
+    margin-top: 18px;
+}
+.pyt_radio_box{
+    width: 20px;
+}
+.pyt_sub{
+    width: 38%;
+    height:40px ;
+    background:rgba(225,176,90,1);
+    border-radius: 12px;
+    border: 1px solid rgba(225, 176, 90, 1);
+    font-size:14px;
+    font-family:NotoSansHans-Regular;
+    color:rgba(255,255,255,1);
+    line-height:0px;
+}
+
+.pyt_earnings{
+    font-size:12px;
+    font-family:NotoSansHans-Regular;
+    color:rgba(153,153,153,1);
+    margin-left: 20px;
+    margin-top: 6px;
+}
+.pyt_form-control{
+    width: 66%;
+    display: block;
+    line-height: 30px;
+}
+.pyt_checkbox{
+    display: inline-block;
+    width: 82px;
+    height: 30px;
+    line-height: 30px;
+    position: relative;
+}
+.pyt_checkbox_other{
+    width: 184px;
+}
+.pyt_checkbox span{
+    display: inline-block;
+  position: absolute;
+    top: -2px;
+    left: 18px;
+}
+

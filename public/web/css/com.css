@@ -1,0 +1,191 @@
+/*������ʽ*/
+/*ͷ��*/
+
+body{
+    background-color:#f6f6f6
+}
+
+.pyt_hearder_color{
+    background:#eee ;
+}
+.pyt_navbar-nav{
+    margin-left: 70px;
+}
+.pyt_search_nav{
+    position: relative;
+}
+.navbar-left{
+    margin-left: 58px;
+}
+.navbar-default .navbar-nav>li>a{
+    font-size:14px;
+    font-family:NotoSansHans-Regular;
+    color:rgba(153,153,153,1);
+}
+.navbar-form .form-control{
+    width:100% ;
+    padding-left: 80px;
+}
+.container{
+    border: none;
+    margin-bottom: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+.navbar{
+    margin-bottom: 0;
+}
+.navbar-default .pyt_font_size48{
+    font-size:48px;
+    color:#E0AB4A ;
+    display: inline-block;
+    width: 176px;
+    border-right: 1px solid rgba(255, 255, 255, 1);
+}
+.navbar-default .pyt_color{
+    color: #333;
+}
+.navbar-nav .pyt_searchAll{
+    position: absolute;
+    top: 6px;
+    left: -48px;
+    display: inline-block;
+    border-right: 1px solid #999;
+    width: 64px;
+    color: #999999;
+}
+.navbar-form .form-group{
+    position: relative;
+    width:180% ;
+}
+.pyt_search_nav{
+    position: relative;
+}
+
+.container-fluid>.pyt_navbar-header{
+    margin-left: 32px;
+    position: absolute;
+    top: 2px;
+}
+.form-group{
+    margin-top: 18px;
+    margin-left:66px ;
+}
+.btn{
+    position: absolute;
+    right: -348px;
+    top: 26px;
+}
+#bs-example-navbar-collapse-2{
+    position: absolute;
+    left: 184px;
+    top: -14px;
+}
+.pyt_nav-tabs{
+    padding: 0 180px;
+    width: 100%;
+}
+.navbar-inverse .navbar-nav>li>a{
+    color: #fff;
+    font-size:16px;
+}
+.navbar-inverse{
+    margin-top: 10px;
+}
+.form-control{
+    width: 38%;
+    border: 1px solid #DDDDDD;
+}
+/*ҳ��*/
+/*�븡��*/
+.clear {
+    clear: both;
+}
+.pyt_footer{
+    float: left;
+    border-bottom: 1px solid #eee;
+    width: 100%;
+}
+.pyt_footer li{
+    float: left;
+    width:80px ;
+    padding: 4px;
+    font-size: 14px;
+    border-right:2px solid #fff;
+    list-style-type:none;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #999999 ;
+}
+.pyt_footer li:last-child{
+    border: none;
+}
+.pyt_footer_box{
+    border-top: 1px solid #E1B05A;
+    padding: 20px 0;
+    background: #fff;
+}
+/*���İ�� */
+.row{
+    margin: 0 auto;
+    border: 1px solid #ddd;
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    background: #fff;
+    min-height: 600px;
+}
+.pyt_remark{
+    color:rgba(153,153,153,1);
+    font-size:14px;
+    padding-left: 50px;
+}
+
+.dropdown-menu_header{
+    position: absolute;
+    top: 32px;
+    rigth:332px;
+    text-align: center;
+    min-width: 92px;
+}
+
+.navbar-nav{
+    position: relative;
+}
+/*ģ̬��*/
+.modal-title{
+    margin-left:258px;
+    font-size: 14px;
+    color: #000;
+}
+
+.modal-header{
+    background: rgba(248,248,248,1);
+    padding: 8px;
+}
+/*�Ż�ȯ*/
+.coupun{
+    display: inline-block;
+    width: 18px;
+    height: 16px;
+    color: #fff;
+    background: #FF5500;
+    border: 1px solid #FF5500;
+    margin-right: 6px;
+}
+.discount{
+    color:#FF5500 ;
+    width:74px ;
+    height: 18px;
+    border: 1px solid #FF5500 ;
+    line-height: 14px;
+    margin-top: 16px;
+}
+.modal-open .modal{
+    overflow-y: hidden;
+}
+.container-fluid{
+    padding: 0px;
+}
+
+
+

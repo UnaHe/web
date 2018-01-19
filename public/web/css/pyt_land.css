@@ -1,0 +1,112 @@
+.pyt_center{
+    margin-top: 40px;
+    font-size: 14px;
+    padding: 0 80px;
+}
+.pyt_ID{
+    color: #999;
+}
+.pyt_ID span{
+    color:#E0AB4A;
+}
+.table,.table tr th{
+    text-align: center;
+}
+.change_password{
+    color:#5A8BE1 ;
+    margin-right: 20px;
+}
+.remove_auth{
+    color:#E16D5A;
+}
+.state{
+    color: #999;
+}
+.spal_state{
+    color: #E16D5A ;
+}
+.table tr td{
+    background: #fdfbf7;
+}
+.login_auth{
+    color: #fff;
+    background:#E1B05A  ;
+    width: 80px;
+    height: 30px;
+    border: 1px solid #E1B05A;
+}
+.pyt_noAuth{
+    display: none;
+}
+/*模态框*/
+.popularize{
+    width: 100%;
+    text-align: center;
+    color: #000;
+}
+.col-sm-6 input{
+    width: 100%;
+    margin-bottom: 20px;
+}
+.QQ_color{
+    color: #4DAFEA;
+}
+.wx_color{
+    color:#2ABA1A ;
+}
+.notice{
+    text-align: center;
+    margin-top: 16px;
+}
+.notice_color{
+    color:#E16D5A;
+}
+.al_PID{
+    color: #666;
+}
+.al_PID:hover{
+    cursor:pointer;
+}
+.save{
+    width: 80px;
+    height: 30px;
+    background:#E1B05A ;
+    color: #fff;
+    border: 1px solid #E1B05A;
+    border-radius: 4px;
+    text-align: center;
+    line-height: 30px;
+    margin-left: 246px;
+}
+/*删除授权模态框*/
+#myModal_remove{
+    /*width: 350px;*/
+    height: 190px;
+    margin:auto;
+}
+.again_sure{
+    color:#E16D5A ;
+    margin-left: 212px;
+}
+.btn-model{
+    rigth:0px;
+}
+.modal-footer{
+    border-top: none;
+}
+.cancel,.cancel_sure{
+    width: 80px;
+    height: 30px;
+}
+.cancel{
+    margin-right: 20px;
+    background: #fff;
+    color: #999;
+    border: 1px solid #999;
+}
+.cancel_sure{
+    margin-right: 200px;
+    background:#E1B05A ;
+    border: 1px solid  #E1B05A;
+    color: #fff;
+}

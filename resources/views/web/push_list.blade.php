@@ -1,194 +1,254 @@
-@extends('web.layouts.goods')
-
-@section('pyt-banner')
-    <div class="pyt-banner">
-        <!--广告位-->
-    </div>
-@stop
-
-@if($active['active_column_code']!='meishijingxuan' && $active['active_column_code']!='jiajujingxuan')
-@section('category')
-    <div class="main category">
-        <span>商品分类:</span>
-        <a href="{{url('/columns/'.$active['active_column_code'].'/goods')}}">
-            <span class="select_cat_id  @if($active['active_category']=='') active @endif" cat_id="">全部</span>
-        </a>
-        @foreach($categorys as $v)
-            <a href="{{url('/columns/'.$active['active_column_code'].'/goods').'?category='.$v->id}}">
-    <span class="select_cat_id @if($active['active_category']==$v->id) active @endif"
-          cat_id="{{$v->id}}">{{$v->name}}</span>
-            </a>
-        @endforeach
-    </div>
-@stop
-@endif
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>{{$title}}-朋友推</title>
+    <!--设置视口-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,user-sclable=0">
+    <!-- 设置主题样式-->
+    <link rel="stylesheet" href="/web/lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <!-- 引入字体样式-->
+    <link rel="stylesheet" href="/web/lib/bootstrap/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/web/css/com.css"/>
+    <link rel="stylesheet" href="/web/css/choiceness.css"/>
 
 
-@section('screen')
-    <div class="main screen">
-        <form method="get" action="{{url('/columns/'.$active['active_column_code'].'/goods')}}">
-            {{csrf_field()}}
-            <span>高级筛选:</span>
-            <input class="screen-checkbox" name="today" value="1" type="checkbox"><span>今日新品</span>
-            <input class="screen-checkbox" name="isTmall" value="1" type="checkbox" value="11"><span>只看天猫</span>
-            <input class="screen-checkbox" name="isJpseller" value="1" type="checkbox"><span>金牌卖家</span>
-            <input class="screen-checkbox" name="isQjd" value="1" type="checkbox"><span>旗舰店</span>
-            <input class="screen-checkbox" name="isTaoqianggou" value="1" type="checkbox"><span>海抢购</span>
-            <input class="screen-checkbox" name="isJuhuashuan" value="1" type="checkbox"><span>聚划算</span>
-            <input class="screen-checkbox" name="isNine" value="1" type="checkbox"><span>9.9包邮</span>
-            <input class="screen-checkbox" name="isTwenty" value="1" type="checkbox"><span>20元封顶</span>
-            <input class="screen-checkbox" name="isJyj" value="1" type="checkbox"><span>极有家</span>
-            <input class="screen-checkbox" name="isHaitao" value="1" type="checkbox"><span>海淘</span>
-            <input class="screen-checkbox" name="isYfx" value="1" type="checkbox"><span>运费险</span>
 
-            <div class="screen-input-text">
-                卷区间:<input type="text" name="minCouponPrice" class="money-input">&nbsp;-&nbsp;<input type="text"
-                                                                                                     name="maxCouponPrice"
-                                                                                                     class="money-input">
-    <span>价格:<input type="text" name="minPrice" class="money-input">&nbsp;-&nbsp;<input type="text"
-                                                                                        name="maxPrice"
-                                                                                        class="money-input"></span>
-                <span>佣金比例><input name="minCommission" type="text"></span>
-                <span>销量><input name="minSellNum" type="text"></span>
-                <span><button class="screen-btn">筛选</button></span>
+</head>
+<body>
+<!--头部-->
+<div class="container-fluid">
+    <header class="pyt_header pyt_hearder_color">
+        <nav class="navbar navbar-default  container pyt_hearder_color">
+            <div class="container-fluid">
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li class=""><a href="#">给你的不仅仅是优惠</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown-toggle"><a href="#">1888********</a>
+                        </li>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{url('/userCenter')}}">个人中心</a></li>
+                            <li><a href="#">授权管理</a></li>
+                            <li><a href="{{url('/accountSecurity')}}">账号安全</a></li>
+                            <li><a href="{{url('/logout')}}">退出</a></li>
+                        </ul>
+                        <li><a href="{{url('register')}}">注册</a></li>
+                        <li><a href="#">企业官网</a></li>
+                        <li><a href="{{url('/business')}}">商务合作</a></li>
+                        <li><a href="#">微信交流群</a></li>
+                    </ul>
+                </div>
             </div>
-
-        </form>
-    </div>
-@stop
-
-@section('sort')
-    <div class="main sort">
-        <a href="{{url('/columns/'.$active['active_column_code'].'/goods')}}">
-            <div class=" @if($active['active_sort']=='') active @endif ">综合</div>
-        </a>
-        <a href="{{url('/columns/'.$active['active_column_code'].'/goods').'?sort=2'}}">
-            <div class=" @if($active['active_sort']==2) active @endif ">最新</div>
-        </a>
-        <a href="{{url('/columns/'.$active['active_column_code'].'/goods').'?sort=3'}}">
-            <div class=" @if($active['active_sort']==3) active @endif ">销量</div>
-        </a>
-        <a href="{{url('/columns/'.$active['active_column_code'].'/goods').'?sort=1'}}">
-            <div class=" @if($active['active_sort']==1) active @endif ">人气</div>
-        </a>
-        <a href="{{url('/columns/'.$active['active_column_code'].'/goods').'?sort=-4'}}">
-            <div class=" @if($active['active_sort']==-4) active @endif ">价格</div>
-        </a>
-    </div>
-@stop
-
-@section('main')
-    <div class="main">
-        <!--主体商品遍历部分 start-->
-        <div class="wrapper">
-            <div class="goods-list clearfix">
-                @foreach($list as $k => $v)
-                    <div class="goods-item ">
-                        <div class="goods-item-content">
-                            <div class="goods-img">
-                                <a href="{{url('/goods/'. $v['id']).'?columnCode='.$active['active_column_code']}}"
-                                   target="_blank">
-                                    <img class="lazy" src="{{ $v['pic'] }}">
-                                </a>
-                            </div>
-                            <div class="goods-info">
-                                <span class="goods-tit"><a href="/goods/{{ $v['id'] }}"
-                                                           target="_blank">{{ $v['short_title']}}</a></span>
-
-                                <div class="goods-quan">
-                                    <div class="goods-coupon-price">
-                                        <span class="goods-coupon">券</span>
-
-                                        <div class="goods-coupon-1">
-                                            <span class="goods-coupon-yuan">&nbsp;{{ $v['coupon_price']}}</span>
-                                            <span class="goods-coupon-unit">元&nbsp;</span>
-                                        </div>
-                                    </div>
-                                    <div class="goods-sales">
-                                        <span class="goods-sales-unit">月销: </span>
-                                        <span class="goods-sales-num">{{ $v['sell_num'] }}</span>
-                                    </div>
-                                </div>
-                                <div class="clearfix"></div>
-                                <div class="goods-qjy">
-                                    <div class="goods-price"><span>券后</span><span
-                                                class="rmb-style">￥</span><b>{{ $v['price'] }}</b></div>
-                                    <div class="goods-yj"><span>佣金</span><span
-                                                class="rmb-style">￥</span><b>{{ $v['commission_finally'] }}</b></div>
-                                </div>
-                                <div class="@if ($v['is_tmall'] !== 0) icon-tmail @else icon-taobao @endif">
-                                </div>
-                            </div>
-                        </div>
+        </nav>
+    </header>
+    <!--搜索导航栏-->
+    <nav class="navbar navbar-default container">
+        <div class="container-fluid pyt_search_nav">
+            <div class="navbar-header pyt_navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand pyt_font_size48" href="#">朋友推</a>
+                <a class="navbar-brand pyt_font_size48 pyt_color" href="#">Tuike</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+                <form class="navbar-form navbar-left">
+                    <div class="form-group">
+                        <ul class="nav navbar-nav navbar-left">
+                            <li class="pyt_searchAll">综合搜索</li>
+                        </ul>
+                        <input type="text" class="form-control" placeholder="搜索标题、商品ID、商品链接">
                     </div>
-                @endforeach
+                    <button type="submit" class="btn btn-default">搜索图</button>
+                </form>
             </div>
         </div>
-        <!--主体商品遍历部分 start-->
-    </div>
-    <div><a href="javascript:;" class="load-more">加载更多</a></div>
-@stop
+    </nav>
+    <!--导航-->
+    <nav class="navbar navbar-inverse container-fluid">
+        <div class="container">
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-3">
+                <ul class="nav navbar-nav pyt_navbar-nav">
+                    <li class=""><a href="{{url('/')}}">主页</a></li>
+                    <li class="@if(\Illuminate\Support\Facades\Request::getRequestUri()== '/columns/today_tui/goods') active @endif"><a href="{{url('/columns/today_tui/goods')}}">今日必推</a></li>
+                    <li class="@if(\Illuminate\Support\Facades\Request::getRequestUri()== '/miaosha/goods') active @endif"><a href="{{url('/miaosha/goods')}}">限时快抢</a></li>
+                    <li class="@if(\Illuminate\Support\Facades\Request::getRequestUri()== '/columns/today_jing/goods') active @endif"><a href="{{url('/columns/today_jing/goods')}}">今日精选</a></li>
+                    <li class="@if(\Illuminate\Support\Facades\Request::getRequestUri()== '/columns/xiaoliangbaokuan/goods') active @endif"><a href="{{url('/columns/xiaoliangbaokuan/goods')}}">爆款专区</a></li>
+                    <li class="@if(\Illuminate\Support\Facades\Request::getRequestUri()== '/columns/meishijingxuan/goods') active @endif"><a href="{{url('/columns/meishijingxuan/goods')}}">美食精选</a></li>
+                    <li class="@if(\Illuminate\Support\Facades\Request::getRequestUri()== '/columns/jiajujingxuan/goods') active @endif"><a href="{{url('/columns/jiajujingxuan/goods')}}">家具精选</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!--主题部分-->
+    <seation class="pyt-seation container-fluid">
 
-@section('js')
-    <script type="text/javascript">
-        var next_page = 1;
-        $('.load-more').click(function () {
-            next_page += 1
-            var getListUrl = "{{ \Illuminate\Support\Facades\Request::getRequestUri()}}";
-            var goods_url_head = "{{url('/goods/')}}";
-            var goods_url_ext = "{{'?columnCode='.$active['active_column_code']}}";
 
-            $.get({
-                type: "GET",
-                url: getListUrl,
-                data: {page: next_page},
-                dataType: "json",
-                success: function (data) {
-                    if (data.data.length > 0) {
-                        var html = '';
-                        $.each(data.data, function ($key, $val) {
-                            var val_url = goods_url_head + '/' + $val.id + goods_url_ext;
-                            var pic = $val.pic;
-                            var short_title = $val.short_title;
-                            var coupon_price = $val.coupon_price;
-                            var sell_num = $val.sell_num;
-                            var price = $val.price;
-                            var commission_finally = $val.commission_finally;
-                            var is_tmall = $val.is_tmall !== 0 ? 'icon-tmail' : 'icon-taobao';
 
-                            html += "<div class='goods-item '> " +
-                                    "<div class='goods-item-content'> " +
-                                    "<div class='goods-img'> " +
-                                    "<a href='" + val_url + "'target='_blank'> <img class='lazy' src='" + pic + "'> </a> " +
-                                    "</div> <div class='goods-info'> " +
-                                    "<span class='goods-tit'><a href='" + val_url + "'target='_blank'>" + short_title + "</a></span> " +
-                                    "<div class='goods-quan'> " +
-                                    "<div class='goods-coupon-price'>" +
-                                    " <span class='goods-coupon'>券</span> " +
-                                    "<div class='goods-coupon-1'> " +
-                                    "<span class='goods-coupon-yuan'>&nbsp;" + coupon_price + "</span> " +
-                                    "<span class='goods-coupon-unit'>元&nbsp;</span>" +
-                                    " </div> </div> " +
-                                    "<div class='goods-sales'>" +
-                                    " <span class='goods-sales-unit'>月销: </span>" +
-                                    " <span class='goods-sales-num'>" + sell_num + "</span>" +
-                                    " </div> </div> " +
-                                    "<div class='clearfix'></div>" +
-                                    " <div class='goods-qjy'> <div class='goods-price'>" +
-                                    "<span>券后</span><span class='rmb-style'>￥</span><b>" + price + "</b>" +
-                                    "</div> <div class='goods-yj'>" +
-                                    "<span>佣金</span><span class='rmb-style'>￥</span><b>" + commission_finally + "</b></div> </div> <div class='" + is_tmall + "'> </div> </div> </div> </div>";
+        <div class="row  container">
+            <!-- 中心内容-->
+            <!--图片-->
 
-                        });
-                        $(html).appendTo('.goods-list');
-                    } else {
-                        alert('加载完了,以后我们努力给你更多!');
-                    }
+            <div class="img_door">
+                <img src="/web/images/push_banner.png" alt="...">
+            </div>
 
-                }
-            });
-        })
-        ;
-    </script>
-@stop
 
+            @if($active['active_column_code']!='meishijingxuan' && $active['active_column_code']!='jiajujingxuan')
+            <div class="prod_type_box ">
+                <p class="prod_type">商品分类：</p>
+                <ul class="prod_type_list margin_left4">
+                    <a href="{{url('/columns/'.$active['active_column_code'].'/goods')}}">
+                    <li class="@if($active['active_category']=='') active @endif">全部</li>
+                    </a>
+                    @foreach($categorys as $v)
+                        <a href="{{url('/columns/'.$active['active_column_code'].'/goods').'?category='.$v->id}}"> <li class="@if($active['active_category']==$v->id) active @endif">{{$v->name}}</li></a>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
+
+            <div class="prod_type_box line_30">
+                <form method="get" action="{{url('/columns/'.$active['active_column_code'].'/goods')}}">
+                    {{csrf_field()}}
+                <p class="prod_type">高级筛选：</p>
+                <div class="scree_box">
+                    <ul class="prod_type_list margin_right">
+                        <li><input type="checkbox" name="today" value="1"/>今日新品</li>
+                        <li><input type="checkbox" name="isTmall" value="1"/>只看天猫</li>
+                        <li><input type="checkbox" name="isJpseller" value="1"/>金牌卖家</li>
+                        <li><input type="checkbox" name="isQjd" value="1"/>旗舰店</li>
+                        <li><input type="checkbox" name="isTaoqianggou" value="1"/>淘抢购</li>
+                        <li> <input type="checkbox" name="isJuhuashuan" value="1"/> 聚划算</li>
+                        <li><input type="checkbox" name="isNine" value="1"/>9.9包邮</li>
+                        <li> <input type="checkbox" name="isTwenty" value="1"/>20元封顶</li>
+                        <li><input type="checkbox" name="isJyj" value="1"/>极有家</li>
+                        <li><input type="checkbox" name="isHaitao" value="1"/>淘淘</li>
+                        <li><input type="checkbox" name="isYfx" value="1"/>运费险</li>
+
+                    </ul>
+                    <div class="section">
+                        <p class="section_title">
+                            <span>券区间</span>
+                            <input type="text" name="minCouponPrice" placeholder="￥">-<input type="text" name="maxCouponPrice" placeholder="￥">
+                        </p>
+                        <p class="section_title">
+                            <span>价格</span>
+                            <input type="text" name="minPrice" placeholder="￥">-<input type="text"  name="maxPrice" placeholder="￥">
+                        </p>
+                        <p class="section_title">
+                            <span>佣金比例></span>
+                            <input type="text"  name="minCommission" placeholder= "￥">
+                        </p>
+                        <p class="section_title">
+                            <span>销量></span>
+                            <input type="text"  name="minSellNum" placeholder="￥">
+                        </p>
+                        <p class="section_title">
+                            <button type="button screen-btn">筛选</button>
+                        </p>
+
+                    </div>
+                </div>
+                </form>
+            </div>
+            <div class="clear"></div>
+
+
+
+            <!--商品列表-->
+            <div class="pro_list">
+                <div class="tab_nav">
+                    <a href="{{url('/columns/'.$active['active_column_code'].'/goods')}}">
+                        <span class=" @if($active['active_sort']=='') tab_nav_active @endif">综合</span>
+                    </a>
+                    <a href="{{url('/columns/'.$active['active_column_code'].'/goods').'?sort=2'}}">
+                        <span class=" @if($active['active_sort']==2) tab_nav_active @endif">最新</span>
+                    </a>
+                    <a href="{{url('/columns/'.$active['active_column_code'].'/goods').'?sort=3'}}">
+                        <span class=" @if($active['active_sort']==3) tab_nav_active @endif">销量</span>
+                    </a>
+                    <a href="{{url('/columns/'.$active['active_column_code'].'/goods').'?sort=1'}}">
+                        <span class=" @if($active['active_sort']==1) tab_nav_active @endif">人气</span>
+                    </a>
+                    <a href="{{url('/columns/'.$active['active_column_code'].'/goods').'?sort=-4'}}">
+                        <span class=" @if($active['active_sort']==4) tab_nav_active @endif">价格</span>
+                    </a>
+                </div>
+                @foreach($list as $k => $v)
+
+                    <div class="single">
+                        <a href="{{url('/goods/'. $v['id']).'?columnCode='.$active['active_column_code']}}"
+                           target="_blank">
+                        <img src="{{ $v['pic'] }}" alt="..." class="img_size">
+                        </a>
+                        <div class="price_introduce">
+                            <p class="title">
+                                <a href="{{url('/goods/'. $v['id']).'?columnCode='.$active['active_column_code']}}"
+                                   target="_blank">
+                                {{str_limit($v['short_title'], $limit = 24, $end = '...')}}
+                                </a>
+                            </p>
+
+                            <p class="discount"><span class="coupun">券</span> {{ $v['coupon_price']}}元</p>
+
+                            <p class="mouth_num">月销：<span>{{ $v['sell_num'] }}</span></p>
+
+                            <p class="coupon_back">
+                                <span class="small_word small_color">券后:</span><span class="small_word">￥</span><span>{{ $v['price'] }}</span>
+                            </p>
+
+                            <p class="commission">
+                                <span class="small_word small_color">佣金:</span><span class="small_word">￥</span><span>{{ $v['commission_finally'] }}</span>
+                            </p>
+                            <!--商品所属图标-->
+                            <p class="log_pro">
+                                @if ($v['is_tmall'] !== 0)
+                                <img src="/web/images/tmail.png" alt="天猫"/>
+                                @else
+                                <img src="/web/images/taobao.png" alt="淘宝"/>
+                                @endif
+                            </p>
+                        </div>
+                    </div>
+
+                @endforeach
+
+            </div>
+        </div>
+    </seation>
+    <div class="clear"></div>
+    <!--页脚-->
+    <footer class="container-fluid pyt_footer_box">
+        <div class="container pyt_center_footer">
+            <ul class="pyt_footer">
+                <li>公司官网</li>
+                <li>公司官网2</li>
+                <li>合作伙伴</li>
+                <li>合作伙伴2</li>
+            </ul>
+            <div class="clear"></div>
+            <p class="pyt_remark">2017-2017 www.tkhd.com朋友推--蜀CP备170234号-1 成都推客互动</p>
+        </div>
+
+    </footer>
+</div>
+</body>
+<script src="/web/lib/jquery/dist/jquery.js"></script>
+<scrpit src="/web/lib/bootstrap/dist/js/bootstrap.min.js"></scrpit>
+<script>
+    <!-- 头部登录下拉菜单-->
+    $(".dropdown-toggle").on("click", function () {
+        $(".dropdown-menu").slideToggle()
+    });
+    //提交表单事件
+
+
+</script>
+</html>

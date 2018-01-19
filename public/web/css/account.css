@@ -1,0 +1,65 @@
+.pyt_center{
+    width:400px ;
+    height: 80px;
+    padding: 26px;
+    border: 1px solid #ddd;
+    margin-top: 30px;
+    margin-left: 66px;
+}
+.pyt_change{
+    display: inline-block;
+    width: 80px;
+    height: 30px;
+    text-align: center;
+    line-height: 28px;
+    background:rgba(225,176,90,1);
+    border: 1px solid rgba(225,176,90,1);
+    border-radius: 6px ;
+    color: #fff;
+    margin-left: 38px;
+}
+.pyt_center span{
+    color: #555;
+}
+/*模态框样式*/
+.change_password{
+    margin-left: 160px;
+    position: relative;
+}
+.change_password .text{
+    color: #666;
+    display: inline-block;
+    width: 86px;
+    text-align: right;
+}
+.change_password  .tel{
+    color: #ddd;
+}
+.change_password input{
+    border:  1px solid #ddd;
+}
+.send_num{
+    font-size: 12px;
+    color: #E1B05A;
+    background: transparent;
+    border: none;
+    position: absolute;
+    right: 144px;
+    top: 3px;
+}
+.sub_btn{
+    width: 80px;
+    heigth:30px;
+    display: inline-block;
+    border: 1px solid #E1B05A ;
+    color: #fff;
+    text-align: center;
+    background: #E1B05A;
+    border-radius: 4px;
+    margin-left: 90px;
+    margin-top: 20px;
+}
+#myModal{
+    height: 284px;
+    margin: 260px auto;
+}
