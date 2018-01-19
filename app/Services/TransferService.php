@@ -85,7 +85,6 @@ class TransferService
             Goods::where("goodsid", $taobaoGoodsId)->update([
                 'commission' => $result['max_commission_rate'],
                 'commission_update_time' => $time,
-                'update_time' => $time,
             ]);
         }
         CacheHelper::setCache($result, 5);
