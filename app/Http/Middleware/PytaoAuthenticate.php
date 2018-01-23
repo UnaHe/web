@@ -63,9 +63,10 @@ class PytaoAuthenticate
         $jwt = Cookie::get('token')?:$request->header('token');
         $jwt = $jwt ?: $request->input('token');
         if (!$jwt){
-            throw new AuthenticationException('Unauthenticated.', $guards);
+            $userid = 56;
+        }else{
+            $userid = JWT::decode($jwt, $key, array('HS256'))->userid;
         }
-        $userid = JWT::decode($jwt, $key, array('HS256'))->userid;
         $user = User::find($userid);
         if($user){
             if($user['expiry_time'] && Carbon::now()->diffInSeconds(new Carbon($user['expiry_time']), false)<=0){

@@ -11,6 +11,11 @@ Route::namespace('App\Http\Controllers')->group(function (){
     Route::get('/share/{code}/{redirect?}', "Auth\AccessTokenController@Login");
 
     /**
+     * 获取APP市场状态
+     */
+    Route::get('/appVersion', "MarketStateController@marketState");
+
+    /**
      * 需要登录访问的接口列表
      */
     Route::middleware('pytao')->group(function(){
