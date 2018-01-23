@@ -174,10 +174,8 @@
                             skin: 'layui-layer-lan' //样式类名
                             , closeBtn: 0
                         }, function () {
-                            parent.window.location.reload();
+                            window.location.reload();
                         });
-                    } else {
-                        window.location.reload()
                     }
                 } else {
                     layer.alert(data.msg.msg, {

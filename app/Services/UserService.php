@@ -164,6 +164,7 @@ class UserService
             }
             return $bool;
         } catch (\Exception $e) {
+            return $e;
            return  false;
         }
     }

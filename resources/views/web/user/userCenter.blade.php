@@ -41,7 +41,7 @@
 
             </ul>
             <!-- 中心内容-->
-            <form>
+            <form class="user_info">
                 <div class="form-group">
                     <label class="col-sm-4 control-label">性别：</label>
 
@@ -217,7 +217,7 @@
 <script src="web/lib/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="web/lib/bootstrapvalidator/dist/js/bootstrapValidator.js"></script>
 <script type="text/javascript" src="web/js/pcas.js"></script>
-<script type="text/javascript" src="web/js/common.js"></script>
+
 
 <script>
     $.ajaxSetup({
@@ -294,7 +294,33 @@ $(".pyt_sub").on('click',function(e){
 
     if(birthday!=''&&address!=''&&pyt_nature!=''!=department&&earnings!=''&&organization!=''&&QQnum!=''){
         //    发请求
-        Common.submit(e)
+
+            $.ajax({
+                type: "POST",
+                url: formPost,
+                data: $('.user_info').serialize(),
+                dataType: "json",
+                success: function (data) {
+                    if (data.code==200) {
+                        if (data.data.message) {
+                            layer.alert(data.data.message, {
+                                skin: 'layui-layer-lan' //样式类名
+                                , closeBtn: 0
+                            },function(){
+                                    window.location.reload()
+                            });
+                        }
+                    }else {
+                        layer.alert(data.msg.msg, {
+                            skin: 'layui-layer-lan' //样式类名
+                            ,closeBtn: 0
+                        });
+                        $(e).attr('disabled',false);
+                    }
+                }
+            });
+
+
     }
 })
 //表单验证

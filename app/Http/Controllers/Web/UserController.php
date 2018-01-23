@@ -231,6 +231,7 @@ class UserController extends Controller
 
 
             $bool = (new UserService())->modifyUserInfo($request->all());
+
             if ($bool) {
                 return $this->ajaxSuccess(['message' => '操作成功']);
             }
@@ -329,8 +330,8 @@ class UserController extends Controller
     public function accountAuth(Request $request)
     {
         $title = '授权管理';
-//        $user = Auth::user();
-        $user = User::find(99);
+        $user = Auth::user();
+//        $user = User::find(99);
         $authInfo = (new TaobaoService())->accountAuthInfo($user->id);
         return view('web.user.accountAuth', compact('title', 'user', 'authInfo'));
     }

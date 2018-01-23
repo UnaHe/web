@@ -36,7 +36,7 @@
     border: 1px solid #E1B05A;
 }
 .pyt_noAuth{
-    display: none;
+    display: block;
 }
 /*模态框*/
 .popularize{
