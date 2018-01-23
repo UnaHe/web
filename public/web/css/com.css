@@ -1,6 +1,10 @@
 /*������ʽ*/
 /*ͷ��*/
-
+/*layer 样式*/
+body .layui-layer-lan .layui-layer-title{background:rgba(224,171,74,1); color:#fff; border: none;}
+body .layui-layer-lan .layui-layer-btn{border-top:1px solid #E9E7E7}
+body .layui-layer-lan .layui-layer-btn a{background:rgba(224,171,74,1);}
+body .layui-layer-lan .layui-layer-btn .layui-layer-btn1{background:#fff;}
 .navbar-inverse .navbar-nav>.active>a,.pyt_header .collapse .header_active{
     color: #E0AB4A;
 }
@@ -226,4 +230,25 @@ body{
     min-width: 140px;
     text-align: center;
     border: none;
+}
+
+/*��������*/
+.row #tab_personal{
+    width: 600px;
+    margin-left: 14%;
+    height: 40px;
+    line-height: 40px;
+}
+.row #tab_personal>span{
+    display: inline-block;
+    width: 76px;
+    text-align: center;
+    font-size: 16px;
+}
+.row #tab_personal>span a{
+    color: #333;
+    text-decoration: none;
+}
+.row #tab_personal>span .nav_color{
+    color: #E1B05A;
 }

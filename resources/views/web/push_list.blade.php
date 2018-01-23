@@ -19,13 +19,13 @@
 <div class="container-fluid">
     @include('web.layouts.header')
 
-    <!--搜索导航栏-->
+            <!--搜索导航栏-->
     @include('web.layouts.search')
 
-    <!--导航-->
+            <!--导航-->
     @include('web.layouts.navigation')
 
-    <!--主题部分-->
+            <!--主题部分-->
     <seation class="pyt-seation container-fluid">
 
 
@@ -46,7 +46,8 @@
                             <li class="@if($active['active_category']=='') active @endif">全部</li>
                         </a>
                         @foreach($categorys as $v)
-                            <a href="{{url('/columns/'.$active['active_column_code'].'/goods').'?category='.$v->id}}"  class="click_open">
+                            <a href="{{url('/columns/'.$active['active_column_code'].'/goods').'?category='.$v->id}}"
+                               class="click_open">
                                 <li class="@if($active['active_category']==$v->id) active @endif">{{$v->name}}</li>
                             </a>
                         @endforeach
@@ -110,18 +111,18 @@
 
 
             <!--商品列表-->
-            <div class="pro_list">
+            <div class="pro_list  goods-list">
                 <div class="tab_nav">
-                    <a href="{{url('/columns/'.$active['active_column_code'].'/goods')}}"  class="click_open">
+                    <a href="{{url('/columns/'.$active['active_column_code'].'/goods')}}" class="click_open">
                         <span class=" @if($active['active_sort']=='') tab_nav_active @endif">综合</span>
                     </a>
-                    <a href="{{url('/columns/'.$active['active_column_code'].'/goods').'?sort=2'}}"  class="click_open">
+                    <a href="{{url('/columns/'.$active['active_column_code'].'/goods').'?sort=2'}}" class="click_open">
                         <span class=" @if($active['active_sort']==2) tab_nav_active @endif">最新</span>
                     </a>
-                    <a href="{{url('/columns/'.$active['active_column_code'].'/goods').'?sort=3'}}"  class="click_open">
+                    <a href="{{url('/columns/'.$active['active_column_code'].'/goods').'?sort=3'}}" class="click_open">
                         <span class=" @if($active['active_sort']==3) tab_nav_active @endif">销量</span>
                     </a>
-                    <a href="{{url('/columns/'.$active['active_column_code'].'/goods').'?sort=1'}}"  class="click_open">
+                    <a href="{{url('/columns/'.$active['active_column_code'].'/goods').'?sort=1'}}" class="click_open">
                         <span class=" @if($active['active_sort']==1) tab_nav_active @endif">人气</span>
                     </a>
                     <a href="{{url('/columns/'.$active['active_column_code'].'/goods').'?sort=-4'}}" class="click_open">
@@ -132,14 +133,14 @@
 
                     <div class="single">
                         <a href="{{url('/goods/'. $v['id']).'?columnCode='.$active['active_column_code']}}"
-                           target="_blank" >
+                           target="_blank">
                             <img src="{{ $v['pic'] }}" alt="..." class="img_size">
                         </a>
 
                         <div class="price_introduce">
                             <p class="title">
                                 <a href="{{url('/goods/'. $v['id']).'?columnCode='.$active['active_column_code']}}"
-                                   target="_blank"  class="click_open">
+                                   target="_blank" class="click_open">
                                     {{str_limit($v['short_title'], $limit = 24, $end = '...')}}
                                 </a>
                             </p>
@@ -180,13 +181,75 @@
 </div>
 </body>
 <script src="/web/lib/jquery/dist/jquery.js"></script>
-<scrpit src="/web/lib/bootstrap/dist/js/bootstrap.min.js"></scrpit>
+<script src="/web/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/js/layer/layer.js"></script>
+
 <script>
     <!-- 头部登录下拉菜单-->
     $(".dropdown-toggle").on("click", function () {
         $(".dropdown-menu").slideToggle()
     });
-    //提交表单事件
+
+
+    var next_page = 1;
+    var getListUrl = "{{ \Illuminate\Support\Facades\Request::getRequestUri()}}";
+    var goods_url_head = "{{url('/goods/')}}";
+    var goods_url_ext = "{{'?columnCode='.$active['active_column_code']}}";
+    //页面拉到底时自动加载更多
+    $(window).scroll(function (event) {
+        // 当前滚动条位置
+        var wScrollY = window.scrollY;
+        // 设备窗口的高度
+        var wInnerH = window.innerHeight;
+        // 滚动条总高度
+        var bScrollH = document.body.scrollHeight;
+        if (wScrollY + wInnerH >= bScrollH) {
+            //请求
+            next_page += 1
+
+
+            $.get({
+                type: "GET",
+                url: getListUrl,
+                data: {page: next_page},
+                dataType: "json",
+                success: function (data) {
+
+                    if (data.data.length > 0) {
+                        var html = '';
+
+                        $.each(data.data, function ($key, $val) {
+                            var val_url = goods_url_head + '/' + $val.id + goods_url_ext;
+                            var pic = $val.pic;
+                            var short_title = $val.short_title;
+                            if (short_title.length > 12) {
+                                short_title = short_title.substr(0, 12) + '...'
+                            } else {
+                                short_title = short_title + '...'
+                            }
+                            var coupon_price = $val.coupon_price;
+                            var sell_num = $val.sell_num;
+                            var price = $val.price;
+                            var commission_finally = $val.commission_finally;
+                            var is_tmall = $val.is_tmall !== 0 ? '/web/images/tmail.png' : '/web/images/taobao.png';
+
+                            html += "<div class='single'> <a href='" + val_url + "'target='_blank'> <img src='" + pic + "' alt='...' class='img_size'> </a> " +
+                                    "<div class='price_introduce'> <p class='title'><a href='" + val_url + "'target='_blank' class='click_open'>" + short_title + "</a> </p>" +
+                                    "<p class='discount'><span class='coupun'>券</span>" + coupon_price + " 元</p> <p class='mouth_num'>月销：<span>" + sell_num + "</span></p>" +
+                                    "<p class='coupon_back'><span class='small_word small_color'>券后:</span><span class='small_word'>￥</span><span>" + price + "</span></p>" +
+                                    " <p class='commission'><span class='small_word small_color'>佣金:</span><spanclass='small_word'>￥</span>" +
+                                    "<span>" + commission_finally + "</span></p> <p class='log_pro'><img src='" + is_tmall + "' alt='天猫'/></p></div></div>"
+
+                        });
+                        $(html).appendTo('.goods-list');
+                    } else {
+                        layer.msg('加载完了,以后我们努力给你更多!');
+                    }
+
+                }
+            });
+        }
+    });
 
 
 </script>

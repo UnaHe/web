@@ -148,10 +148,12 @@
 </div>
 </body>
 <script src="/web/lib/jquery/dist/jquery.js"></script>
-<scrpit src="/web/lib/bootstrap/dist/js/bootstrap.min.js"></scrpit>
+<script src="/web/lib/bootstrap/dist/js/bootstrap.min.js"></script>
 <script>
 
-
+    $(".dropdown-toggle").on("click",function () {
+        $(".dropdown-menu").slideToggle()
+    });
 
 </script>
 </html>

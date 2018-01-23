@@ -27,17 +27,12 @@
     <!--主题部分-->
     <seation class="pyt-seation container-fluid">
         <div class="row  container">
-            <ul class="nav nav-tabs pyt_nav-tabs" role="tablist">
-                <li role="presentation"
-                    class=" @if(\Illuminate\Support\Facades\Request::getRequestUri()== '/userCenter')) active @endif"><a
-                            href="{{url('userCenter')}}" aria-controls="home" role="tab">个人中心</a></li>
-                <li role="presentation"
-                    class="@if(\Illuminate\Support\Facades\Request::getRequestUri()== '/accountAuth')) active @endif"><a
-                            href="{{url('accountAuth')}}" aria-controls="profile" role="tab">授权管理</a></li>
-                <li role="presentation"
-                    class="@if(\Illuminate\Support\Facades\Request::getRequestUri()== '/accountSecurity')) active @endif">
-                    <a href="{{url('accountSecurity')}}" aria-controls="profile" role="tab">账号安全</a></li>
-            </ul>
+
+            <div id="tab_personal">
+                <span><a href="{{url('userCenter')}}" class="@if(\Illuminate\Support\Facades\Request::getRequestUri()== '/userCenter')nav_color @endif" >个人中心</a></span>
+                <span><a href="{{url('accountAuth')}}"  class="@if(\Illuminate\Support\Facades\Request::getRequestUri()== '/accountAuth') nav_color @endif">授权管理</a></span>
+                <span><a href="{{url('accountSecurity')}}"  class="@if(\Illuminate\Support\Facades\Request::getRequestUri()== '/accountSecurity') nav_color @endif">账号安全</a></span>
+            </div>
             <!-- 中心内容-->
             <div class="pyt_center">
                 <span>登录密码：通过手机号进行密码重置</span>
@@ -150,6 +145,10 @@
         $('#myInput').focus()
     })
 
+
+    $(".dropdown-toggle").on("click", function () {
+        $(".dropdown-menu").slideToggle()
+    });
 
 </script>
 </html>
