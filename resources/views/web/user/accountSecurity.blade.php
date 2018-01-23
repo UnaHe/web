@@ -9,6 +9,7 @@
     <!-- 设置主题样式-->
     <link rel="stylesheet" href="web/lib/bootstrap/dist/css/bootstrap.min.css"/>
     <!-- 引入字体样式-->
+    <link rel="stylesheet" href="web/css/reset.css"/>
     <link rel="stylesheet" href="web/css/com.css"/>
     <link rel="stylesheet" href="web/css/account.css"/>
 </head>
@@ -162,11 +163,6 @@
                         <p class="change_password">
                             <span class="sub_btn" >提交</span>
                         </p>
-
-
-
-
-
 
                     </form>
                 </div>

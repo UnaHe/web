@@ -21,27 +21,26 @@ Route::get('/logout', 'Web\UserController@logout');
 //用户注册
 Route::match(['get', 'post'], '/register', 'Web\UserController@register');
 //用户是否存在
-Route::match(['get', 'post'], '/isExist', 'Web\UserController@isExist');
+Route::post( '/isExist', 'Web\UserController@isExist');
 //用户登录
 Route::match(['get', 'post'], 'login', 'Web\UserController@login');
 //用户忘记密码
 Route::match(['get', 'post'], '/forgetPwd', 'Web\UserController@forgetPwd');
-
-
-
 //用户获取手机验证码
 Route::post('/getCode', 'Web\UserController@getCode');
+//获取授权code
+Route::any('/taobaoCode', 'Web\UserController@taobaoCode');
+
+
 /**
  * 今日必推列表
  */
 Route::get('/columns/{code}/goods', 'Web\GoodsController@columnGoods');
+/**
+ * 限时抢购
+ */
 Route::get('/miaosha/goods', 'Web\GoodsController@getMiaoshaGoods');
 
-
-
-
-//获取授权code
-Route::any('/taobaoCode', 'Web\UserController@taobaoCode');
 
 Route::group(['middleware' => 'auth'], function () {
     //忘记密码=>修改密码
@@ -53,11 +52,11 @@ Route::group(['middleware' => 'auth'], function () {
     //账户安全
     Route::match(['get', 'post'], '/accountSecurity', 'Web\UserController@accountSecurity');
     //账户安全的修改密码
-    Route::match(['get', 'post'], '/accountUpdatePwd', 'Web\UserController@accountUpdatePwd');
+    Route::post( '/accountUpdatePwd', 'Web\UserController@accountUpdatePwd');
     //授权管理
     Route::get('/accountAuth', 'Web\UserController@accountAuth');
     //授权管理
-    Route::match(['get', 'post'], '/updateAuth', 'Web\UserController@updateAuth');
+    Route::post( '/updateAuth', 'Web\UserController@updateAuth');
     //删除用户授权
     Route::get('/delAuth', 'Web\UserController@delAuth');
     //跳转用户登录授权页面

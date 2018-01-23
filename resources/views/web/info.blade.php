@@ -116,11 +116,14 @@
     <div class="main good-info">
         <div class="main-left">
             <div class="main-left-img">
-                <img id="img-show" src="/images/web/good_test1.jpg">
+                <img id="img-show" src="{{$good['pic']}}">
             </div>
             <ul class="images">
-                <li><img src="/images/web/good_test1.jpg"></li>
-                <li><img src="/images/web/good_test2.jpg"></li>
+
+                <li><img src="{{$good['pic']}}"></li>
+                @foreach($good['caijiPics'] as $v)
+                    <li><img src="{{$v->pic}}"></li>
+                @endforeach
             </ul>
 
         </div>
@@ -255,6 +258,7 @@
                 <p>{{$good['des']}}</p>
                 <br>
                 <span>[请转换QQ二合一]</span>
+
                 <p>{{$good['short_title']}}</p>
                 <br>本群专享优惠！已抢{{$good['sell_num']}}件！
             </div>
@@ -262,6 +266,7 @@
             <div id="wechat-copy-main" class="copy-main">
                 {{--<img src="{{$good['pic']}}">--}}
                 <img src="http://imgproxy.ffquan.cn/imgextra/i4/884909271/*t*b2cif4m*dn*i8*k*jj*sszb*x*xb4*k*f*xa_!!884909271.jpg">
+
                 <p>{{$good['short_title']}}</p>
 
                 <p>{{$good['des']}}</p>
@@ -297,7 +302,6 @@
                 content: "{{url('auth')}}", //iframe的url
             });
         });
-
 
 
         /**

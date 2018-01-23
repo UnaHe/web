@@ -16,7 +16,7 @@
     border: 1px solid rgba(225,176,90,1);
     border-radius: 6px ;
     color: #fff;
-    margin-left: 38px;
+    margin-left: 48px;
 }
 .pyt_center span{
     color: #555;
@@ -25,6 +25,8 @@
 .change_password{
     margin-left: 160px;
     position: relative;
+    width:226px;
+    margin-top:8px;
 }
 .change_password .text{
     color: #666;
@@ -44,8 +46,8 @@
     background: transparent;
     border: none;
     position: absolute;
-    right: 144px;
-    top: 3px;
+    right: 10px;
+    top: 1px;
 }
 .sub_btn{
     width: 80px;

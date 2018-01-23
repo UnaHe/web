@@ -1,10 +1,13 @@
 /*������ʽ*/
 /*ͷ��*/
 
+.navbar-inverse .navbar-nav>.active>a{
+    color: #E0AB4A;
+}
+
 body{
     background-color:#f6f6f6
 }
-
 .pyt_hearder_color{
     background:#eee ;
 }
@@ -21,6 +24,9 @@ body{
     font-size:14px;
     font-family:NotoSansHans-Regular;
     color:rgba(153,153,153,1);
+}
+.navbar-default .navbar-nav>li>a:hover{
+    color: #E0AB4A;
 }
 .navbar-form .form-control{
     width:100% ;
@@ -137,7 +143,7 @@ body{
 .pyt_remark{
     color:rgba(153,153,153,1);
     font-size:14px;
-    padding-left: 50px;
+    padding-left: 26px;
 }
 
 .dropdown-menu_header{
@@ -186,6 +192,9 @@ body{
 .container-fluid{
     padding: 0px;
 }
-
-
+/*.clear:after {*/
+/*display: block;*/
+/*content: "";*/
+/*clear: both;*/
+/*}*/
 

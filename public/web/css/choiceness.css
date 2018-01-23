@@ -1,9 +1,15 @@
 /*去掉a标签默认样式*/
-a:link,a:visited{color:#666;text-decoration:none;}
-a:hover{color:#666;}
-.prod_type_list .active{
-    color: #E1B05A;
+.click_open:link,.click_open:visited{
+    color:#666;text-decoration:none;
 }
+.click_open:hover{
+    color:#666;
+}
+.prod_type_list .active{
+    color:#E1B05A ;
+}
+
+
 .pro_list{
     width: 100%;
     margin-top: 10px;
@@ -51,6 +57,7 @@ a:hover{color:#666;}
     font-size: 12px;
     right: 10px;
     color: #999;
+    top: 40px;
 }
 .coupon_back,.commission{
     top: 66px;
@@ -107,7 +114,7 @@ a:hover{color:#666;}
 .prod_type_list li{
     display: inline-block;
     margin-right: 34px;
-   float: left;
+    float: left;
     list-style-type:none;
 }
 .margin_right{
@@ -174,4 +181,8 @@ a:hover{color:#666;}
 }
 .active_nav{
     color: #E1B05A;
+}
+/*ie调试*/
+input[type=checkbox]{
+    margin-top: 5px;
 }

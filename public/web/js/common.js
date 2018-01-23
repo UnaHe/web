@@ -10,11 +10,11 @@ Common = {
 
         var interval = setInterval(function () {
             if (time > 0) {
-                $("#clock").text( '请在'+time + '秒后获取验证码');
+                $("#clock").text( time + '秒');
                 time--;
             } else {
                 clearInterval(interval)
-                $("#clock").html("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;获取手机验证码&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+                $("#clock").html("获取手机验证码");
                 time = 60;
             }
 

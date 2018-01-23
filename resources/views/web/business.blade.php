@@ -86,7 +86,7 @@
     <seation class="pyt-seation container-fluid">
         <!--中心板块-->
         <div class="container-fluid banner_bag">
-            <div class="open_btn"><a href="{{url('/columns/today_tui/goods')}}">点击开启</a></div>
+            <div class="open_btn"><a href="{{url('/columns/today_tui/goods')}}" class="click_open">点击开启</a></div>
         </div>
         <div class="row  container">
             <!-- 中心内容-->
@@ -123,7 +123,7 @@
             <p class="footer_logo"><img src="/web/images/xinfeng@2x.png" alt="信封"></p>
             <p class="relation">很高兴收到你的来信，我们在审核后第一时间与您联系</p>
             <p class="advantage">让流量更省钱，让店铺更赚钱，只需要你几分钟</p>
-            <button class="register"><a href="{{url('register')}}">注册</a></button>
+            <button class="register"><a href="{{url('register')}}" class="click_open">注册</a></button>
         </div>
 
 

@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers\Web;
 
+use App\Helpers\CacheHelper;
 use App\Models\User;
 use App\Services\CaptchaService;
 use App\Services\TaobaoService;
@@ -8,7 +9,6 @@ use App\Services\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Validator;
 use \App\Http\Controllers;
 
@@ -47,28 +47,26 @@ class UserController extends Controller
             $username = $request->post('username');
             $password = $request->post('password');
             $captcha = $request->post('captcha');
-
+            if (empty($codeId) || empty($captcha) || !(new CaptchaService())->checkSmsCode($codeId, $captcha)) {
+                return $this->ajaxError(['msg' => '验证码错误']);
+            }
             $validator = Validator::make($request->all(), [
                 'username' => 'required|size:11',
                 'password' => 'required|min:6|confirmed',
                 'password_confirmation' => 'required|min:6',
                 'captcha' => 'required',
             ], [
-                'required' => ':attribute 不能为空.',
-                'unique' => ':attribute 已存在.',
-                'min' => ':attribute 长度不够.',
-                'confirmed' => ':attribute 不一致',
-                'size' => ':attribute 格式不合法',
+                'required' => ':attribute不能为空.',
+                'unique' => ':attribute已存在.',
+                'min' => ':attribute长度不够.',
+                'confirmed' => ':attribute不一致',
+                'size' => ':attribute格式不合法',
             ], [
                 'username' => '用户名',
                 'password' => '密码',
                 'password_confirmation' => '确认密码',
                 'captcha' => '验证码'
             ]);
-
-            if (empty($codeId) || empty($captcha) || !(new CaptchaService())->checkSmsCode($codeId, $captcha)) {
-                return $this->ajaxError(['msg' => '验证码错误']);
-            }
 
             if ($validator->fails()) {
                 $errors = \GuzzleHttp\json_decode($validator->errors(), true);
@@ -116,10 +114,11 @@ class UserController extends Controller
     public function getCode(Request $request)
     {
         $ip = $request->getClientIp();
-        $redis = Redis::connection();
-        if ($redis->get($ip)) {
+
+        if (CacheHelper::getCache()) {
             return $this->ajaxError(['msg' => '操作太频繁']);
         }
+
         $mobile = $request->post('username');
         if (!preg_match('/^1\d{10}$/', $mobile)) {
             return $this->ajaxError(['msg' => '请输入正确的手机号码']);
@@ -133,7 +132,8 @@ class UserController extends Controller
         if (!$codeId) {
             return $this->ajaxError(['msg' => '验证码发送失败']);
         }
-        $redis->setex($ip, 60, 'yes');
+
+        CacheHelper::setCache($ip, 1);
         return $this->ajaxSuccess([$codeId]);
     }
 
@@ -148,12 +148,12 @@ class UserController extends Controller
             $codeId = $request->post('codeId');
             $captcha = $request->post('captcha');
             $username = $request->post('username');
+            if (empty($codeId) || empty($captcha) || !(new CaptchaService())->checkSmsCode($codeId, $captcha)) {
+                return $this->ajaxError(['msg' => '验证码错误']);
+            }
             $user = User::where("phone", $username)->first();
             if (!$user) {
                 return $this->ajaxError(['msg' => '用户不存在']);
-            }
-            if (empty($codeId) || empty($captcha) || !(new CaptchaService())->checkSmsCode($codeId, $captcha)) {
-                return $this->ajaxError(['msg' => '验证码错误']);
             }
             Auth::login($user);
             return $this->ajaxSuccess();
@@ -211,8 +211,11 @@ class UserController extends Controller
             $request->offsetSet('user_id', $user->id);
             $validator = Validator::make($request->all(), [
                 'qq_id' => 'numeric',
+                'qq_id' => 'min:5|max:12',
             ], [
-                'numeric' => ':attribute 必须是数字.',
+                'numeric' => ':attribute必须是数字.',
+                'min' => ':attribute不少于5位.',
+                'max' => ':attribute最多12位.',
             ], [
                 'qq_id' => 'QQ',
             ]);
@@ -273,7 +276,6 @@ class UserController extends Controller
      */
     public function accountUpdatePwd(Request $request)
     {
-
         $user = Auth::user();
         $codeId = $request->post('codeId');
         $captcha = $request->post('captcha');
@@ -289,8 +291,6 @@ class UserController extends Controller
             return $this->ajaxSuccess(['message' => '密码修改成功']);
         }
         return $this->ajaxError(['msg' => '修改失败']);
-
-
     }
 
     /**
@@ -304,9 +304,9 @@ class UserController extends Controller
             'password' => 'required|min:6|confirmed',
             'password_confirmation' => 'required|min:6',
         ], [
-            'required' => ':attribute 不能为空.',
-            'min' => ':attribute 长度不够.',
-            'confirmed' => ':attribute 不一致',
+            'required' => ':attribute不能为空.',
+            'min' => ':attribute长度不够.',
+            'confirmed' => ':attribute不一致',
         ], [
             'password' => '密码',
             'password_confirmation' => '确认密码',
@@ -314,7 +314,6 @@ class UserController extends Controller
         $msg = '';
         if ($validator->fails()) {
             $errors = \GuzzleHttp\json_decode($validator->errors(), true);
-
             foreach ($errors as $v) {
                 $msg .= $v[0] . '<br/>';
             }
@@ -345,18 +344,13 @@ class UserController extends Controller
     {
         $user = Auth::user();
 //        $user = User::find(78);
-        if ($request->isMethod('post')) {
-            $res = (new TaobaoService())->updateAuth($user->id, $request->all());
-            if ($res['success']) {
-                return $this->ajaxSuccess(['message' => '操作成功']);
-            }
-            $error = $res['msg'] ? $res['msg'] : '修改失败';
-            return $this->ajaxError(['msg' => $error]);
-        } else {
-            $title = '提示';
-            $authInfo = (new TaobaoService())->accountAuthInfo($user->id);
-            return view('web.user.updateAuth', compact('title', 'user', 'authInfo'));
+        $res = (new TaobaoService())->updateAuth($user->id, $request->all());
+        if ($res['success']) {
+            return $this->ajaxSuccess(['message' => '操作成功']);
         }
+        $error = $res['msg'] ? $res['msg'] : '修改失败';
+        return $this->ajaxError(['msg' => $error]);
+
     }
 
 
@@ -367,7 +361,7 @@ class UserController extends Controller
     public function auth()
     {
         $redirect_uri = url('taobaoCode');
-        $url = "https://oauth.taobao.com/authorize?response_type=code&client_id=" . config("taobao.appkey") . "&redirect_uri=" . $redirect_uri . "&state=1212&view=tmall";
+        $url = "https://oauth.taobao.com/authorize?response_type=code&client_id=" . config("taobao.appkey") . "&redirect_uri=" . $redirect_uri . "&state=1212&view=web";
         return redirect($url);
     }
 

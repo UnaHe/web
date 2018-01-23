@@ -39,8 +39,8 @@ class CaptchaService
         $code = mt_rand(1000, 9999);
         $codeId = md5(__METHOD__.uniqid().time());
         $cacheKey = "smsCode.".$codeId;
-
-        if((new SmsHelper())->sms($mobile, config('sms.signname'), $templateCode, ['code'=>$code])){
+        $signname=config('sms.signname')?config('sms.signname'):'推单客';
+        if((new SmsHelper())->sms($mobile, $signname, $templateCode, ['code'=>$code])){
             Cache::put($cacheKey, $code, config('sms.code_expire_time'));
             return $codeId;
         }

@@ -121,16 +121,16 @@
                 <lable class="col-sm-5">
                     <div class="img_left">
                         <a href="{{url('/goods/'. $val['id']).'?columnCode='.$active['active_column_code']}} "
-                           target="_blank">
+                           target="_blank" class="click_open">
                             <image src="{{$val['pic']}}"></image>
                         </a>
                     </div>
                     <div class="text_right">
                         <a href="{{url('/goods/'. $val['id']).'?columnCode='.$active['active_column_code']}} "
-                           target="_blank">
+                           target="_blank" class="click_open">
                             <p class="title">   {{str_limit($val['short_title'], $limit = 39, $end = '...')}}</p>
 
-                            <p class="full_name">{{$val['des']}}</p>
+                            <p class="full_name"> {{str_limit($val['des'], $limit = 120, $end = '...')}}</p>
                         </a>
 
                         <p class="discount"><span class="coupun">券</span> {{ $val['coupon_price']}}元</p>

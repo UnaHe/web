@@ -1,153 +1,180 @@
-<!doctype html>
-<html lang="en">
-<head>
+<!DOCTYPE html>
+<html>
+<head lang="en">
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{$title}} - 朋友推</title>
-    <link rel="stylesheet" href="/assets/css/amazeui.css">
-    <link rel="stylesheet" href="/css/web/common.css" />
-    <link rel="stylesheet" href="/css/web/index.css" />
-    <style type="text/css">
-        /*登录下拉菜单*/
-        .container .topbar-right{
-            display: inline;
-        }
-        ul {
-            list-style: none;
-        }
+    <title>首页</title>
+    <!--设置视口-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,user-sclable=0">
+    <!-- 设置主题样式-->
+    <link rel="stylesheet" href="/web/lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <!-- 引入字体样式-->
+    <!--引入重置样式-->
+    <link rel="stylesheet" href="/web/css/reset.css">
+    <link rel="stylesheet" href="/web/lib/bootstrap/font-awesome/css/font-awesome.min.css">
 
-        .nav > li {
-            float: left;
-        }
-
-        .nav a {
-            display: block;
-            text-decoration: none;
-            width: auto;
-            height: 40px;
-            text-align: center;
-            line-height: 42px;
-            color: rgba(238, 238, 238, 1);
-            background-color: rgba(238, 238, 238, 1);
-        }
-
-        .drop-down {
-            position: relative;
-        }
-
-        .drop-down li {
-            width: 100px;
-        }
-
-        .drop-down-content {
-            padding: 0;
-            display: none;
-            position: absolute;
-            margin-top: 0px;
-            z-index: 9999;
-        }
-
-        .drop-down-content li a {
-            background: white;
-            line-height: 30px;
-            height: 30px;
-        }
-
-        #login {
-            width: 100px;
-            margin-right: -10px;
-        }
-    </style>
-
+    <link rel="stylesheet" href="/web/css/com.css"/>
+    <link rel="stylesheet" href="/web/css/index.css"/>
 </head>
 <body>
-<div class="topbar">
-    <!--公共顶部 start-->
-    <div class="container top">
-        <div class="am-g">
-            <div class="am-u-md-3">
-                <div class="topbar-left">
-                    <span class="">给你的不仅是优惠！</span>
-                </div>
-            </div>
-            <div class="am-u-md-9">
-                <div class="topbar-right am-text-right am-fr">
-                    <ul class="nav">
-                        @if(\Illuminate\Support\Facades\Auth::check())
-                            <li class="drop-down">
-                                <a href="#" id="login">{{\Illuminate\Support\Facades\Auth::user()->phone}}</a>
-                                <ul class="drop-down-content">
-                                    <li><a href="{{url('/userCenter')}}">个人中心</a></li>
-                                    <li><a href="#">授权管理</a></li>
-                                    <li><a href="{{url('/accountSecurity')}}">账号安全</a></li>
-                                    <li><a href="{{url('/logout')}}">退出</a></li>
-                                </ul>
-                            </li>
-                        @else
-                            <li><a href="{{url('login')}}">登录</a></li>
-                        @endif
-                        <li class="mod_copyright_split">|</li>
-                        <li><a href="{{url('register')}}">注册</a></li>
-                        <li class="mod_copyright_split">|</li>
+<!--头部-->
+<div class="container-fluid">
+    <header class="pyt_header pyt_hearder_color">
+        <nav class="navbar navbar-default  container pyt_hearder_color">
+            <div class="container-fluid">
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li class=""><a href="#">给你的不仅仅是优惠</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown-toggle"><a href="#">1888********</a>
+                        </li>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">个人中心</a></li>
+                            <li><a href="#">授权管理</a></li>
+                            <li><a href="#">账号安全</a></li>
+                            <li><a href="#">退出</a></li>
+                        </ul>
+                        <li><a href="#">注册</a></li>
                         <li><a href="#">企业官网</a></li>
-                        <li class="mod_copyright_split">|</li>
-                        <li><a href="{{url('/business')}}">商家合作</a></li>
-                        <li class="mod_copyright_split">|</li>
+                        <li><a href="#">商务合作</a></li>
                         <li><a href="#">微信交流群</a></li>
                     </ul>
-
                 </div>
             </div>
+        </nav>
+    </header>
+    <!--banner部分-->
+    <seation class="pyt-seation container-fluid">
+        <!--中心板块-->
+        <div class="container-fluid banner_bag">
+            <div class="open_btn"><a href="{{url('/columns/today_tui/goods')}}" class="click_open">点击开启</a></div>
         </div>
-    </div>
-    <!--公共顶部 end-->
-</div>
+        <div class="row  container-fluid">
+            <div class="col-12_bg">
+                <!-- 产品精选-->
+                <div class="container col-sm-12">
+                    <p class="welcome">— WELCOME —</p>
+                    <p class="title_pro">产品精选</p>
+                    <p class="pyt">— PENGYOUTUI —</p>
+                    <div class="sea_back_img">
+                        <div class="text_box text_box_a">
+                            <p class="time_limit">限时快抢</p>
+                            <p class="time_limit_eng">xianshikuaiqiang</p>
+                            <p class="first">第一手全网商品</p>
+                            <p class="pledge">保证时效性</p>
+                            <p class="full_goods">First full net goods</p>
+                            <p class="guarantee">Timeliness of guarantee</p>
+                            <p class="click_query"><a href="{{url('/miaosha/goods')}}"  class="click_open">点击查询</a></p>
+                        </div>
+                        <div class="text_box_2 text_box_a">
+                            <p class="time_limit">限时快抢</p>
+                            <p class="time_limit_eng">xianshikuaiqiang</p>
+                            <p class="first">第一手全网商品</p>
+                            <p class="pledge">保证时效性</p>
+                            <p class="full_goods">First full net goods</p>
+                            <p class="guarantee">Timeliness of guarantee</p>
+                            <p class="click_query"><a href="{{url('/miaosha/goods')}}"  class="click_open">点击查询</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="container-fluid col-xs-12 back_image"></div>
+            </div>
+            <!-- 主打栏目-->
+            <div class="col-12_bgr">
+                <div class="col-sm-12">
+                    <p class="welcome">— WELCOME —</p>
+                    <p class="title_pro ">主打栏目</p>
+                    <p class="pyt">— PENGYOUTUI —</p>
+                </div>
+                <div class="sea_back_img  coulmn">
+                    <div class="text_box_3 text_small_box">
+                        <p class="time_limit">今日精选 </p>
+                        <p class="time_limit_eng">jinrijingxuan</p>
+                        <p class="first">严格商品</p>
+                        <p class="pledge">人工审核</p>
+                        <p class="full_goods">Strict selection of goods</p>
+                        <p class="guarantee">Manual review</p>
+                        <p class="click_query"><a href="{{url('/columns/today_jing/goods')}}"  class="click_open">点击查询</a></p>
+                    </div>
+                    <div class="text_box_4 text_small_box">
+                        <p class="time_limit">美食精选 </p>
+                        <p class="time_limit_eng">meishijingxuan</p>
+                        <p class="first">休闲零食</p>
+                        <p class="pledge">地域美味想吃就吃</p>
+                        <p class="full_goods">Snack snack</p>
+                        <p class="guarantee">Regional delicacy</p>
+                        <p class="click_query"><a href="{{url('/columns/meishijingxuan/goods')}}"  class="click_open">点击查询</a></p>
+                    </div>
+                    <div class="text_box_5 text_small_box">
+                        <p class="time_limit">家居精选 </p>
+                        <p class="time_limit_eng">jiajujingxuan</p>
+                        <p class="first">打造你的空间</p>
 
-    <div class="pyt-banner">
-        <div>
-            <a href=""  class="start">立即开启</a>
-            {{--<button class="start">立即开启</button>--}}
+                        <p class="full_goods full_goods_top">Make your space</p>
+
+                        <p class="click_query click_query_top"><a href="{{url('/columns/jiajujingxuan/goods')}}"  class="click_open">点击查询</a></p>
+                    </div>
+                </div>
+                <div class="container-fluid col-xs-12 back_image margin-Top_big"></div>
+            </div>
+            <!--产品矩阵-->
+            <div class="col-sm-12 cpjz">
+                <p class="welcome">— WELCOME —</p>
+                <p class="title_pro">产品矩阵</p>
+                <p class="pyt">— PENGYOUTUI —</p>
+                <div class=" two_box_square"></div>
+            </div>
         </div>
-    </div>
+        <!-- 解决方案-->
+        <div class="col-sm-12 jjfa_box">
+            <p class="welcome">— WELCOME —</p>
+            <p class="title_pro">解决方案</p>
+            <p class="pyt">— PENGYOUTUI —</p>
+            <div class="two_box">
+                <div class="solve">
+                    <p class="xcx_logo">
+                        <img src="/web/images/xiaochengxu@2x.png" alt="小程序">
+                    </p>
+                    <p class="xcx_text">APP&小程序</p>
+                    <p class="guide">随时随地更新第一手隐藏优惠券一键开启智能导购模式</p>
+                    <p class="order">智能化导购模式实现用户自助找券下单</p>
+                    <p class="short_time">提高用户的购买体验和转化率精简成本 缩短时间</p>
+                </div>
+                <div class="solve">
+                    <p class="xcx_logo">
+                        <img src="/web/images/xiaozhushou@2x.png" alt="小助手">
+                    </p>
+                    <p class="xcx_text xiaozhushou">小助手</p>
+                    <p class="guide left_45">全后台商家用户管理神器</p>
+                    <p class="order left_45">全网数据锁定高拥 高效率分析</p>
+                    <p class="short_time left_45">消息定时群发 解放双手</p>
+                </div>
+            </div>
 
+        </div>
+    </seation>
+    <div class="clear"></div>
+    <!--页脚-->
+    <footer class="container-fluid pyt_footer_box">
+        <div class="container pyt_center_footer">
+            <ul class="pyt_footer">
+                <li>公司官网</li>
+                <li>公司网站</li>
+                <li>合作伙伴1</li>
+                <li>合作伙伴2</li>
+            </ul>
+            <div class="clear"></div>
+            <p class="pyt_remark">2017-2017 www.tkhd.com朋友推--蜀CP备170234号-1 成都推客互动</p>
+        </div>
 
-{{--产品精选--}}
-<div class="">
-        今日必推
-        <a href="{{url('/columns/today_tui/goods')}}">点击查询</a>
+    </footer>
 </div>
-
-<div class="">
-    限时快抢
-    <a href="{{url('/miaosha/goods')}}" >点击查询</a>
-</div>
-
-{{--主打栏目--}}
-<div class="">
-    今日精选
-    <a href="{{url('/columns/today_jing/goods')}}"  >点击查询</a>
-</div>
-<div class="">
-  美食精选
-    <a href="{{url('/columns/meishijingxuan/goods')}}" >点击查询</a>
-</div>
-<div class="">
-    家居精选
-    <a href="{{url('/columns/jiajujingxuan/goods')}}"  >点击查询</a>
-</div>
-
-
-
-
-
-    <script src="/js/jquery.3.2.1.js"></script>
-    <script src="/js/layer/layer.js"></script>
-    <script src="/assets/js/amazeui.js"></script>
-
-    <script type="text/javascript">
-
-    </script>
 </body>
+<script src="/web/lib/jquery/dist/jquery.js"></script>
+<scrpit src="/web/lib/bootstrap/dist/js/bootstrap.min.js"></scrpit>
+<script>
+
+
+
+</script>
 </html>

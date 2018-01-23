@@ -145,7 +145,7 @@
 
                     <div class="col-sm-8">
                         <input type="text" class="form-control QQnum" name="qq_id"
-                               value="@if($user_info){{$user_info->qq_id}} @endif" placeholder="请输入QQ号">
+                               value="@if($user_info){{$user_info->qq_id}}@endif" placeholder="请输入QQ号">
                     </div>
                 </div>
                 <div class="form-group">
@@ -174,7 +174,7 @@
 
                     <div class="col-sm-8">
                         <input type="text" class="form-control organization" name="company"
-                               value="@if($user_info){{ $user_info->company}} @endif">
+                               value="@if($user_info){{$user_info->company}}@endif">
                     </div>
                 </div>
                 <div class="form-group">
@@ -182,7 +182,7 @@
 
                     <div class="col-sm-8">
                         <input type="text" class="form-control department" name="department"
-                               value="@if($user_info){{ $user_info->department}} @endif">
+                               value="@if($user_info){{$user_info->department}}@endif">
                     </div>
                 </div>
                 <div class="form-group">

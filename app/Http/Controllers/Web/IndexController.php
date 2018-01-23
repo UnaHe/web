@@ -13,11 +13,10 @@ use Illuminate\Support\Facades\Request;
 class IndexController extends Controller
 {
     public function index(Request $request){
-
-
         $title = '官网';
-
-        return  view('web.index', compact('title'));
+        $active=['active_column_code'=>'today_tui'];
+//        return  view('web.layouts.layouts', compact('title','active'));
+        return  view('web.index', compact('title','active'));
     }
 
 

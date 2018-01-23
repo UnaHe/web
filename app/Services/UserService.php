@@ -152,7 +152,7 @@ class UserService
     {
         try {
             $user = DB::table('xmt_pygj_user_info')->where('user_id', '=', $data['user_id'])->first();
-            if(!empty($data['promotion'])&&is_array($data['promotion'])){
+            if(!empty($data['promotion']) && is_array($data['promotion'])){
                 $data['promotion']=implode(',',$data['promotion']);
             }else{
                 $data['promotion']='';
@@ -164,8 +164,7 @@ class UserService
             }
             return $bool;
         } catch (\Exception $e) {
-            $error = $e->getMessage();
-            throw new \Exception($error);
+           return  false;
         }
     }
 

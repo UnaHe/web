@@ -22,68 +22,6 @@ use Illuminate\Support\Facades\Auth;
 class GoodsController extends Controller
 {
     /**
-     * 获取商品列表
-     */
-    public function goodList(Request $request)
-    {
-        //商品分类
-        $category = $request->get('category');
-        //商品排序
-        $sort = $request->get('sort');
-        //搜索关键字
-        $keyword = $request->get('keyword');
-        //淘抢购筛选
-        $isTaoqianggou = $request->get('tqg');
-        //聚划算筛选
-        $isJuhuashuan = $request->get('jhs');
-        //最低价格筛选
-        $minPrice = $request->get('min_price');
-        //最高价格筛选
-        $maxPrice = $request->get('max_price');
-        //天猫筛选
-        $isTmall = $request->get('is_tmall', 0);
-        //最低佣金筛选
-        $minCommission = $request->get('min_commission', 0);
-        //最低销量筛选
-        $minSellNum = $request->get('min_sell_num', 0);
-        //最低券金额筛选
-        $minCouponPrice = $request->get('min_coupon_price');
-        //最高券金额筛选
-        $maxCouponPrice = $request->get('max_coupon_price');
-        //金牌卖家
-        $isJpseller = $request->get('is_jpseller', 0);
-        //旗舰店
-        $isQjd = $request->get('is_qjd', 0);
-        //海淘
-        $isHaitao = $request->get('is_haitao', 0);
-        //极有家
-        $isJyj = $request->get('is_jyj', 0);
-        //运费险
-        $isYfx = $request->get('is_yfx', 0);
-
-        $userId = $request->user()->id;
-
-        $list = (new GoodsService())->goodList($category, $sort, $keyword, $isTaoqianggou, $isJuhuashuan, $minPrice, $maxPrice, $isTmall, $minCommission, $minSellNum, $minCouponPrice, $maxCouponPrice, $isJpseller, $isQjd, $isHaitao, $isJyj, $isYfx, $userId);
-        if ($list) {
-            foreach ($list as $k => &$item) {
-                $list[$k]['commission_finally'] = round($item['commission'] * ($item['price'] > 0 ? $item['price'] : $item['price_full']) / 100, 1);
-                $keys = ['is_jpseller', 'is_qjd', 'is_haitao', 'is_tmallgj', 'is_jyjseller', 'is_freight_insurance'];
-                foreach ($keys as $key) {
-                    $value = $item[$key];
-                    if ($value == 1) {
-                        $item[$key] = 0;
-                    } else if ($value == 2) {
-                        $item[$key] = 1;
-                    }
-                }
-            }
-            $list = (new GoodsHelper())->resizeGoodsListPic($list, ['pic' => '240x240']);
-        }
-
-        return $this->ajaxSuccess($list);
-    }
-
-    /**
      * 推荐商品列表
      * @param Request $request
      * @return static
@@ -122,10 +60,9 @@ class GoodsController extends Controller
             return $this->ajaxError("商品不存在", 404);
         }
         $data = (new GoodsHelper())->resizeGoodsListPic([$data], ['pic' => '480x480']);
-        $title = '商品详情';
         $good = $data[0];
-
         $good['commission_finally'] = round($good['commission'] * ($good['price'] > 0 ? $good['price'] : $good['price_full']) / 100, 1);
+        $good['caijiPics'] = (new GoodsService())->getCaijiPics($good['goodsid']);
 
         $request->offsetSet('title', $good['short_title']);
         $request->offsetSet('taobao_id', $good['id']);
@@ -133,7 +70,7 @@ class GoodsController extends Controller
         $this->commissionHandler($list);
 
         $active = ['active_column_code' => $columnCode];
-
+        $title = '商品详情';
         return view('web.info', compact('good', 'list', 'title', 'active'));
     }
 
@@ -162,7 +99,8 @@ class GoodsController extends Controller
         $category = $request->get('category');
         //商品排序
         $sort = $request->get('sort');
-        if ($isTmall = $request->get('today')) {
+        //只看今天
+        if ($request->get('today')) {
             $sort = 2;
         }
         //天猫筛选
@@ -208,7 +146,7 @@ class GoodsController extends Controller
         if (!$list = CacheHelper::getCache($params) && !empty($list)) {
             /**
              *
-             * 有条件的走goodList
+             * 有条件的走goodList,美食精选和家居精选因为没有栏目字段,所以所以走该逻辑
              */
             if (!empty($keyword) || !empty($isJpseller) || !empty($isQjd) || !empty($isHaitao) || !empty($isJyj) || !empty($isYfx)
                 || $columnCode == 'meishijingxuan' || $columnCode == 'jiajujingxuan'
@@ -230,7 +168,7 @@ class GoodsController extends Controller
         if ($request->ajax() && !empty($request->input('page'))) {
             return $this->ajaxSuccess($list);
         }
-
+var_dump();
         $titles = ['today_tui' => '今日必推', 'today_jing' => '今日精选', 'xiaoliangbaokuan' => '爆款专区',
             'zhengdianmiaosha' => '限时快抢', 'meishijingxuan' => '美食精选', 'jiajujingxuan' => '家居精选'];
         $title = $titles[$columnCode];
@@ -240,7 +178,11 @@ class GoodsController extends Controller
         return view('web.push_list', compact('list', 'title', 'categorys', 'active', 'keyword'));
     }
 
-
+    /**
+     * 获取限时抢购
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function getMiaoshaGoods(Request $request)
     {
         $time_step = $this->getTimes();
@@ -252,11 +194,6 @@ class GoodsController extends Controller
                 break;
             }
         }
-        //如果没有即将开始就让当前最接近时间做作为当前抢购时间
-        if (!$active_time) {
-            $active_time = $time_step[sizeof($time_step) - 1]['active_time'];
-        }
-
 
         //秒杀时间点
         $activeTime = $request->get('active_time', $active_time);
@@ -270,6 +207,7 @@ class GoodsController extends Controller
 
             CacheHelper::setCache($list, 5, $params);
         }
+
         $columnCode = 'zhengdianmiaosha';
         $titles = ['today_tui' => '今日必推', 'today_jing' => '今日精选', 'xiaoliangbaokuan' => '爆款专区',
             'zhengdianmiaosha' => '限时快抢', 'meishijingxuan' => '美食精选', 'jiajujingxuan' => '家居精选'];
@@ -279,7 +217,10 @@ class GoodsController extends Controller
 
     }
 
-
+    /**
+     * 计算抢购时段
+     * @return array
+     */
     public function getTimes()
     {
         if (!$data = CacheHelper::getCache()) {
@@ -296,7 +237,6 @@ class GoodsController extends Controller
             CacheHelper::setCache($data, 5);
         }
         $times = [];
-
         foreach ($data as $key => $val) {
             $times[$key]['time'] = $val['time'];
             $times[$key]['active_time'] = $val['active_time'];
@@ -319,66 +259,8 @@ class GoodsController extends Controller
         return $this->ajaxSuccess($data);
     }
 
-    /**
-     * 全网搜索
-     */
-    public function queryAllGoods(Request $request)
-    {
-        //搜索关键字
-        $keyword = $request->get('keyword');
-        $page = intval($request->input("page", 1));
-        $limit = intval($request->input("limit", 20));
-        //是否有店铺优惠券
-        $hasShopCoupon = $request->get('has_shop_coupon', 0);
-        //月成交转化率高于行业均值
-        $isHighPayRate = $request->get('is_high_pay_rate', 0);
-        //天猫旗舰店
-        $isTmall = $request->get('is_tmall', 0);
-        //最低销量筛选
-        $minSellNum = $request->get('min_sell_num', 0);
-        //最低佣金筛选
-        $minCommission = $request->get('min_commission', 0);
-        //最高佣金筛选
-        $maxCommission = $request->get('max_commission', 0);
-        //最低价格筛选
-        $minPrice = $request->get('min_price');
-        //最高价格筛选
-        $maxPrice = $request->get('max_price');
 
-        //商品排序
-        $sort = $request->get('sort');
-        $page = $page > 0 ? $page : 1;
-        $limit = $limit > 0 ? $limit : 20;
 
-        if (!$keyword) {
-            return $this->ajaxError("参数错误");
-        }
 
-        $params = $request->all();
-        if (!$list = CacheHelper::getCache($params)) {
-            $list = (new GoodsService())->queryAllGoods($keyword, $hasShopCoupon, $isHighPayRate, $isTmall, $minSellNum, $minCommission, $maxCommission, $minPrice, $maxPrice, $page, $limit, $sort);
-            if ($list) {
-                $list = (new GoodsHelper())->resizeGoodsListPic($list, ['pic' => '310x310']);
-            }
-            CacheHelper::setCache($list, 1, $params);
-        }
-        return $this->ajaxSuccess($list);
-    }
-
-    /**
-     * 查询商品佣金
-     */
-    public function commission(Request $request)
-    {
-        $taobaoId = $request->get('taobao_id');
-        $data = (new GoodsService())->commission($taobaoId);
-        $data = $data ?: [
-            //实际佣金
-            'commission' => -1,
-            //原始佣金
-            'originCommission' => -1
-        ];
-        return $this->ajaxSuccess($data);
-    }
 
 }

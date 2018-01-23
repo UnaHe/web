@@ -1,3 +1,7 @@
+.click_open:link,.click_open:visited{
+    text-decoration:none;
+}
+
 
 .rush_point{
     background:#E1B05A ;
@@ -20,7 +24,7 @@
 .rush_point li p{
     margin-bottom: 0px;
 }
- /*¼ýÍ·*/
+/*ï¿½ï¿½Í·*/
 .left_arr{
     display: inline-block;
     width: 10px;
@@ -37,7 +41,7 @@
     top: 10px;
     font-size:17px ;
 }
-/*ÉÌÆ·ÄÚÈÝ*/
+/*ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½*/
 .row{
     border: none;
 }
@@ -46,7 +50,7 @@
     height: 334px;
     width: 572px;
     margin:20px 22px 0px 0;
-    
+
 }
 .row .col-sm-5:nth-child(odd){
     margin: 20px 0 0;
@@ -54,7 +58,7 @@
 body,.row{
     background-color:#f6f6f6
 }
-/*ÖÐÐÄÄÚÈÝÍ¼Æ¬*/
+/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼Æ¬*/
 .img_left{
     margin-top: 16px;
     display: inline-block;
@@ -65,7 +69,7 @@ body,.row{
 }
 
 
-/*ÓÒ±ßÎÄ×Ö*/
+/*ï¿½Ò±ï¿½ï¿½ï¿½ï¿½ï¿½*/
 .text_right{
     width: 228px;
     display: inline-block;
@@ -113,14 +117,14 @@ body,.row{
 }
 
 
-/*ÂíÉÏÍÆ*/
+/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 .quick{
     width:210px ;
     height: 40px;
     border: 1px solid #E1B05A;
     color: #999;
     line-height: 38px;
-position: absolute;
+    position: absolute;
     bottom: 0px;
     margin-bottom: 0px;
 }
@@ -138,10 +142,14 @@ position: absolute;
     bottom: 0px;
     right: 0px;
 }
-/*Ê±¼äÑ¡ÖÐÑùÊ½*/
+/*Ê±ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½Ê½*/
 .time_active{
     background: #ca9151;
 }
+
+
+
+
 
 
 
