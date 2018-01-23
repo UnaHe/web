@@ -145,6 +145,7 @@ class UserController extends Controller
     public function forgetPwd(Request $request)
     {
         if ($request->isMethod('post')) {
+
             $codeId = $request->post('codeId');
             $captcha = $request->post('captcha');
             $username = $request->post('username');
@@ -237,7 +238,7 @@ class UserController extends Controller
 
         } else {
             $user_info = (new UserService())->getUserInfo($user->id);
-            if ($user_info->promotion) {
+            if (!empty($user_info->promotion)) {
                 $user_info->promotion = explode(',', $user_info->promotion);
             }
             $title = '个人中心';

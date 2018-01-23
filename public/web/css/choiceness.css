@@ -10,6 +10,8 @@
 }
 
 
+
+
 .pro_list{
     width: 100%;
     margin-top: 10px;
@@ -136,6 +138,7 @@
 .section_title{
     display: inline-block;
     margin: 6px 20px 0px -14px;
+    position: relative;
 
 }
 .section_title span{
@@ -144,6 +147,8 @@
 .section_title input{
     width: 60px;
     height: 20px;
+    margin-top: 10px;
+    border: 1px solid #ddd;
 }
 .section_title button{
     width: 44px;
@@ -186,3 +191,9 @@
 input[type=checkbox]{
     margin-top: 5px;
 }
+
+
+
+
+
+

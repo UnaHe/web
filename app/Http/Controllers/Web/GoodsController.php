@@ -10,6 +10,7 @@ use App\Services\CategoryService;
 use App\Services\ChannelColumnService;
 use App\Services\GoodsService;
 use App\Services\TaobaoService;
+use App\Services\TransferService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -64,10 +65,14 @@ class GoodsController extends Controller
         $good['commission_finally'] = round($good['commission'] * ($good['price'] > 0 ? $good['price'] : $good['price_full']) / 100, 1);
         $good['caijiPics'] = (new GoodsService())->getCaijiPics($good['goodsid']);
 
-        $request->offsetSet('title', $good['short_title']);
-        $request->offsetSet('taobao_id', $good['id']);
+        $request->offsetSet('title', $good['title']);
+        $request->offsetSet('taobao_id', $good['goodsid']);
+
         $list = $this->recommendGoods($request);
         $this->commissionHandler($list);
+//        echo "<pre>";
+//        var_dump($good);
+//        exit;
 
         $active = ['active_column_code' => $columnCode];
         $title = '商品详情';
@@ -168,7 +173,7 @@ class GoodsController extends Controller
         if ($request->ajax() && !empty($request->input('page'))) {
             return $this->ajaxSuccess($list);
         }
-var_dump();
+
         $titles = ['today_tui' => '今日必推', 'today_jing' => '今日精选', 'xiaoliangbaokuan' => '爆款专区',
             'zhengdianmiaosha' => '限时快抢', 'meishijingxuan' => '美食精选', 'jiajujingxuan' => '家居精选'];
         $title = $titles[$columnCode];
@@ -186,6 +191,7 @@ var_dump();
     public function getMiaoshaGoods(Request $request)
     {
         $time_step = $this->getTimes();
+
         $active_time = null;
         foreach ($time_step as $key => $val) {
             if ($val['status'] == '即将开始') {
@@ -193,6 +199,9 @@ var_dump();
                 $active_time = $time_step[$key]['active_time'];
                 break;
             }
+        }
+        if(!$active_time && !empty($time_step)){
+            $active_time=$time_step[0]['active_time'];
         }
 
         //秒杀时间点
@@ -260,7 +269,41 @@ var_dump();
     }
 
 
+    /**
+     * 转链接
+     */
+    public function transferLink(Request $request)
+    {
 
+        $taobaoGoodsId = $request->post('taobaoId');
+        $couponId = $request->post('couponId');
+        $title = $request->post('title');
+        $description = $request->post('description');
+        $pic = $request->post('pic');
+        $priceFull = $request->post('priceFull');
+        $couponPrice = $request->post('couponPrice', 0);
+        $sellNum = $request->post('sell_num', 0);
+        if (!$taobaoGoodsId || !$title || !$pic || !$priceFull) {
+            return $this->ajaxError("参数错误");
+        }
+
+        if (mb_strlen($title) < 5) {
+            return $this->ajaxError("商品标题不能少于5个字");
+        }
+
+        try {
+            $data = (new TransferService())->transferGoodsByUser($taobaoGoodsId, $couponId, $title, $description, $pic, $priceFull, $couponPrice, $sellNum, $request->user()->id);
+//            $user = User::find(259);
+//            $data = (new TransferService())->transferGoodsByUser($taobaoGoodsId, $couponId, $title, $description, $pic, $priceFull, $couponPrice, $sellNum, $user->id);
+        } catch (\Exception $e) {
+            $errorCode = $e->getCode();
+            return $this->ajaxError($e->getMessage(), $errorCode ?: 300);
+        }
+//            echo "<pre>";
+//            var_dump($data);
+//            exit;
+        return $this->ajaxSuccess($data);
+    }
 
 
 }

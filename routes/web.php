@@ -42,6 +42,7 @@ Route::get('/columns/{code}/goods', 'Web\GoodsController@columnGoods');
 Route::get('/miaosha/goods', 'Web\GoodsController@getMiaoshaGoods');
 
 
+
 Route::group(['middleware' => 'auth'], function () {
     //忘记密码=>修改密码
     Route::match(['get', 'post'], '/updatePwd', 'Web\UserController@updatePwd');
@@ -63,6 +64,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/auth', 'Web\UserController@auth');
     //商品详情
     Route::get('/goods/{goodsId}', "Web\GoodsController@detail")->where('goodsId', '[0-9]+');
-
+    //生成连接
+    Route::post('/transferLink', 'Web\GoodsController@transferLink');
 
 });

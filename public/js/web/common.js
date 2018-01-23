@@ -9,7 +9,7 @@ Common = {
         }
         var interval = setInterval(function () {
             if (time > 0) {
-                $("#clock").text( time + '秒后获取验证码');
+                $("#clock").text( time + '秒后获取');
                 time--;
             } else {
                 clearInterval(interval)

@@ -338,20 +338,21 @@ input#code {
 
 /*验证输入框字体样式*/
 .am-input-group-label, .am-form-field {
-    font-size: 14px;
+    font-size: 18px;
 }
 
 /*验证码输入框样式*/
 .login-box .am-form-field {
     border: none;
-    width: 211px;
+    width: 255px;
 }
 
 /*验证码输入框按钮样式*/
 .login-box .am-input-group-label:last-child {
     border: 1px solid #ccc;
     background:rgba(255,255,255,1);
-    margin-left:-10px;
+  width: 165px;
+
 }
 /*验证码输入框样式*/
 .login-box .input-captcha {

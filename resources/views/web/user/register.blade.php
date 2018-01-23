@@ -17,7 +17,7 @@
         <div class="am-input-group user-captcha">
             <input type="text" class="am-form-field input-captcha" name="captcha" placeholder="验证码">
 
-            <p class="am-input-group-label" id="clock" onclick="Common.getCode()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;获取手机验证码&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+            <p class="am-input-group-label" id="clock" onclick="Common.getCode()">获取手机验证码</p>
         </div>
 
 

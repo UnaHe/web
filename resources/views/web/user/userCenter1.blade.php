@@ -7,24 +7,82 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,user-sclable=0">
     <meta name="csrf-token" content="{{csrf_token()}}"/>
     <!-- 设置主题样式-->
-    <link rel="stylesheet" href="web/lib/bootstrapvalidator/dist/css/bootstrapValidator.min.css">
     <link rel="stylesheet" href="web/lib/bootstrap/dist/css/bootstrap.min.css"/>
     <!-- 引入字体样式-->
-    <link rel="stylesheet" href="web/css/reset.css"/>
     <link rel="stylesheet" href="web/css/com.css"/>
     <link rel="stylesheet" href="web/css/personal_center.css"/>
 </head>
 <body>
 <!--头部-->
 <div class="container-fluid">
-    @include('web.layouts.header')
-
+    <header class="pyt_header pyt_hearder_color">
+        <nav class="navbar navbar-default  container pyt_hearder_color">
+            <div class="container-fluid">
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li class=""><a href="#">给你的不仅仅是优惠</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown-toggle"><a href="#">1888********</a>
+                        </li>
+                        <ul class="dropdown-menu">
+                            <li><a href="personal_center.html">个人中心</a></li>
+                            <li><a href="#">授权管理</a></li>
+                            <li><a href="#">账号安全</a></li>
+                            <li><a href="#">退出</a></li>
+                        </ul>
+                        <li><a href="#">注册</a></li>
+                        <li><a href="#">企业官网</a></li>
+                        <li><a href="#">商务合作</a></li>
+                        <li><a href="#">微信交流群</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
     <!--搜索导航栏-->
-    @include('web.layouts.search')
-
+    <nav class="navbar navbar-default container">
+        <div class="container-fluid pyt_search_nav">
+            <div class="navbar-header pyt_navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand pyt_font_size48" href="#">朋友推</a>
+                <a class="navbar-brand pyt_font_size48 pyt_color" href="#">Tuike</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+                <form class="navbar-form navbar-left">
+                    <div class="form-group">
+                        <ul class="nav navbar-nav navbar-left">
+                            <li class="pyt_searchAll">综合搜索</li>
+                        </ul>
+                        <input type="text" class="form-control" placeholder="搜索标题、商品ID、商品链接">
+                    </div>
+                    <button type="submit" class="btn btn-default">搜索图</button>
+                </form>
+            </div>
+        </div>
+    </nav>
     <!--导航-->
-    @include('web.layouts.navigation')
-
+    <nav class="navbar navbar-inverse container-fluid">
+        <div class="container">
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-3">
+                <ul class="nav navbar-nav pyt_navbar-nav">
+                    <li class=""><a href="#">主页</a></li>
+                    <li><a href="#">今日必推</a></li>
+                    <li><a href="#">限时快抢</a></li>
+                    <li><a href="#">今日精选</a></li>
+                    <li><a href="#">爆款专区</a></li>
+                    <li><a href="#">美食精选</a></li>
+                    <li><a href="#">家具精选</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
     <!--主题部分-->
     <seation class="pyt-seation container-fluid">
         <div class="row  container">
@@ -182,7 +240,7 @@
                     <label class="col-sm-4 control-label">推广收益：</label>
 
                     <div class="col-sm-8">
-                        <select  class="form-control earnings profit" placeholder="请选择收益" name="profit">
+                        <select type="email" class="form-control earnings profit" placeholder="请选择收益" name="profit">
 
                             <option value="">请选择</option>
                             @foreach($profits  as $key=>$val)
@@ -199,8 +257,7 @@
                 <label class="col-sm-4 control-label"></label>
 
                 <div class="col-sm-8">
-                    {{--<button type="button" class="pyt_sub" onclick="Common.submit(this)">确认并保存</button>--}}
-                    <button type="button" class="pyt_sub">确认并保存</button>
+                    <button type="button" class="pyt_sub" onclick="Common.submit(this)">确认并保存</button>
                 </div>
             </div>
         </div>
@@ -208,8 +265,19 @@
     </seation>
     <div class="clear"></div>
     <!--页脚-->
-    @include('web.layouts.footer')
+    <footer class="container-fluid pyt_footer_box">
+        <div class="container pyt_center_footer">
+            <ul class="pyt_footer">
+                <li>公司官网</li>
+                <li>公司官网2</li>
+                <li>合作伙伴</li>
+                <li>合作伙伴2</li>
+            </ul>
+            <div class="clear"></div>
+            <p class="pyt_remark">2017-2017 www.tkhd.com朋友推--蜀CP备170234号-1 成都推客互动</p>
+        </div>
 
+    </footer>
 </div>
 </body>
 <script src="web/lib/jquery/dist/jquery.js"></script>
@@ -220,6 +288,7 @@
 <script type="text/javascript" src="web/js/common.js"></script>
 
 <script>
+    new PCAS("province", "city");
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -245,7 +314,9 @@
         }
         @if(!empty($user_info->promotion))
         @foreach($user_info->promotion as $v)
-        $("input:checkbox[value="+{{$v}}+"]").
+        $("input:checkbox[value="+{{$v}}+
+        "]"
+        ).
         attr('checked', 'true');
         @endforeach
         @endif
@@ -262,96 +333,57 @@
     $(".dropdown-toggle").on("click", function () {
         $(".dropdown-menu").slideToggle()
     });
-// //提交表单事件
-$(".pyt_sub").on('click',function(e){
-    var sex= $(".pyt_sex");
-    var birthday=$(".birthday").val();
-    var address=$(".address").val();
-    var pyt_workType=$(".pyt_workType");
-    var pyt_nature=$(".pyt_nature").val();
-    var department=$(".department").val();
-    var earnings=$(".earnings").val();
-    var organization=$(".organization").val();
-    var QQnum=$(".QQnum").val()
-    var checkbox=$(".checkbox");
-    var checked_val,pyt_workType_one;
-    var checkbox_choice=[];
-    for(var i=0;i<sex.length;i++){
-        if($(sex[i]).prop('checked')){
-            checked_val=$(sex[i]).val()
-        }
-    }
-    for(var i=0;i<pyt_workType.length;i++){
-        if($(pyt_workType[i]).prop('checked')){
-            pyt_workType_one=$(pyt_workType[i]).val()
-        }
-    }
-    for(var i=0;i<checkbox.length;i++){
-        if($(checkbox[i]).prop('checked')){
-            checkbox_choice.push($(checkbox[i]).val())
-        }
-    }
+    //    //提交表单事件
+    //    $(".pyt_sub").on('click',function(){
+    //        var sex= $(".pyt_sex");
+    //        var birthday=$(".birthday").val();
+    //        var address=$(".address").val();
+    //        var pyt_workType=$(".pyt_workType");
+    //        var pyt_nature=$(".pyt_nature").val();
+    //        var department=$(".department").val();
+    //        var earnings=$(".earnings").val();
+    //        var organization=$(".organization").val();
+    //        var QQnum=$(".QQnum").val()
+    //        var checkbox=$(".checkbox");
+    //        var checked_val,pyt_workType_one;
+    //        var checkbox_choice=[];
+    //        for(var i=0;i<sex.length;i++){
+    //            if($(sex[i]).prop('checked')){
+    //                checked_val=$(sex[i]).val()
+    //            }
+    //        }
+    //        for(var i=0;i<pyt_workType.length;i++){
+    //            if($(pyt_workType[i]).prop('checked')){
+    //                pyt_workType_one=$(pyt_workType[i]).val()
+    //            }
+    //        }
+    //        for(var i=0;i<checkbox.length;i++){
+    //            if($(checkbox[i]).prop('checked')){
+    //                checkbox_choice.push($(checkbox[i]).val())
+    //            }
+    //        }
+    //        console.log(checked_val,birthday,address,pyt_workType_one,pyt_nature,department,checkbox_choice,earnings,organization,QQnum)
+    //
+    //        //    发请求
+    //
+    //
+    //
+    //
+    //
+    //        //    表单变为原来的默认值
+    //        var birthday=$(".birthday").val("");
+    //        var address=$(".address").val("");
+    //        var pyt_workType=$(".pyt_workType");
+    //        var pyt_nature=$(".pyt_nature").val("");
+    //        var department=$(".department").val("");
+    //        var earnings=$(".earnings").val("");
+    //        var organization=$(".organization").val("");
+    //        var QQnum=$(".QQnum").val("")
+    //        console.log(checked_val,birthday,address,pyt_workType_one,pyt_nature,department,checkbox_choice,earnings,organization,QQnum)
+    //    })
 
-    if(birthday!=''&&address!=''&&pyt_nature!=''!=department&&earnings!=''&&organization!=''&&QQnum!=''){
-        //    发请求
-        Common.submit(e)
-    }
-})
-//表单验证
-$(function () {
-    $('form').bootstrapValidator({
-        message: 'This value is not valid',
-        feedbackIcons: {
-            valid: 'glyphicon glyphicon-ok',
-            invalid: 'glyphicon glyphicon-remove',
-            validating: 'glyphicon glyphicon-refresh'
-        },
-        fields: {
-            qq_id: {
-                message: '请输入正确的QQ号',
-                validators: {
-                    notEmpty: {
-                        message: 'QQ号不能为空'
-                    },
-                    stringLength: {
-                        min: 8,
-                        max: 11,
-                        message: 'QQ号的长度为8—11位'
-                    },
-                    regexp: {
-                        regexp: /^[0-9_\.]+$/,
-                        message: 'QQ只能是数字'
-                    },
-                },
-            },
-            birthday: {
-                validators: {
-                    notEmpty: {
-                        message: '请选择出生日期'
-                    }
-                }
-            },
-            //单位验证
-            company: {
-                validators: {
-                    notEmpty: {
-                        message: '单位名称不能为空'
-                    }
-                }
-            },
-            //部门验证
-            department: {
-                validators: {
-                    notEmpty: {
-                        message: '部门或职位不能为空'
-                    }
-                }
-            },
-        }
-    });
-});
-
-
+</script>
+<script>
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
     })

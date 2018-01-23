@@ -18,31 +18,8 @@
 <body>
 <!--头部-->
 <div class="container-fluid">
-    <header class="pyt_header pyt_hearder_color">
-        <nav class="navbar navbar-default  container pyt_hearder_color">
-            <div class="container-fluid">
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        <li class=""><a href="#">给你的不仅仅是优惠</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class="dropdown-toggle"><a href="#">1888********</a>
-                        </li>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">个人中心</a></li>
-                            <li><a href="#">授权管理</a></li>
-                            <li><a href="#">账号安全</a></li>
-                            <li><a href="#">退出</a></li>
-                        </ul>
-                        <li><a href="#">注册</a></li>
-                        <li><a href="#">企业官网</a></li>
-                        <li><a href="#">商务合作</a></li>
-                        <li><a href="#">微信交流群</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
+    @include('web.layouts.header')
+
     <!--banner部分-->
     <seation class="pyt-seation container-fluid">
         <!--中心板块-->

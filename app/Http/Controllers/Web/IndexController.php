@@ -20,7 +20,7 @@ class IndexController extends Controller
     }
 
 
-    public function business(){
+        public function business(){
         $title='商务合作';
         $columnCode='today_tui';
         $active = ['active_column_code' => $columnCode];

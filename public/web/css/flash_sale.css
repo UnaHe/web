@@ -3,10 +3,14 @@
 }
 
 
-.rush_point{
+
+.items{
     background:#E1B05A ;
     height: 40px;
-    width: 100%;
+    float:left;
+    width: 100% !important;
+    flex-wrap: nowrap;
+    overflow-y: hidden;
     padding-left: 88px;
 }
 .col-sm-12{
@@ -15,11 +19,13 @@
 }
 .rush_point li{
     float: left;
-    display: inline-block;
+    display: block;
     text-align: center;
-    width: 198px;
+    width: 226px;
     height: 38px;
+    text-decoration:none;
     color: #fff;
+    cursor:pointer;
 }
 .rush_point li p{
     margin-bottom: 0px;
@@ -29,18 +35,21 @@
     display: inline-block;
     width: 10px;
     position: absolute;
-    top: 10px;
-    left: 18px;
+    top: 168px;
+    left: 390px;
     color: #fff;
     font-size:18px ;
+    z-index: 4567;
 }
 .right_arr{
     position: absolute;
-    right: 18px;
+    right: 390px;
     color: #fff;
-    top: 10px;
+    top: 168px;
+    z-index: 1345;
     font-size:17px ;
 }
+
 /*��Ʒ����*/
 .row{
     border: none;
@@ -73,7 +82,6 @@ body,.row{
 .text_right{
     width: 228px;
     display: inline-block;
-    /*padding-top: 40px;*/
     margin-top: 16px;
     float: right;
     height: 300px;
@@ -146,9 +154,6 @@ body,.row{
 .time_active{
     background: #ca9151;
 }
-
-
-
 
 
 

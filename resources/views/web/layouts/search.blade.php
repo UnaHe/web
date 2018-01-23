@@ -12,8 +12,13 @@
             <a class="navbar-brand pyt_font_size48 pyt_color" href="{{url('/')}}">Tuike</a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+            @if(isset($active)&&!empty($active['active_column_code']))
+                <?php $active_column_code = $active['active_column_code'] ?>
+            @else
+                <?php $active_column_code = 'today_tui' ?>
+            @endif
             <form class="navbar-form navbar-left"
-                  action="{{url('/columns/'.$active['active_column_code'].'/goods')}}" method="get">
+                  action="{{url('/columns/'.$active_column_code.'/goods')}}" method="get">
                 <div class="form-group">
                     <ul class="nav navbar-nav navbar-left">
                         <li class="pyt_searchAll">综合搜索</li>
@@ -22,7 +27,8 @@
                            value="@if(isset($keyword)){{$keyword }} @endif">
 
                 </div>
-                <button type="submit" class="btn btn-default">搜索图</button>
+                <button type="button" class="btn btn-C"><span class="glyphicon glyphicon-search"
+                                                              aria-hidden="true"></span></button>
             </form>
         </div>
     </div>

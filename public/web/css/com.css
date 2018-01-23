@@ -1,10 +1,15 @@
 /*������ʽ*/
 /*ͷ��*/
 
-.navbar-inverse .navbar-nav>.active>a{
+.navbar-inverse .navbar-nav>.active>a,.pyt_header .collapse .header_active{
     color: #E0AB4A;
 }
 
+
+
+
+/*������ʽ*/
+/*ͷ��*/
 body{
     background-color:#f6f6f6
 }
@@ -53,7 +58,7 @@ body{
 }
 .navbar-nav .pyt_searchAll{
     position: absolute;
-    top: 6px;
+    top: 10px;
     left: -48px;
     display: inline-block;
     border-right: 1px solid #999;
@@ -143,7 +148,7 @@ body{
 .pyt_remark{
     color:rgba(153,153,153,1);
     font-size:14px;
-    padding-left: 26px;
+    padding-left: 12px;
 }
 
 .dropdown-menu_header{
@@ -198,3 +203,27 @@ body{
 /*clear: both;*/
 /*}*/
 
+.btn-C{
+    color: #fff;
+    background:#E1B05A;
+    border: 1px solid #ddd;
+}
+.btn-C:hover{
+    color: #fff;
+}
+.form-control{
+    border: 1px solid #eee;
+}
+
+
+/*头部*/
+.navbar-right .dropdown-menu{
+    right: 265px;
+    top: 34px;
+
+}
+.dropdown-menu{
+    min-width: 140px;
+    text-align: center;
+    border: none;
+}

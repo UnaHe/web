@@ -16,77 +16,14 @@
 <body>
 <!--头部-->
 <div class="container-fluid">
-    <header class="pyt_header pyt_hearder_color">
-        <nav class="navbar navbar-default  container pyt_hearder_color">
-            <div class="container-fluid">
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        <li class=""><a href="#">给你的不仅仅是优惠</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                               aria-haspopup="true" aria-expanded="false">1888*********** <span
-                                        class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="personal_center.html">个人中心</a></li>
-                                <li><a href="pyt_land.html">授权管理</a></li>
-                                <li><a href="account.html">账号安全</a></li>
-                                <li><a href="#">退出</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#">注册</a></li>
-                        <li><a href="#">企业官网</a></li>
-                        <li><a href="#">商务合作</a></li>
-                        <li><a href="#">微信交流群</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
+    @include('web.layouts.header')
+
     <!--搜索导航栏-->
-    <nav class="navbar navbar-default container">
-        <div class="container-fluid pyt_search_nav">
-            <div class="navbar-header pyt_navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand pyt_font_size48" href="#">朋友推</a>
-                <a class="navbar-brand pyt_font_size48 pyt_color" href="#">Tuike</a>
-            </div>
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
-                <form class="navbar-form navbar-left">
-                    <div class="form-group">
-                        <ul class="nav navbar-nav navbar-left">
-                            <li class="pyt_searchAll">综合搜索</li>
-                        </ul>
-                        <input type="text" class="form-control" placeholder="搜索标题、商品ID、商品链接">
-                    </div>
-                    <button type="submit" class="btn btn-default">搜索图</button>
-                </form>
-            </div>
-        </div>
-    </nav>
+    @include('web.layouts.search')
+
     <!--导航-->
-    <nav class="navbar navbar-inverse container-fluid">
-        <div class="container">
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-3">
-                <ul class="nav navbar-nav pyt_navbar-nav">
-                    <li class=""><a href="#">主页</a></li>
-                    <li><a href="#">今日必推</a></li>
-                    <li><a href="#">限时快抢</a></li>
-                    <li><a href="#">今日精选</a></li>
-                    <li><a href="#">爆款专区</a></li>
-                    <li><a href="#">美食精选</a></li>
-                    <li><a href="#">家具精选</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    @include('web.layouts.navigation')
+
     <!--主题部分-->
     <seation class="pyt-seation container-fluid">
         <div class="row  container">
@@ -111,19 +48,8 @@
     </seation>
     <div class="clear"></div>
     <!--页脚-->
-    <footer class="container-fluid pyt_footer_box">
-        <div class="container pyt_center_footer">
-            <ul class="pyt_footer">
-                <li>公司官网</li>
-                <li>公司官网2</li>
-                <li>合作伙伴</li>
-                <li>合作伙伴2</li>
-            </ul>
-            <div class="clear"></div>
-            <p class="pyt_remark">2017-2017 www.tkhd.com朋友推--蜀CP备170234号-1 成都推客互动</p>
-        </div>
+    @include('web.layouts.footer')
 
-    </footer>
 
     <!--模态框-->
     <!-- Modal -->

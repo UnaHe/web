@@ -1,4 +1,4 @@
-<nav class="navbar navbar-inverse container-fluid">
+<nav class="navbar navbar-inverse container-fluid ">
     <div class="container">
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-3">
             <ul class="nav navbar-nav pyt_navbar-nav">

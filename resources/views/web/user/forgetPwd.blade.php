@@ -25,7 +25,8 @@
                     </button>
                 </div>
             </form>
-            <input type="submit" class="am-btn  am-btn-sm" onclick="Common.submit(this)" value="下一步">
+            {{--<input type="submit" class="am-btn  am-btn-sm" onclick="Common.submit(this)" value="下一步">--}}
+            <input type="submit" class="am-btn  am-btn-sm" value="下一步">
         </div>
     </div>
 @stop
@@ -40,5 +41,28 @@
         var getCodeUrl = "{{url('getCode')}}";
         var formPost = "{{url('forgetPwd')}}";
         var url = "{{url('updatePwd')}}";
+
+
+        $('.am-btn-sm').click(function (e) {
+            $(e).attr('disabled', true);
+            $.ajax({
+                type: "POST",
+                url: formPost,
+                data: $('form').serialize(),
+                dataType: "json",
+                success: function (data) {
+                    if (data.code == 200) {
+                        window.location.href = url;
+                    } else {
+                        layer.alert(data.msg.msg, {
+                            skin: 'layui-layer-lan' //样式类名
+                            , closeBtn: 0
+                        });
+                        $(e).attr('disabled', false);
+                    }
+                }
+            });
+        });
+
     </script>
 @stop

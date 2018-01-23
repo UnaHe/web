@@ -14,8 +14,8 @@ dl, dt, dd, ul, ol, li, /* list elements 列表元素 */
 pre, /* text formatting elements 文本格式元素 */
 form, fieldset, legend, button, input, textarea, /* form elements 表单元素 */
 th, td /* table elements 表格元素 */ {
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    padding: 0;
 }
 *{
     margin: 0;
@@ -24,7 +24,7 @@ th, td /* table elements 表格元素 */ {
 /** 设置默认字体 **/
 body,
 button, input, select, textarea /* for ie */ {
- font-family:微软雅黑;font-size:12px;background-color: white;
+    font-family:微软雅黑;font-size:12px;
 }
 h1, h2, h3, h4, h5, h6 {font-size: 100%;}
 address, cite, dfn, em, var {font-style: normal;} /* 将斜体扶正 */
@@ -51,11 +51,11 @@ table {border-collapse: collapse;border-spacing: 0;}
  解决图片3px的问题
  * */
 img{
-	vertical-align: middle;
+    vertical-align: middle;
 }
 
 /*去掉输入框的蓝光*/
 input
 {
-	outline: none;
+    outline: none;
 }

@@ -1,0 +1,330 @@
+.tab_nav{
+    background: transparent;
+    border: none;
+    position: relative;
+}
+body{
+    /*position: relative;*/
+}
+.look_more{
+    position: absolute;
+    right: 0px;
+}
+/*商品详情*/
+#detail{
+    width: 100%;
+    height:700px;
+    margin-top: 20px;
+}
+.detail_left{
+    display: inline-block;
+    width:428px;
+    height: 428px;
+    background: #fff;
+    margin-left: 50px;
+}
+.detail_left img{
+    display: inline-block;
+    width:428px;
+    height: 428px;
+}
+.detail_right{
+    display: inline-block;
+    width:632px ;
+    height: 540px;
+    float: right;
+    margin-right: 40px;
+}
+.short_title{
+    font-size:18px;
+    font-family:NotoSansHans-Regular;
+    color: #333;
+}
+.long_title{
+    font-size:14px;
+    margin-top: 10px;
+    font-family:NotoSansHans-Regular;
+    color:rgba(225,109,90,1);
+    line-height:22px;
+}
+.price_color_qh{
+    font-size: 14px;
+    color: #999;
+    font-family: Noto Sans S Chinese;
+}
+.price_num{
+    font-size: 30px;
+    color: #E1B05A ;
+    font-family:NotoSansHans-Regular;
+    margin-right: 50px;
+}
+.margin-left{
+    margin-left: 30px;
+    display: inline-block;
+}
+.price_color{
+    margin-top: 10px;
+}
+/*营销模板*/
+.template_box{
+    border: 1px solid #eee;
+    background: #fff;
+    width: 100%;
+    height: 520px;
+}
+.template_header{
+    margin-top: 10px;
+    width: 100%;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+    float: left;
+}
+.template_header .template_header_left{
+    display: inline-block;
+    float: left;
+    margin-left: 10px;
+}
+.template_header .template_header_right{
+    display: inline-block;
+    float: right;
+    margin-right: 10px;
+}
+.template_header .template_header_right span{
+    color: #E1B05A ;
+}
+.template_banner .template_QQ{
+    margin-top: 10px;
+    margin-right: 10px;
+    display: inline-block;
+    width: 48%;
+    height:460px ;
+    border: 1px solid #eee;
+}
+.template_banner .template_wx{
+    float: right;
+}
+.QQ_title{
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    padding-left: 10px;
+    background:#F8F8F8  ;
+    color: #666;
+}
+/*模板聊天内容*/
+.chat .chat_left{
+    width: 80%;
+    padding-bottom: 20px;
+    margin-top: 20px;
+    background:#F8F8F8  ;
+    color: #666;
+    font-size: 12px;
+    margin-left: 10px;
+    border: 1px solid #eee;
+    display: inline-block;
+}
+.chat .chat_left img{
+    width:80px ;
+    height: 100px;
+    margin-bottom: 10px;
+}
+.chat_left p{
+    width: 84%;
+    line-height: 1.6rem;
+}
+.chat_left p span{
+    color:#E16D5A;
+}
+.creat_pic{
+    width: 100%;
+    height: 40px;
+    background:#4DAFEA ;
+    color: #fff;
+    text-align: center;
+    line-height: 40px;
+    margin-top: 92px;
+}
+.wx_creat{
+    width: 47%;
+    height: 40px;
+    color: #fff;
+    display: inline-block;
+    line-height: 40px;
+    text-align: center;
+    background: #2CC21B;
+    margin-top: 82px;
+    margin-right: 4px;
+}
+.long_pic{
+    background:#2ABA1A;
+    float: right;
+    margin-right: -34px;
+}
+/*微信*/
+.wx_pic_box img{
+    width:80px ;
+    height: 100px;
+    margin: 10px 50%;
+}
+.chat_wx_right p{
+    width: 100%;
+}
+
+/*图片详情图*/
+.detail_small_pic img
+{
+    width: 76px;
+    height: 76px;
+    display: inline-block;
+    margin-top: 20px;
+    margin-right: 8px;
+}
+.detail_small_pic .last_pic{
+    margin-right: 0px;
+}
+
+.chat_right{
+    display: inline-block;
+    width: 10%;
+    float: right;
+    margin-right: 16px;
+    margin-top: 10px;
+}
+.chart_right_wx{
+    margin-right: 28px;
+    margin-top: -294px;
+}
+/*模态框*/
+#create-pic-tpl-box{
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,.6);
+    position: absolute;
+    top: 0px;
+    padding-top: 130px;
+    position: fixed;
+    z-index: 8888;
+    display: none;
+}
+.discount{
+    margin-top: 186px;
+}
+.margin_top148{
+    margin-top: 16px;
+}
+#create-pic-view-area{
+    width: 50%;
+    height:574px ;
+    background: #fff;
+    margin: auto;
+}
+#area-left{
+    width: 46%;
+    height: 98%;
+    display: inline-block;
+    border: 1px solid #ddd;
+    margin-left: 4px;
+    margin-top: 4px;
+}
+#area-left .title{
+    width: 66%;
+    display: inline-block;
+    font-size: 12px;
+    padding-left: 8px;
+    margin-top: 16px;
+}
+#area-left .title .title_zw{
+    font-size: 14px;
+}
+.area_all_price{
+    font-size: 13px;
+    color: #999;
+    margin-top: 30px;
+}
+.area_all_price span:first-of-type{
+    margin-right: 16px;
+}
+.big_pic{
+    color:#E1B05A ;
+    font-size: 30px;
+}
+/*二维码*/
+#area-right{
+    width: 88px;
+    height: 88px;
+    display: inline-block;
+    float: right;
+    margin-top: 20px;
+    margin-right: 8px;
+}
+#area-right img{
+    width: 100%;
+    height: 100%;
+}
+#area-right p{
+    margin-top: 8px;
+    color: #999;
+}
+.reco{
+    width: 100%;
+    height: 314px;
+    margin-top: 26px;
+}
+.reco p{
+    width: 90%;
+    line-height:20px ;
+    font-size: 14px;
+    padding-left: 10px;
+}
+.reco img{
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    margin-top: 34px;
+}
+#area_right_box_btn{
+    width: 48%;
+    float: right;
+}
+#area_right_box_btn .pic_sec{
+    width:128px ;
+    margin-left: 34%;
+    margin-top: 60px;
+}
+#area_right_box_btn .pic_sec span{
+    margin-left: 30px;
+}
+#area_right_box_btn .copy_btn{
+    width:150px ;
+    height: 40px;
+    color: #E1B05A ;
+    border: 1px solid #E1B05A;
+    margin-left: 30%;
+    margin-top: 100px;
+    text-align: center;
+    line-height: 40px;
+}
+#area_right_box_btn .copy_btn,
+#area_right_box_btn .pic_save,
+.long_pic,
+.creat_pic,
+.wx_creat
+{
+    cursor: pointer;
+}
+#area_right_box_btn .pic_save{
+    width:150px ;
+    height: 40px;
+    color: #fff ;
+    background:#E1B05A  ;
+    margin-left: 30%;
+    border: 1px solid #E1B05A;
+    margin-top: 20px;
+    text-align: center;
+    line-height: 40px;
+}
+.big_big_box{
+    /*position: absolute;*/
+}
+
+
