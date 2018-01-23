@@ -17,8 +17,8 @@ class MarketStateController extends Controller
      * @param Request $request
      */
     public function marketState(Request $request){
-        $appName = $request->get('app');
-        $version = $request->get('version');
+        $appName = $request->header('app');
+        $version = $request->header('version');
 
         $isAudit = (new MarketStateService())->isAudit($appName, $version);
         if($isAudit){
