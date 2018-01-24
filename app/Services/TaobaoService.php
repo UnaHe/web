@@ -342,8 +342,10 @@ class TaobaoService
                 if (!$mamaDetail['couponAmount']) {
                     throw new \Exception("券已失效");
                 }
-                $couponStartTime = $mamaDetail['couponEffectiveStartTime'] . " 00:00:00";
-                $couponTime = $mamaDetail['couponEffectiveEndTime'] . " 23:59:59";
+
+                $couponStartTime = $mamaDetail['couponEffectiveStartTime']." 00:00:00";
+                $couponTime = $mamaDetail['couponEffectiveEndTime']." 23:59:59";
+
                 $couponPrice = $mamaDetail['couponAmount'];
                 $couponPrerequisite = $mamaDetail['couponStartFee'];
                 $couponNum = $mamaDetail['couponTotalCount'];
