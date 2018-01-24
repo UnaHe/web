@@ -134,8 +134,15 @@
 <script src="web/lib/jquery/dist/jquery.js"></script>
 <script src="js/layer/layer.js"></script>
 <script src="web/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/web/js/com.js"></script>
 <script src="web/lib/bootstrapvalidator/dist/js/bootstrapValidator.js"></script>
 <script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
     $('.auth-login').click(function () {
         e = layer.open({
             type: 2,
@@ -146,15 +153,10 @@
             content: "{{url('auth')}}", //iframe的url
         });
     });
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
+
 
     var formPost = "{{url('updateAuth')}}";
     $('.stb-btn').click(function () {
-
         $(this).attr('disabled', true);
         $.ajax({
             type: "POST",
@@ -163,16 +165,16 @@
             dataType: "json",
             success: function (data) {
                 if (data.code == 200) {
-                    if (data.data.message) {
-                        layer.alert(data.data.message, {
+                    var msg=data.data.message==''?'操作成功':data.data.message;
+                        layer.alert(msg, {
                             skin: 'layui-layer-lan' //样式类名
                             , closeBtn: 0
                         }, function () {
                             window.location.reload();
                         });
-                    }
                 } else {
-                    layer.alert(data.msg.msg, {
+                    var msg=data.msg.msg==''?'操作失败':data.msg.msg;
+                    layer.alert(msg, {
                         skin: 'layui-layer-lan' //样式类名
                         , closeBtn: 0
                     });
@@ -190,8 +192,8 @@
             dataType: "json",
             success: function (data) {
                 if (data.code == 200) {
-                    if (data.data.message) {
-                        layer.alert(data.data.message, {
+                    var msg=data.data.message==''?'操作成功':data.data.message;
+                        layer.alert(msg, {
                             skin: 'layui-layer-lan' //样式类名
                             , closeBtn: 0
                         }, function () {
@@ -201,11 +203,10 @@
                                 window.location.reload()
                             }
                         });
-                    } else {
-                        window.location.reload()
-                    }
+
                 } else {
-                    layer.alert(data.msg.msg, {
+                    var msg=data.msg.msg==''?'操作失败':data.msg.msg;
+                    layer.alert(msg, {
                         skin: 'layui-layer-lan' //样式类名
                         , closeBtn: 0
                     });
@@ -214,38 +215,10 @@
         });
 
     })
-    $(".dropdown-toggle").on("click", function () {
-        $(".dropdown-menu").slideToggle()
-    });
 
 
-//    //获取模态框的值发送请求
-//    $(".save").on('click', function () {
-//        var qq_val = $(".QQ").val();
-//        var WX_val = $(".WX").val();
-//        console.log(qq_val, WX_val)
-//        //    发送请求
-//
-//        //    页面恢复初始值
-//        var qq_val = $(".QQ").val("");
-//        var WX_val = $(".WX").val("");
-//    })
-//    //删除授权
-//
-//    $(function () {
-//        var auth_id = $('.auth_id');
-//        for (var i = 0; i < auth_id.length; i++) {
-//            if ($(auth_id[i]).prop('checked')) {
-//                $(".cancel_sure").on("click", function () {
-//                    //    发送请求
-//
-//                    alert('11111111111')
-//
-//
-//                })
-//            }
-//        }
-//    })
+
+
 
 
 </script>

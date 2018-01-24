@@ -205,6 +205,7 @@
 <script src="/web/lib/jquery/dist/jquery.js"></script>
 <script src="/js/layer/layer.js"></script>
 <scrpit src="/web/lib/bootstrap/dist/js/bootstrap.min.js"></scrpit>
+<script src="/web/js/com.js"></script>
 <script type="text/javascript">
     $.ajaxSetup({
         headers: {
@@ -255,15 +256,7 @@
     });
 
 
-</script>
 
-
-
-<script>
-    <!-- 头部登录下拉菜单-->
-    $(".dropdown-toggle").on("click",function () {
-        $(".dropdown-menu").slideToggle()
-    });
     //弹出模态框
     $("#transfer-long-pic").on("click",function(){
         var mtk=document.getElementById('create-pic-tpl-box');

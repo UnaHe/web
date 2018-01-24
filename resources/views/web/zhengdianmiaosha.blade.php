@@ -95,11 +95,9 @@
 </body>
 <script src="/web/lib/jquery/dist/jquery.js"></script>
 <script src="/web/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/web/js/com.js"></script>
 <script>
-    <!-- 头部登录下拉菜单-->
-    $(".dropdown-toggle").on("click", function () {
-        $(".dropdown-menu").slideToggle()
-    });
+
     //整点购轮播
     $(function () {
         var $content = $(".rush_point");
@@ -113,7 +111,7 @@
                 if (m < count) {  //判断 i 是否小于总的个数
                     m++;
 
-                    $content.animate({left: "-=236px"}, 600);
+                    $content.animate({left: "-=226px"}, 600);
                 }
             }
         });
@@ -121,7 +119,7 @@
             if (!$content.is(":animated")) {
                 if (m > i) { //判断 i 是否小于总的个数
                     m--;
-                    $content.animate({left: "+=236px"}, 600);
+                    $content.animate({left: "+=226px"}, 600);
                 }
             }
         });

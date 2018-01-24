@@ -30,22 +30,22 @@
 .rush_point li p{
     margin-bottom: 0px;
 }
-/*��ͷ*/
+/*箭头*/
 .left_arr{
     display: inline-block;
     width: 10px;
     position: absolute;
-    top: 168px;
-    left: 390px;
+    top: 8px;
+    left: 10px;
     color: #fff;
     font-size:18px ;
     z-index: 4567;
 }
 .right_arr{
     position: absolute;
-    right: 390px;
+    right: 10px;
     color: #fff;
-    top: 168px;
+    top: 8px;
     z-index: 1345;
     font-size:17px ;
 }
@@ -53,6 +53,7 @@
 /*��Ʒ����*/
 .row{
     border: none;
+    position: relative;
 }
 .row .col-sm-5{
     background: #fff;

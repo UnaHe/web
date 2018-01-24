@@ -76,6 +76,7 @@ class GoodsController extends Controller
 
         $active = ['active_column_code' => $columnCode];
         $title = '商品详情';
+//        return view('web.test', compact('good', 'list', 'title', 'active'));
         return view('web.info', compact('good', 'list', 'title', 'active'));
     }
 
@@ -100,6 +101,7 @@ class GoodsController extends Controller
      */
     public function columnGoods(Request $request, $columnCode)
     {
+
         //商品分类
         $category = $request->get('category');
         //商品排序
@@ -157,12 +159,15 @@ class GoodsController extends Controller
                 || $columnCode == 'meishijingxuan' || $columnCode == 'jiajujingxuan'
             ) {
                 $list = (new GoodsService())->goodList($category, $sort, $keyword, $isTaoqianggou, $isJuhuashuan, $minPrice, $maxPrice, $isTmall, $minCommission, $minSellNum, $minCouponPrice, $maxCouponPrice, $isJpseller, $isQjd, $isHaitao, $isJyj, $isYfx, 0);
+                $list = (new GoodsHelper())->resizeGoodsListPic($list, ['pic' => '240x240']);
             } else {
                 //走栏目GoodList
                 $list = (new GoodsService())->columnGoodList($columnCode, $category, $sort, $isTaoqianggou, $isJuhuashuan, $minPrice, $maxPrice, $isTmall, $minCommission, $minSellNum, $minCouponPrice, $maxCouponPrice);
+                $list = (new GoodsHelper())->resizeGoodsListPic($list->toArray(), ['pic' => '240x240']);
             }
 
             $this->commissionHandler($list);
+
 
             CacheHelper::setCache($list, 1, $params);
         }
@@ -203,7 +208,9 @@ class GoodsController extends Controller
         if(!$active_time && !empty($time_step)){
             $active_time=$time_step[0]['active_time'];
         }
-
+//        echo "<pre>";
+//        var_dump($time_step);
+//        exit;
         //秒杀时间点
         $activeTime = $request->get('active_time', $active_time);
         $params = $request->all();

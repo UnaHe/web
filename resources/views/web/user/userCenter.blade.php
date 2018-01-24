@@ -109,7 +109,7 @@
 
                     <div class="col-sm-8">
                         <input type="text" class="form-control organization" name="company"
-                               value="@if($user_info){{$user_info->company}}@endif">
+                               value="@if($user_info){{$user_info->company}}@endif" placeholder="请输入单位名称">
                     </div>
                 </div>
                 <div class="form-group">
@@ -117,7 +117,7 @@
 
                     <div class="col-sm-8">
                         <input type="text" class="form-control department" name="department"
-                               value="@if($user_info){{$user_info->department}}@endif">
+                               value="@if($user_info){{$user_info->department}}@endif" placeholder="请输入部门和职位">
                     </div>
                 </div>
                 <div class="form-group">
@@ -208,6 +208,7 @@
 <script src="web/lib/jquery/dist/jquery.js"></script>
 <script src="js/layer/layer.js"></script>
 <script src="web/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/web/js/com.js"></script>
 <script src="web/lib/bootstrapvalidator/dist/js/bootstrapValidator.js"></script>
 <script type="text/javascript" src="web/js/pcas.js"></script>
 
@@ -251,10 +252,7 @@
     @endif
 
 
-    <!-- 头部登录下拉菜单-->
-    $(".dropdown-toggle").on("click", function () {
-        $(".dropdown-menu").slideToggle()
-    });
+
 // //提交表单事件
 $(".pyt_sub").on('click',function(e){
     var sex= $(".pyt_sex");
@@ -369,6 +367,30 @@ $(function () {
         }
     });
 });
+
+    //兼容placeholder----------------------IE版
+    $(function(){
+        jQuery('[placeholder]').focus(function() {
+            var input = jQuery(this);
+            if (input.val() == input.attr('placeholder')) {
+                input.val('');
+                input.removeClass('placeholder');
+            }
+        }).blur(function() {
+            var input = jQuery(this);
+            if (input.val() == '' || input.val() == input.attr('placeholder')) {
+                input.addClass('placeholder');
+                input.val(input.attr('placeholder'));
+            }
+        }).blur().parents('form').submit(function() {
+            jQuery(this).find('[placeholder]').each(function() {
+                var input = jQuery(this);
+                if (input.val() == input.attr('placeholder')) {
+                    input.val('');
+                }
+            })
+        });
+    })
 
 
     $(function () {

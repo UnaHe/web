@@ -69,7 +69,7 @@
                         <p class="change_password">
                             <span class="text">验证码：</span>
                             <input type="text" name="captcha"/>
-                            <button class="send_num"  type="button" id="clock" onclick="Common.getCode()">发送验证码</button>
+                            <button class="send_num"  type="button" id="clock" >发送验证码</button>
                         </p>
                         <p class="change_password">
                             <span class="text">新密码：</span>
@@ -97,7 +97,7 @@
 
 <script src="web/lib/jquery/dist/jquery.js"></script>
 <script src="js/layer/layer.js"></script>
-<script src="web/js/common.js"></script>
+<script src="/web/js/com.js"></script>
 <script src="web/lib/bootstrap/dist/js/bootstrap.min.js"></script>
 
 <script>
@@ -118,18 +118,16 @@
             dataType: "json",
             success: function (data) {
                 if (data.code == 200) {
-                    if (data.data.message) {
-                        layer.alert(data.data.message, {
+                    var msg=data.data.message==''?'操作成功':data.data.message;
+                        layer.alert(msg, {
                             skin: 'layui-layer-lan' //样式类名
                             , closeBtn: 0
                         }, function () {
-                            parent.window.location.reload();
+                            window.location.reload();
                         });
-                    } else {
-                        window.location.reload()
-                    }
                 } else {
-                    layer.alert(data.msg.msg, {
+                    var msg=data.msg.msg==''?'操作失败':data.msg.msg;
+                    layer.alert(msg, {
                         skin: 'layui-layer-lan' //样式类名
                         , closeBtn: 0
                     });
@@ -146,9 +144,6 @@
     })
 
 
-    $(".dropdown-toggle").on("click", function () {
-        $(".dropdown-menu").slideToggle()
-    });
 
 </script>
 </html>

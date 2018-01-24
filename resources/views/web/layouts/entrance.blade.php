@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="assets/css/amazeui.css"/>
     <link href="css/web/common.css" rel="stylesheet" type="text/css">
     <link href="css/web/user/dlstyle.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="web/lib/bootstrapvalidator/dist/css/bootstrapValidator.min.css">
 
     @section('css')
     @show

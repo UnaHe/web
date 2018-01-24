@@ -20,7 +20,7 @@
                            name="captcha" placeholder="验证码">&nbsp;&nbsp;&nbsp;
 
                     <button type="button" class="am-input-group-label div-input-inline" id="clock"
-                            onclick="Common.getCode()">
+                           >
                         获取手机验证码
                     </button>
                 </div>
@@ -32,6 +32,7 @@
 @stop
 
 @section('js')
+    <script src="/web/js/com.js"></script>
     <script type="text/javascript">
         $.ajaxSetup({
             headers: {

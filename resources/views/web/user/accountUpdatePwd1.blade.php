@@ -22,7 +22,7 @@
     <input type="hidden" id="username" value="{{$user->phone}}">
 
     <div><input type="text" name="captcha">
-        <button type="button" id="clock" onclick="Common.getCode()">发送验证码</button>
+        <button type="button" id="clock" >发送验证码</button>
     </div>
     <div><input type="password" name="password"></div>
     <div><input type="password" name="password_confirmation"></div>
@@ -33,7 +33,8 @@
 
 <script type="text/javascript" src="/js/jquery.3.2.1.js"></script>
 <script type="text/javascript" src="/js/layer/layer.js"></script>
-<script type="text/javascript" src="/js/web/common.js"></script>
+<script src="/web/js/com.js"></script>
+{{--<script type="text/javascript" src="/js/web/common.js"></script>--}}
 <script type="text/javascript">
     $.ajaxSetup({
         headers: {

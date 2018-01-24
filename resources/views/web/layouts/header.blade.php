@@ -11,10 +11,10 @@
                                     href="#">{{\Illuminate\Support\Facades\Auth::user()->phone}}</a>
                         </li>
                         <ul class="dropdown-menu">
-                            <li><a href="{{url('/userCenter')}}">个人中心</a></li>
-                            <li><a href="{{url('/accountAuth')}}">授权管理</a></li>
-                            <li><a href="{{url('/accountSecurity')}}">账号安全</a></li>
-                            <li><a href="{{url('/logout')}}">退出</a></li>
+                            <li><a href="{{url('/userCenter')}}" class="user_menu">个人中心</a></li>
+                            <li><a href="{{url('/accountAuth')}}" class="user_menu">授权管理</a></li>
+                            <li><a href="{{url('/accountSecurity')}}"  class="user_menu">账号安全</a></li>
+                            <li><a href="{{url('/logout')}}"  class="user_menu">退出</a></li>
                         </ul>
                     @else
                         <li><a href="{{url('login')}}">登录</a></li>

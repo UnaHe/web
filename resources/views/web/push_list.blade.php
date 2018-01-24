@@ -182,16 +182,15 @@
 </body>
 <script src="/web/lib/jquery/dist/jquery.js"></script>
 <script src="/web/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/web/js/com.js"></script>
 <script src="/js/layer/layer.js"></script>
 
 <script>
-    <!-- 头部登录下拉菜单-->
-    $(".dropdown-toggle").on("click", function () {
-        $(".dropdown-menu").slideToggle()
-    });
 
 
     var next_page = 1;
+    var limit = 10;
+    var flag = false;
     var getListUrl = "{{ \Illuminate\Support\Facades\Request::getRequestUri()}}";
     var goods_url_head = "{{url('/goods/')}}";
     var goods_url_ext = "{{'?columnCode='.$active['active_column_code']}}";
@@ -206,12 +205,14 @@
         if (wScrollY + wInnerH >= bScrollH) {
             //请求
             next_page += 1
-
+            if (flag) {
+                return false;
+            }
 
             $.get({
                 type: "GET",
                 url: getListUrl,
-                data: {page: next_page},
+                data: {page: next_page, limit: limit},
                 dataType: "json",
                 success: function (data) {
 
@@ -243,6 +244,7 @@
                         });
                         $(html).appendTo('.goods-list');
                     } else {
+                        flag = true;
                         layer.msg('加载完了,以后我们努力给你更多!');
                     }
 
