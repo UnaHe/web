@@ -7,6 +7,7 @@
  */
 namespace App\Services;
 
+use App\Models\UserReferralCode;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Models\InviteCode;
@@ -143,6 +144,7 @@ class UserService
     }
 
     /**
+
      * 通过个人中心修改部分信息
      * @param $data
      * @return mixed
@@ -182,14 +184,39 @@ class UserService
 
 
 
-    /**
-     * 获取用户个人中心信息
-     * @param $user_id
-     * @return mixed
+
+    /*
+     * 获取推荐码
+     * @param User $user
+     * @return null
      */
-    public function getUserTaobao($user_id)
-    {
-        $userTaobao = DB::table('xmt_taobao_token')->where('user_id', '=', $user_id)->get();
-        return $userTaobao;
+    public function getReferralCode($user){
+        $code = (new UserReferralCode())->getByUserId($user->id);
+        $referralCode = null;
+        if(!$code){
+            $inviteCode = $user['invite_code'];
+            if($inviteCode && (new UserReferralCode())->updateCode($inviteCode, $user->id)){
+                $referralCode = $inviteCode;
+            }
+        }else{
+            $referralCode = $code['referral_code'];
+        }
+
+        return $referralCode;
     }
+
+    /**
+     * 通过推荐码获取用户信息
+     * @param $code
+     * @return User
+     */
+    public function getUserByReferralCode($code){
+        $code = (new UserReferralCode())->getByCode($code);
+        if(!$code){
+            return false;
+        }
+        return User::find($code['user_id']);
+    }
+
+
 }

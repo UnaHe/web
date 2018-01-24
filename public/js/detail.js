@@ -7,57 +7,7 @@ var loading = true;
 var taoKeyNum = "";
 var clipboard = null;
 var timer = null;
-//$(function () {
-    //详情加载失败点击
-    $(".detail-load-failed").on("click", function () {
-        loadData();
-    });
 
-    //详情页面图片懒加载
-    var imgLoad = lazyload.init({
-        anim:true,
-        selectorName:".lazy",
-        extend_height: 200
-    });
-
-    //关闭蒙版
-    $(".detail-mask").on("click", function () {
-        $(".dialog").fadeOut(100,function () {
-            $(".detail-mask-command-ios, .detail-mask-command-android").hide();
-        });
-    });
-
-    //苹果安卓复制文案
-    document.addEventListener("selectionchange", function (e) {
-        if (window.getSelection().anchorNode.parentNode.id == 'code1_ios' && document.getElementById('code1_ios').innerText != window.getSelection()) {
-            var key = document.getElementById('code1_ios');
-            window.getSelection().selectAllChildren(key);
-        }
-        if (window.getSelection().anchorNode.parentNode.id == 'code2_ios' && document.getElementById('code2_ios').innerText != window.getSelection()) {
-            var key = document.getElementById('code2_ios');
-            window.getSelection().selectAllChildren(key);
-        }
-    }, false);
-
-    //判断安卓苹果显示
-    if(isIOS()) {
-        $(detailKeyBox+" textarea").hide();
-        $(detailKeyBox+" input").hide();
-        $(detailKeyBox+" span").show();
-    } else {
-        $(detailKeyBox+" span").hide();
-        $(detailKeyBox+" textarea").show();
-        $(detailKeyBox+" input").show();
-    }
-
-    $(detailKeyBox+" input").on("click", function () {
-        $(this).querySelectorAll();
-    });
-
-    //一键复制
-    oneKeyCopy();
-
-//});
 
 //加载详情
 function loadData() {
@@ -232,3 +182,56 @@ function oneKeyCopy(num) {
     }
     return clipboard;
 }
+
+
+//$(function () {
+    //详情加载失败点击
+    $(".detail-load-failed").on("click", function () {
+        loadData();
+    });
+
+    //详情页面图片懒加载
+    var imgLoad = lazyload.init({
+        anim:true,
+        selectorName:".lazy",
+        extend_height: 200
+    });
+
+    //关闭蒙版
+    $(".detail-mask").on("click", function () {
+        $(".dialog").fadeOut(100,function () {
+            $(".detail-mask-command-ios, .detail-mask-command-android").hide();
+        });
+    });
+
+    //苹果安卓复制文案
+    document.addEventListener("selectionchange", function (e) {
+        if (window.getSelection().anchorNode.parentNode.id == 'code1_ios' && document.getElementById('code1_ios').innerText != window.getSelection()) {
+            var key = document.getElementById('code1_ios');
+            window.getSelection().selectAllChildren(key);
+        }
+        if (window.getSelection().anchorNode.parentNode.id == 'code2_ios' && document.getElementById('code2_ios').innerText != window.getSelection()) {
+            var key = document.getElementById('code2_ios');
+            window.getSelection().selectAllChildren(key);
+        }
+    }, false);
+
+    //判断安卓苹果显示
+    if(isIOS()) {
+        $(detailKeyBox+" textarea").hide();
+        $(detailKeyBox+" input").hide();
+        $(detailKeyBox+" span").show();
+    } else {
+        $(detailKeyBox+" span").hide();
+        $(detailKeyBox+" textarea").show();
+        $(detailKeyBox+" input").show();
+    }
+
+    $(detailKeyBox+" input").on("click", function () {
+        $(this).querySelectorAll();
+    });
+
+    //一键复制
+    oneKeyCopy();
+
+//});

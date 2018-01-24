@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\UserService;
 use Illuminate\Http\Request;
 use App\Helpers\UrlHelper;
 
@@ -12,14 +13,18 @@ use App\Helpers\UrlHelper;
  */
 class ShareController extends Controller
 {
-    //
+    /**
+     * 朋友淘分享链接
+     * @param Request $request
+     * @return static
+     */
     public function getShare(Request $request)
     {
-        // 获取当前用户邀请码.
-        $code = $request->user()->invite_code;
+        // 获取当前用户推荐码.
+        $code = (new UserService())->getReferralCode($request->user());
 
         // 拼接邀请链接.
-        $longUrl = 'http://'.config('domains.pytao_domains').'/pytao/share/'.$code;
+        $longUrl = 'http://'.config('domains.pytao_domains').'/?u='.$code."&t=".time();
 
         // 短链接.
         $shortUrl = (new UrlHelper())->shortUrl($longUrl);
@@ -31,5 +36,18 @@ class ShareController extends Controller
         ];
 
         return $this->ajaxSuccess($url);
+    }
+
+    /**
+     * 获取推荐码
+     */
+    public function getReferralCode(Request $request){
+        $code = (new UserService())->getReferralCode($request->user());
+        if(!$code){
+            return $this->ajaxError("推荐码未设置");
+        }
+        return $this->ajaxSuccess([
+            'referral_code' => $code
+        ]);
     }
 }

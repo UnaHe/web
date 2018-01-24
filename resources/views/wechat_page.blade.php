@@ -40,7 +40,7 @@
                                 <i class="media-arial">{{$couponPrice}}</i></b>
                             <img src="/images/quan_03.png" alt="">
                         </span>
-                        <div class="ios-btn">
+                        <div class="ios-btn" style="display: none">
                             <a href="javascript:iosOpen();">苹果一键购</a>
                         </div>
                     </div>
@@ -148,7 +148,14 @@
 <script src="/js/layer/layer.js"></script>
 <script src="/js/imgLazy.v1.js"></script>
 <script src="/js/clip-board.min.js"></script>
-<script src="/js/detail.js?v=5"></script>
+<script src="/js/detail.js?v=6"></script>
+
+<style>
+    #cnzz_stat_icon_1271964621{
+        display: none;
+    }
+</style>
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1271964621'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1271964621%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
 
 </body>
 </html>
