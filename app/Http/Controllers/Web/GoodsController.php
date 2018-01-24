@@ -279,7 +279,7 @@ class GoodsController extends Controller
     /**
      * 转链接
      */
-    public function transferLink(Request $request)
+    public function transferLinkWeb(Request $request)
     {
 
         $taobaoGoodsId = $request->post('taobaoId');

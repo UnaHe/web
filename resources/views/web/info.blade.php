@@ -235,7 +235,7 @@
 
 
     $('.transfer_link').click(function(){
-        transfer_link_url="{{url('transferLink')}}";
+        transfer_link_url="{{url('transferLinkWeb')}}";
         $.ajax({
             type: "POST",
             url: transfer_link_url,
