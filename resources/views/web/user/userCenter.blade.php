@@ -7,12 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,user-sclable=0">
     <meta name="csrf-token" content="{{csrf_token()}}"/>
     <!-- 设置主题样式-->
-    <link rel="stylesheet" href="web/lib/bootstrapvalidator/dist/css/bootstrapValidator.min.css">
-    <link rel="stylesheet" href="web/lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/web/lib/bootstrapvalidator/dist/css/bootstrapValidator.min.css">
+    <link rel="stylesheet" href="/web/lib/bootstrap/dist/css/bootstrap.min.css"/>
     <!-- 引入字体样式-->
-    <link rel="stylesheet" href="web/css/reset.css"/>
-    <link rel="stylesheet" href="web/css/com.css"/>
-    <link rel="stylesheet" href="web/css/personal_center.css"/>
+    <link rel="stylesheet" href="/web/css/reset.css"/>
+    <link rel="stylesheet" href="/web/css/com.css"/>
+    <link rel="stylesheet" href="/web/css/personal_center.css"/>
 </head>
 <body>
 <!--头部-->
@@ -205,12 +205,12 @@
 
 </div>
 </body>
-<script src="web/lib/jquery/dist/jquery.js"></script>
-<script src="js/layer/layer.js"></script>
-<script src="web/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/web/lib/jquery/dist/jquery.js"></script>
+<script src="/js/layer/layer.js"></script>
+<script src="/web/lib/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="/web/js/com.js"></script>
-<script src="web/lib/bootstrapvalidator/dist/js/bootstrapValidator.js"></script>
-<script type="text/javascript" src="web/js/pcas.js"></script>
+<script src="/web/lib/bootstrapvalidator/dist/js/bootstrapValidator.js"></script>
+<script type="text/javascript" src="/web/js/pcas.js"></script>
 
 
 <script>

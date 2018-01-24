@@ -8,7 +8,7 @@
     <meta name="csrf-token" content="{{csrf_token()}}"/>
     <title>{{$title}} - 朋友推</title>
     <link rel="stylesheet" href="/assets/css/amazeui.css"/>
-    <link rel="stylesheet" href="css/web/common.css"/>
+    <link rel="stylesheet" href="/css/web/common.css"/>
     <style>
         input {
             border: 1px solid black;

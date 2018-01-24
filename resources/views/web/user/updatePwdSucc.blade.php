@@ -8,7 +8,7 @@
 @section('content')
     <div class="content">
         <div class="step">
-            <img src="images/web/step3.png">
+            <img src="/images/web/step3.png">
         </div>
         <div class="form-action">
             <div id="relogin-clock">已完成! (5)秒后自动登录</div>

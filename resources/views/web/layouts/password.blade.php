@@ -10,8 +10,8 @@
     <meta name="renderer" content="webkit">
     <meta name="csrf-token" content="{{csrf_token()}}"/>
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
-    <link rel="stylesheet" href="assets/css/amazeui.css"/>
-    <link rel="stylesheet" href="css/web/user/password.css"/>
+    <link rel="stylesheet" href="/assets/css/amazeui.css"/>
+    <link rel="stylesheet" href="/css/web/user/password.css"/>
 
     @section('css')
     @show
@@ -20,7 +20,7 @@
 
 <body>
 <div class="header">
-    <div><a href="#"><img alt="logo" src="images/web/logo.png"/></a>
+    <div><a href="#"><img alt="logo" src="/images/web/logo.png"/></a>
 
         <div>
             <div class="header-nav">
@@ -38,9 +38,9 @@
 </div>
 
 
-<script src="js/jquery.2.1.4.js"></script>
-<script src="js/layer/layer.js"></script>
-<script src="js/web/common.js"></script>
+<script src="/js/jquery.2.1.4.js"></script>
+<script src="/js/layer/layer.js"></script>
+<script src="/js/web/common.js"></script>
 @section('js')
 @show
 

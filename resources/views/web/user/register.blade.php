@@ -38,7 +38,7 @@
 @stop
 
 @section('js')
-    <script src="js/web/common.js"></script>
+    <script src="/js/web/common.js"></script>
     <script src="/web/lib/bootstrapvalidator/dist/js/bootstrapValidator.js"></script>
     <script type="text/javascript">
     $.ajaxSetup({

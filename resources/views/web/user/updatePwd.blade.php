@@ -6,7 +6,7 @@
 @section('content')
     <div class="content">
         <div class="step">
-            <img src="{{asset('images/web/step2.png')}}">
+            <img src="/images/web/step2.png">
         </div>
         <div class="form-action">
             <form>
