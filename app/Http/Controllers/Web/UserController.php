@@ -115,26 +115,26 @@ class UserController extends Controller
     {
         $ip = $request->getClientIp();
 
-//        if (CacheHelper::getCache()) {
-//            return $this->ajaxError(['msg' => '操作太频繁']);
-//        }
-//
-//        $mobile = $request->post('username');
-//        if (!preg_match('/^1\d{10}$/', $mobile)) {
-//            return $this->ajaxError(['msg' => '请输入正确的手机号码']);
-//        }
-//
-//        if (User::where('phone', $mobile)->exists()) {
-//            $codeId = (new CaptchaService())->modifyPasswordSms($mobile);
-//        } else {
-//            $codeId = (new CaptchaService())->registerSms($mobile);
-//        }
-//        if (!$codeId) {
-//            return $this->ajaxError(['msg' => '验证码发送失败']);
-//        }
-//
-//        CacheHelper::setCache($ip, 1);
-//        return $this->ajaxSuccess([$codeId]);
+        if (CacheHelper::getCache()) {
+            return $this->ajaxError(['msg' => '操作太频繁']);
+        }
+
+        $mobile = $request->post('username');
+        if (!preg_match('/^1\d{10}$/', $mobile)) {
+            return $this->ajaxError(['msg' => '请输入正确的手机号码']);
+        }
+
+        if (User::where('phone', $mobile)->exists()) {
+            $codeId = (new CaptchaService())->modifyPasswordSms($mobile);
+        } else {
+            $codeId = (new CaptchaService())->registerSms($mobile);
+        }
+        if (!$codeId) {
+            return $this->ajaxError(['msg' => '验证码发送失败']);
+        }
+
+        CacheHelper::setCache($ip, 1);
+        return $this->ajaxSuccess([$codeId]);
     }
 
     /**
