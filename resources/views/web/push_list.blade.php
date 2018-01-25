@@ -229,9 +229,8 @@
                             var price = $val.price;
                             var commission_finally = $val.commission_finally;
                             var is_tmall = $val.is_tmall !== 0 ? '/web/images/tmail.png' : '/web/images/taobao.png';
-                            var loading_pic = '/images/default-pic2.jpg';
                             html += "<div class='single'> <a href='" + val_url + "'target='_blank'> " +
-                                    "<img src='" + loading_pic + "'   data-src='" + pic + "'  alt='" + short_title + "' title='" + short_title + "' class='img_size' > </a> " +
+                                    "<img src='" + pic + "'    alt='" + short_title + "' title='" + short_title + "' class='img_size' > </a> " +
                                     "<div class='price_introduce'> <p class='title'><a href='" + val_url + "'target='_blank' class='click_open'>" + short_title + "</a> </p>" +
                                     "<p class='discount'><span class='coupun'>券</span>" + coupon_price + " 元</p> <p class='mouth_num'>月销：<span>" + sell_num + "</span></p>" +
                                     "<p class='coupon_back'><span class='small_word small_color'>券后:</span><span class='small_word'>￥</span><span>" + price + "</span></p>" +
@@ -240,7 +239,7 @@
 
                         });
                         $(html).appendTo('.goods-list');
-                        loadImg();
+
                     } else {
                         flag = true;
                         layer.msg('加载完了,以后我们努力给你更多!');
@@ -251,59 +250,32 @@
         }
     });
 
-    function loadImg() {
-        $.each($('.img_size'), function ($key, $val) {
-            setTimeout(function(){
-                if ($($val).attr('src') == '/images/default-pic2.jpg') {
-                    $($val).attr('src', $($val).attr('data-src'))
-                }
-            },500)
 
-        })
-    }
 
 
     function cutString(str, len) {
         //length属性读出来的汉字长度为1
 
         if(str.length*2 <= len) {
-
             return str;
-
         }
 
         var strlen = 0;
-
         var s = "";
-
         for(var i = 0;i < str.length; i++) {
-
             s = s + str.charAt(i);
-
             if (str.charCodeAt(i) > 128) {
-
                 strlen = strlen + 2;
-
                 if(strlen >= len){
-
                     return s.substring(0,s.length-1) + "...";
-
                 }
-
             } else {
-
                 strlen = strlen + 1;
-
                 if(strlen >= len){
-
                     return s.substring(0,s.length-2) + "...";
-
                 }
-
             }
-
         }
-
         return s;
 
     }
