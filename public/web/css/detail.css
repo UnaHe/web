@@ -1,3 +1,11 @@
+.click_open:link,.click_open:visited{
+    color:#333;text-decoration:none;
+}
+.click_open:hover{
+    color:#333;
+}
+
+
 .tab_nav{
     background: transparent;
     border: none;

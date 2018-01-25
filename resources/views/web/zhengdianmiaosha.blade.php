@@ -79,14 +79,18 @@
                             <p class="floor_price floor_price_right "><span class="floor_price_earnings">预计收益</span>
                                 <span class="price">￥{{ $val['commission_finally']}}</span></p>
                         </div>
-                        <p class="quick"><span class="sale_num">  {{ $val['sell_num']}}</span>已售 <span
-                                    class="sale_quick">马上推</span></p>
+                        <p class="quick"><span class="sale_num">  {{ $val['sell_num']}}</span>已售
+                            <a href="{{url('/goods/'. $val['id']).'?columnCode='.$active['active_column_code']}} "
+                               target="_blank" class="click_open">
+                            <span class="sale_quick">马上推</span>
+                        </a>
+                        </p>
                     </div>
                 </lable>
             @endforeach
 
             @else
-                404
+                <div class="kong"><img src="/web/images/kong.png"></div>
             @endif
 
 

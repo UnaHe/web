@@ -343,8 +343,8 @@ class TaobaoService
                     throw new \Exception("券已失效");
                 }
 
-                $couponStartTime = $mamaDetail['couponEffectiveStartTime']." 00:00:00";
-                $couponTime = $mamaDetail['couponEffectiveEndTime']." 23:59:59";
+                $couponStartTime = $mamaDetail['couponEffectiveStartTime'] . " 00:00:00";
+                $couponTime = $mamaDetail['couponEffectiveEndTime'] . " 23:59:59";
 
                 $couponPrice = $mamaDetail['couponAmount'];
                 $couponPrerequisite = $mamaDetail['couponStartFee'];
@@ -383,13 +383,23 @@ class TaobaoService
         $auth_expire_time = 0;
 
         $time = (strtotime($token->expires_at) - time()) > 60 ? (strtotime($token->expires_at) - time()) : 0;
+        $auth_expire_time = '';
         if ($time > 0) {
             $day = floor($time / 86400);
+            if ($day) {
+                $auth_expire_time .= $day . '天';
+            }
             $time = $time % 86400;
             $hour = floor(($time) / 3600);
+            if ($hour) {
+                $auth_expire_time .= $hour . '小时';
+            }
             $time = $time % 3600;
             $minute = floor($time / 60);
-            $auth_expire_time = $day . '天' . $hour . '小时' . $minute . '分';
+            if ($hour) {
+                $auth_expire_time .= $minute . '分';
+            }
+
         }
         $taobao_user_nick = $token->taobao_user_nick;
 
@@ -431,38 +441,49 @@ class TaobaoService
     {
         try {
             DB::beginTransaction();
-            $token=$this->getToken($userId);
-            $this->testPid($token,$data['weixin_pid']);
-            $this->testPid($token,$data['qq_pid']);
+            $token = $this->getToken($userId);
             $time = date('Y-m-d H:i:m', time());
-            $weixin_pid = TaobaoPid::where(['user_id'=>$userId,'pid_type'=>1] )->first();
-            if (!$weixin_pid) {
-                $weixin_pid = new TaobaoPid();
-                $weixin_pid['create_time'] = $time;
-                $weixin_pid['user_id'] = $userId;
-                $weixin_pid['pid_type'] = 1;
-            }
-            $weixin_pid['pid'] = $data['weixin_pid'];
-            $weixin_pid['update_time'] = $time;
-            $weixin_pid->save();
 
-            $qq_pid = TaobaoPid::where(['user_id'=>$userId,'pid_type'=>2] )->first();
-            if (!$qq_pid) {
-                $qq_pid = new TaobaoPid();
-                $qq_pid['create_time'] = $time;
-                $qq_pid['user_id'] = $userId;
-                $qq_pid['pid_type'] = 2;
+            //插入微信渠道PID
+            if ($data['weixin_pid']) {
+                $this->testPid($token, $data['weixin_pid']);
+                $weixin_pid = TaobaoPid::where(['user_id' => $userId, 'pid_type' => 1])->first();
+                if (!$weixin_pid) {
+                    $weixin_pid = new TaobaoPid();
+                    $weixin_pid['create_time'] = $time;
+                    $weixin_pid['user_id'] = $userId;
+                    $weixin_pid['pid_type'] = 1;
+                }
+                $weixin_pid['pid'] = $data['weixin_pid'];
+                $weixin_pid['update_time'] = $time;
+                $weixin_pid->save();
+            }else{
+                TaobaoPid::where(['user_id' => $userId, 'pid_type' => 1])->delete();
             }
-            $qq_pid['pid'] = $data['qq_pid'];
-            $qq_pid['update_time'] = $time;
-            $qq_pid->save();
+
+            //插入QQ渠道PID
+            if ($data['qq_pid']) {
+                $this->testPid($token, $data['qq_pid']);
+                $qq_pid = TaobaoPid::where(['user_id' => $userId, 'pid_type' => 2])->first();
+                if (!$qq_pid) {
+                    $qq_pid = new TaobaoPid();
+                    $qq_pid['create_time'] = $time;
+                    $qq_pid['user_id'] = $userId;
+                    $qq_pid['pid_type'] = 2;
+                }
+                $qq_pid['pid'] = $data['qq_pid'];
+                $qq_pid['update_time'] = $time;
+                $qq_pid->save();
+            }else{
+                 TaobaoPid::where(['user_id' => $userId, 'pid_type' => 2])->delete();
+            }
 
             DB::commit();
-            return  ['success'=>true];
+            return ['success' => true];
         } catch (\Exception  $e) {
             DB::rollback();
             $error = $e->getMessage();
-          return  ['success'=>false,'msg'=>$error];
+            return ['success' => false, 'msg' => $error];
         }
     }
 

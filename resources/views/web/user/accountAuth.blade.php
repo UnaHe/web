@@ -17,17 +17,20 @@
 <!--头部-->
 <div class="container-fluid">
     @include('web.layouts.header')
-    <!--搜索导航栏-->
+            <!--搜索导航栏-->
     @include('web.layouts.search')
-    <!--导航-->
+            <!--导航-->
     @include('web.layouts.navigation')
-    <!--主题部分-->
+            <!--主题部分-->
     <seation class="pyt-seation container-fluid">
         <div class="row  container">
             <div id="tab_personal">
-                <span><a href="{{url('userCenter')}}" class="@if(\Illuminate\Support\Facades\Request::getRequestUri()== '/userCenter')nav_color @endif" >个人中心</a></span>
-                <span><a href="{{url('accountAuth')}}"  class="@if(\Illuminate\Support\Facades\Request::getRequestUri()== '/accountAuth') nav_color @endif">授权管理</a></span>
-                <span><a href="{{url('accountSecurity')}}"  class="@if(\Illuminate\Support\Facades\Request::getRequestUri()== '/accountSecurity') nav_color @endif">账号安全</a></span>
+                <span><a href="{{url('userCenter')}}"
+                         class="@if(\Illuminate\Support\Facades\Request::getRequestUri()== '/userCenter')nav_color @endif">个人中心</a></span>
+                <span><a href="{{url('accountAuth')}}"
+                         class="@if(\Illuminate\Support\Facades\Request::getRequestUri()== '/accountAuth') nav_color @endif">授权管理</a></span>
+                <span><a href="{{url('accountSecurity')}}"
+                         class="@if(\Illuminate\Support\Facades\Request::getRequestUri()== '/accountSecurity') nav_color @endif">账号安全</a></span>
             </div>
             <!-- 中心内容-->
             <div class="pyt_center">
@@ -51,7 +54,7 @@
                                 <td>{{$authInfo['auth_expire_time']}}</td>
                                 <td class="show_model">
                                     <span class="btns change_password" data-toggle="modal" data-target="#myModal"
-                                          data-cmd="change_pasword">修改密码</span>
+                                          data-cmd="change_pasword">修改PID</span>
                                     <span class="btns remove_auth" data-toggle="modal" data-target="#myModal_remove"
                                           data-cmd="change_pasword">删除授权</span>
                                 </td>
@@ -79,7 +82,7 @@
     <div class="clear"></div>
     <!--页脚-->
     @include('web.layouts.footer')
-    <!--模态框-->
+            <!--模态框-->
     <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
@@ -93,11 +96,13 @@
                     <form>
                         <div class="col-sm-6">
                             <p class="popularize"><span class="QQ_color">QQ</span>推广渠道PID</p>
-                            <input type="text" class="QQ" name="qq_pid" value="{{!empty($authInfo)?$authInfo['pids']['qq']:''}}"/>
+                            <input type="text" class="QQ" name="qq_pid"
+                                   value="{{!empty($authInfo)?$authInfo['pids']['qq']:''}}"/>
                         </div>
                         <div class="col-sm-6">
                             <p class="popularize"><span class="wx_color">微信</span>推广渠道PID</p>
-                            <input type="text" class="WX" name="weixin_pid"  value="{{!empty($authInfo)?$authInfo['pids']['weixin']:''}}"/>
+                            <input type="text" class="WX" name="weixin_pid"
+                                   value="{{!empty($authInfo)?$authInfo['pids']['weixin']:''}}"/>
                         </div>
                     </form>
 
@@ -165,15 +170,15 @@
             dataType: "json",
             success: function (data) {
                 if (data.code == 200) {
-                    var msg=data.data.message==''?'操作成功':data.data.message;
-                        layer.alert(msg, {
-                            skin: 'layui-layer-lan' //样式类名
-                            , closeBtn: 0
-                        }, function () {
-                            window.location.reload();
-                        });
+                    var msg = data.data.message == '' ? '操作成功' : data.data.message;
+                    layer.alert(msg, {
+                        skin: 'layui-layer-lan' //样式类名
+                        , closeBtn: 0
+                    }, function () {
+                        window.location.reload();
+                    });
                 } else {
-                    var msg=data.msg.msg==''?'操作失败':data.msg.msg;
+                    var msg = data.msg.msg == '' ? '操作失败' : data.msg.msg;
                     layer.alert(msg, {
                         skin: 'layui-layer-lan' //样式类名
                         , closeBtn: 0
@@ -183,7 +188,7 @@
             }
         });
     });
-    var delUrl="{{url('delAuth')}}";
+    var delUrl = "{{url('delAuth')}}";
     $(".cancel_sure").on("click", function () {
         //    发送请求
         $.ajax({
@@ -192,20 +197,20 @@
             dataType: "json",
             success: function (data) {
                 if (data.code == 200) {
-                    var msg=data.data.message==''?'操作成功':data.data.message;
-                        layer.alert(msg, {
-                            skin: 'layui-layer-lan' //样式类名
-                            , closeBtn: 0
-                        }, function () {
-                            if (typeof url != 'undefined') {
-                                window.location.href = url;
-                            } else {
-                                window.location.reload()
-                            }
-                        });
+                    var msg = data.data.message == '' ? '操作成功' : data.data.message;
+                    layer.alert(msg, {
+                        skin: 'layui-layer-lan' //样式类名
+                        , closeBtn: 0
+                    }, function () {
+                        if (typeof url != 'undefined') {
+                            window.location.href = url;
+                        } else {
+                            window.location.reload()
+                        }
+                    });
 
                 } else {
-                    var msg=data.msg.msg==''?'操作失败':data.msg.msg;
+                    var msg = data.msg.msg == '' ? '操作失败' : data.msg.msg;
                     layer.alert(msg, {
                         skin: 'layui-layer-lan' //样式类名
                         , closeBtn: 0
@@ -215,10 +220,6 @@
         });
 
     })
-
-
-
-
 
 
 </script>

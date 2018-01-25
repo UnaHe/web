@@ -37,7 +37,9 @@
             <!-- 详情内容-->
             <div id="detail">
                 <div class="detail_left">
-                    <img src="{{$good['pic']}}" alt="商品图片"/>
+                    <a href="{{$good['goods_url']}}">
+                        <img src="{{$good['pic']}}" alt="{{$good['short_title']}}" title="{{$good['short_title']}}"/>
+                    </a>
 
                     <div>
                         <div class="detail_small_pic">
@@ -51,7 +53,11 @@
                 </div>
                 <!--右边详情-->
                 <div class="detail_right">
-                    <p class="short_title">{{$good['short_title']}}</p>
+                    <p class="short_title">
+                        <a href="{{$good['goods_url']}}" class="click_open">
+                            {{$good['short_title']}}
+                        </a>
+                    </p>
 
                     <p class="long_title">{{$good['des']}}</p>
 
@@ -67,9 +73,12 @@
                         <!--模板头部-->
                         <div class="template_header">
                             <p class="template_header_left">营销模板</p>
-
-                            <p class="template_header_right">请<span><a href="javascript:;" class="auth-login"
-                                                                       target="_blank">登录</a></span>授权</p>
+                            @if($taobao_user_nick)
+                                <p class="template_header_right"><span>{{$taobao_user_nick}}</span></p>
+                            @else
+                                <p class="template_header_right">请<span><a href="javascript:;" class="auth-login"
+                                                                           target="_blank">登录</a></span>授权</p>
+                            @endif
                         </div>
                         <div class="clear"></div>
                         <!--模板内容-->
@@ -83,13 +92,16 @@
                                         <img src="{{$good['pic']}}" alt="商品图片"/>
                                         {{--<img src="/web/images/1.jpg" alt="商品图片"/>--}}
                                         {{--<img src="http://imgproxy.ffquan.cn/imgextra/i4/884909271/*t*b2cif4m*dn*i8*k*jj*sszb*x*xb4*k*f*xa_!!884909271.jpg" alt="商品图片"/>--}}
-                                        <p>秋冬新款连帽保暖字母学生上衣潮 券后【178元】包邮秒杀</p>
+                                        <p>{{$good['short_title']}}</p>
 
-                                        <p> 领券下单链接 <span class="share_url">【请转换QQ二合一】</span> 甜美粉色宽松，加绒内衬，下摆抽</p>
+                                        <p> 领券下单链接 <span class="share_qq_url">【请转换QQ二合一】</span></p>
 
-                                        <p>甜美粉色宽松，加绒内衬，下摆抽绳字母装饰，袋鼠兜，</p>
+                                        <p>{{$good['des']}}</p>
 
-                                        <p>本群专享优惠！已抢104件！</p>
+
+                                        {{--<p>甜美粉色宽松，加绒内衬，下摆抽绳字母装饰，袋鼠兜，</p>--}}
+
+                                        {{--<p>本群专享优惠！已抢104件！</p>--}}
                                     </div>
                                     <div class="chat_right">
                                         <img src="/web/images/QQ.png" alt="QQ">
@@ -111,7 +123,7 @@
                             <div class="template_QQ template_wx">
                                 <p class="QQ_title ">微信文案</p>
 
-                                <div class="chat">
+                                <div class="chat" id="wx-copy-main">
                                     <div class="wx_pic_box">
                                         <img src="{{$good['pic']}}" alt="商品图片"/>
 
@@ -120,22 +132,21 @@
                                         <img src="/web/images/WX.png" alt="微信">
                                     </div>
                                     <div class="chat_left chat_wx_right">
-                                        <p>秋冬新款连帽保暖字母学生上衣潮 券后【178元】包邮秒杀</p>
+                                        <p>{{$good['short_title']}}</p>
 
-                                        <p> 领券下单链接 <span>
+                                        <p> 领券下单链接 <span class="share_wx_url">
                                                 【请转换QQ二合一】
-                                            </span> 甜美粉色宽松，加绒内衬，下摆抽</p>
+                                            </span></p>
 
-                                        <p>甜美粉色宽松，加绒内衬，下摆抽绳字母装饰，袋鼠兜，</p>
+                                        <p>{{$good['des']}}</p>
 
-                                        <p>本群专享优惠！已抢104件！</p>
                                     </div>
                                     <div class="chat_right">
                                         <div class="chat_right chart_right_wx">
                                             <img src="/web/images/WX.png" alt="微信">
                                         </div>
                                     </div>
-                                    <p class="wx_creat">一键生成</p>
+                                    <p class="wx_creat transfer_wx_link">一键生成</p>
 
                                     <p class="wx_creat long_pic  weixin-transfer-long-pic " id="transfer-long-pic"
                                        data-target="#create-pic-tpl-box">生成长图</p>
@@ -250,12 +261,18 @@
 <scrpit src="/web/lib/bootstrap/dist/js/bootstrap.min.js"></scrpit>
 <script src="/web/js/com.js"></script>
 <script src="https://cdn.bootcss.com/html2canvas/0.4.1/html2canvas.js"></script>
-{{--<script src="/web/js/html2pic.js"></script>--}}
+
 <script type="text/javascript" src="/js/web/clipboard.js"></script>
 
 
 <script type="text/javascript">
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
 
+    //生成长图,测试中
     $("#transfer-long-pic").click(function () {
         var mtk = document.getElementById('create-pic-tpl-box');
         mtk.style.display = 'block'
@@ -269,7 +286,7 @@
 //                $('#can_img').attr('src', canvas.toDataURL())
                 document.getElementById('area-left').appendChild(canvas);
             },
-            backgroundColor:'#FFF',
+            backgroundColor: '#FFF',
 //可以带上宽高截取你所需要的部分内容
 //     ,
 //     width: 300,
@@ -278,11 +295,6 @@
     });
 
 
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
     /**
      * 设置主图
      */
@@ -315,29 +327,56 @@
     } else {
         ClipboardSupport = 0;
     }
-    $('.transfer_link').click(function (e) {
-        {{--transfer_link_url="{{url('transferLinkWeb')}}";--}}
-        {{--$.ajax({--}}
-        {{--type: "POST",--}}
-        {{--url: transfer_link_url,--}}
-        {{--data: $('.qq_form').serialize(),--}}
-        {{--dataType: "json",--}}
-        {{--success: function (data) {--}}
-        {{--if (data.code==200)  {--}}
-        {{--var html="<a href='https://s.click.taobao.com/y05scUw' target='_blank'> https://s.click.taobao.com/y05scUw</a>";--}}
-        {{--$('.share_url').html(html);--}}
-        {{--}else{--}}
-        {{--layer.alert(data.msg, {--}}
-        {{--skin: 'layui-layer-lan' //样式类名--}}
-        {{--,closeBtn: 0--}}
-        {{--});--}}
-        {{--}--}}
-        {{--}--}}
-        {{--});--}}
+    transfer_link_url = "{{url('transferLinkWeb')}}";
+    var share_qq_url;
+    var share_wx_url;
+    var share_error = '正在加载中!';
+    $(function () {
+        $.ajax({
+            type: "POST",
+            url: transfer_link_url,
+            data: $('.qq_form').serialize(),
+            dataType: "json",
+            success: function (data) {
+                if (data.code == 200) {
+                    var s_url = data.data.s_url;
+                    share_qq_url = "<a href='" + s_url + "' target='_blank'> " + s_url + "</a>";
+                    var wechat_url = data.data.wechat_url;
+                    share_wx_url = "<a href='" + wechat_url + "' target='_blank'> " + wechat_url + "</a>";
+                    share_error = '';
+                } else {
+                    share_error = data.msg;
+                }
+            }
+        });
 
+    })
+
+
+    $('.transfer_link').click(function (e) {
+        if (share_error != '') {
+            layer.msg(share_error);
+            return false;
+        }
+        $('.share_qq_url').html(share_qq_url);
         var copy = document.getElementById('qq-copy-main');
         copyFunction(copy, '.transfer_link', "QQ文案复制成功", e);
+
     });
+
+
+    $('.transfer_wx_link').click(function (e) {
+        if (share_error != '') {
+            layer.msg(share_error);
+            return false;
+        }
+        $('.share_wx_url').html(share_wx_url);
+        var copy = document.getElementById('wx-copy-main');
+        copyFunction(copy, '.transfer_wx_link', "微信文案复制成功", e);
+
+    });
+
+
     //设置一键复制
     var copyFunction = function (copyMain, copyBtn, copyMsg, e) {
         if (ClipboardSupport == 0) {
@@ -350,12 +389,12 @@
             });
 
             clipboard.on('success', function (e) {
-                alert(copyMsg);
+                layer.msg(copyMsg);
                 e.clearSelection();
             });
 
             clipboard.on('error', function (e) {
-                alert('复制失败');
+                layer.msg(copyMsg);
                 e.clearSelection();
             });
         }
@@ -367,10 +406,6 @@
         var mtk = document.getElementById('create-pic-tpl-box');
         mtk.style.display = 'none'
     })
-    //    //    图片另存为
-    //    $("#pic_save").on("click",function(){
-    //        var mtk=document.getElementById('create-pic-tpl-box');
-    //        mtk.style.display='none'
-    //    })
+
 </script>
 </html>

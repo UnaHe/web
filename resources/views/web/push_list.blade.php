@@ -134,7 +134,9 @@
                     <div class="single">
                         <a href="{{url('/goods/'. $v['id']).'?columnCode='.$active['active_column_code']}}"
                            target="_blank">
-                            <img src="{{ $v['pic'] }}" alt="{{$v['short_title']}}" title="{{$v['short_title']}}" class="img_size">
+                            <img src="{{ $v['pic'] }}"
+                                    {{--onerror='/images/default-pic2.jpg'--}}
+                                 alt="{{$v['short_title']}}" title="{{$v['short_title']}}" class="img_size">
                         </a>
 
                         <div class="price_introduce">
@@ -185,11 +187,11 @@
 <script src="/web/js/com.js"></script>
 <script src="/js/layer/layer.js"></script>
 
-<script>
+<script type="text/javascript">
 
 
     var next_page = 1;
-    var limit = 10;
+    var limit = 20;
     var flag = false;
     var getListUrl = "{{ \Illuminate\Support\Facades\Request::getRequestUri()}}";
     var goods_url_head = "{{url('/goods/')}}";
@@ -208,7 +210,6 @@
             if (flag) {
                 return false;
             }
-
             $.get({
                 type: "GET",
                 url: getListUrl,
@@ -218,24 +219,19 @@
 
                     if (data.data.length > 0) {
                         var html = '';
-
                         $.each(data.data, function ($key, $val) {
                             var val_url = goods_url_head + '/' + $val.id + goods_url_ext;
                             var pic = $val.pic;
-                            var short_title = $val.short_title;
-                            if (short_title.length > 13) {
-                                short_title = short_title.substr(0, 13) + '...'
-                            } else {
-                                short_title = short_title + '...'
-                            }
+                            var short_title = cutString($val.short_title,22);
+
                             var coupon_price = $val.coupon_price;
                             var sell_num = $val.sell_num;
                             var price = $val.price;
                             var commission_finally = $val.commission_finally;
                             var is_tmall = $val.is_tmall !== 0 ? '/web/images/tmail.png' : '/web/images/taobao.png';
-
+                            var loading_pic = '/images/default-pic2.jpg';
                             html += "<div class='single'> <a href='" + val_url + "'target='_blank'> " +
-                                    "<img src='" + pic + "' alt='"+short_title+"' title='"+short_title+"' class='img_size'> </a> " +
+                                    "<img src='" + loading_pic + "'   data-src='" + pic + "'  alt='" + short_title + "' title='" + short_title + "' class='img_size' > </a> " +
                                     "<div class='price_introduce'> <p class='title'><a href='" + val_url + "'target='_blank' class='click_open'>" + short_title + "</a> </p>" +
                                     "<p class='discount'><span class='coupun'>券</span>" + coupon_price + " 元</p> <p class='mouth_num'>月销：<span>" + sell_num + "</span></p>" +
                                     "<p class='coupon_back'><span class='small_word small_color'>券后:</span><span class='small_word'>￥</span><span>" + price + "</span></p>" +
@@ -244,6 +240,7 @@
 
                         });
                         $(html).appendTo('.goods-list');
+                        loadImg();
                     } else {
                         flag = true;
                         layer.msg('加载完了,以后我们努力给你更多!');
@@ -254,6 +251,62 @@
         }
     });
 
+    function loadImg() {
+        $.each($('.img_size'), function ($key, $val) {
+            setTimeout(function(){
+                if ($($val).attr('src') == '/images/default-pic2.jpg') {
+                    $($val).attr('src', $($val).attr('data-src'))
+                }
+            },500)
+
+        })
+    }
+
+
+    function cutString(str, len) {
+        //length属性读出来的汉字长度为1
+
+        if(str.length*2 <= len) {
+
+            return str;
+
+        }
+
+        var strlen = 0;
+
+        var s = "";
+
+        for(var i = 0;i < str.length; i++) {
+
+            s = s + str.charAt(i);
+
+            if (str.charCodeAt(i) > 128) {
+
+                strlen = strlen + 2;
+
+                if(strlen >= len){
+
+                    return s.substring(0,s.length-1) + "...";
+
+                }
+
+            } else {
+
+                strlen = strlen + 1;
+
+                if(strlen >= len){
+
+                    return s.substring(0,s.length-2) + "...";
+
+                }
+
+            }
+
+        }
+
+        return s;
+
+    }
 
 </script>
 </html>
