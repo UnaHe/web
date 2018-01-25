@@ -134,7 +134,7 @@
                     <div class="single">
                         <a href="{{url('/goods/'. $v['id']).'?columnCode='.$active['active_column_code']}}"
                            target="_blank">
-                            <img src="{{ $v['pic'] }}" alt="..." class="img_size">
+                            <img src="{{ $v['pic'] }}" alt="{{$v['short_title']}}" title="{{$v['short_title']}}" class="img_size">
                         </a>
 
                         <div class="price_introduce">
@@ -223,8 +223,8 @@
                             var val_url = goods_url_head + '/' + $val.id + goods_url_ext;
                             var pic = $val.pic;
                             var short_title = $val.short_title;
-                            if (short_title.length > 12) {
-                                short_title = short_title.substr(0, 12) + '...'
+                            if (short_title.length > 13) {
+                                short_title = short_title.substr(0, 13) + '...'
                             } else {
                                 short_title = short_title + '...'
                             }
@@ -234,7 +234,8 @@
                             var commission_finally = $val.commission_finally;
                             var is_tmall = $val.is_tmall !== 0 ? '/web/images/tmail.png' : '/web/images/taobao.png';
 
-                            html += "<div class='single'> <a href='" + val_url + "'target='_blank'> <img src='" + pic + "' alt='...' class='img_size'> </a> " +
+                            html += "<div class='single'> <a href='" + val_url + "'target='_blank'> " +
+                                    "<img src='" + pic + "' alt='"+short_title+"' title='"+short_title+"' class='img_size'> </a> " +
                                     "<div class='price_introduce'> <p class='title'><a href='" + val_url + "'target='_blank' class='click_open'>" + short_title + "</a> </p>" +
                                     "<p class='discount'><span class='coupun'>券</span>" + coupon_price + " 元</p> <p class='mouth_num'>月销：<span>" + sell_num + "</span></p>" +
                                     "<p class='coupon_back'><span class='small_word small_color'>券后:</span><span class='small_word'>￥</span><span>" + price + "</span></p>" +

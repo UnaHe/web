@@ -2131,6 +2131,7 @@ table tr {
     padding: 30px;
     overflow: auto;
     overflow-y: auto !important;
+
 }
 .transfer-long-pic img.pic {
     width: 320px;

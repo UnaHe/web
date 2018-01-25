@@ -8,7 +8,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand pyt_font_size48" href="{{url('/')}}">朋友推</a>
+            <a class="navbar-brand pyt_font_size48" href="{{url('/')}}">朋友推</a><span class="line_pyt"></span>
             <a class="navbar-brand pyt_font_size48 pyt_color" href="{{url('/')}}">Tuike</a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">

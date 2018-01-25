@@ -54,7 +54,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="container-fluid col-xs-12 back_image"></div>
+                <div class="container-fluid col-xs-12 back_image"><div  class="background_color"></div></div>
             </div>
             <!-- 主打栏目-->
             <div class="col-12_bgr">
@@ -92,7 +92,7 @@
                         <p class="click_query click_query_top"><a href="{{url('/columns/jiajujingxuan/goods')}}"  class="click_open">点击查询</a></p>
                     </div>
                 </div>
-                <div class="container-fluid col-xs-12 back_image margin-Top_big"></div>
+                <div class="container-fluid col-xs-12 back_image margin-Top_big"><div  class="background_color"></div></div>
             </div>
             <!--产品矩阵-->
             <div class="col-sm-12 cpjz">
@@ -104,9 +104,9 @@
         </div>
         <!-- 解决方案-->
         <div class="col-sm-12 jjfa_box">
-            <p class="welcome">— WELCOME —</p>
-            <p class="title_pro">解决方案</p>
-            <p class="pyt">— PENGYOUTUI —</p>
+            <p class="welcome welcome_a">— WELCOME —</p>
+            <p class="title_pro title_pro_a">解决方案</p>
+            <p class="pyt pyt_a">— PENGYOUTUI —</p>
             <div class="two_box">
                 <div class="solve">
                     <p class="xcx_logo">

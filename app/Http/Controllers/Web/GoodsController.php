@@ -76,7 +76,6 @@ class GoodsController extends Controller
 
         $active = ['active_column_code' => $columnCode];
         $title = '商品详情';
-//        return view('web.test', compact('good', 'list', 'title', 'active'));
         return view('web.info', compact('good', 'list', 'title', 'active'));
     }
 
@@ -197,6 +196,15 @@ class GoodsController extends Controller
     {
         $time_step = $this->getTimes();
 
+        if(empty($time_step)){
+            $list=[];
+            $columnCode = 'zhengdianmiaosha';
+            $titles = ['today_tui' => '今日必推', 'today_jing' => '今日精选', 'xiaoliangbaokuan' => '爆款专区',
+                'zhengdianmiaosha' => '限时快抢', 'meishijingxuan' => '美食精选', 'jiajujingxuan' => '家居精选'];
+            $title = $titles[$columnCode];
+            $active = ['active_column_code' => $columnCode];
+            return view('web.zhengdianmiaosha', compact('list', 'title', 'active'));
+        }
         $active_time = null;
         foreach ($time_step as $key => $val) {
             if ($val['status'] == '即将开始') {

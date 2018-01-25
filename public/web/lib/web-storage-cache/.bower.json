@@ -1,0 +1,31 @@
+{
+  "name": "web-storage-cache",
+  "main": [
+    "dist/web-storage-cache.min.js"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "description": "web storage, improved.",
+  "moduleType": [
+    "amd",
+    "globals"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/WQTeam/web-storage-cache",
+  "version": "1.0.3",
+  "_release": "1.0.3",
+  "_resolution": {
+    "type": "version",
+    "tag": "1.0.3",
+    "commit": "b6cedd4f2da76bad8d57dcaecd7dcd62445eb5f7"
+  },
+  "_source": "https://github.com/WQTeam/web-storage-cache.git",
+  "_target": "^1.0.3",
+  "_originalSource": "web-storage-cache",
+  "_direct": true
+}

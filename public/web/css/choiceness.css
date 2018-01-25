@@ -12,6 +12,7 @@
 
 
 
+
 .pro_list{
     width: 100%;
     margin-top: 10px;
@@ -53,7 +54,7 @@
     position: absolute;
 }
 .discount{
-    top: 22px;
+    top: 24px;
 }
 .mouth_num{
     font-size: 12px;
@@ -184,13 +185,13 @@
     margin-top: 0px;
     padding-top: 4px;
 }
-.active_nav{
-    color: #E1B05A;
-}
+
 /*ie调试*/
 input[type=checkbox]{
     margin-top: 5px;
 }
+
+
 
 
 

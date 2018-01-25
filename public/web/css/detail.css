@@ -318,13 +318,23 @@ body{
     color: #fff ;
     background:#E1B05A  ;
     margin-left: 30%;
-    border: 1px solid #E1B05A;
+    border: 1px solid red;
+    left: 200px;
+    z-index: 66666;
     margin-top: 20px;
     text-align: center;
     line-height: 40px;
+    display: inline-block;
+}
+#area_right_box_btn .pic_save .btn{
+   right: 672px;
+   top: 484px;
 }
 .big_big_box{
     /*position: absolute;*/
 }
+
+
+
 
 

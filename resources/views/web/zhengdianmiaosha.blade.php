@@ -19,18 +19,18 @@
 <div class="container-fluid">
     @include('web.layouts.header')
 
-    <!--搜索导航栏-->
+            <!--搜索导航栏-->
     @include('web.layouts.search')
 
-    <!--导航-->
+            <!--导航-->
     @include('web.layouts.navigation')
 
-    <!--主题部分-->
+            <!--主题部分-->
     <seation class="pyt-seation container-fluid">
         <div class="row  container">
-            <!-- 中心内容-->
+            @if(!empty($list))
+                    <!-- 中心内容-->
             <!--时间点-->
-
             <p class="left_arr">
                 <span class="glyphicon glyphicon-menu-left prev" aria-hidden="true"></span>
             </p>
@@ -40,10 +40,11 @@
                 <ul class="rush_point scroll_demo" style="position: absolute; left: 0px;">
                     @foreach($time_step as $v)
                         <a href="{{url('/miaosha/goods').'?active_time='.$v['active_time']}}">
-                        <li class="@if($v['active_time']==$active['active_time']) time_active @endif">
-                            <p>{{$v['time']}}</p>
-                            <p>{{$v['status']}}</p>
-                        </li>
+                            <li class="@if($v['active_time']==$active['active_time']) time_active @endif">
+                                <p>{{$v['time']}}</p>
+
+                                <p>{{$v['status']}}</p>
+                            </li>
                         </a>
                     @endforeach
                 </ul>
@@ -83,6 +84,10 @@
                     </div>
                 </lable>
             @endforeach
+
+            @else
+                404
+            @endif
 
 
         </div>
