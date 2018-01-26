@@ -8,3 +8,4 @@ if [ -d /proc/cygdrive ] && [[ $(which php) == $(readlink -n /proc/cygdrive)/* ]
 fi
 
 "${dir}/php-parse" "$@"
+
