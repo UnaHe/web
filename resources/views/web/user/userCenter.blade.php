@@ -41,7 +41,7 @@
                 <div class="form-group">
                     <label class="col-sm-4 control-label">性别：</label>
 
-                    <div class="col-sm-8 pyt_form-control">
+                    <div class="col-sm-8 pyt_form-control left-30">
                         <p class="pyt_checkbox">
                             <input type="radio" name="sex" class="pyt_sex single_pyt" value="1"  id='chechboxs_single5'/><label class='hiddens_single' for="chechboxs_single5"></label>
                             <span>男</span>
@@ -89,7 +89,7 @@
                 <div class="form-group">
                     <label class="col-sm-4 control-label">工作类型：</label>
 
-                    <div class="col-sm-8 pyt_form-control">
+                    <div class="col-sm-8 pyt_form-control left-30">
                         <p class="pyt_checkbox">
                             <input type="radio" name="work_type" class="pyt_workType single_pyt" value="1"  id='chechboxs_single2'/><label class='hiddens_single' for="chechboxs_single2"></label>
                             <span>公司</span>
@@ -126,7 +126,7 @@
                 <div class="form-group">
                     <label class="col-sm-4 control-label">工作性质：</label>
 
-                    <div class="col-sm-8 pyt_form-control">
+                    <div class="col-sm-8 pyt_form-control left-30">
                         <p class="pyt_checkbox">
                             <input type="radio" name="work_nature" class="pyt_nature single_pyt" value="1" id='chechboxs_single'/><label class='hiddens_single' for="chechboxs_single"></label>
                             <span>兼职</span>
@@ -178,9 +178,9 @@
                     <label class="col-sm-4 control-label">推广收益：</label>
                     <div class="col-sm-8">
 
-                        <select class="form-control earnings profit" placeholder="请选择收益" name="profit">
+                        <select class="form-control earnings profit"  name="profit">
 
-                            {{--<option value="">请选择</option>--}}
+                            <option value="" checked='checked'>请选择</option>
 
                             @foreach($profits  as $key=>$val)
                                 <option value="{{$key}}">{{$val}} </option>

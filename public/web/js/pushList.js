@@ -6,14 +6,12 @@ $(function(){
     var flag = false;
 
 //页面拉到底时自动加载更多
-    $(window).scroll(function (event) {
-        // 当前滚动条位置
-        var wScrollY = window.scrollY;
-        // 设备窗口的高度
-        var wInnerH = window.innerHeight;
-        // 滚动条总高度
-        var bScrollH = document.body.scrollHeight;
-        if (wScrollY + wInnerH >= bScrollH) {
+    //页面拉到底时自动加载更多
+    $(window).scroll(function(){
+        var scrollTop = $(this).scrollTop();
+        var scrollHeight = $(document).height();
+        var windowHeight = $(this).height();
+        if(scrollHeight-scrollTop-windowHeight <=300){
             //请求
             next_page += 1
             if (flag) {
@@ -32,22 +30,27 @@ $(function(){
                             var pic = $val.pic;
 
                             var short_title = $val.short_title;
-
+                            function removeAllSpace(short_title) {
+                                return short_title.replace(/\s+/g, "");
+                            }
+                            if (short_title.length > 13) {
+                                short_title = short_title.substr(0, 13) + '...'
+                            }
                             var coupon_price = $val.coupon_price;
                             var sell_num = $val.sell_num;
                             var price = $val.price;
                             var commission_finally = $val.commission_finally;
                             var is_tmall = $val.is_tmall !== 0 ? '/web/images/tmail.png' : '/web/images/taobao.png';
                             html += "<div class='single'> <a href='" + val_url + "'target='_blank'> " +
-                                "<img src='../../images/web/mrtp.jpg' data-img='" + pic + "' alt='" + short_title + "' title='" + short_title + "' class='img_size lazy'> </a> " +
+                                "<img src='/web/images/mrtp.jpg' data-img='"+pic+"' alt='"+short_title+"' title='"+short_title+"' class='img_size lazy'> </a> " +
                                 "<div class='price_introduce'> <p class='title'><a href='" + val_url + "'target='_blank' class='click_open'>" + short_title + "</a> </p>" +
-                                "<p class='discount'><span class='coupun'>券</span>" + " " + coupon_price + "元</p> <p class='mouth_num'>月销：<span>" + sell_num + "</span></p>" +
+                                "<p class='discount'><span class='coupun'>券</span>"+" "+coupon_price +"元</p> <p class='mouth_num'>月销：<span>" + sell_num + "</span></p>" +
                                 "<p class='coupon_back'><span class='small_word small_color'>券后:</span><span class='small_word'>￥</span><span>" + price + "</span></p>" +
                                 " <p class='commission'><span class='small_word small_color'>佣金:</span><spanclass='small_word'>￥</span>" +
                                 "<span>" + commission_finally + "</span></p> <p class='log_pro'><img src='" + is_tmall + "' alt='天猫'/></p></div></div>"
                         });
                         $(html).appendTo('.goods-list');
-                    } else {
+                    } else if(data.data.length <0){
                         flag = true;
                         layer.msg('加载完了,以后我们努力给你更多!');
                     }

@@ -50,7 +50,7 @@
     height: 24px;
     line-height: 10px;
     position: relative;
-    top: 2px;
+    top: -1px;
 }
 .pyt_checkbox_other{
     width: 184px;
@@ -76,5 +76,15 @@
 }
 .city{
     margin-left:14px;
+}
+
+label{
+    margin-bottom: 0px;
+    font-weight:100;
+}
+
+
+.left-30{
+    margin-left: 14px;
 }
 

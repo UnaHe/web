@@ -229,11 +229,12 @@ body{
 }
 .discount{
     color:#FF5500 ;
-    width:56px ;
+    width:62px ;
     height: 18px;
     border: 1px solid #FF5500 ;
     line-height: 14px;
     margin-top: 16px;
+    font-family: NotoSansHans-Regular;
 }
 .modal-open .modal{
     overflow-y: hidden;
@@ -315,7 +316,7 @@ input{outline:none; !important}
     margin-top: 14px;
 }
 .nav_line>li{
-    border-left: 1px solid #333;
+    border-left: 1px solid rgba(153, 153, 153, 1);;
 }
 .nav_line .last_li{
     border: none;
@@ -449,3 +450,4 @@ button{
 .img_foods{
     margin-top: -1px;
 }
+
