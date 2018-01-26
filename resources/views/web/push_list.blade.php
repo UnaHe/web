@@ -136,6 +136,7 @@
 
                             <img src='../../images/web/mrtp.jpg' data-img="{{ $v['pic'] }}"  class="img_size lazy">
 
+
                         </a>
 
                         <div class="price_introduce">
@@ -225,6 +226,7 @@ lazyload.init();
                             var pic = $val.pic;
 
 
+                            var short_title = $val.short_title;
 
                             var coupon_price = $val.coupon_price;
                             var sell_num = $val.sell_num;
