@@ -181,13 +181,10 @@
                             <p class="mouth_num">月销：<span>{{ $v['sell_num'] }}</span></p>
 
                             <p class="coupon_back">
-                                <span class="small_word small_color">券后:</span><span
-                                        class="small_word">￥</span><span>{{ $v['price'] }}</span>
+                                <span class="small_word small_color">券后</span><span class="small_word">￥</span><span>{{ $v['price'] }}</span>
                             </p>
-
                             <p class="commission">
-                                <span class="small_word small_color">佣金:</span><span
-                                        class="small_word">￥</span><span>{{ $v['commission_finally'] }}</span>
+                                <span class="small_word small_color">佣金</span><span class="small_word">￥</span><span>{{$v['commission_finally']}}</span>
                             </p>
                             <!--商品所属图标-->
                             <p class="log_pro">

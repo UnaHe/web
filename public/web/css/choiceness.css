@@ -75,25 +75,30 @@
 .mouth_num{
     font-size: 12px;
     right: 10px;
-    color: #999;
-    top: 40px;
+    color: rgba(153, 153, 153, 1);
+    top: 42px;
 }
 .coupon_back,.commission{
     top: 66px;
-    color: #f50;
+    font-size: 18px;
+    color: rgba(225, 176, 90, 1);
+}
+.size18{
+    font-size: 18px;
 }
 .commission{
     right: 6px;
 }
 .log_pro{
     bottom: 0px;
-    right: 6px;
+    right: 10px;
 }
 .small_word{
-    font-size: 12px;
+    font-size: 14px;
 }
 .small_color{
     color: #999;
+    font-size: 12px;
 }
 .scree_box{
     width: 954px;
@@ -118,6 +123,7 @@
     float: left;
     color: #999;
     margin: 0px 0px 0px 20px;
+    font-family: Simsun;
 }
 .prod_type_list{
     display: inline-block;
@@ -126,6 +132,7 @@
     float: left;
     -webkit-padding-start: 0px;
     margin-bottom: 0px;
+    font-family: Simsun;
 }
 .margin_left4{
     float: left;
@@ -186,6 +193,7 @@ position: absolute;
 .margin_right li .show_title{
     margin-left: 16px;
     color: #666;
+    font-family: Simsun;
 }
 .section{
     float: left;
@@ -194,6 +202,7 @@ position: absolute;
     display: inline-block;
     margin: 0px 28px 0px -14px;
     position: relative;
+    font-family: Simsun;
 
 }
 .section_title span{

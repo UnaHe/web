@@ -156,12 +156,12 @@
                             <p class="mouth_num">月销：<span>{{ $v['sell_num'] }}</span></p>
 
                             <p class="coupon_back">
-                                <span class="small_word small_color">券后:</span><span
+                                <span class="small_word small_color">券后</span><span
                                         class="small_word">￥</span><span>{{ $v['price'] }}</span>
                             </p>
 
                             <p class="commission">
-                                <span class="small_word small_color">佣金:</span><span
+                                <span class="small_word small_color">佣金</span><span
                                         class="small_word">￥</span><span>{{ $v['commission_finally'] }}</span>
                             </p>
                             <!--商品所属图标-->
@@ -193,6 +193,7 @@
     var getListUrl = "{{ \Illuminate\Support\Facades\Request::getRequestUri()}}";
     var goods_url_head = "{{url('/goods/')}}";
     var goods_url_ext = "{{'?columnCode='.$active['active_column_code']}}";
+
 
 </script>
 </html>
