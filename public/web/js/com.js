@@ -82,6 +82,7 @@ $(function () {
             area: ['760px', '550px'],
             content: authUrl, //iframe的url
         });
+
     });
 
 

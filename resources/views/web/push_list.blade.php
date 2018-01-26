@@ -78,7 +78,7 @@
                                         class='hiddens' for="chechboxs8"></label><span class='show_title'>极有家</span>
                             </li>
                             <li><input type="checkbox" name="isHaitao" value="1" id='chechboxs9' class='inputs'/><label
-                                        class='hiddens' for="chechboxs9"></label><span class='show_title'>淘淘</span></li>
+                                        class='hiddens' for="chechboxs9"></label><span class='show_title'>海淘</span></li>
                             <li class="margin0"><input type="checkbox" name="isYfx" value="1" id='chechboxs10'
                                                        class='inputs'/><label class='hiddens' for="chechboxs10"></label><span
                                         class='show_title'>运费险</span></li>
@@ -184,38 +184,16 @@
 </div>
 </body>
 <script src="/web/lib/jquery/dist/jquery.js"></script>
-<script src="/web/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="/web/js/com.js"></script>
 <script src="/js/layer/layer.js"></script>
+<script src="/web/lib/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="/js/imgLazy.js"></script>
+<script src="/web/js/com.js"></script>
 <script src="/web/js/pushList.js"></script>
 <script>
     var getListUrl = "{{ \Illuminate\Support\Facades\Request::getRequestUri()}}";
     var goods_url_head = "{{url('/goods/')}}";
     var goods_url_ext = "{{'?columnCode='.$active['active_column_code']}}";
 
-    function cutString(str, len) {
-        //length属性读出来的汉字长度为1
-        if(str.length*2 <= len) {
-            return str;
-        }
-        var strlen = 0;
-        var s = "";
-        for(var i = 0;i < str.length; i++) {
-            s = s + str.charAt(i);
-            if (str.charCodeAt(i) > 128) {
-                strlen = strlen + 2;
-                if(strlen >= len){
-                    return s.substring(0,s.length-1) + "...";
-                }
-            } else {
-                strlen = strlen + 1;
-                if(strlen >= len){
-                    return s.substring(0,s.length-2) + "...";
-                }
-            }
-        }
-        return s;
-    }
+
 </script>
 </html>

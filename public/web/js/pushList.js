@@ -5,7 +5,7 @@ $(function(){
     var limit = 20;
     var flag = false;
 
-//页面拉到底时自动加载更多
+
     //页面拉到底时自动加载更多
     $(window).scroll(function(){
         var scrollTop = $(this).scrollTop();
@@ -60,6 +60,13 @@ $(function(){
         }
     });
 
+
+    $('.inputs').click(function(){
+        $.each($('.inputs'),function($key,$val){
+            $($val).prop('checked',false);
+        })
+        $(this).prop('checked',true);
+    });
 
 
 

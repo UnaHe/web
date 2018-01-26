@@ -221,9 +221,7 @@ class GoodsController extends Controller
         if (!$active_time && !empty($time_step)) {
             $active_time = $time_step[0]['active_time'];
         }
-//        echo "<pre>";
-//        var_dump($time_step);
-//        exit;
+
         //秒杀时间点
         $activeTime = $request->get('active_time', $active_time);
         $params = $request->all();
@@ -315,11 +313,9 @@ class GoodsController extends Controller
             $data = (new TransferService())->transferGoodsByUser($taobaoGoodsId, $couponId, $title, $description, $pic, $priceFull, $couponPrice, $sellNum, $request->user()->id);
         } catch (\Exception $e) {
             $errorCode = $e->getCode();
-            return $this->ajaxError($e->getMessage(), $errorCode ?: 300);
+            return $this->ajaxError('生成链接失败', $errorCode ?: 300);
         }
-//            echo "<pre>";
-//            var_dump($data);
-//            exit;
+
         return $this->ajaxSuccess($data);
     }
 

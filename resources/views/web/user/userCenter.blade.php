@@ -207,9 +207,9 @@
 <script src="/web/lib/jquery/dist/jquery.js"></script>
 <script src="/js/layer/layer.js"></script>
 <script src="/web/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="/web/js/com.js"></script>
 <script src="/web/lib/bootstrapvalidator/dist/js/bootstrapValidator.js"></script>
 <script type="text/javascript" src="/web/js/pcas.js"></script>
+<script src="/web/js/com.js"></script>
 <script type="text/javascript" src="/web/js/userCenter.js"></script>
 
 <script>

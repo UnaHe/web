@@ -25,9 +25,9 @@
     </div>
 @stop
 @section('js')
+    <script src="/web/lib/bootstrapvalidator/dist/js/bootstrapValidator.js"></script>
     <script type="text/javascript" src="/web/js/com.js"></script>
     <script type="text/javascript" src="/web/js/login.js"></script>
-    <script src="/web/lib/bootstrapvalidator/dist/js/bootstrapValidator.js"></script>
     <script type="text/javascript">
        var formPost="{{url('login')}}";
        var url="{{url('/')}}";
