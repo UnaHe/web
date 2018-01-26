@@ -275,39 +275,8 @@
 <script src="/web/js/info.js"></script>
 
 <script type="text/javascript">
-  var transfer_link_url = "{{url('transferLinkWeb')}}";
-    var authUrl="{{url('auth')}}";
-
-lazyload.init();
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-
-    //生成长图,测试中
-    $("#transfer-long-pic").click(function () {
-        var mtk = document.getElementById('create-pic-tpl-box');
-        mtk.style.display = 'block'
-        html2canvas($("#area-left"), {
-            onrendered: function (canvas) {
-                //把截取到的图片替换到a标签的路径下载
-                $("#download").attr('href', canvas.toDataURL());
-
-                //下载下来的图片名字
-                $("#download").attr('download', 'share.jpg');
-//                $('#can_img').attr('src', canvas.toDataURL())
-                document.getElementById('area-left').appendChild(canvas);
-            },
-            backgroundColor: '#FFF',
-//可以带上宽高截取你所需要的部分内容
-//     ,
-//     width: 300,
-//     height: 300
-        });
-    });
-
-
+    var transfer_link_url = "{{url('transferLinkWeb')}}";
+    var authUrl = "{{url('auth')}}";
 
     /**
      * 设置主图

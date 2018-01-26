@@ -3,6 +3,8 @@
  */
 
 $(function(){
+    lazyload.init();
+
     //生成长图,测试中
     $("#transfer-long-pic").click(function () {
         var mtk = document.getElementById('create-pic-tpl-box');
