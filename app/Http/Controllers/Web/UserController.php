@@ -28,6 +28,9 @@ class UserController extends Controller
                 return $this->ajaxError(['msg' => '登录失败']);
             }
         } elseif ($request->isMethod('get')) {
+            if(Auth::check()){
+                return redirect(url('/'));
+            }
             return view('web.user.login', [
                 'active' => 'login'
             ]);
@@ -157,7 +160,7 @@ class UserController extends Controller
                 return $this->ajaxError(['msg' => '用户不存在']);
             }
             Auth::login($user);
-            return $this->ajaxSuccess();
+            return $this->ajaxSuccess(['message' => '验证成功']);
         } else {
             return view('web.user.forgetPwd');
         }
@@ -179,7 +182,7 @@ class UserController extends Controller
             $user = Auth::user();
             $user->password = bcrypt($request->get('password'));
             if ($user->save()) {
-                return $this->ajaxSuccess();
+                return $this->ajaxSuccess(['message' => '修改成功']);
             }
             Auth::logout();
             return $this->ajaxError(['msg' => '修改失败']);

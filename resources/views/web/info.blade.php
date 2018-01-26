@@ -123,30 +123,34 @@
                             <div class="template_QQ template_wx">
                                 <p class="QQ_title ">微信文案</p>
 
-                                <div class="chat" id="wx-copy-main">
-                                <div class='screen_short'>
-                                    <div class="wx_pic_box">
-                                        <img src="{{$good['pic']}}" alt="商品图片"/>
-                                    </div>
-                                    <div class="chat_left chat_wx_right">
-                                        <p>{{$good['short_title']}}</p>
-                                        <p> 领券下单链接 <span class="share_wx_url">
+                                <div class="chat">
+                                    <div class='screen_short' id="wx-copy-main">
+                                        <div class="wx_pic_box">
+                                            <img src="{{$good['pic']}}" alt="商品图片"/>
+                                        </div>
+                                        <div class="chat_left chat_wx_right">
+                                            <p>{{$good['short_title']}}</p>
+
+                                            <p> 领券下单链接 <span class="share_wx_url">
                                                 【请转换QQ二合一】
                                             </span></p>
-                                        <p>{{$good['des']}}</p>
-                                    </div>
-                                </div>
-                                <div class="chat_right">
-                                    <div class="chat_right chart_right_wx">
-                                        <img src="/web/images/WX.png" alt="微信">
-                                    </div>
-                                        <div class="chat_right chart_right_wx_down">
-                                           <img src="/web/images/WX.png" alt="微信">
+
+                                            <p>{{$good['des']}}</p>
                                         </div>
-                                </div>
-                                <p class="wx_creat transfer_wx_link">一键生成</p>
-                               <!-- <p class="wx_creat long_pic  weixin-transfer-long-pic " id="transfer-long-pic"
-                                   data-target="#create-pic-tpl-box">生成长图</p>-->
+                                    </div>
+                                    <div class="chat_right">
+                                        <div class="chat_right chart_right_wx">
+                                            <img src="/web/images/WX.png" alt="微信">
+                                        </div>
+
+                                        <div class="chat_right chart_right_wx_down">
+                                            <img src="/web/images/WX.png" alt="微信">
+                                        </div>
+                                    </div>
+                                    <p class="wx_creat transfer_wx_link">一键生成</p>
+                                    <!-- <p class="wx_creat long_pic  weixin-transfer-long-pic " id="transfer-long-pic"
+                                        data-target="#create-pic-tpl-box">生成长图</p>-->
+
                                 </div>
                             </div>
                         </div>
@@ -162,9 +166,15 @@
 
                 @foreach($list as $k => $v)
                     <div class="single">
+
                         <img src='/web/images/mrtp.jpg' data-img="{{ $v['pic'] }}" alt="..." class="img_size lazy">
+
                         <div class="price_introduce">
-                            <p class="title"> {{str_limit($v['short_title'], $limit = 30, $end = '...')}}</p>
+                            <p class="title">
+                                <a href="{{url('/goods/'. $v['id']).'?columnCode='.$active['active_column_code']}}"
+                                   class="click_open">
+                                    {{$v['short_title']}}
+                                </a></p>
 
                             <p class="discount margin_top148"><span class="coupun">券</span> {{ $v['coupon_price']}}元</p>
 
@@ -257,12 +267,17 @@
 <scrpit src="/web/lib/bootstrap/dist/js/bootstrap.min.js"></scrpit>
 <script src="/web/js/com.js"></script>
 <script src="https://cdn.bootcss.com/html2canvas/0.4.1/html2canvas.js"></script>
+
 <script src="/js/imgLazy.js"></script>
 
-<script type="text/javascript" src="/js/web/clipboard.js"></script>
 
+<script type="text/javascript" src="/js/web/clipboard.js"></script>
+<script src="/web/js/info.js"></script>
 
 <script type="text/javascript">
+  var transfer_link_url = "{{url('transferLinkWeb')}}";
+    var authUrl="{{url('auth')}}";
+
 lazyload.init();
     $.ajaxSetup({
         headers: {
@@ -293,6 +308,7 @@ lazyload.init();
     });
 
 
+
     /**
      * 设置主图
      */
@@ -301,109 +317,5 @@ lazyload.init();
         $('.sell-tpl-content-img').attr('src', src);
         $('#img-show').attr('src', src);
     })
-
-
-    $('.auth-login').click(function () {
-        e = layer.open({
-            type: 2,
-            title: '授权并登陆',
-            shadeClose: true,
-            shade: 0.8,
-            area: ['760px', '550px'],
-            content: "{{url('auth')}}", //iframe的url
-        });
-    });
-
-
-    /**
-     * 只能复制到文字,外网的图片和本地的图片可以复制,$good['pic']的图片不能复制
-     * @type {number}
-     */
-    var ClipboardSupport = 0;
-    if (typeof Clipboard != "undefined") {
-        ClipboardSupport = 1;
-    } else {
-        ClipboardSupport = 0;
-    }
-    transfer_link_url = "{{url('transferLinkWeb')}}";
-    var share_qq_url;
-    var share_wx_url;
-    var share_error = '正在加载中!';
-    $(function () {
-        $.ajax({
-            type: "POST",
-            url: transfer_link_url,
-            data: $('.qq_form').serialize(),
-            dataType: "json",
-            success: function (data) {
-                if (data.code == 200) {
-                    var s_url = data.data.s_url;
-                    share_qq_url = "<a href='" + s_url + "' target='_blank'> " + s_url + "</a>";
-                    var wechat_url = data.data.wechat_url;
-                    share_wx_url = "<a href='" + wechat_url + "' target='_blank'> " + wechat_url + "</a>";
-                    share_error = '';
-                } else {
-                    share_error = data.msg;
-                }
-            }
-        });
-
-    })
-
-
-    $('.transfer_link').click(function (e) {
-        if (share_error != '') {
-            layer.msg(share_error);
-            return false;
-        }
-        $('.share_qq_url').html(share_qq_url);
-        var copy = document.getElementById('qq-copy-main');
-        copyFunction(copy, '.transfer_link', "QQ文案复制成功", e);
-
-    });
-
-
-    $('.transfer_wx_link').click(function (e) {
-        if (share_error != '') {
-            layer.msg(share_error);
-            return false;
-        }
-        $('.share_wx_url').html(share_wx_url);
-        var copy = document.getElementById('wx-copy-main');
-        copyFunction(copy, '.transfer_wx_link', "微信文案复制成功", e);
-
-    });
-
-
-    //设置一键复制
-    var copyFunction = function (copyMain, copyBtn, copyMsg, e) {
-        if (ClipboardSupport == 0) {
-            alert('浏览器版本过低，请升级或更换浏览器后重新复制！');
-        } else {
-            var clipboard = new Clipboard(copyBtn, {
-                target: function () {
-                    return copyMain;
-                }
-            });
-
-            clipboard.on('success', function (e) {
-                layer.msg(copyMsg);
-                e.clearSelection();
-            });
-
-            clipboard.on('error', function (e) {
-                layer.msg(copyMsg);
-                e.clearSelection();
-            });
-        }
-    }
-
-
-    //    复制图片
-    $("#copy_btn").on("click", function () {
-        var mtk = document.getElementById('create-pic-tpl-box');
-        mtk.style.display = 'none'
-    })
-
 </script>
 </html>
