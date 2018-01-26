@@ -220,6 +220,7 @@
         }
     });
     var formPost = "{{url('userCenter')}}";
+       new PCAS("province", "city");
     //编辑回显
             @if($user_info)
             var sex = "{{ $user_info->sex}}";
@@ -248,7 +249,8 @@
     }
     @else
 //所在地二级联动
-    new PCAS("province", "city");
+  new PCAS("province", "city");
+
     @endif
 
 

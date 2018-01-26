@@ -185,7 +185,9 @@ lazyload.init();
                         $.each(data.data, function ($key, $val) {
                             var val_url = goods_url_head + '/' + $val.id + goods_url_ext;
                             var pic = $val.pic;
+
                             var short_title = $val.short_title;
+
                             var coupon_price = $val.coupon_price;
                             var sell_num = $val.sell_num;
                             var price = $val.price;
