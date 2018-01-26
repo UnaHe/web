@@ -2,21 +2,19 @@
     text-decoration: none;
 }
 
-<<<<<<< HEAD
+
 .btn{
     right: 30px;
 }
 
-.items{
-    background:#E1B05A ;
-=======
+
+
 .kong {
     margin-left: 32% ;margin-top:10%;
 }
 
-.items {
-    background: #E1B05A;
->>>>>>> eb73a62da22fb36d54bef0c6f613dac97b48f87e
+.items{
+    background:#E1B05A ;
     height: 40px;
     float: left;
     width: 100% !important;

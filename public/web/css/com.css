@@ -259,13 +259,10 @@ input{outline:none}
 
 /*ͷ��*/
 .navbar-right .dropdown-menu{
-<<<<<<< HEAD
+
     right: 252px;
     top: 20px;
-=======
-    right: 265px;
-    top: 34px;
->>>>>>> eb73a62da22fb36d54bef0c6f613dac97b48f87e
+
 }
 .dropdown-menu{
     min-width: 109px;
