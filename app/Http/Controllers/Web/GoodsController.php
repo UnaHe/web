@@ -58,25 +58,29 @@ class GoodsController extends Controller
         $columnCode = $request->get('columnCode');
         $data = (new GoodsService())->detail($goodId);
         if (!$data) {
-            return $this->ajaxError("商品不存在", 404);
+            return view('web.404');
         }
         $data = (new GoodsHelper())->resizeGoodsListPic([$data], ['pic' => '480x480']);
         $good = $data[0];
         $good['commission_finally'] = round($good['commission'] * ($good['price'] > 0 ? $good['price'] : $good['price_full']) / 100, 1);
         $good['caijiPics'] = (new GoodsService())->getCaijiPics($good['goodsid']);
-
+        $good['goods_url'] = (new GoodsHelper())->generateTaobaoUrl($good['goodsid'], $good['is_tmall']);
         $request->offsetSet('title', $good['title']);
         $request->offsetSet('taobao_id', $good['goodsid']);
 
         $list = $this->recommendGoods($request);
         $this->commissionHandler($list);
+        $taobao_user_nick = '';
+        if ($user = (new TaobaoService())->getAuthToken(Auth::user()->id)) {
+            $taobao_user_nick = $user->taobao_user_nick;
+        }
+
 //        echo "<pre>";
 //        var_dump($good);
 //        exit;
-
         $active = ['active_column_code' => $columnCode];
         $title = '商品详情';
-        return view('web.info', compact('good', 'list', 'title', 'active'));
+        return view('web.info', compact('good', 'list', 'title', 'active', 'taobao_user_nick'));
     }
 
     /**
@@ -142,7 +146,8 @@ class GoodsController extends Controller
             $category = $columnCode == 'meishijingxuan' ? 6 : 4;
         } else {
             if (!(new ChannelColumnService())->getByCode($columnCode)) {
-                return $this->ajaxError("栏目不存在");
+//                return $this->ajaxError("栏目不存在");
+                return view('web.404');
             }
         }
         $params = $request->all();
@@ -196,8 +201,8 @@ class GoodsController extends Controller
     {
         $time_step = $this->getTimes();
 
-        if(empty($time_step)){
-            $list=[];
+        if (empty($time_step)) {
+            $list = [];
             $columnCode = 'zhengdianmiaosha';
             $titles = ['today_tui' => '今日必推', 'today_jing' => '今日精选', 'xiaoliangbaokuan' => '爆款专区',
                 'zhengdianmiaosha' => '限时快抢', 'meishijingxuan' => '美食精选', 'jiajujingxuan' => '家居精选'];
@@ -213,8 +218,8 @@ class GoodsController extends Controller
                 break;
             }
         }
-        if(!$active_time && !empty($time_step)){
-            $active_time=$time_step[0]['active_time'];
+        if (!$active_time && !empty($time_step)) {
+            $active_time = $time_step[0]['active_time'];
         }
 //        echo "<pre>";
 //        var_dump($time_step);
@@ -308,8 +313,6 @@ class GoodsController extends Controller
 
         try {
             $data = (new TransferService())->transferGoodsByUser($taobaoGoodsId, $couponId, $title, $description, $pic, $priceFull, $couponPrice, $sellNum, $request->user()->id);
-//            $user = User::find(259);
-//            $data = (new TransferService())->transferGoodsByUser($taobaoGoodsId, $couponId, $title, $description, $pic, $priceFull, $couponPrice, $sellNum, $user->id);
         } catch (\Exception $e) {
             $errorCode = $e->getCode();
             return $this->ajaxError($e->getMessage(), $errorCode ?: 300);

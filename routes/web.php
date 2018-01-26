@@ -66,5 +66,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/goods/{goodsId}', "Web\GoodsController@detail")->where('goodsId', '[0-9]+');
     //生成连接
     Route::post('/transferLinkWeb', 'Web\GoodsController@transferLinkWeb');
+    //关闭layer第三方弹框
+    Route::get('/accountSucc', 'Web\UserController@accountSucc');
 
 });

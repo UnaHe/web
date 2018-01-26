@@ -331,7 +331,6 @@ class UserController extends Controller
     {
         $title = '授权管理';
         $user = Auth::user();
-//        $user = User::find(99);
         $authInfo = (new TaobaoService())->accountAuthInfo($user->id);
         return view('web.user.accountAuth', compact('title', 'user', 'authInfo'));
     }
@@ -345,8 +344,8 @@ class UserController extends Controller
     public function updateAuth(Request $request)
     {
         $user = Auth::user();
-//        $user = User::find(78);
         $res = (new TaobaoService())->updateAuth($user->id, $request->all());
+
         if ($res['success']) {
             return $this->ajaxSuccess(['message' => '操作成功']);
         }
@@ -375,45 +374,99 @@ class UserController extends Controller
      */
     public function taobaoCode(Request $request)
     {
-        if ($request->get('code')) {
-            //得到code的情况
-            $url = 'https://oauth.taobao.com/token';
-            $data = [];
-            $data['code'] = $request->get('code');
-            $data['client_id'] = config('taobao.appkey');
-            $data['client_secret'] = config('taobao.secretkey');
-            $data['redirect_uri'] = url('accountAuth');
-            $data['grant_type'] = 'authorization_code';
+        $url = "https://oauth.taobao.com/token";
+        $data = [];
+        $data['code'] = $request->get('code');
+        $data['response_type'] = 'code';
+        $data['client_id'] = config('taobao.appkey');
+        $data['client_secret'] = config('taobao.secretkey');
+        $data['redirect_uri'] = urlencode(url('accountAuth'));
+        $data['grant_type'] = 'authorization_code';
 
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $url);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-            curl_setopt($ch, CURLOPT_POST, 1);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-            $output = curl_exec($ch);
-            curl_close($ch);
-            $tokens = \GuzzleHttp\json_decode($output, true);
-            $user = Auth::user();
-            if (!(array_key_exists('access_token', $tokens)
-                && array_key_exists('token_type', $tokens)
-                && array_key_exists('expires_in', $tokens)
-                && array_key_exists('refresh_token', $tokens)
-                && array_key_exists('re_expires_in', $tokens)
-                && array_key_exists('taobao_user_id', $tokens)
-                && array_key_exists('taobao_user_nick', $tokens)
-            )
-            ) {
-                return $this->ajaxError("参数错误");
-            }
-            $res = (new TaobaoService())->saveAuthToken($user->id, $tokens, '');
-            if ($res) {
-                return redirect(url('accountAuth'));
-            }
-        } else {
-            return redirect(url('accountAuth'));
+        $res = $this->curl($url, $data);
+
+        $tokens = \GuzzleHttp\json_decode($res, true);
+        $tokens['taobao_user_nick'] = urldecode($tokens['taobao_user_nick']);
+        $user = Auth::user();
+        if (!(array_key_exists('access_token', $tokens)
+            && array_key_exists('token_type', $tokens)
+            && array_key_exists('expires_in', $tokens)
+            && array_key_exists('refresh_token', $tokens)
+            && array_key_exists('re_expires_in', $tokens)
+            && array_key_exists('taobao_user_id', $tokens)
+            && array_key_exists('taobao_user_nick', $tokens)
+        )
+        ) {
+            return redirect(url('accountSucc'));
+        }
+        $res = (new TaobaoService())->saveAuthToken($user->id, $tokens, '');
+        if ($res) {
+            return redirect(url('accountSucc'));
         }
     }
 
+    /**
+     * 关闭layer第三方弹框
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function accountSucc()
+    {
+        return view('web.user.accountSucc');
+    }
+
+    /**
+     * post  请求淘宝授权
+     * @param $url
+     * @param null $postFields
+     * @return mixed
+     * @throws Exception
+     */
+    public function curl($url, $postFields = null)
+    {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_FAILONERROR, false);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        //https 请求
+        if (strlen($url) > 5 && strtolower(substr($url, 0, 5)) == "https") {
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+        }
+
+        if (is_array($postFields) && 0 < count($postFields)) {
+            $postBodyString = "";
+            $postMultipart = false;
+            foreach ($postFields as $k => $v) {
+                if ("@" != substr($v, 0, 1))//判断是不是文件上传
+                {
+                    $postBodyString .= "$k=" . urlencode($v) . "&";
+                } else//文件上传用multipart/form-data，否则用www-form-urlencoded
+                {
+                    $postMultipart = true;
+                }
+            }
+            unset($k, $v);
+            curl_setopt($ch, CURLOPT_POST, true);
+            if ($postMultipart) {
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $postFields);
+            } else {
+                curl_setopt($ch, CURLOPT_POSTFIELDS, substr($postBodyString, 0, -1));
+            }
+        }
+        $reponse = curl_exec($ch);
+
+        if (curl_errno($ch)) {
+            throw new Exception(curl_error($ch), 0);
+        } else {
+            $httpStatusCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            if (200 !== $httpStatusCode) {
+                throw new Exception($reponse, $httpStatusCode);
+            }
+        }
+        curl_close($ch);
+        return $reponse;
+    }
 
     /**
      * 删除用户授权
@@ -423,7 +476,6 @@ class UserController extends Controller
     public function delAuth(Request $request)
     {
         $user = Auth::user();
-//        $user = User::find(78);
         $res = (new TaobaoService())->delAuth($user->id);
         if ($res) {
             return $this->ajaxSuccess(['message' => '删除成功']);

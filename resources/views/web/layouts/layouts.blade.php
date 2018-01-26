@@ -2,7 +2,7 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title>{{$title}}-朋友推</title>
+    <title>{{$title}}-朋友惠</title>
     <!--设置视口-->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,user-sclable=0">
     <!-- 设置主题样式-->
