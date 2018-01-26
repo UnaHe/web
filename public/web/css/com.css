@@ -89,7 +89,7 @@ body{
 }
 .navbar-nav .pyt_searchAll{
     position: absolute;
-    top: -7px;
+    top: -12px;
     left: -48px;
     display: inline-block;
     border-right: 1px solid #999;
@@ -241,7 +241,7 @@ body{
 /*content: "";*/
 /*clear: both;*/
 /*}*/
-input{outline:none}
+input{outline:none; !important}
 .btn-C{
     color: #fff;
     background:#E1B05A;
@@ -259,9 +259,8 @@ input{outline:none}
 
 /*ͷ��*/
 .navbar-right .dropdown-menu{
-
     right: 252px;
-    top: 20px;
+    top: 24px;
 
 }
 .dropdown-menu{

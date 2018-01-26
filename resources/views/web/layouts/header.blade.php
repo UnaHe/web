@@ -18,7 +18,7 @@
                             <li><a href="{{url('/logout')}}"  class="user_menu">退出</a></li>
                         </ul>
                     @else
-                        <li><a href="{{url('login')}}">登录</a></li>
+                        <li class='last_li'><a href="{{url('login')}}">登录</a></li>
                         <li><a href="{{url('register')}}">注册</a></li>
                     @endif
 
