@@ -15,7 +15,7 @@
                 <input type="password" name="password_confirmation" id="" placeholder="请再次输入新密码">
 
             </form>
-            {{--<input type="submit" class="am-btn  am-btn-sm"  onclick="Common.submit(this)" value="下一步">--}}
+
             <input type="submit" class="am-btn  am-btn-sm"   value="下一步">
         </div>
     </div>

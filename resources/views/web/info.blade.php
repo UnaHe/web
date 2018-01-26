@@ -148,8 +148,8 @@
                                     </div>
                                     <p class="wx_creat transfer_wx_link">一键生成</p>
 
-                                   <!-- <p class="wx_creat long_pic  weixin-transfer-long-pic " id="transfer-long-pic"
-                                       data-target="#create-pic-tpl-box">生成长图</p>-->
+                                    <!-- <p class="wx_creat long_pic  weixin-transfer-long-pic " id="transfer-long-pic"
+                                        data-target="#create-pic-tpl-box">生成长图</p>-->
                                 </div>
                             </div>
                         </div>
@@ -327,9 +327,9 @@
     } else {
         ClipboardSupport = 0;
     }
-    transfer_link_url = "{{url('transferLinkWeb')}}";
-    var share_qq_url;
-    var share_wx_url;
+    var transfer_link_url = "{{url('transferLinkWeb')}}";
+    var share_qq_url,share_wx_url,goods_id,share_desc,tao_code,long_url;
+
     var share_error = '正在加载中!';
     $(function () {
         $.ajax({
@@ -343,9 +343,13 @@
                     share_qq_url = "<a href='" + s_url + "' target='_blank'> " + s_url + "</a>";
                     var wechat_url = data.data.wechat_url;
                     share_wx_url = "<a href='" + wechat_url + "' target='_blank'> " + wechat_url + "</a>";
+                    goods_id = data.data.goods_id;
+                    share_desc = data.data.share_desc;
+                    tao_code = data.data.tao_code;
+                    long_url = data.data.url;
                     share_error = '';
                 } else {
-                    share_error = data.msg;
+                    share_error = '链接转换失败';
                 }
             }
         });

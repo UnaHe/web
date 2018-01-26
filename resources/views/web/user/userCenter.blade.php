@@ -192,7 +192,6 @@
                 <label class="col-sm-4 control-label"></label>
 
                 <div class="col-sm-8">
-                    {{--<button type="button" class="pyt_sub" onclick="Common.submit(this)">确认并保存</button>--}}
                     <button type="button" class="pyt_sub">确认并保存</button>
                 </div>
             </div>
