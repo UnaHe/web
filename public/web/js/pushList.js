@@ -58,6 +58,13 @@ $(function(){
     });
 
 
+    $('.inputs').click(function(){
+        $.each($('.inputs'),function($key,$val){
+            $($val).prop('checked',false);
+        })
+        $(this).prop('checked',true);
+    });
+
 
 
 

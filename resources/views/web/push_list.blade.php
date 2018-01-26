@@ -182,10 +182,10 @@
 </div>
 </body>
 <script src="/web/lib/jquery/dist/jquery.js"></script>
-<script src="/web/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="/web/js/com.js"></script>
 <script src="/js/layer/layer.js"></script>
+<script src="/web/lib/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="/js/imgLazy.js"></script>
+<script src="/web/js/com.js"></script>
 <script src="/web/js/pushList.js"></script>
 <script>
     var getListUrl = "{{ \Illuminate\Support\Facades\Request::getRequestUri()}}";

@@ -265,9 +265,9 @@
 <script src="/web/lib/jquery/dist/jquery.js"></script>
 <script src="/js/layer/layer.js"></script>
 <scrpit src="/web/lib/bootstrap/dist/js/bootstrap.min.js"></scrpit>
-<script src="/web/js/com.js"></script>
 <script src="https://cdn.bootcss.com/html2canvas/0.4.1/html2canvas.js"></script>
 <script type="text/javascript" src="/js/web/clipboard.js"></script>
+<script src="/web/js/com.js"></script>
 <script src="/web/js/info.js"></script>
 
 <script type="text/javascript">
