@@ -123,8 +123,8 @@
                             <div class="template_QQ template_wx">
                                 <p class="QQ_title ">微信文案</p>
 
-                                <div class="chat" id="wx-copy-main">
-                                <div class='screen_short'>
+                                <div class="chat" >
+                                <div class='screen_short' id="wx-copy-main">
                                     <div class="wx_pic_box">
                                         <img src="{{$good['pic']}}" alt="商品图片"/>
                                     </div>
@@ -164,10 +164,14 @@
 
                 @foreach($list as $k => $v)
                     <div class="single">
-                        <img src="{{ $v['pic'] }}" alt="..." class="img_size">
+                        <a href="{{url('/goods/'. $v['id']).'?columnCode='.$active['active_column_code']}}"
+                          ><img src="{{ $v['pic'] }}" alt="..." class="img_size"></a>
 
                         <div class="price_introduce">
-                            <p class="title"> {{str_limit($v['short_title'], $limit = 30, $end = '...')}}</p>
+                            <p class="title">
+                                <a href="{{url('/goods/'. $v['id']).'?columnCode='.$active['active_column_code']}}" class="click_open">
+                                    {{$v['short_title']}}
+                                </a></p>
 
                             <p class="discount margin_top148"><span class="coupun">券</span> {{ $v['coupon_price']}}元</p>
 
@@ -348,7 +352,7 @@
                     long_url = data.data.url;
                     share_error = '';
                 } else {
-                    share_error = '链接转换失败';
+                    share_error = '链接转换失败或请授权';
                 }
             }
         });
@@ -357,10 +361,10 @@
 
 
     $('.transfer_link').click(function (e) {
-        if (share_error != '') {
-            layer.msg(share_error);
-            return false;
-        }
+//        if (share_error != '') {
+//            layer.msg(share_error);
+//            return false;
+//        }
         $('.share_qq_url').html(share_qq_url);
         var copy = document.getElementById('qq-copy-main');
         copyFunction(copy, '.transfer_link', "QQ文案复制成功", e);
@@ -369,10 +373,10 @@
 
 
     $('.transfer_wx_link').click(function (e) {
-        if (share_error != '') {
-            layer.msg(share_error);
-            return false;
-        }
+//        if (share_error != '') {
+//            layer.msg(share_error);
+//            return false;
+//        }
         $('.share_wx_url').html(share_wx_url);
         var copy = document.getElementById('wx-copy-main');
         copyFunction(copy, '.transfer_wx_link', "微信文案复制成功", e);
