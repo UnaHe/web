@@ -8,36 +8,25 @@
     <!-- 设置主题样式-->
     <link rel="stylesheet" href="/web/lib/bootstrap/dist/css/bootstrap.min.css"/>
     <!-- 引入字体样式-->
-
     <link rel="stylesheet" href="/web/css/com.css"/>
     <link rel="stylesheet" href="/web/css/choiceness.css"/>
-
-
 </head>
 <body>
 <!--头部-->
 <div class="container-fluid">
     @include('web.layouts.header')
-
             <!--搜索导航栏-->
     @include('web.layouts.search')
-
             <!--导航-->
     @include('web.layouts.navigation')
-
             <!--主题部分-->
     <seation class="pyt-seation container-fluid">
-
-
         <div class="row  container">
             <!-- 中心内容-->
             <!--图片-->
-
             <div class="img_door">
                 <img src="/web/images/push_banner.png" alt="...">
             </div>
-
-
             @if($active['active_column_code']!='meishijingxuan' && $active['active_column_code']!='jiajujingxuan')
                 <div class="prod_type_box ">
                     <p class="prod_type">商品分类：</p>
@@ -58,7 +47,6 @@
                 <form method="get" action="{{url('/columns/'.$active['active_column_code'].'/goods')}}">
                     {{csrf_field()}}
                     <p class="prod_type">高级筛选：</p>
-
                     <div class="scree_box">
                         <ul class=" margin_right">
                             <li><input type="checkbox" name="today" value="1" id='chechboxs' class='inputs'/><label class='hiddens'for="chechboxs"></label><span class='show_title'>今日新品</span></li>
@@ -72,43 +60,32 @@
                             <li><input type="checkbox" name="isJyj" value="1" id='chechboxs8' class='inputs'/><label class='hiddens'for="chechboxs8"></label><span class='show_title'>极有家</span></li>
                             <li><input type="checkbox" name="isHaitao" value="1" id='chechboxs9' class='inputs'/><label class='hiddens'for="chechboxs9"></label><span class='show_title'>淘淘</span></li>
                             <li class="margin0"><input type="checkbox" name="isYfx" value="1" id='chechboxs10' class='inputs'/><label class='hiddens'for="chechboxs10"></label><span class='show_title'>运费险</span></li>
-
                         </ul>
                         <div class="section">
                             <p class="section_title">
                                 <span>券区间</span>
-                                <input type="text" name="minCouponPrice" placeholder="￥">-<input type="text"
-                                                                                                 name="maxCouponPrice"
-                                                                                                 placeholder="￥">
+                                <input type="text" name="minCouponPrice" placeholder="￥">-<input type="text" name="maxCouponPrice" placeholder="￥">
                             </p>
-
                             <p class="section_title">
                                 <span>价格</span>
-                                <input type="text" name="minPrice" placeholder="￥">-<input type="text" name="maxPrice"
-                                                                                           placeholder="￥">
+                                <input type="text" name="minPrice" placeholder="￥">-<input type="text" name="maxPrice" placeholder="￥">
                             </p>
-
                             <p class="section_title">
                                 <span>佣金比例></span>
                                 <input type="text" name="minCommission" placeholder="￥">
                             </p>
-
                             <p class="section_title">
                                 <span>销量></span>
                                 <input type="text" name="minSellNum" placeholder="￥">
                             </p>
-
                             <p class="section_title">
                                 <button type="button screen-btn">筛选</button>
                             </p>
-
                         </div>
                     </div>
                 </form>
             </div>
             <div class="clear"></div>
-
-
             <!--商品列表-->
             <div class="pro_list  goods-list">
                 <div class="tab_nav">
@@ -129,16 +106,11 @@
                     </a>
                 </div>
                 @foreach($list as $k => $v)
-
                     <div class="single">
                         <a href="{{url('/goods/'. $v['id']).'?columnCode='.$active['active_column_code']}}"
                            target="_blank">
-
                             <img src='../../images/web/mrtp.jpg' data-img="{{ $v['pic'] }}"  class="img_size lazy">
-
-
                         </a>
-
                         <div class="price_introduce">
                             <p class="title">
                                 <a href="{{url('/goods/'. $v['id']).'?columnCode='.$active['active_column_code']}}"
@@ -146,16 +118,12 @@
                                     {{str_limit($v['short_title'], $limit = 24, $end = '...')}}
                                 </a>
                             </p>
-
                             <p class="discount"><span class="coupun">券</span> {{ $v['coupon_price']}}元</p>
-
                             <p class="mouth_num">月销：<span>{{ $v['sell_num'] }}</span></p>
-
                             <p class="coupon_back">
                                 <span class="small_word small_color">券后:</span><span
                                         class="small_word">￥</span><span>{{ $v['price'] }}</span>
                             </p>
-
                             <p class="commission">
                                 <span class="small_word small_color">佣金:</span><span
                                         class="small_word">￥</span><span>{{ $v['commission_finally'] }}</span>
@@ -170,27 +138,21 @@
                             </p>
                         </div>
                     </div>
-
                 @endforeach
-
             </div>
         </div>
     </seation>
     <div class="clear"></div>
     <!--页脚-->
     @include('web.layouts.footer')
-
 </div>
 </body>
 <script src="/web/lib/jquery/dist/jquery.js"></script>
 <script src="/web/lib/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="/web/js/com.js"></script>
 <script src="/js/layer/layer.js"></script>
-
 <script src="/js/imgLazy.js"></script>
 <script>
-
-
 lazyload.init();
     var next_page = 1;
     var limit = 20;
@@ -218,13 +180,11 @@ lazyload.init();
                 data: {page: next_page, limit: limit},
                 dataType: "json",
                 success: function (data) {
-
                     if (data.data.length > 0) {
                         var html = '';
                         $.each(data.data, function ($key, $val) {
                             var val_url = goods_url_head + '/' + $val.id + goods_url_ext;
                             var pic = $val.pic;
-
                             var short_title = $val.short_title;
                             var coupon_price = $val.coupon_price;
                             var sell_num = $val.sell_num;
@@ -232,18 +192,14 @@ lazyload.init();
                             var commission_finally = $val.commission_finally;
                             var is_tmall = $val.is_tmall !== 0 ? '/web/images/tmail.png' : '/web/images/taobao.png';
                             html += "<div class='single'> <a href='" + val_url + "'target='_blank'> " +
-
                                     "<img src='../../images/web/mrtp.jpg' data-img='"+pic+"' alt='"+short_title+"' title='"+short_title+"' class='img_size lazy'> </a> " +
-
                                     "<div class='price_introduce'> <p class='title'><a href='" + val_url + "'target='_blank' class='click_open'>" + short_title + "</a> </p>" +
                                     "<p class='discount'><span class='coupun'>券</span>"+" "+coupon_price +"元</p> <p class='mouth_num'>月销：<span>" + sell_num + "</span></p>" +
                                     "<p class='coupon_back'><span class='small_word small_color'>券后:</span><span class='small_word'>￥</span><span>" + price + "</span></p>" +
                                     " <p class='commission'><span class='small_word small_color'>佣金:</span><spanclass='small_word'>￥</span>" +
                                     "<span>" + commission_finally + "</span></p> <p class='log_pro'><img src='" + is_tmall + "' alt='天猫'/></p></div></div>"
-
                         });
                         $(html).appendTo('.goods-list');
-
                     } else {
                         flag = true;
                         layer.msg('加载完了,以后我们努力给你更多!');
@@ -253,9 +209,6 @@ lazyload.init();
             });
         }
     });
-
-
-
 
     function cutString(str, len) {
         //length属性读出来的汉字长度为1

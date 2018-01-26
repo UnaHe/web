@@ -110,6 +110,7 @@ body{
 }
 .template_banner .template_wx{
     float: right;
+    position: relative;
 }
 .QQ_title{
     width: 100%;
@@ -160,8 +161,9 @@ body{
     line-height: 40px;
     text-align: center;
     background: #2CC21B;
-    margin-top: 72px;
-    margin-right: 4px;
+    position: absolute;
+    bottom: 1px;
+    right: 0px;
 }
 .long_pic{
     background:#2ABA1A;
@@ -198,9 +200,13 @@ body{
     margin-right: 16px;
     margin-top: 10px;
 }
-.chart_right_wx{
-    margin-right: 28px;
-    margin-top: -294px;
+.chart_right_wx,.chart_right_wx_down{
+    position: absolute;
+    right: 1px;
+    top: 40px;
+}
+.chart_right_wx_down{
+    top: 166px;
 }
 /*模态框*/
 #create-pic-tpl-box{

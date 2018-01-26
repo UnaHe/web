@@ -40,6 +40,10 @@ body{
 .open_btn:hover{
     cursor: pointer;
 }
+.nav_line>.last_li{
+    border: none;
+    margin-right: 4px;
+}
 /*产品精选*/
 .welcome{
     font-size:26px;

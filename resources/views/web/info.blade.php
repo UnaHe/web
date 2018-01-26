@@ -124,32 +124,29 @@
                                 <p class="QQ_title ">微信文案</p>
 
                                 <div class="chat" id="wx-copy-main">
+                                <div class='screen_short'>
                                     <div class="wx_pic_box">
                                         <img src="{{$good['pic']}}" alt="商品图片"/>
-
-                                    </div>
-                                    <div class="chat_right">
-                                        <img src="/web/images/WX.png" alt="微信">
                                     </div>
                                     <div class="chat_left chat_wx_right">
                                         <p>{{$good['short_title']}}</p>
-
                                         <p> 领券下单链接 <span class="share_wx_url">
                                                 【请转换QQ二合一】
                                             </span></p>
-
                                         <p>{{$good['des']}}</p>
-
                                     </div>
-                                    <div class="chat_right">
-                                        <div class="chat_right chart_right_wx">
-                                            <img src="/web/images/WX.png" alt="微信">
+                                </div>
+                                <div class="chat_right">
+                                    <div class="chat_right chart_right_wx">
+                                        <img src="/web/images/WX.png" alt="微信">
+                                    </div>
+                                        <div class="chat_right chart_right_wx_down">
+                                           <img src="/web/images/WX.png" alt="微信">
                                         </div>
-                                    </div>
-                                    <p class="wx_creat transfer_wx_link">一键生成</p>
-
-                                   <!-- <p class="wx_creat long_pic  weixin-transfer-long-pic " id="transfer-long-pic"
-                                       data-target="#create-pic-tpl-box">生成长图</p>-->
+                                </div>
+                                <p class="wx_creat transfer_wx_link">一键生成</p>
+                               <!-- <p class="wx_creat long_pic  weixin-transfer-long-pic " id="transfer-long-pic"
+                                   data-target="#create-pic-tpl-box">生成长图</p>-->
                                 </div>
                             </div>
                         </div>
