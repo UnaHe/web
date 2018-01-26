@@ -29,7 +29,7 @@
         <div class="row  container-fluid">
             <div class="col-12_bg">
                 <!-- 产品精选-->
-                <div class="container col-sm-12">
+                <div class=" col-sm-12">
                     <p class="welcome">— WELCOME —</p>
                     <p class="title_pro">产品精选</p>
                     <p class="pyt">— PENGYOUTUI —</p>

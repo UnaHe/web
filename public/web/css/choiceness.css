@@ -10,27 +10,35 @@
 }
 
 
-
+.btn{
+    right: 30px;
+}
 
 
 .pro_list{
-    width: 100%;
+    width:1100px;
     margin-top: 10px;
 }
 .single{
-    width: 18%;
-    height:340px;
-    margin-right: 24px;
+    width: 204px;
+    height:330px;
+    margin-right: 20px;
     display: inline-block;
-    margin-top: 10px;
+    margin-top: 20px;
+    border: 1px solid #fff;
+    float: left;
+}
+.single:hover{
+    cursor: pointer;
+    border: 1px solid #E1B05A ;
 }
 .pro_list .single:nth-child(5n+1){
     margin-right: 0px;
 }
 .img_size{
     display: inline-block;
-    width: 214px;
-    height: 214px;
+    width: 202px;
+    height: 202px;
 }
 .row{
     background: #f6f6f6;
@@ -39,7 +47,7 @@
 }
 /*商品列表的文字*/
 .price_introduce{
-    width: 214px;
+    width: 202px;
     height: 126px;
     background: #fff;
     padding: 10px;
@@ -48,6 +56,8 @@
 .title{
     color: #666;
     font-family:NotoSansHans-Regular;
+    height: 22px;
+    overflow: hidden;
 }
 .discount,.mouth_num,.coupon_back,.commission,.log_pro{
     display: inline-block;
@@ -80,10 +90,9 @@
     color: #999;
 }
 .scree_box{
-    width: 994px;
+    width: 954px;
     display: inline-block;
 }
-
 /*条件排版*/
 .prod_type_box{
     width: 100%;
@@ -101,44 +110,83 @@
     width:94px ;
     height: 40px;
     float: left;
-    margin: 0px 0px 0px 80px;
+    color: #999;
+    margin: 0px 0px 0px 20px;
 }
 .prod_type_list{
     display: inline-block;
-    width: 994px;
+    width: 878px;
     color: #333;
     float: left;
-
+    -webkit-padding-start: 0px;
     margin-bottom: 0px;
 }
 .margin_left4{
-    margin-left: -12px;
+    float: left;
 }
-.prod_type_list li{
+.prod_type_list li,.margin_right li{
     display: inline-block;
-    margin-right: 34px;
+    margin-right: 40px;
     float: left;
     list-style-type:none;
 }
 .margin_right{
     border-bottom: 1px dashed #ddd;
+    float: left;
+    width:982px ;
+    -webkit-padding-start: 0px;
+    margin-bottom: 0px;
+    margin-left: -14px;
 }
 .margin_right li{
-    margin-right: 40px;
     position: relative;
+    margin-right: 26px;
+}
+.margin_right li:last-child{
+    margin-right: 0px;
 }
 .margin_right li input{
+    display: none;
+}
+.inputs + label {
+    border: 1px solid #ddd;
+    display: inline-block;
+    position: relative;
+    margin-right: 0px;
+}
+.inputs:checked + label {
+    color: #E1B05A;
+}
+
+.inputs:checked + label:after {
+    content: '\2714'; //勾选符号
+position: absolute;
+    top: 0px;
+    left: 0px;
+    color: #E1B05A;
+    text-align: center;
+    line-height: 0px;
+    font-size: 12px;
+    vertical-align: text-top;
+    width: 100%;
+}
+.margin_right li .hiddens{
+    display: inline-block;
+    width:14px ;
+    height: 14px;
     position: absolute;
-    top: 4px;
-    left: -14px;
+    top: 8px;
+}
+.margin_right li .show_title{
+    margin-left: 16px;
+    color: #666;
 }
 .section{
     float: left;
-    margin-left: 40px;
 }
 .section_title{
     display: inline-block;
-    margin: 6px 20px 0px -14px;
+    margin: 0px 28px 0px -14px;
     position: relative;
 
 }

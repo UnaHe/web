@@ -20,7 +20,7 @@
 
 
             <!--搜索导航栏-->
-    <nav class="navbar navbar-default container">
+    <nav class="navbar navbar-default container search_nav">
         <div class="container-fluid pyt_search_nav">
             <div class="navbar-header pyt_navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
@@ -30,7 +30,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand pyt_font_size48" href="#">朋友推</a>
+                <a class="navbar-brand pyt_font_size48" href="#">朋友惠</a><span class="line_pyt"></span>
                 <a class="navbar-brand pyt_font_size48 pyt_color" href="#">Tuike</a>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
@@ -39,9 +39,9 @@
                         <ul class="nav navbar-nav navbar-left">
                             <li class="pyt_searchAll">综合搜索</li>
                         </ul>
-                        <input type="text" class="form-control" placeholder="搜索标题、商品ID、商品链接">
+                        <input type="text" class="form-control" placeholder="搜索标题、商品ID、商品链接" id='blue_line' name='search'/>
                     </div>
-                    <button type="submit" class="btn btn-default">搜索图</button>
+                    <div  class="btn  btn-C"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></div>
                 </form>
             </div>
         </div>
@@ -125,9 +125,9 @@
 
         <div class="container pyt_center_footer">
             <ul class="pyt_footer">
-                <li>公司官网</li>
-                <li>公司官网2</li>
-                <li>合作伙伴</li>
+                 <li>公司官网</li><span class='footer_line'></span>
+                 <li>公司官网2</li><span class='footer_line'></span>
+                 <li>合作伙伴</li><span class='footer_line'></span>
                 <li>合作伙伴2</li>
             </ul>
             <div class="clear"></div>

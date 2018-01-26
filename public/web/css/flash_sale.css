@@ -2,7 +2,9 @@
     text-decoration:none;
 }
 
-
+.btn{
+    right: 30px;
+}
 
 .items{
     background:#E1B05A ;

@@ -8,10 +8,21 @@ body .layui-layer-lan .layui-layer-btn .layui-layer-btn1{background:#fff;}
 .navbar-inverse .navbar-nav>.active>a,.pyt_header .collapse .header_active{
     color: #E0AB4A;
 }
+.navbar-inverse .navbar-nav>.active>a{
+    background: transparent;
+}
 
+/*placeholder的样式*/
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: #ddd;
+}
+input::-webkit-input-placeholder{
+    color: #ddd;
+}
 
-
-
+input:-ms-input-placeholder{
+    color: #ddd;
+}
 
 
 /*������ʽ*/
@@ -23,7 +34,7 @@ body{
     background:#eee ;
 }
 .pyt_navbar-nav{
-    margin-left: 70px;
+    margin-left: -27px;
 }
 .pyt_search_nav{
     position: relative;
@@ -32,16 +43,19 @@ body{
     margin-left: 58px;
 }
 .navbar-default .navbar-nav>li>a{
-    font-size:14px;
+    font-size:12px;
     font-family:NotoSansHans-Regular;
-    color:rgba(153,153,153,1);
+    color:#0c0c0c;
+}
+.navbar-nav>li>a{
+    line-height: 12px;
 }
 .navbar-default .navbar-nav>li>a:hover{
     color: #E0AB4A;
 }
 .navbar-form .form-control{
-    width:100% ;
-    padding-left: 80px;
+    width:750px;
+    padding-left: 78px;
 }
 .container{
     border: none;
@@ -51,6 +65,7 @@ body{
 }
 .navbar{
     margin-bottom: 0;
+    border-radius: 0px;
 }
 .navbar-brand{
     padding: 15px 0px;
@@ -79,18 +94,17 @@ body{
     display: inline-block;
     border-right: 1px solid #999;
     width: 64px;
-    color: #999999;
+    color: #ddd;
 }
 .navbar-form .form-group{
     position: relative;
-    width:180% ;
 }
 .pyt_search_nav{
     position: relative;
 }
 
 .container-fluid>.pyt_navbar-header{
-    margin-left: 32px;
+    margin-left: 22px;
     position: absolute;
     top: 2px;
 }
@@ -138,12 +152,18 @@ body{
     width:80px ;
     padding: 4px;
     font-size: 14px;
-    border-right:2px solid #fff;
     list-style-type:none;
     margin-top: 4px;
     margin-bottom: 6px;
     text-align: center;
     color: #999999 ;
+}
+.footer_line{
+    display: inline-block;
+    border-right: 2px solid #ddd;
+    height: 14px;
+    float: left;
+    margin-top: 10px;
 }
 .pyt_footer li:last-child{
     border: none;
@@ -201,11 +221,10 @@ body{
     color: #fff;
     background: #FF5500;
     border: 1px solid #FF5500;
-    margin-right: 6px;
 }
 .discount{
     color:#FF5500 ;
-    width:74px ;
+    width:56px ;
     height: 18px;
     border: 1px solid #FF5500 ;
     line-height: 14px;
@@ -222,11 +241,14 @@ body{
 /*content: "";*/
 /*clear: both;*/
 /*}*/
-
+input{outline:none}
 .btn-C{
     color: #fff;
     background:#E1B05A;
-    border: 1px solid #ddd;
+}
+.btn-C:hover{
+    color: #fff;
+    background:#E1B05A;
 }
 .btn-C:hover{
     color: #fff;
@@ -237,11 +259,11 @@ body{
 
 /*ͷ��*/
 .navbar-right .dropdown-menu{
-    right: 313px;
-    top: 34px;
+    right: 252px;
+    top: 20px;
 }
 .dropdown-menu{
-    min-width: 140px;
+    min-width: 109px;
     text-align: center;
     border: none;
 }
@@ -270,26 +292,63 @@ body{
     color: #E1B05A;
 }
 
-/*ͷ��*/
+/*头部*/
 .navbar-nav>li>a{
     padding-top:0px;
     padding-bottom: 0px;
 }
 .navbar-nav>li{
-
     display: inline-block;
     line-height: 30px;
-    margin-top: 10px;
+    margin-top: 14px;
 }
 .nav_line>li{
-    border-right: 1px solid #333;
+    border-left: 1px solid #333;
 }
 .nav_line .last_li{
     border: none;
+    margin-right: 4px;
 }
 .nav_line .first_li{
     border: none;
 }
 .navbar{
     min-height: 40px;
+
+}
+.container{
+    width: 1100px;
+}
+.click_down{
+    background: #fff;
+    color: #E1B05A;
+}
+.dropdown-menu{
+    border-radius: 0px;
+}
+.arr_down{
+    display: inline-block;
+    height: 6px;
+    width: 7px;
+    border-right:1px solid   #E1B05A;
+    border-bottom:1px solid   #E1B05A;
+    position: absolute;
+    top: 0px;
+    left: 98px;
+    transform:rotate(45deg);
+    -ms-transform:rotate(45deg); 	/* IE 9 */
+    -moz-transform:rotate(45deg); 	/* Firefox */
+    -webkit-transform:rotate(45deg); /* Safari 和 Chrome */
+    -o-transform:rotate(45deg);
+}
+/*搜索栏*/
+.search_nav{
+    min-height: 90px;
+    padding-top: 30px;
+    padding-bottom: 40px;
+    background:#f6f6f6;
+}
+/*登录颜色*/
+.navbar-default .navbar-nav>li>.login_color{
+    color: #E1B05A;
 }

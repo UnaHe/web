@@ -5,10 +5,11 @@
                 <ul class="nav navbar-nav">
                     <li class="first_li"><a href="#">给你的不仅仅是优惠</a></li>
                 </ul>
-                <ul class="nav navbar-nav navbar-right">
+                <ul class="nav navbar-nav navbar-right nav_line">
                     @if(\Illuminate\Support\Facades\Auth::check())
-                        <li class="dropdown-toggle"><a
-                                    href="#">{{\Illuminate\Support\Facades\Auth::user()->phone}}</a>
+                        <li class="dropdown-toggle last_li "><a
+                                    href="#" class='login_color'>{{\Illuminate\Support\Facades\Auth::user()->phone}}</a>
+                                    <span class="arr_down"></span>
                         </li>
                         <ul class="dropdown-menu">
                             <li><a href="{{url('/userCenter')}}" class="user_menu">个人中心</a></li>
@@ -23,7 +24,7 @@
 
                     <li><a href="#">企业官网</a></li>
                     <li><a href="{{url('/business')}}" class="@if(\Illuminate\Support\Facades\Request::getRequestUri()== '/business') header_active @endif ">商务合作</a></li>
-                    <li class="last_li"><a href="#">微信交流群</a></li>
+                    <li><a href="#">微信交流群</a></li>
                 </ul>
             </div>
         </div>

@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default container">
+<nav class="navbar navbar-default container search_nav ">
     <div class="container-fluid pyt_search_nav">
         <div class="navbar-header pyt_navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
@@ -8,7 +8,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand pyt_font_size48" href="{{url('/')}}">朋友推</a><span class="line_pyt"></span>
+            <a class="navbar-brand pyt_font_size48" href="{{url('/')}}">朋友惠</a><span class="line_pyt"></span>
             <a class="navbar-brand pyt_font_size48 pyt_color" href="{{url('/')}}">Tuike</a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
@@ -27,8 +27,7 @@
                            value="@if(isset($keyword)){{$keyword }} @endif">
 
                 </div>
-                <button type="button" class="btn btn-C"><span class="glyphicon glyphicon-search"
-                                                              aria-hidden="true"></span></button>
+                <div  class="btn btn-C"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></div>
             </form>
         </div>
     </div>

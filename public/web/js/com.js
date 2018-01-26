@@ -10,7 +10,13 @@ $(function(){
 
     //头部登录下拉菜单
     $(".dropdown-toggle").on("click", function () {
-        $(".dropdown-menu").slideToggle()
+        $(".dropdown-menu").slideDown();
+       if(!$(this).hasClass('click_down')){
+           $(this).addClass('click_down')
+        }else{
+           $(".dropdown-menu").slideUp();
+           $(this).removeClass('click_down')
+       }
     });
 
     var time=60;

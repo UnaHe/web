@@ -137,8 +137,8 @@
                                     </div>
                                     <p class="wx_creat">一键生成</p>
 
-                                    <p class="wx_creat long_pic  weixin-transfer-long-pic " id="transfer-long-pic"
-                                       data-target="#create-pic-tpl-box">生成长图</p>
+                                   <!-- <p class="wx_creat long_pic  weixin-transfer-long-pic " id="transfer-long-pic"
+                                       data-target="#create-pic-tpl-box">生成长图</p>-->
                                 </div>
                             </div>
                         </div>
