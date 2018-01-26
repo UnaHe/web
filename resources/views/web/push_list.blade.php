@@ -133,13 +133,9 @@
                     <div class="single">
                         <a href="{{url('/goods/'. $v['id']).'?columnCode='.$active['active_column_code']}}"
                            target="_blank">
-<<<<<<< HEAD
+
                             <img src='../../images/web/mrtp.jpg' data-img="{{ $v['pic'] }}"  class="img_size lazy">
-=======
-                            <img src="{{ $v['pic'] }}"
-                                    {{--onerror='/images/default-pic2.jpg'--}}
-                                 alt="{{$v['short_title']}}" title="{{$v['short_title']}}" class="img_size">
->>>>>>> eb73a62da22fb36d54bef0c6f613dac97b48f87e
+
                         </a>
 
                         <div class="price_introduce">
@@ -189,13 +185,10 @@
 <script src="/web/lib/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="/web/js/com.js"></script>
 <script src="/js/layer/layer.js"></script>
-<<<<<<< HEAD
+
 <script src="/js/imgLazy.js"></script>
 <script>
-=======
 
-<script type="text/javascript">
->>>>>>> eb73a62da22fb36d54bef0c6f613dac97b48f87e
 
 lazyload.init();
     var next_page = 1;
@@ -230,28 +223,18 @@ lazyload.init();
                         $.each(data.data, function ($key, $val) {
                             var val_url = goods_url_head + '/' + $val.id + goods_url_ext;
                             var pic = $val.pic;
-<<<<<<< HEAD
-                            var short_title = $val.short_title;
-                            if (short_title.length > 10) {
-                                short_title = short_title.substr(0, 10) + '...'
-                            } else {
-                                short_title = short_title + '...'
-                            }
-=======
-                            var short_title = cutString($val.short_title,22);
 
->>>>>>> eb73a62da22fb36d54bef0c6f613dac97b48f87e
+
+
                             var coupon_price = $val.coupon_price;
                             var sell_num = $val.sell_num;
                             var price = $val.price;
                             var commission_finally = $val.commission_finally;
                             var is_tmall = $val.is_tmall !== 0 ? '/web/images/tmail.png' : '/web/images/taobao.png';
                             html += "<div class='single'> <a href='" + val_url + "'target='_blank'> " +
-<<<<<<< HEAD
+
                                     "<img src='../../images/web/mrtp.jpg' data-img='"+pic+"' alt='"+short_title+"' title='"+short_title+"' class='img_size lazy'> </a> " +
-=======
-                                    "<img src='" + pic + "'    alt='" + short_title + "' title='" + short_title + "' class='img_size' > </a> " +
->>>>>>> eb73a62da22fb36d54bef0c6f613dac97b48f87e
+
                                     "<div class='price_introduce'> <p class='title'><a href='" + val_url + "'target='_blank' class='click_open'>" + short_title + "</a> </p>" +
                                     "<p class='discount'><span class='coupun'>券</span>"+" "+coupon_price +"元</p> <p class='mouth_num'>月销：<span>" + sell_num + "</span></p>" +
                                     "<p class='coupon_back'><span class='small_word small_color'>券后:</span><span class='small_word'>￥</span><span>" + price + "</span></p>" +
