@@ -12,9 +12,9 @@
                 <li class="@if(\Illuminate\Support\Facades\Request::getRequestUri()== '/columns/xiaoliangbaokuan/goods') active @endif">
                     <a href="{{url('/columns/xiaoliangbaokuan/goods')}}">爆款专区</a></li>
                 <li class="@if(\Illuminate\Support\Facades\Request::getRequestUri()== '/columns/meishijingxuan/goods') active @endif">
-                    <a href="{{url('/columns/meishijingxuan/goods')}}">美食精选</a></li>
+                    <a href="{{url('/columns/meishijingxuan/goods')}}"><img src='/web/images/foodicon.png' class='img_food'/> 美食精选</a></li>
                 <li class="@if(\Illuminate\Support\Facades\Request::getRequestUri()== '/columns/jiajujingxuan/goods') active @endif">
-                    <a href="{{url('/columns/jiajujingxuan/goods')}}">家具精选</a></li>
+                    <a href="{{url('/columns/jiajujingxuan/goods')}}"><img src='/web/images/jjICON.png' class='img_foods'/> 家具精选</a></li>
             </ul>
         </div>
     </div>

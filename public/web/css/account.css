@@ -3,8 +3,8 @@
     height: 80px;
     padding: 26px;
     border: 1px solid #ddd;
-    margin-top: 30px;
-    margin-left: 66px;
+    margin-top: 40px;
+    margin-left: 100px;
 }
 .pyt_change{
     display: inline-block;
@@ -14,12 +14,16 @@
     line-height: 28px;
     background:rgba(225,176,90,1);
     border: 1px solid rgba(225,176,90,1);
-    border-radius: 6px ;
+    border-radius: 2px ;
     color: #fff;
     margin-left: 48px;
 }
+
 .pyt_center span{
-    color: #555;
+    color: rgba(153, 153, 153, 1);
+}
+.btn{
+    right: 30px;
 }
 /*模态框样式*/
 .change_password{

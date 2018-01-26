@@ -162,8 +162,7 @@
 
                 @foreach($list as $k => $v)
                     <div class="single">
-                        <img src="{{ $v['pic'] }}" alt="..." class="img_size">
-
+                        <img src='/web/images/mrtp.jpg' data-img="{{ $v['pic'] }}" alt="..." class="img_size lazy">
                         <div class="price_introduce">
                             <p class="title"> {{str_limit($v['short_title'], $limit = 30, $end = '...')}}</p>
 
@@ -258,11 +257,13 @@
 <scrpit src="/web/lib/bootstrap/dist/js/bootstrap.min.js"></scrpit>
 <script src="/web/js/com.js"></script>
 <script src="https://cdn.bootcss.com/html2canvas/0.4.1/html2canvas.js"></script>
+<script src="/js/imgLazy.js"></script>
 
 <script type="text/javascript" src="/js/web/clipboard.js"></script>
 
 
 <script type="text/javascript">
+lazyload.init();
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
