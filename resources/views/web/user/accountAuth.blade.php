@@ -109,7 +109,7 @@
                     <p class="notice notice_color">注意：请登录当前授权的联盟账号查询PID</p>
                     <a href="http://pub.alimama.com/myunion.htm#!/manage/zone/zone?tab=3" target="_blank"><p
                                 class="notice al_PID">查询阿里妈妈的PID</p></a>
-                    <button class="save stb-btn" data-dismiss="modal">保存</button>
+                    <button class="save stb-btn sub_btn" data-dismiss="modal">保存</button>
                 </div>
             </div>
         </div>
@@ -141,86 +141,10 @@
 <script src="/web/lib/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="/web/js/com.js"></script>
 <script src="/web/lib/bootstrapvalidator/dist/js/bootstrapValidator.js"></script>
+<script src="/web/js/accountAuth.js"></script>
 <script>
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-
-    $('.auth-login').click(function () {
-        e = layer.open({
-            type: 2,
-            title: '授权并登陆',
-            shadeClose: true,
-            shade: 0.8,
-            area: ['760px', '550px'],
-            content: "{{url('auth')}}", //iframe的url
-        });
-    });
-
-
     var formPost = "{{url('updateAuth')}}";
-    $('.stb-btn').click(function () {
-        $(this).attr('disabled', true);
-        $.ajax({
-            type: "POST",
-            url: formPost,
-            data: $('form').serialize(),
-            dataType: "json",
-            success: function (data) {
-                if (data.code == 200) {
-                    var msg = data.data.message == '' ? '操作成功' : data.data.message;
-                    layer.alert(msg, {
-                        skin: 'layui-layer-lan' //样式类名
-                        , closeBtn: 0
-                    }, function () {
-                        window.location.reload();
-                    });
-                } else {
-                    var msg = data.msg.msg == '' ? '操作失败' : data.msg.msg;
-                    layer.alert(msg, {
-                        skin: 'layui-layer-lan' //样式类名
-                        , closeBtn: 0
-                    });
-                    $(this).attr('disabled', false);
-                }
-            }
-        });
-    });
     var delUrl = "{{url('delAuth')}}";
-    $(".cancel_sure").on("click", function () {
-        //    发送请求
-        $.ajax({
-            type: "GET",
-            url: delUrl,
-            dataType: "json",
-            success: function (data) {
-                if (data.code == 200) {
-                    var msg = data.data.message == '' ? '操作成功' : data.data.message;
-                    layer.alert(msg, {
-                        skin: 'layui-layer-lan' //样式类名
-                        , closeBtn: 0
-                    }, function () {
-                        if (typeof url != 'undefined') {
-                            window.location.href = url;
-                        } else {
-                            window.location.reload()
-                        }
-                    });
-
-                } else {
-                    var msg = data.msg.msg == '' ? '操作失败' : data.msg.msg;
-                    layer.alert(msg, {
-                        skin: 'layui-layer-lan' //样式类名
-                        , closeBtn: 0
-                    });
-                }
-            }
-        });
-
-    })
-
-
+    var authUrl="{{url('auth')}}";
 </script>
 </html>

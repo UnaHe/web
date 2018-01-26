@@ -19,19 +19,22 @@
 <div class="container-fluid">
     @include('web.layouts.header')
 
-    <!--搜索导航栏-->
+            <!--搜索导航栏-->
     @include('web.layouts.search')
 
-    <!--导航-->
+            <!--导航-->
     @include('web.layouts.navigation')
 
-    <!--主题部分-->
+            <!--主题部分-->
     <seation class="pyt-seation container-fluid">
         <div class="row  container">
             <div id="tab_personal">
-                <span><a href="{{url('userCenter')}}" class="@if(\Illuminate\Support\Facades\Request::getRequestUri()== '/userCenter')nav_color @endif" >个人中心</a></span>
-                <span><a href="{{url('accountAuth')}}"  class="@if(\Illuminate\Support\Facades\Request::getRequestUri()== '/accountAuth') nav_color @endif">授权管理</a></span>
-                <span><a href="{{url('accountSecurity')}}"  class="@if(\Illuminate\Support\Facades\Request::getRequestUri()== '/accountSecurity') nav_color @endif">账号安全</a></span>
+                <span><a href="{{url('userCenter')}}"
+                         class="@if(\Illuminate\Support\Facades\Request::getRequestUri()== '/userCenter')nav_color @endif">个人中心</a></span>
+                <span><a href="{{url('accountAuth')}}"
+                         class="@if(\Illuminate\Support\Facades\Request::getRequestUri()== '/accountAuth') nav_color @endif">授权管理</a></span>
+                <span><a href="{{url('accountSecurity')}}"
+                         class="@if(\Illuminate\Support\Facades\Request::getRequestUri()== '/accountSecurity') nav_color @endif">账号安全</a></span>
             </div>
             <!-- 中心内容-->
             <form class="user_info">
@@ -67,9 +70,7 @@
                     <label class="col-sm-4 control-label">所在地：</label>
 
                     <div class="col-sm-8">
-                        <select class="form-control address province" name="province" placeholder="请选择所在地">
-
-                        </select>
+                        <select class="form-control address province" name="province" ></select>
                         <select class="form-control address city" name="city"></select>
                     </div>
 
@@ -175,9 +176,9 @@
                     <label class="col-sm-4 control-label">推广收益：</label>
 
                     <div class="col-sm-8">
-                        <select  class="form-control earnings profit" placeholder="请选择收益" name="profit">
+                        <select class="form-control earnings profit" placeholder="请选择收益" name="profit">
 
-                            <option value="">请选择</option>
+                            {{--<option value="">请选择</option>--}}
                             @foreach($profits  as $key=>$val)
                                 <option value="{{$key}}">{{$val}} </option>
                             @endforeach
@@ -210,19 +211,15 @@
 <script src="/web/js/com.js"></script>
 <script src="/web/lib/bootstrapvalidator/dist/js/bootstrapValidator.js"></script>
 <script type="text/javascript" src="/web/js/pcas.js"></script>
-
+<script type="text/javascript" src="/web/js/userCenter.js"></script>
 
 <script>
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
+
     var formPost = "{{url('userCenter')}}";
-       new PCAS("province", "city");
+
     //编辑回显
-            @if($user_info)
-            var sex = "{{ $user_info->sex}}";
+    @if($user_info)
+    var sex = "{{ $user_info->sex}}";
     var province = "{{$user_info->province}}";
     var city = "{{$user_info->city}}";
     var work_type = "{{$user_info->work_type}}";
@@ -236,166 +233,23 @@
         $('.profit').val(profit);
         if (province && city) {
             new PCAS("province", "city", province, city);
+        } else {
+            new PCAS("province", "city");
         }
         @if(!empty($user_info->promotion))
         @foreach($user_info->promotion as $v)
-        $("input:checkbox[value="+{{$v}}+"]").
-        attr('checked', 'true');
+        $("input:checkbox[value="+{{$v}}+"]").attr('checked', 'true');
         @endforeach
         @endif
-
 
     }
     @else
 //所在地二级联动
-  new PCAS("province", "city");
-
+    new PCAS("province", "city");
     @endif
 
 
 
-// //提交表单事件
-$(".pyt_sub").on('click',function(e){
-    var sex= $(".pyt_sex");
-    var birthday=$(".birthday").val();
-    var address=$(".address").val();
-    var pyt_workType=$(".pyt_workType");
-    var pyt_nature=$(".pyt_nature").val();
-    var department=$(".department").val();
-    var earnings=$(".earnings").val();
-    var organization=$(".organization").val();
-    var QQnum=$(".QQnum").val()
-    var checkbox=$(".checkbox");
-    var checked_val,pyt_workType_one;
-    var checkbox_choice=[];
-    for(var i=0;i<sex.length;i++){
-        if($(sex[i]).prop('checked')){
-            checked_val=$(sex[i]).val()
-        }
-    }
-    for(var i=0;i<pyt_workType.length;i++){
-        if($(pyt_workType[i]).prop('checked')){
-            pyt_workType_one=$(pyt_workType[i]).val()
-        }
-    }
-    for(var i=0;i<checkbox.length;i++){
-        if($(checkbox[i]).prop('checked')){
-            checkbox_choice.push($(checkbox[i]).val())
-        }
-    }
 
-    if(birthday!=''&&address!=''&&pyt_nature!=''!=department&&earnings!=''&&organization!=''&&QQnum!=''){
-        //    发请求
-
-            $.ajax({
-                type: "POST",
-                url: formPost,
-                data: $('.user_info').serialize(),
-                dataType: "json",
-                success: function (data) {
-                    if (data.code==200) {
-                        if (data.data.message) {
-                            layer.alert(data.data.message, {
-                                skin: 'layui-layer-lan' //样式类名
-                                , closeBtn: 0
-                            },function(){
-                                    window.location.reload()
-                            });
-                        }
-                    }else {
-                        layer.alert(data.msg.msg, {
-                            skin: 'layui-layer-lan' //样式类名
-                            ,closeBtn: 0
-                        });
-                        $(e).attr('disabled',false);
-                    }
-                }
-            });
-
-
-    }
-})
-//表单验证
-$(function () {
-    $('form').bootstrapValidator({
-        message: 'This value is not valid',
-        feedbackIcons: {
-            valid: 'glyphicon glyphicon-ok',
-            invalid: 'glyphicon glyphicon-remove',
-            validating: 'glyphicon glyphicon-refresh'
-        },
-        fields: {
-            qq_id: {
-                message: '请输入正确的QQ号',
-                validators: {
-                    notEmpty: {
-                        message: 'QQ号不能为空'
-                    },
-                    stringLength: {
-                        min: 8,
-                        max: 11,
-                        message: 'QQ号的长度为8—11位'
-                    },
-                    regexp: {
-                        regexp: /^[0-9_\.]+$/,
-                        message: 'QQ只能是数字'
-                    },
-                },
-            },
-            birthday: {
-                validators: {
-                    notEmpty: {
-                        message: '请选择出生日期'
-                    }
-                }
-            },
-            //单位验证
-            company: {
-                validators: {
-                    notEmpty: {
-                        message: '单位名称不能为空'
-                    }
-                }
-            },
-            //部门验证
-            department: {
-                validators: {
-                    notEmpty: {
-                        message: '部门或职位不能为空'
-                    }
-                }
-            },
-        }
-    });
-});
-
-    //兼容placeholder----------------------IE版
-    $(function(){
-        jQuery('[placeholder]').focus(function() {
-            var input = jQuery(this);
-            if (input.val() == input.attr('placeholder')) {
-                input.val('');
-                input.removeClass('placeholder');
-            }
-        }).blur(function() {
-            var input = jQuery(this);
-            if (input.val() == '' || input.val() == input.attr('placeholder')) {
-                input.addClass('placeholder');
-                input.val(input.attr('placeholder'));
-            }
-        }).blur().parents('form').submit(function() {
-            jQuery(this).find('[placeholder]').each(function() {
-                var input = jQuery(this);
-                if (input.val() == input.attr('placeholder')) {
-                    input.val('');
-                }
-            })
-        });
-    })
-
-
-    $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
-    })
 </script>
 </html>

@@ -99,51 +99,9 @@
 <script src="/js/layer/layer.js"></script>
 <script src="/web/js/com.js"></script>
 <script src="/web/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-
+<script src="/web/js/accountSecurity.js"></script>
 <script>
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
     var getCodeUrl = "{{url('getCode')}}";
     var formPost = "{{url('accountUpdatePwd')}}";
-
-    $('.sub_btn').click(function () {
-        $(this).attr('disabled', true);
-        $.ajax({
-            type: "POST",
-            url: formPost,
-            data: $('form').serialize(),
-            dataType: "json",
-            success: function (data) {
-                if (data.code == 200) {
-                    var msg=data.data.message==''?'操作成功':data.data.message;
-                        layer.alert(msg, {
-                            skin: 'layui-layer-lan' //样式类名
-                            , closeBtn: 0
-                        }, function () {
-                            window.location.reload();
-                        });
-                } else {
-                    var msg=data.msg.msg==''?'操作失败':data.msg.msg;
-                    layer.alert(msg, {
-                        skin: 'layui-layer-lan' //样式类名
-                        , closeBtn: 0
-                    });
-                    $(this).attr('disabled', false);
-                }
-            }
-        });
-    });
-
-    <!-- 头部登录下拉菜单-->
-    // 模态框
-    $('#myModal').on('shown.bs.modal', function () {
-        $('#myInput').focus()
-    })
-
-
-
 </script>
 </html>
