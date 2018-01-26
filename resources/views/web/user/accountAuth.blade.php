@@ -70,11 +70,11 @@
                 @endif
                 <p class="state">说明：</p>
 
-                <p class="state">1.使用高效廉洁，需要登录你的淘宝账号进行授权！</p>
+                <p class="state states">1.使用高效廉洁，需要登录你的淘宝账号进行授权！</p>
 
-                <p class="state">2.一般授权时间为30天，如果中途失败，会提示重新授权！</p>
+                <p class="state states">2.一般授权时间为30天，如果中途失败，会提示重新授权！</p>
 
-                <p class="spal_state">3.注意：转换时，务必使用授权的联盟账号中的PID，若PID在授权账号不存在，会廉洁失败。</p>
+                <p class="spal_state states">3.注意：转换时，务必使用授权的联盟账号中的PID，若PID在授权账号不存在，会廉洁失败。</p>
 
             </div>
         </div>

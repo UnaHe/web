@@ -9,11 +9,13 @@
 .col-sm-4{
     width: 17.33%;
     text-align: right;
-    margin-top: 22px;
+    margin-top: 26px;
+    font-size: 14px;
+    color:rgba(102, 102, 102, 1);
 }
 
 .col-sm-8{
-    margin-top: 18px;
+    margin-top: 22px;
 }
 .pyt_radio_box{
     width: 20px;
@@ -22,7 +24,7 @@
     width: 38%;
     height:40px ;
     background:rgba(225,176,90,1);
-    border-radius: 12px;
+    border-radius: 2px;
     border: 1px solid rgba(225, 176, 90, 1);
     font-size:14px;
     font-family:NotoSansHans-Regular;
@@ -45,9 +47,10 @@
 .pyt_checkbox{
     display: inline-block;
     width: 82px;
-    height: 30px;
-    line-height: 30px;
+    height: 24px;
+    line-height: 10px;
     position: relative;
+    top: 2px;
 }
 .pyt_checkbox_other{
     width: 184px;
@@ -55,10 +58,23 @@
 .pyt_checkbox span{
     display: inline-block;
     position: absolute;
-    top: -2px;
+    top: 4px;
     left: 18px;
+    font-size: 14px;
 }
 .pyt_checkbox .jr_ie{
     top: -7px;
+}
+.btn{
+    right: 30px;
+}
+
+
+/*个人中心*/
+.city,.province{
+    display: inline-block;
+}
+.city{
+    margin-left:14px;
 }
 

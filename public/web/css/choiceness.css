@@ -57,7 +57,13 @@
     color: #666;
     font-family:NotoSansHans-Regular;
     height: 22px;
+    width: 100%;
     overflow: hidden;
+}
+.point_three{
+    position: absolute;
+    top: 6px;
+    right: 2px;
 }
 .discount,.mouth_num,.coupon_back,.commission,.log_pro{
     display: inline-block;

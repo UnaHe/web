@@ -166,8 +166,8 @@
 
                 @foreach($list as $k => $v)
                     <div class="single">
-                        <a href="{{url('/goods/'. $v['id']).'?columnCode='.$active['active_column_code']}}"
-                                ><img src="{{ $v['pic'] }}" alt="..." class="img_size"></a>
+
+                        <img src='/web/images/mrtp.jpg' data-img="{{ $v['pic'] }}" alt="..." class="img_size lazy">
 
                         <div class="price_introduce">
                             <p class="title">
@@ -266,13 +266,48 @@
 <script src="/js/layer/layer.js"></script>
 <scrpit src="/web/lib/bootstrap/dist/js/bootstrap.min.js"></scrpit>
 <script src="https://cdn.bootcss.com/html2canvas/0.4.1/html2canvas.js"></script>
+
+<script src="/js/imgLazy.js"></script>
+
+
 <script type="text/javascript" src="/js/web/clipboard.js"></script>
 <script src="/web/js/com.js"></script>
 <script src="/web/js/info.js"></script>
 
 <script type="text/javascript">
-    var transfer_link_url = "{{url('transferLinkWeb')}}";
+  var transfer_link_url = "{{url('transferLinkWeb')}}";
     var authUrl="{{url('auth')}}";
+
+lazyload.init();
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    //生成长图,测试中
+    $("#transfer-long-pic").click(function () {
+        var mtk = document.getElementById('create-pic-tpl-box');
+        mtk.style.display = 'block'
+        html2canvas($("#area-left"), {
+            onrendered: function (canvas) {
+                //把截取到的图片替换到a标签的路径下载
+                $("#download").attr('href', canvas.toDataURL());
+
+                //下载下来的图片名字
+                $("#download").attr('download', 'share.jpg');
+//                $('#can_img').attr('src', canvas.toDataURL())
+                document.getElementById('area-left').appendChild(canvas);
+            },
+            backgroundColor: '#FFF',
+//可以带上宽高截取你所需要的部分内容
+//     ,
+//     width: 300,
+//     height: 300
+        });
+    });
+
+
 
     /**
      * 设置主图

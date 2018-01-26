@@ -1,10 +1,11 @@
 .pyt_center{
     margin-top: 40px;
     font-size: 14px;
-    padding: 0 80px;
+    padding: 0 100px;
 }
 .pyt_ID{
     color: #999;
+    margin-bottom: 20px;
 }
 .pyt_ID span{
     color:#E0AB4A;
@@ -21,6 +22,14 @@
 }
 .state{
     color: #999;
+    margin-bottom: 20px;
+}
+.states{
+    margin-bottom: 2px;
+    margin-left: 6px;
+}
+.btn{
+    right: 30px;
 }
 .spal_state{
     color: #E16D5A ;
@@ -34,6 +43,7 @@
     width: 80px;
     height: 30px;
     border: 1px solid #E1B05A;
+    margin-bottom: 60px;
 }
 .pyt_noAuth{
     display: block;

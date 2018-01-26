@@ -43,17 +43,17 @@
 
                     <div class="col-sm-8 pyt_form-control">
                         <p class="pyt_checkbox">
-                            <input type="radio" name="sex" class="pyt_sex" value="1"/>
+                            <input type="radio" name="sex" class="pyt_sex single_pyt" value="1"  id='chechboxs_single5'/><label class='hiddens_single' for="chechboxs_single5"></label>
                             <span>男</span>
                         </p>
 
                         <p class="pyt_checkbox">
-                            <input type="radio" name="sex" class="pyt_sex" value="2"/>
+                            <input type="radio" name="sex" class="pyt_sex single_pyt" value="2"  id='chechboxs_single6'/><label class='hiddens_single' for="chechboxs_single6"></label>
                             <span>女</span>
                         </p>
 
                         <p class="pyt_checkbox">
-                            <input type="radio" name="sex" class="pyt_sex" value="0"/>
+                            <input type="radio" name="sex" class="pyt_sex single_pyt" value="0"  id='chechboxs_single7'/><label class='hiddens_single' for="chechboxs_single7"></label>
                             <span>保密</span>
                         </p>
                     </div>
@@ -70,8 +70,10 @@
                     <label class="col-sm-4 control-label">所在地：</label>
 
                     <div class="col-sm-8">
-                        <select class="form-control address province" name="province" ></select>
-                        <select class="form-control address city" name="city"></select>
+
+                        <select class="form-control address province" name="province"></select>
+                         <select class="form-control address city" name="city"></select>
+
                     </div>
 
 
@@ -89,17 +91,17 @@
 
                     <div class="col-sm-8 pyt_form-control">
                         <p class="pyt_checkbox">
-                            <input type="radio" name="work_type" class="pyt_workType" value="1"/>
+                            <input type="radio" name="work_type" class="pyt_workType single_pyt" value="1"  id='chechboxs_single2'/><label class='hiddens_single' for="chechboxs_single2"></label>
                             <span>公司</span>
                         </p>
 
                         <p class="pyt_checkbox pyt_checkbox_other">
-                            <input type="radio" name="work_type" class="pyt_workType" value="2"/>
+                            <input type="radio" name="work_type" class="pyt_workType single_pyt" value="2"  id='chechboxs_single3'/><label class='hiddens_single' for="chechboxs_single3"></label>
                             <span>工作室/团队/其他组织</span>
                         </p>
 
                         <p class="pyt_checkbox">
-                            <input type="radio" name="work_type" class="pyt_workType" value="3"/>
+                            <input type="radio" name="work_type" class="pyt_workType single_pyt" value="3"  id='chechboxs_single4'/><label class='hiddens_single' for="chechboxs_single4"></label>
                             <span>自由职业</span>
                         </p>
 
@@ -126,12 +128,12 @@
 
                     <div class="col-sm-8 pyt_form-control">
                         <p class="pyt_checkbox">
-                            <input type="radio" name="work_nature" class="pyt_nature" value="1"/>
+                            <input type="radio" name="work_nature" class="pyt_nature single_pyt" value="1" id='chechboxs_single'/><label class='hiddens_single' for="chechboxs_single"></label>
                             <span>兼职</span>
                         </p>
 
                         <p class="pyt_checkbox">
-                            <input type="radio" name="work_nature" class="pyt_nature" value="2"/>
+                            <input type="radio" name="work_nature" class="pyt_nature single_pyt" value="2" id='chechboxs_single1'/><label class='hiddens_single' for="chechboxs_single1"></label>
                             <span>全职</span>
                         </p>
                     </div>
@@ -139,59 +141,57 @@
                 <div class="form-group">
                     <label class="col-sm-4 control-label">推广方式：</label>
 
-                    <div class="col-sm-8 pyt_form-control">
-                        <p class="pyt_checkbox">
-                            <input type="checkbox" class="checkbox" name="promotion[]" value="1"/>
-                            <span>QQ群</span>
-                        </p>
+                    <ul class="col-sm-8 pyt_form-control">
+                        <li class="pyt_checkbox ">
+                            <input type="checkbox" class="checkbox inputs" name="promotion[]" value="1" id='chechboxs'/><label class='hiddens' for="chechboxs"></label>
+                            <span class='pyt_span'>QQ群</span>
+                        </li>
 
-                        <p class="pyt_checkbox">
-                            <input type="checkbox" class="checkbox" name="promotion[]" value="2"/>
-                            <span>微信</span>
-                        </p>
+                        <li class="pyt_checkbox">
+                            <input type="checkbox" class=" inputs" name="promotion[]" value="2" id='chechboxs1'/><label class='hiddens' for="chechboxs1"></label>
+                            <span class='pyt_span'>微信</span>
+                        </li>
 
-                        <p class="pyt_checkbox">
-                            <input type="checkbox" class="checkbox" name="promotion[]" value="3"/>
-                            <span>微博</span>
-                        </p>
+                        <li class="pyt_checkbox">
+                            <input type="checkbox" class=" inputs" name="promotion[]" value="3" id='chechboxs2'/><label class='hiddens' for="chechboxs2"></label>
+                            <span class='pyt_span'>微博</span>
+                        </li>
 
-                        <p class="pyt_checkbox">
-                            <input type="checkbox" class="checkbox" name="promotion[]" value="4"/>
-                            <span>网站</span>
-                        </p>
+                        <li class="pyt_checkbox">
+                            <input type="checkbox" class=" inputs" name="promotion[]" value="4" id='chechboxs3'/><label class='hiddens' for="chechboxs3"></label>
+                            <span class='pyt_span'>网站</span>
+                        </li>
 
-                        <p class="pyt_checkbox">
-                            <input type="checkbox" class="checkbox" name="promotion[]" value="5"/>
-                            <span>APP</span>
-                        </p>
+                        <li class="pyt_checkbox">
+                            <input type="checkbox" class=" inputs" name="promotion[]" value="5" id='chechboxs4'/><label class='hiddens' for="chechboxs4"></label>
+                            <span class='pyt_span'>APP</span>
+                        </li>
 
-                        <p class="pyt_checkbox">
-                            <input type="checkbox" class="checkbox" name="promotion[]" value="6"/>
-                            <span>线下推广</span>
-                        </p>
+                        <li class="pyt_checkbox">
+                            <input type="checkbox" class=" inputs" name="promotion[]" value="6" id='chechboxs5'/><label class='hiddens'for="chechboxs5"></label>
+                            <span class='pyt_span'>线下推广</span>
+                        </li>
 
-                    </div>
+                    </ul>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-4 control-label">推广收益：</label>
-
                     <div class="col-sm-8">
+
                         <select class="form-control earnings profit" placeholder="请选择收益" name="profit">
 
                             {{--<option value="">请选择</option>--}}
+
                             @foreach($profits  as $key=>$val)
                                 <option value="{{$key}}">{{$val}} </option>
                             @endforeach
-
                         </select>
-
                         <p class="pyt_earnings">您从事淘宝客网络推广的收益</p>
                     </div>
                 </div>
             </form>
             <div class="form-group">
                 <label class="col-sm-4 control-label"></label>
-
                 <div class="col-sm-8">
                     <button type="button" class="pyt_sub">确认并保存</button>
                 </div>
@@ -202,7 +202,6 @@
     <div class="clear"></div>
     <!--页脚-->
     @include('web.layouts.footer')
-
 </div>
 </body>
 <script src="/web/lib/jquery/dist/jquery.js"></script>
@@ -233,8 +232,8 @@
         $('.profit').val(profit);
         if (province && city) {
             new PCAS("province", "city", province, city);
-        } else {
-            new PCAS("province", "city");
+        }else{
+          new PCAS("province", "city");
         }
         @if(!empty($user_info->promotion))
         @foreach($user_info->promotion as $v)

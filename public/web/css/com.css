@@ -14,19 +14,21 @@ body .layui-layer-lan .layui-layer-btn .layui-layer-btn1{background:#fff;}
 
 /*placeholder的样式*/
 ::-moz-placeholder { /* Mozilla Firefox 19+ */
-    color: #ddd;
+    color: rgba(221, 221, 221, 1);
+    font-size: 14px;
 }
 input::-webkit-input-placeholder{
-    color: #ddd;
+    color:rgba(221, 221, 221, 1);
+    font-size: 14px;
 }
 
 input:-ms-input-placeholder{
-    color: #ddd;
+    color: rgba(221, 221, 221, 1);
+    font-size: 14px;
 }
 
 
-/*������ʽ*/
-/*ͷ��*/
+/*公共样式*/
 body{
     background-color:#f6f6f6
 }
@@ -45,7 +47,7 @@ body{
 .navbar-default .navbar-nav>li>a{
     font-size:12px;
     font-family:NotoSansHans-Regular;
-    color:#0c0c0c;
+    color:rgba(153, 153, 153, 1);
 }
 .navbar-nav>li>a{
     line-height: 12px;
@@ -56,6 +58,7 @@ body{
 .navbar-form .form-control{
     width:750px;
     padding-left: 78px;
+    text-align: center;
 }
 .container{
     border: none;
@@ -94,7 +97,8 @@ body{
     display: inline-block;
     border-right: 1px solid #999;
     width: 64px;
-    color: #ddd;
+    color: #777;
+    font-size:14px
 }
 .navbar-form .form-group{
     position: relative;
@@ -116,6 +120,7 @@ body{
     position: absolute;
     right: -348px;
     top: 26px;
+    border-radius: 0px;
 }
 #bs-example-navbar-collapse-2{
     position: absolute;
@@ -254,10 +259,11 @@ input{outline:none; !important}
     color: #fff;
 }
 .form-control{
-    border: 1px solid #eee;
+    border: 1px solid #ddd;
+    border-radius: 0px;
 }
 
-/*ͷ��*/
+/*头部二级菜单*/
 .navbar-right .dropdown-menu{
     right: 252px;
     top: 24px;
@@ -272,25 +278,30 @@ input{outline:none; !important}
     color: #E1B05A;
 }
 
-/*��������*/
+/*个人中心*/
 .row #tab_personal{
-    width: 600px;
-    margin-left: 14%;
+    width: 100%;
+    padding-left: 40px;
     height: 40px;
     line-height: 40px;
+    border-bottom: 1px solid #ddd;
 }
 .row #tab_personal>span{
     display: inline-block;
     width: 76px;
     text-align: center;
     font-size: 16px;
+    margin-right: 60px;
 }
 .row #tab_personal>span a{
-    color: #333;
+    color: #999;
     text-decoration: none;
+    padding-bottom: 8px;
+    font-size: 14px;
 }
 .row #tab_personal>span .nav_color{
     color: #E1B05A;
+    border-bottom: 2px solid #E1B05A;
 }
 
 /*头部*/
@@ -352,4 +363,89 @@ input{outline:none; !important}
 /*登录颜色*/
 .navbar-default .navbar-nav>li>.login_color{
     color: #E1B05A;
+}
+
+/*去除输入框的看色边框*/
+.form-control:focus{
+    border-color: #ddd;
+    box-shadow:none ;
+}
+
+
+/*复选框*/
+.inputs,.single_pyt{
+    display: none;
+}
+.inputs + label {
+    border: 1px solid #ddd;
+    display: inline-block;
+    position: relative;
+    margin-right: 0px;
+}
+.inputs:checked + label {
+    color: #E1B05A;
+}
+
+.inputs:checked + label:after {
+    content: '\2714'; //勾选符号
+position: absolute;
+    top: 0px;
+    left: 0px;
+    color: #E1B05A;
+    text-align: center;
+    /*line-height: 10px;*/
+    font-size: 12px;
+    vertical-align: text-top;
+    width: 100%;
+}
+
+.hiddens,.hiddens_single{
+    display: inline-block;
+    width:14px ;
+    height: 14px;
+    position: absolute;
+    top: 4px;
+}
+/*ie调试*/
+input[type=checkbox]{
+    margin-top: 5px;
+}
+
+/*单选框*/
+.hiddens_single{
+    border-radius: 50%;
+    top: 3px;
+    right: 14px;
+}
+.single_pyt + label {
+    border: 1px solid #ddd;
+    display: inline-block;
+    position: relative;
+    margin-right: 0px;
+}
+.single_pyt:checked + label:after {
+    content: '\2714'; //勾选符号
+position: absolute;
+    top: 0px;
+    left: 0px;
+    color: #E1B05A;
+    text-align: center;
+    line-height: 10px;
+    font-size: 12px;
+    vertical-align: text-top;
+    width: 100%;
+}
+.single_pyt:checked + label {
+    color: #E1B05A;
+}
+button{
+
+    outline:none;
+
+}
+.img_food{
+    margin-top: -3px;
+}
+.img_foods{
+    margin-top: -1px;
 }
