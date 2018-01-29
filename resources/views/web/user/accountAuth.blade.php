@@ -47,16 +47,14 @@
                                 <th>操作</th>
                             </tr>
                             <tr>
-                                <td><input type="checkbox" class="auth_id"/></td>
+                                <td><input type="checkbox" class="auth_id  xz"/></td>
                                 <td>{{$authInfo['taobao_user_nick']}}</td>
                                 <td>{{$authInfo['pids']['qq']==''?'未设置':$authInfo['pids']['qq']}}</td>
                                 <td>{{$authInfo['pids']['weixin']==''?'未设置':$authInfo['pids']['weixin']}}</td>
                                 <td>{{$authInfo['auth_expire_time']}}</td>
                                 <td class="show_model">
-                                    <span class="btns change_password" data-toggle="modal" data-target="#myModal"
-                                          data-cmd="change_pasword">修改PID</span>
-                                    <span class="btns remove_auth" data-toggle="modal" data-target="#myModal_remove"
-                                          data-cmd="change_pasword">删除授权</span>
+                                    <span class="btns change_password"  id="amyModal">修改PID</span>
+                                    <span class="btns remove_auth"  id="amyModal_remove">删除授权</span>
                                 </td>
                             </tr>
                         </table>
@@ -84,15 +82,10 @@
     @include('web.layouts.footer')
             <!--模态框-->
     <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">提示</h4>
-                </div>
-                <div class="modal-body">
+    <div class="modals" id="myModals" >
+    <div class='pyt_boxMtk'>
+                 <p class='modal__title'>提示</p>
+                <div class="modal_body">
                     <form>
                         <div class="col-sm-6">
                             <p class="popularize"><span class="QQ_color">QQ</span>推广渠道PID</p>
@@ -102,33 +95,37 @@
                         <div class="col-sm-6">
                             <p class="popularize"><span class="wx_color">微信</span>推广渠道PID</p>
                             <input type="text" class="WX" name="weixin_pid"
-                                   value="{{!empty($authInfo)?$authInfo['pids']['weixin']:''}}"/>
+                               value="{{!empty($authInfo)?$authInfo['pids']['weixin']:''}}"/>
                         </div>
                     </form>
-
                     <p class="notice notice_color">注意：请登录当前授权的联盟账号查询PID</p>
                     <a href="http://pub.alimama.com/myunion.htm#!/manage/zone/zone?tab=3" target="_blank"><p
                                 class="notice al_PID">查询阿里妈妈的PID</p></a>
                     <button class="save stb-btn sub_btn" data-dismiss="modal">保存</button>
+                      <p class='closes'  id='cc'><span class='glyphicon glyphicon-remove'></span></p>
                 </div>
-            </div>
-        </div>
-    </div>
+                </div>
+          </div>
     <!-- 删除Modal -->
     <div class="mtk_pyt" id="myModal_remove">
     <div id='sc'>
             <h4 class="modal-title" id="myModalLabel_remove">信息</h4>
-            <div class="modal_body">
+            <div class="modal_body modal_body_box">
                 <p class="again_sure">确定删除该授权信息</p>
             </div>
             <div class="modal_footer">
                 <button data-dismiss="modal" class="cancel">取消</button>
                 <button data-dismiss="modal" class="cancel_sure">确定</button>
             </div>
-               <p class='closes'  id='cc'><span class='glyphicon glyphicon-remove'></span></p>
+               <p class='closes'  id='ccc'><span class='glyphicon glyphicon-remove'></span></p>
           </div>
             </div>
         </div>
+
+
+        <!--提示框-->
+        <div id='xgzh'>请选择你要修改的账号</div>
+         <div id='xgzhs'>请选择你要删除的账号</div>
 </body>
 <script src="/web/lib/jquery/dist/jquery.js"></script>
 <script src="/js/layer/layer.js"></script>

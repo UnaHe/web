@@ -15,16 +15,16 @@ body .layui-layer-lan .layui-layer-btn .layui-layer-btn1{background:#fff;}
 /*placeholder的样式*/
 ::-moz-placeholder { /* Mozilla Firefox 19+ */
     color: rgba(221, 221, 221, 1);
-    font-size: 14px;
+    /*font-size: 14px;*/
 }
 input::-webkit-input-placeholder{
     color:rgba(221, 221, 221, 1);
-    font-size: 14px;
+    /*font-size: 14px;*/
 }
 
 input:-ms-input-placeholder{
     color: rgba(221, 221, 221, 1);
-    font-size: 14px;
+    /*font-size: 14px;*/
 }
 
 
@@ -227,6 +227,7 @@ body{
     width: 18px;
     height: 16px;
     color: #fff;
+    position: absolute;
     background: #FF5500;
     border: 1px solid #FF5500;
 }
@@ -455,4 +456,5 @@ button{
 }
 .modal-backdrop{
     background-color: transparent;
+    display: none;
 }

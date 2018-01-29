@@ -59,19 +59,22 @@
 
                         <p class="change_password">
                             <span class="text">验证码：</span>
-                            <input type="text" name="captcha"/>
+                            <input type="text" name="captcha" id='yzm'/>
                             <button class="send_num"  type="button" id="clock" >发送验证码</button>
                         </p>
+                        <p class='tsxx' id='tsxx'>请输入验证码<p>
                         <p class="change_password">
                             <span class="text">新密码：</span>
-                            <input  type="password" name="password"/>
+                            <input  type="password" name="password" id='pas'/>
                         </p>
+                           <p class='tsxx' id='new_pas'>请输入新密码<p>
                         <p class="change_password">
                             <span class="text">确认密码：</span>
-                            <input type="password" name="password_confirmation"/>
+                            <input type="password" name="password_confirmation" id='pas_agin'/>
                         </p>
+                           <p class='tsxx' id='again_pas'>请再次输入密码<p>
                         <p class="change_password">
-                            <span class="sub_btn" >提交</span>
+                            <span class=" sub_btns" >提交</span>
                         </p>
                     </form>
                     <p class='closes'  id='cc'><span class='glyphicon glyphicon-remove'></span></p>

@@ -1,6 +1,6 @@
 /**
  * Created by yangbys168 on 2016-01-14 15:05:51
- * url: http://www.qdfuns.com/notes/15548/9376db07e06b5ac998d614223d4ff4e6
+
  */
 var lazyload = {
     init : function(opt){
@@ -43,7 +43,6 @@ var lazyload = {
             $(window).on('scroll', function() {
                 $(selectorName).each(function(index,node) {
                     var $this = $(this);
-
                     if(!$this.attr(realSrcAtr) || !inViewport(this)){
                         return;
                     }
@@ -68,6 +67,13 @@ var lazyload = {
                 original && (img.src = original);
                 _self.attr('lazyImgLoaded', true);
             }
+
+
+
+
+
         }
     }
+
+
 };

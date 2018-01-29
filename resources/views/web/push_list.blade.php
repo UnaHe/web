@@ -50,8 +50,8 @@
 
                     <div class="scree_box">
                         <ul class=" margin_right">
-                            <li><input type="radio" name="today" value="1" id='chechboxs' class='inputs'/><label
-                                        class='hiddens' for="chechboxs"></label><span class='show_title'>今日新品</span>
+                            <li class=''><input type="radio" name="today" value="1" id='chechboxs' class='inputs'/><label
+                                        class='hiddens' for="chechboxs"></label><span class='show_title '>今日新品</span>  <p class='today_new_pro'></p>
                             </li>
 
                             <li><input type="checkbox" name="isTmall" value="1" id='chechboxs1'
@@ -63,14 +63,14 @@
                                         class='show_title'>金牌卖家</span></li>
                             <li><input type="checkbox" name="isQjd" value="1" id='chechboxs3'
                                        class='inputs team2'/><label
-                                        class='hiddens ' for="chechboxs3"></label><span class='show_title'>旗舰店</span>
+                                        class='hiddens ' for="chechboxs3"></label><span class='show_title'>旗舰店</span>  <p class='today_new_pro1'></p>
                             </li>
                             <li><input type="checkbox" name="isTaoqianggou" value="1" id='chechboxs4'
                                        class='inputs team3'/><label class='hiddens' for="chechboxs4"></label><span
                                         class='show_title'>淘抢购</span></li>
                             <li><input type="checkbox" name="isJuhuashuan" value="1" id='chechboxs5'
                                        class='inputs team3'/><label class='hiddens' for="chechboxs5"></label><span
-                                        class='show_title'>聚划算</span></li>
+                                        class='show_title '>聚划算</span>  <p class='today_new_pro2'></p></li>
                             <li><input type="checkbox" name="isNine" value="1" id='chechboxs6'
                                        class='inputs team4'/><label
                                         class='hiddens' for="chechboxs6"></label><span class='show_title'>9.9包邮</span>
@@ -78,15 +78,16 @@
                             <li><input type="checkbox" name="isTwenty" value="1" id='chechboxs7'
                                        class='inputs team4'/><label
                                         class='hiddens' for="chechboxs7"></label><span class='show_title'>20元封顶</span>
+                                        <p class='today_new_pro3'></p>
                             </li>
                             <li><input type="checkbox" name="isJyj" value="1" id='chechboxs8'
                                        class='inputs team5'/><label
-                                        class='hiddens' for="chechboxs8"></label><span class='show_title'>极有家</span>
+                                        class='hiddens' for="chechboxs8"></label><span class='show_title '>极有家</span>
                             </li>
                             <li><input type="checkbox" name="isHaitao" value="1" id='chechboxs9'
                                        class='inputs team5'/><label
 
-                                        class='hiddens' for="chechboxs9"></label><span class='show_title'>海淘</span></li>
+                                        class='hiddens' for="chechboxs9"></label><span class='show_title'>海淘</span>  <p class='today_new_pro4'></p></li>
                             <li class="margin0"><input type="radio" name="isYfx" value="1" id='chechboxs10'
                                                        class='inputs'/><label class='hiddens' for="chechboxs10"></label><span
                                         class='show_title'>运费险</span></li>
@@ -94,25 +95,25 @@
                         <div class="section">
                             <p class="section_title">
                                 <span>券区间</span>
-                                <input type="text" name="minCouponPrice" placeholder="￥">-<input type="text"
+                                <input type="text" name="minCouponPrice" placeholder="¥">-<input type="text"
                                                                                                  name="maxCouponPrice"
-                                                                                                 placeholder="￥">
+                                                                                                 placeholder="¥">
                             </p>
 
                             <p class="section_title">
                                 <span>价格</span>
-                                <input type="text" name="minPrice" placeholder="￥">-<input type="text" name="maxPrice"
-                                                                                           placeholder="￥">
+                                <input type="text" name="minPrice" placeholder="¥" value=''>-<input type="text" name="maxPrice"
+                                                                                           placeholder="¥">
                             </p>
 
                             <p class="section_title">
                                 <span>佣金比例></span>
-                                <input type="text" name="minCommission" placeholder="￥">
+                                <input type="text" name="minCommission" placeholder="¥">
                             </p>
 
                             <p class="section_title">
                                 <span>销量></span>
-                                <input type="text" name="minSellNum" placeholder="￥">
+                                <input type="text" name="minSellNum" placeholder="¥">
                             </p>
 
                             <p class="section_title">
@@ -161,7 +162,7 @@
                                 </a>
                             </p>
 
-                            <p class="discount"><span class="coupun">券</span> {{ $v['coupon_price']}}元</p>
+                            <p class="discount"><span class="coupun">券</span> <span class='prc_pyt'>{{ $v['coupon_price']}}元</span></p>
 
                             <p class="mouth_num">月销：<span>{{ $v['sell_num'] }}</span></p>
 
@@ -171,8 +172,7 @@
                             </p>
 
                             <p class="commission">
-                                <span class="small_word small_color">佣金</span><span
-                                        class="small_word">￥</span><span>{{ $v['commission_finally'] }}</span>
+                                <span class="small_word small_color">佣金</span><span class="small_word">￥</span><span>{{ $v['commission_finally'] }}</span>
                             </p>
                             <!--商品所属图标-->
                             <p class="log_pro">

@@ -2,7 +2,7 @@
  * Created by tk on 2018/1/26.
  */
 
-$(function(){
+
     //       $(function () {
 //           $('form').bootstrapValidator({
 //               message: 'This value is not valid',
@@ -49,7 +49,54 @@ $(function(){
 //               }
 //           });
 //       });
+// $('.am-btn-sm').click(function (e) {
+//
+// });
 
+$('#form_submit').on("click",function(){
+    var user=$("#user").val();
+    var password=$("#password").val();
+  if(user!=''&&password!=''){
+      $(e).attr('disabled', true);
+      $.ajax({
+          type: "POST",
+          url: formPost,
+          data: $('form').serialize(),
+          dataType: "json",
+          success: function (data) {
+              if (data.code == 200) {
+                  var msg = data.data.message;
+                  msg = msg ? msg : '操作成功';
+                  layer.alert(msg, {
+                      skin: 'layui-layer-lan' //样式类名
+                      , closeBtn: 0
+                  }, function () {
+                      window.location.href = url;
+                  });
 
-
+              } else {
+                  layer.alert(data.msg.msg, {
+                      skin: 'layui-layer-lan' //样式类名
+                      , closeBtn: 0
+                  });
+                  $(e).attr('disabled', false);
+              }
+          }
+      });
+    }
+    if(user==''){
+        var show_user=document.getElementById('show_user')
+        show_user.style.display='block'
+    }else{
+        var show_user=document.getElementById('show_user');
+        show_user.style.display='none'
+    }
+    if(password==''){
+        var show_pas=document.getElementById('show_pas');
+        show_pas.style.display='block'
+    }else{
+        var show_pas=document.getElementById('show_pas');
+        show_pas.style.display='block'
+    }
 })
+

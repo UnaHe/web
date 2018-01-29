@@ -74,7 +74,8 @@
     position: absolute;
 }
 .discount{
-    top: 24px;
+    top: -17px;
+    position: relative;
 }
 .mouth_num{
     font-size: 12px;
@@ -84,8 +85,12 @@
 }
 .coupon_back,.commission{
     top: 66px;
+
     font-size: 18px;
     color: rgba(225, 176, 90, 1);
+}
+.coupon_back{
+    left: 6px;
 }
 .size18{
     font-size: 18px;
@@ -126,6 +131,7 @@
     height: 40px;
     float: left;
     color: #999;
+    font-size: 12px;
     margin: 0px 0px 0px 20px;
     font-family: Simsun;
 }
@@ -134,6 +140,7 @@
     width: 878px;
     color: #333;
     float: left;
+    font-size: 12px;
     -webkit-padding-start: 0px;
     margin-bottom: 0px;
     font-family: Simsun;
@@ -154,10 +161,11 @@
     -webkit-padding-start: 0px;
     margin-bottom: 0px;
     margin-left: -14px;
+    line-height: 26px;
 }
 .margin_right li{
     position: relative;
-    margin-right: 26px;
+    margin-right: 19px;
 }
 .margin_right li:last-child{
     margin-right: 0px;
@@ -197,7 +205,9 @@ position: absolute;
 .margin_right li .show_title{
     margin-left: 16px;
     color: #666;
+    font-size: 12px;
     font-family: Simsun;
+    margin-top: 2px;
 }
 .section{
     float: left;
@@ -207,6 +217,7 @@ position: absolute;
     margin: 0px 28px 0px -14px;
     position: relative;
     font-family: Simsun;
+    font-size: 12px;
 
 }
 .section_title span{
@@ -217,6 +228,9 @@ position: absolute;
     height: 20px;
     margin-top: 10px;
     border: 1px solid #ddd;
+    padding-left: 4px;
+    font-size: 14px;
+    color: #ddd;
 }
 .section_title button{
     width: 44px;
@@ -256,6 +270,40 @@ position: absolute;
 /*ie调试*/
 input[type=checkbox]{
     margin-top: 5px;
+}
+
+.prc_pyt{
+    width: 42px;
+    height: 18px;
+    display: inline-block;
+    position: absolute;
+    right: 0px;
+    text-align: center;
+    line-height: 16px;
+}
+
+/*高级筛选*/
+.today_new_pro,.today_new_pro1,.today_new_pro2,.today_new_pro3,.today_new_pro4{
+    border-right: 1px solid #ddd;
+    height: 16px;
+    display: inline-block;
+    padding: 0px;
+    margin: 0px;
+    position: absolute;
+    top: 6px;
+    left: 72px;
+}
+.today_new_pro1{
+    left: 62px;
+}
+.today_new_pro2{
+    left: 60px;
+}
+.today_new_pro3{
+    left: 72px;
+}
+.today_new_pro4{
+    left: 50px;
 }
 
 

@@ -42,14 +42,15 @@ $(function(){
                             var commission_finally = $val.commission_finally;
                             var is_tmall = $val.is_tmall !== 0 ? '/web/images/tmail.png' : '/web/images/taobao.png';
                             html += "<div class='single'> <a href='" + val_url + "'target='_blank'> " +
-                                "<img src='/web/images/mrtp.jpg' data-img='"+pic+"' alt='"+short_title+"' title='"+short_title+"' class='img_size lazy'> </a> " +
+                                "<img src='/web/images/mrtp.jpg' data-img='"+pic+"' title='"+short_title+"' class='img_size lazy'/> </a> " +
                                 "<div class='price_introduce'> <p class='title'><a href='" + val_url + "'target='_blank' class='click_open'>" + short_title + "</a> </p>" +
-                                "<p class='discount'><span class='coupun'>券</span>"+" "+coupon_price +"元</p> <p class='mouth_num'>月销：<span>" + sell_num + "</span></p>" +
-                                "<p class='coupon_back'><span class='small_word small_color'>券后:</span><span class='small_word'>￥</span><span>" + price + "</span></p>" +
-                                " <p class='commission'><span class='small_word small_color'>佣金:</span><spanclass='small_word'>￥</span>" +
+                                "<p class='discount'><span class='coupun'>券</span>"+"<span class='prc_pyt'>"+coupon_price+"元</span></p> <p class='mouth_num'>月销：<span>" + sell_num + "</span></p>" +
+                                "<p class='coupon_back'><span class='small_word small_color'>券后</span><span class='small_word'>￥</span><span>" + price + "</span></p>" +
+                                " <p class='commission'><span class='small_word small_color'>佣金</span><spanclass='small_word'>￥</span>" +
                                 "<span>" + commission_finally + "</span></p> <p class='log_pro'><img src='" + is_tmall + "' alt='天猫'/></p></div></div>"
                         });
                         $(html).appendTo('.goods-list');
+                        $("img").on("error", function () { $(this).attr("src", "/web/images/mrtp.jpg"); });
                     } else if(data.data.length <0){
                         flag = true;
                         layer.msg('加载完了,以后我们努力给你更多!');
@@ -58,7 +59,9 @@ $(function(){
             });
         }
     });
-
+    $("img").on("error", function () {
+        $(this).attr("src", "/web/images/mrtp.jpg");
+    });
 
 
 

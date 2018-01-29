@@ -70,7 +70,7 @@
     right: 10px;
     top: 1px;
 }
-.sub_btn{
+.sub_btn,.sub_btns{
     width: 80px;
     heigth:30px;
     display: inline-block;
@@ -91,7 +91,7 @@
     width:100%;
     top:0px;
     left:auto;
-    z-index:3333333333 ;
+    z-index:2;
     background: rgba(0,0,0,.4);
     display: none;
 }
@@ -101,17 +101,32 @@
     background: #fff;
     position: relative;
     left:45%;
-
 }
-
 .closes{
     position: absolute;
     top: 10px;
     right: 10px;
     display: inline-block;
-    z-index: 33333333333;
+    z-index: 2222;
     color: #ddd;
 }
 .marginTOP200{
     margin-top: 200px;
+}
+
+/*提示信息*/
+#tsxx,#new_pas,#again_pas{
+    color:rgba(225,176,90,1);
+    display: none;
+    position: absolute;
+    top: 98px;
+    right: 10px;
+    z-index: 333;
+
+}
+#new_pas{
+    top: 137px;
+}
+#again_pas{
+    top: 176px;
 }

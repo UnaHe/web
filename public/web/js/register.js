@@ -84,3 +84,66 @@ $(function(){
 
 
 });
+$('#form_submit').on("click",function(){
+    var username=$("#username").val();
+    var password=$("#password").val();
+    var new_password=$("#new_password").val();
+    var clock=$("#clock_id").val();
+    console.log(username,password,new_password,clock)
+    if(username!=''&&password!=''&&new_password!=''&&clock!=''){
+        $(e).attr('disabled', true);
+        $.ajax({
+            type: "POST",
+            url: formPost,
+            data: $('form').serialize(),
+            dataType: "json",
+            success: function (data) {
+                if (data.code == 200) {
+                    var msg = data.data.message;
+                    msg = msg ? msg : '操作成功';
+                    layer.alert(msg, {
+                        skin: 'layui-layer-lan' //样式类名
+                        , closeBtn: 0
+                    }, function () {
+                        window.location.href = url;
+                    });
+
+                } else {
+                    layer.alert(data.msg.msg, {
+                        skin: 'layui-layer-lan' //样式类名
+                        , closeBtn: 0
+                    });
+                    $(e).attr('disabled', false);
+                }
+            }
+        });
+    }
+    if(username==''){
+        var show_user=document.getElementById('show_username')
+        show_user.style.display='block'
+    }else{
+        var show_user=document.getElementById('show_username');
+        show_user.style.display='none'
+    }
+    if(password==''){
+        var show_pas=document.getElementById('password_ts');
+        show_pas.style.display='block'
+    }else{
+        var show_pas=document.getElementById('password_ts');
+        show_pas.style.display='block'
+    }
+    if(new_password==''){
+        var new_passwords=document.getElementById('new_password_ts');
+        new_passwords.style.display='block'
+    }else{
+        var new_passwords=document.getElementById('new_password_ts');
+        new_passwords.style.display='block'
+    }
+    if( clock==''){
+        var clocks=document.getElementById('clock_idd');
+        clocks.style.display='block'
+    }else{
+        var clocks=document.getElementById('clock_idd');
+        clocks.style.display='block'
+    }
+})

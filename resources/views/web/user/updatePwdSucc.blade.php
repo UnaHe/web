@@ -17,7 +17,7 @@
 @stop
 
 @section('js')
-    <script type="text/javascript">
+   <script type="text/javascript">
         var time = 5;
         var url="{{url('/')}}";
         var intval = setInterval(function () {

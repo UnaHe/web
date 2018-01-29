@@ -5,10 +5,43 @@
 $(function () {
 
     // 模态框
-    $('#scsq').on('shown.bs.modal', function () {
-        $('#myInput').focus()
+    // $('#scsq').on('shown.bs.modal', function () {
+    //    var choice= $(".auth_id");
+    //     for(var i=0;i<choice.length;i++){
+    //         if($(choice[i]).prop('checked')){
+    //             $('#myInput').focus()
+    //         }
+    //     }
+    //
+    //
+    // })
+    //删除模态框
+    $("#amyModal_remove").on("click",function(){
+        var choice= $(".xz");
+        console.log(choice)
+            for(var i=0;i<choice.length;i++){
+                if($(choice[i]).prop('checked')){
+                    var mtk = document.getElementById('myModal_remove');
+                    mtk.style.display = 'block'
+                }else{
+                    var tishi=document.getElementById('xgzhs');
+                    tishi.style.display='block';
+                    setTimeout(function(){
+                        tishi.style.display='none';
+                    },1000)
+                }
+            }
     })
     $("#cc").on("click", function () {
+        var mtk = document.getElementById('myModals');
+        mtk.style.display = 'none'
+    })
+    $("#ccc").on("click", function () {
+        var mtk = document.getElementById('myModal_remove');
+        mtk.style.display = 'none'
+    })
+    //取消删除
+    $(".cancel").on("click",function(){
         var mtk = document.getElementById('myModal_remove');
         mtk.style.display = 'none'
     })
@@ -45,9 +78,22 @@ $(function () {
             }
         });
     })
-
-
-
+// 修改模态框
+    $("#amyModal").on("click",function(){
+        var choice= $(".xz");
+        for(var i=0;i<choice.length;i++){
+            if($(choice[i]).prop('checked')){
+                var mtk = document.getElementById('myModals');
+                mtk.style.display = 'block'
+            }else{
+               var tishi=document.getElementById('xgzh');
+               tishi.style.display='block';
+                setTimeout(function(){
+                    tishi.style.display='none';
+                },1000)
+            }
+        }
+    })
 
 });
 

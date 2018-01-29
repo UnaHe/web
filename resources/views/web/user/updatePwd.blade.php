@@ -12,17 +12,20 @@
             <form>
 
                 <input type="password" name="password" id="username" placeholder="请输入新密码">
-                <input type="password" name="password_confirmation" id="" placeholder="请再次输入新密码">
-
+                 <p class='username_ts' id='username_ts'>请输入密码</p>
+                <input type="password" name="password_confirmation" id="new_id" placeholder="请再次输入新密码">
+                <p class='username_tss' id='username_tss'>请再次输入密码</p>
+                  <p class='username_tss' id='username_tsss'>密码不一致</p>
             </form>
 
-            <input type="submit" class="am-btn  am-btn-sm" value="下一步">
+            <input type="button" class="am-btns" value="下一步" id='next_tips'>
         </div>
     </div>
 @stop
 
 @section('js')
     <script src="/web/js/com.js"></script>
+       <script src="/web/js/forget_password.js"></script>
     <script type="text/javascript">
         var formPost = "{{url('updatePwd')}}";
         var url = "{{url('updatePwdSucc')}}";

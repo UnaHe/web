@@ -32,6 +32,7 @@ Route::post('/getCode', 'Web\UserController@getCode');
 Route::any('/taobaoCode', 'Web\UserController@taobaoCode');
 
 
+
 /**
  * 今日必推列表
  */
@@ -45,9 +46,10 @@ Route::get('/miaosha/goods', 'Web\GoodsController@getMiaoshaGoods');
 
 Route::group(['middleware' => 'auth'], function () {
     //忘记密码=>修改密码
-    Route::match(['get', 'post'], '/updatePwd', 'Web\UserController@updatePwd');
+Route::match(['get', 'post'], '/updatePwd', 'Web\UserController@updatePwd');
     //忘记密码=>修改密码成功
-    Route::match(['get', 'post'], '/updatePwdSucc', 'Web\UserController@updatePwdSucc');
+        Route::match(['get', 'post'], '/updatePwdSucc', 'Web\UserController@updatePwdSucc');
+
     //用户中心
     Route::match(['get', 'post'], '/userCenter', 'Web\UserController@userCenter');
     //账户安全
