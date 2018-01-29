@@ -74,7 +74,7 @@
                             <span class="sub_btn" >提交</span>
                         </p>
                     </form>
-                    <p class='closes'  id='cc'><span>cha</span></p>
+                    <p class='closes'  id='cc'><span class='glyphicon glyphicon-remove'></span></p>
                 </div>
                 </div>
             </div>

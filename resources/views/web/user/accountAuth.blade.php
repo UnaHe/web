@@ -125,7 +125,7 @@
                 <button data-dismiss="modal" class="cancel">取消</button>
                 <button data-dismiss="modal" class="cancel_sure">确定</button>
             </div>
-               <p class='closes'  id='cc'><span>cha</span></p>
+               <p class='closes'  id='cc'><span class='glyphicon glyphicon-remove'></span></p>
           </div>
             </div>
         </div>
