@@ -455,4 +455,5 @@ button{
 }
 .modal-backdrop{
     background-color: transparent;
+    display:none;
 }
