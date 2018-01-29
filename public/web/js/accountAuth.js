@@ -3,6 +3,15 @@
  */
 
 $(function () {
+
+    // 模态框
+    $('#scsq').on('shown.bs.modal', function () {
+        $('#myInput').focus()
+    })
+    $("#cc").on("click", function () {
+        var mtk = document.getElementById('myModal_remove');
+        mtk.style.display = 'none'
+    })
     /**
      * 删除授权
      */

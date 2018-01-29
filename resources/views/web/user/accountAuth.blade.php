@@ -115,26 +115,20 @@
         </div>
     </div>
     <!-- 删除Modal -->
-    <div class="modal fade" id="myModal_remove" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel_remove">信息</h4>
-                </div>
-                <div class="modal-body">
-                    <p class="again_sure">确定删除该授权信息</p>
-
-                </div>
-                <div class="modal-footer">
-                    <button data-dismiss="modal" class="cancel">取消</button>
-                    <button data-dismiss="modal" class="cancel_sure">确定</button>
-                </div>
+    <div class="mtk_pyt" id="myModal_remove">
+    <div id='sc'>
+            <h4 class="modal-title" id="myModalLabel_remove">信息</h4>
+            <div class="modal_body">
+                <p class="again_sure">确定删除该授权信息</p>
+            </div>
+            <div class="modal_footer">
+                <button data-dismiss="modal" class="cancel">取消</button>
+                <button data-dismiss="modal" class="cancel_sure">确定</button>
+            </div>
+               <p class='closes'  id='cc'><span>cha</span></p>
+          </div>
             </div>
         </div>
-    </div>
-</div>
 </body>
 <script src="/web/lib/jquery/dist/jquery.js"></script>
 <script src="/js/layer/layer.js"></script>

@@ -1,7 +1,6 @@
 /**
  * Created by tk on 2018/1/26.
  */
-$(function () {
 
     <!-- 头部登录下拉菜单-->
     // 模态框
@@ -10,4 +9,7 @@ $(function () {
     })
 
 
-});
+    $("#cc").on("click", function () {
+        var mtk = document.getElementById('myModal');
+        mtk.style.display = 'none'
+    })

@@ -50,36 +50,36 @@
 
                     <div class="scree_box">
                         <ul class=" margin_right">
-                            <li><input type="checkbox" name="today" value="1" id='chechboxs' class='inputs'/><label
+                            <li><input type="radio" name="today" value="1" id='chechboxs' class='inputs'/><label
                                         class='hiddens' for="chechboxs"></label><span class='show_title'>今日新品</span>
                             </li>
-                            <li><input type="checkbox" name="isTmall" value="1" id='chechboxs1' class='inputs'/><label
+                            <li><input type="radio" name="isTmall" value="1" id='chechboxs1' class='inputs'/><label
                                         class='hiddens' for="chechboxs1"></label><span class='show_title'>只看天猫</span>
                             </li>
-                            <li><input type="checkbox" name="isJpseller" value="1" id='chechboxs2'
+                            <li><input type="radio" name="isTmall" value="1" id='chechboxs2'
                                        class='inputs'/><label class='hiddens' for="chechboxs2"></label><span
                                         class='show_title'>金牌卖家</span></li>
-                            <li><input type="checkbox" name="isQjd" value="1" id='chechboxs3' class='inputs'/><label
+                            <li><input type="radio" name="isTmall" value="1" id='chechboxs3' class='inputs'/><label
                                         class='hiddens' for="chechboxs3"></label><span class='show_title'>旗舰店</span>
                             </li>
-                            <li><input type="checkbox" name="isTaoqianggou" value="1" id='chechboxs4'
+                            <li><input type="radio" name="isTaoqianggou" value="1" id='chechboxs4'
                                        class='inputs'/><label class='hiddens' for="chechboxs4"></label><span
                                         class='show_title'>淘抢购</span></li>
-                            <li><input type="checkbox" name="isJuhuashuan" value="1" id='chechboxs5'
+                            <li><input type="radio" name="isTaoqianggou" value="1" id='chechboxs5'
                                        class='inputs'/><label class='hiddens' for="chechboxs5"></label><span
                                         class='show_title'>聚划算</span></li>
-                            <li><input type="checkbox" name="isNine" value="1" id='chechboxs6' class='inputs'/><label
+                            <li><input type="radio" name="isNine" value="1" id='chechboxs6' class='inputs'/><label
                                         class='hiddens' for="chechboxs6"></label><span class='show_title'>9.9包邮</span>
                             </li>
-                            <li><input type="checkbox" name="isTwenty" value="1" id='chechboxs7' class='inputs'/><label
+                            <li><input type="radio" name="isNine" value="1" id='chechboxs7' class='inputs'/><label
                                         class='hiddens' for="chechboxs7"></label><span class='show_title'>20元封顶</span>
                             </li>
-                            <li><input type="checkbox" name="isJyj" value="1" id='chechboxs8' class='inputs'/><label
+                            <li><input type="radio" name="isJyj" value="1" id='chechboxs8' class='inputs'/><label
                                         class='hiddens' for="chechboxs8"></label><span class='show_title'>极有家</span>
                             </li>
-                            <li><input type="checkbox" name="isHaitao" value="1" id='chechboxs9' class='inputs'/><label
+                            <li><input type="radio" name="isJyj" value="1" id='chechboxs9' class='inputs'/><label
                                         class='hiddens' for="chechboxs9"></label><span class='show_title'>海淘</span></li>
-                            <li class="margin0"><input type="checkbox" name="isYfx" value="1" id='chechboxs10'
+                            <li class="margin0"><input type="radio" name="isYfx" value="1" id='chechboxs10'
                                                        class='inputs'/><label class='hiddens' for="chechboxs10"></label><span
                                         class='show_title'>运费险</span></li>
                         </ul>

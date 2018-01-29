@@ -72,10 +72,17 @@
     color:#E16D5A;
 }
 .al_PID{
-    color: #666;
+    width: 118px;
+    margin-left: 40%;
+    margin-bottom: 20px;
+    color:rgba(102, 102, 102, 1);
+    border-bottom: 2px solid rgba(102, 102, 102, 1);
 }
 .al_PID:hover{
     cursor:pointer;
+}
+.btns:hover{
+    cursor: pointer;
 }
 .save{
     width: 80px;
@@ -83,39 +90,89 @@
     background:#E1B05A ;
     color: #fff;
     border: 1px solid #E1B05A;
-    border-radius: 4px;
+    border-radius: 2px;
     text-align: center;
     line-height: 30px;
     margin-left: 246px;
 }
+.modal-header{
+    border-bottom: none;
+}
 /*删除授权模态框*/
 #myModal_remove{
-    /*width: 350px;*/
-    height: 190px;
     margin:auto;
+}
+
+.mtk_pyt{
+    position: fixed;
+    height:100%;
+    width:100%;
+    top:0px;
+    left:auto;
+    z-index:3333333333 ;
+    background: rgba(0,0,0,.4);
+    display: none;
+}
+#sc{
+    width: 350px;
+    height: 200px;
+    background-color: #fff;
+    margin-left: 41%;
+    margin-top: 17%;
+    position: relative;
+}
+
+#myModal{
+    background: rgba(0,0,0,.4);
+}
+.modal-dialog{
+    padding-top: 200px;
 }
 .again_sure{
     color:#E16D5A ;
-    margin-left: 212px;
+    margin-left:110px;
+    font-size: 14px;
+    margin-top: 50px;
+}
+.modal-title{
+    width: 100%;
+    margin-left: 0px;
+    text-align: center;
+    line-height: 40px;
+    height: 40px;
+    background-color: rgba(248, 248, 248, 1);
+    border-bottom: 1px solid rgba(221, 221, 221, 1);
 }
 .btn-model{
     rigth:0px;
 }
-.modal-footer{
-    border-top: none;
+.modal_footer{
+    width: 100%;
 }
 .cancel,.cancel_sure{
     width: 80px;
     height: 30px;
+    display: inline-block;
+    margin-top: 35px;
+}
+
+#cc{
+    width: 14px;
+    height: 14px;
+    display: inline-block;
+    position: absolute;
+    top: 4px;
+    right: 10px;
 }
 .cancel{
     margin-right: 20px;
+    margin-left: 84px;
     background: #fff;
     color: #999;
     border: 1px solid #999;
 }
 .cancel_sure{
-    margin-right: 200px;
+
     background:#E1B05A ;
     border: 1px solid  #E1B05A;
     color: #fff;

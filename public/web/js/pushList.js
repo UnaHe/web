@@ -11,7 +11,7 @@ $(function(){
         var scrollTop = $(this).scrollTop();
         var scrollHeight = $(document).height();
         var windowHeight = $(this).height();
-        if(scrollHeight-scrollTop-windowHeight <=300){
+        if(scrollHeight-scrollTop-windowHeight <=600){
             //请求
             next_page += 1
             if (flag) {
@@ -54,13 +54,10 @@ $(function(){
                         flag = true;
                         layer.msg('加载完了,以后我们努力给你更多!');
                     }
-
                 }
             });
         }
     });
-
-
     $('.inputs').click(function(){
         $.each($('.inputs'),function($key,$val){
             $($val).prop('checked',false);

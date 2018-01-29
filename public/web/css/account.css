@@ -26,11 +26,28 @@
     right: 30px;
 }
 /*模态框样式*/
+.header_pyt{
+    width:350px;
+    height:40px;
+    text-align: center;
+    line-height:40px;
+    position: relative;
+    border-bottom:1px solid #ddd;
+    top:60px;
+    left:45%;
+    z-index: 3;
+    background: #f8f8f8;
+    border-radius: 2px 2px 0px 0px;
+    color: #000;
+    font-size:14px;
+
+}
 .change_password{
-    margin-left: 160px;
+    margin-left: 30px;
     position: relative;
     width:226px;
-    margin-top:8px;
+    top:60px;
+    margin-top:20px;
 }
 .change_password .text{
     color: #666;
@@ -62,10 +79,39 @@
     text-align: center;
     background: #E1B05A;
     border-radius: 4px;
-    margin-left: 90px;
+    margin-left: 100px;
     margin-top: 20px;
 }
-#myModal{
-    height: 284px;
-    margin: 260px auto;
+.sub_btn:hover,#cc:hover{
+    cursor: pointer;
+}
+.mtk_pyt{
+    position: fixed;
+    height:100%;
+    width:100%;
+    top:0px;
+    left:auto;
+    z-index:3333333333 ;
+    background: rgba(0,0,0,.4);
+    display: none;
+}
+.mtk_body{
+    width:350px;
+    height:320px;
+    background: #fff;
+    position: relative;
+    left:45%;
+
+}
+
+.closes{
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    display: inline-block;
+    z-index: 33333333333;
+    color: #ddd;
+}
+.marginTOP200{
+    margin-top: 200px;
 }
