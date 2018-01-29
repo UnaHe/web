@@ -54,7 +54,7 @@ class UserController extends Controller
                 return $this->ajaxError(['msg' => '验证码错误']);
             }
             $validator = Validator::make($request->all(), [
-                'username' => 'required|size:11',
+                'username' => 'required|size:11|regex:/^1[34578][0-9]{9}$/',
                 'password' => 'required|min:6|confirmed',
                 'password_confirmation' => 'required|min:6',
                 'captcha' => 'required',
@@ -64,6 +64,7 @@ class UserController extends Controller
                 'min' => ':attribute长度不够.',
                 'confirmed' => ':attribute不一致',
                 'size' => ':attribute格式不合法',
+                'regex'=>':attribute格式不合法'
             ], [
                 'username' => '用户名',
                 'password' => '密码',
@@ -110,7 +111,7 @@ class UserController extends Controller
     }
 
     /**
-     * 注册获取短信
+     * 获取短信
      * @param Request $request
      * @return static
      */
@@ -148,7 +149,6 @@ class UserController extends Controller
     public function forgetPwd(Request $request)
     {
         if ($request->isMethod('post')) {
-
             $codeId = $request->post('codeId');
             $captcha = $request->post('captcha');
             $username = $request->post('username');
@@ -358,16 +358,7 @@ class UserController extends Controller
     }
 
 
-    /**
-     * 跳转淘宝登陆授权页面
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
-    public function auth()
-    {
-        $redirect_uri = url('taobaoCode');
-        $url = "https://oauth.taobao.com/authorize?response_type=code&client_id=" . config("taobao.appkey") . "&redirect_uri=" . $redirect_uri . "&state=1212&view=web";
-        return redirect($url);
-    }
+
 
     /**
      * 获得了code后再去获取用户的信息

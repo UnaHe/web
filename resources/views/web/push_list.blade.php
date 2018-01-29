@@ -94,25 +94,24 @@
                         <div class="section">
                             <p class="section_title">
                                 <span>券区间</span>
-                                <input type="text" name="minCouponPrice" placeholder="￥">-<input type="text"
-                                                                                                 name="maxCouponPrice"
-                                                                                                 placeholder="￥">
+                                <input type="text" name="minCouponPrice" placeholder="￥" value="{{$screenStrArr['minCouponPrice']==0?'':$screenStrArr['minCouponPrice']}}">
+                                -<input type="text" name="maxCouponPrice" placeholder="￥" value="{{$screenStrArr['maxCouponPrice']==0?'':$screenStrArr['maxCouponPrice']}}">
                             </p>
 
                             <p class="section_title">
                                 <span>价格</span>
-                                <input type="text" name="minPrice" placeholder="￥">-<input type="text" name="maxPrice"
-                                                                                           placeholder="￥">
+                                <input type="text" name="minPrice" placeholder="￥"  value="{{$screenStrArr['minPrice']==0?'':$screenStrArr['minPrice']}}">
+                                -<input type="text" name="maxPrice" placeholder="￥"  value="{{$screenStrArr['maxPrice']==0?'':$screenStrArr['maxPrice']}}">
                             </p>
 
                             <p class="section_title">
                                 <span>佣金比例></span>
-                                <input type="text" name="minCommission" placeholder="￥">
+                                <input type="text" name="minCommission" placeholder="￥"  value="{{$screenStrArr['minCommission']==0?'':$screenStrArr['minCommission']}}">
                             </p>
 
                             <p class="section_title">
                                 <span>销量></span>
-                                <input type="text" name="minSellNum" placeholder="￥">
+                                <input type="text" name="minSellNum" placeholder="￥"  value="{{$screenStrArr['minSellNum']==0?'':$screenStrArr['minSellNum']}}">
                             </p>
 
                             <p class="section_title">
@@ -157,7 +156,7 @@
                             <p class="title">
                                 <a href="{{url('/goods/'. $v['id']).'?columnCode='.$active['active_column_code']}}"
                                    target="_blank" class="click_open">
-                                    {{str_limit($v['short_title'], $limit = 24, $end = '...')}}
+                                    {{$v['short_title']}}
                                 </a>
                             </p>
 

@@ -75,6 +75,10 @@ $(function () {
         });
     });
 
+
+
+
+
     //登录授权
     $('.auth-login').click(function () {
         e = layer.open({

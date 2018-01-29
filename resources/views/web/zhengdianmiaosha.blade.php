@@ -90,6 +90,29 @@
             @endforeach
 
             @else
+                    <!--时间点-->
+                <p class="left_arr">
+                    <span class="glyphicon glyphicon-menu-left prev" aria-hidden="true"></span>
+                </p>
+                <lable class="col-sm-12 items"
+                       style="overflow: hidden; position: relative; visibility: visible; width: 100%; height: 40px;">
+
+                    <ul class="rush_point scroll_demo" style="position: absolute; left: 0px;">
+                        @foreach($time_step as $v)
+                            <a href="{{url('/miaosha/goods').'?active_time='.$v['active_time']}}">
+                                <li class="">
+                                    <p>{{$v['time']}}</p>
+
+                                    <p>{{$v['status']}}</p>
+                                </li>
+                            </a>
+                        @endforeach
+                    </ul>
+
+                </lable>
+                <p class="right_arr">
+                    <span class="glyphicon glyphicon-menu-right next" aria-hidden="true"></span>
+                </p>
                 <div class="kong"><img src="/web/images/kong.png"></div>
             @endif
 

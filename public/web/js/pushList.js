@@ -33,9 +33,7 @@ $(function(){
                             function removeAllSpace(short_title) {
                                 return short_title.replace(/\s+/g, "");
                             }
-                            if (short_title.length > 13) {
-                                short_title = short_title.substr(0, 13) + '...'
-                            }
+
                             var coupon_price = $val.coupon_price;
                             var sell_num = $val.sell_num;
                             var price = $val.price;

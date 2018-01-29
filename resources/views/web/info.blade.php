@@ -161,42 +161,48 @@
             <div class="pro_list">
                 <div class="tab_nav">
                     <span>推荐商品</span>
-                    <span class="look_more"><a href="{{url('/columns/'.'today_tui'.'/goods')}}"  class="click_open">查看更多</a></span>
+                    <span class="look_more"><a href="{{url('/columns/'.'today_tui'.'/goods')}}"
+                                               class="click_open">查看更多</a></span>
                 </div>
 
-                @foreach($list as $k => $v)
-                    <div class="single">
+                    @foreach($list as $k => $v)
+                        <div class="single">
 
-                        <img src='/web/images/mrtp.jpg' data-img="{{ $v['pic'] }}" alt="..." class="img_size lazy">
+                            <img src='/web/images/mrtp.jpg' data-img="{{ $v['pic'] }}" alt="..." class="img_size lazy">
 
-                        <div class="price_introduce">
-                            <p class="title">
-                                <a href="{{url('/goods/'. $v['id']).'?columnCode='.$active['active_column_code']}}"
-                                   class="click_open">
-                                    {{$v['short_title']}}
-                                </a></p>
+                            <div class="price_introduce">
+                                <p class="title">
+                                    <a href="{{url('/goods/'. $v['id']).'?columnCode='.$active['active_column_code']}}"
+                                       class="click_open">
+                                        {{$v['short_title']}}
+                                    </a></p>
 
-                            <p class="discount margin_top148"><span class="coupun">券</span> {{ $v['coupon_price']}}元</p>
+                                <p class="discount margin_top148"><span class="coupun">券</span> {{ $v['coupon_price']}}元
+                                </p>
 
-                            <p class="mouth_num">月销：<span>{{ $v['sell_num'] }}</span></p>
+                                <p class="mouth_num">月销：<span>{{ $v['sell_num'] }}</span></p>
 
-                            <p class="coupon_back">
-                                <span class="small_word small_color">券后</span><span class="small_word">￥</span><span>{{ $v['price'] }}</span>
-                            </p>
-                            <p class="commission">
-                                <span class="small_word small_color">佣金</span><span class="small_word">￥</span><span>{{$v['commission_finally']}}</span>
-                            </p>
-                            <!--商品所属图标-->
-                            <p class="log_pro">
-                                @if ($v['is_tmall'] !== 0)
-                                    <img src="/web/images/tmail.png" alt="天猫"/>
-                                @else
-                                    <img src="/web/images/taobao.png" alt="淘宝"/>
-                                @endif
-                            </p>
+                                <p class="coupon_back">
+                                    <span class="small_word small_color">券后</span><span
+                                            class="small_word">￥</span><span>{{ $v['price'] }}</span>
+                                </p>
+
+                                <p class="commission">
+                                    <span class="small_word small_color">佣金</span><span
+                                            class="small_word">￥</span><span>{{$v['commission_finally']}}</span>
+                                </p>
+                                <!--商品所属图标-->
+                                <p class="log_pro">
+                                    @if ($v['is_tmall'] !== 0)
+                                        <img src="/web/images/tmail.png" alt="天猫"/>
+                                    @else
+                                        <img src="/web/images/taobao.png" alt="淘宝"/>
+                                    @endif
+                                </p>
+                            </div>
                         </div>
-                    </div>
-                @endforeach
+                    @endforeach
+
 
 
             </div>
@@ -273,7 +279,9 @@
 
 <script type="text/javascript">
     var transfer_link_url = "{{url('transferLinkWeb')}}";
-    var authUrl = "{{url('auth')}}";
+    var redirectUrl = "{{ url('taobaoCode')}}";
+    var appkey = "{{config("taobao.appkey")}}";
+    var authUrl = "https://oauth.taobao.com/authorize?response_type=code&client_id=" + appkey + "&redirect_uri=" + redirectUrl + "&state=1212&view=web";
 
     /**
      * 设置主图

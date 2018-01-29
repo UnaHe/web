@@ -13,6 +13,9 @@ use App\Services\TaobaoService;
 use App\Services\TransferService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\Debug\ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Tests\Exception\HttpExceptionTest;
 
 
 /**
@@ -29,22 +32,16 @@ class GoodsController extends Controller
      */
     public function recommendGoods(Request $request)
     {
-
         //当前商品标题
         $title = $request->get('title');
         //淘宝商品id
         $taobaoGoodsId = $request->get('taobao_id');
-
-        if (!$title) {
-            return $this->ajaxError("参数错误");
-        }
 
         $list = (new GoodsService())->recommendGoods($title, $taobaoGoodsId);
         if ($list) {
             $list = (new GoodsHelper())->resizeGoodsListPic($list, ['pic' => '240x240']);
         }
         return $list;
-
     }
 
 
@@ -58,7 +55,7 @@ class GoodsController extends Controller
         $columnCode = $request->get('columnCode');
         $data = (new GoodsService())->detail($goodId);
         if (!$data) {
-            return view('web.404');
+            throw new NotFoundHttpException('404');
         }
         $data = (new GoodsHelper())->resizeGoodsListPic([$data], ['pic' => '480x480']);
         $good = $data[0];
@@ -70,14 +67,13 @@ class GoodsController extends Controller
 
         $list = $this->recommendGoods($request);
         $this->commissionHandler($list);
+
+
         $taobao_user_nick = '';
         if ($user = (new TaobaoService())->getAuthToken(Auth::user()->id)) {
             $taobao_user_nick = $user->taobao_user_nick;
         }
 
-//        echo "<pre>";
-//        var_dump($good);
-//        exit;
         $active = ['active_column_code' => $columnCode];
         $title = '商品详情';
         return view('web.info', compact('good', 'list', 'title', 'active', 'taobao_user_nick'));
@@ -104,16 +100,12 @@ class GoodsController extends Controller
      */
     public function columnGoods(Request $request, $columnCode)
     {
-
-//        echo "<pre>";
-//        var_dump($request->all());
-//        exit;
         //商品分类
         $category = $request->get('category');
         //商品排序
         $sort = $request->get('sort');
         //只看今天
-        if ($today=$request->get('today',0)) {
+        if ($today = $request->get('today', 0)) {
             $sort = 2;
         }
         //天猫筛选
@@ -124,26 +116,36 @@ class GoodsController extends Controller
         $isJyj = $request->get('isJyj', 0);
         $isYfx = $request->get('isYfx', 0);
         //淘抢购筛选
-        $isTaoqianggou = $request->get('isTaoqianggou',0);
+        $isTaoqianggou = $request->get('isTaoqianggou', 0);
         //聚划算筛选
-        $isJuhuashuan = $request->get('isJuhuashuan',0);
+        $isJuhuashuan = $request->get('isJuhuashuan', 0);
         //最低价格筛选
-        $minPrice = $request->get('minPrice');
+        $minPrice = $request->get('minPrice', 0) < 0 ? 0 : $request->get('minPrice');
         //最高价格筛选
-        $maxPrice = $request->get('maxPrice');
-        $isNine=$request->get('isNine',0);
+        $maxPrice = $request->get('maxPrice', 0) < 0 ? 0 : $request->get('maxPrice');
+        $isNine = $request->get('isNine', 0);
         $maxPrice = $isNine ? 9.9 : $maxPrice;
-        $isTwenty=$request->get('isTwenty',0);
+        $isTwenty = $request->get('isTwenty', 0);
         $maxPrice = $isTwenty ? 20 : $maxPrice;
+        if ($maxPrice < $minPrice) {
+            $tmpPrice = $maxPrice;
+            $maxPrice = $minPrice;
+            $minPrice = $tmpPrice;
+        }
 
         //最低佣金筛选
-        $minCommission = $request->get('minCommission', 0);
+        $minCommission = $request->get('minCommission', 0) < 0 ? 0 : $request->get('minCommission');
         //最低销量筛选
-        $minSellNum = $request->get('minSellNum', 0);
+        $minSellNum = $request->get('minSellNum', 0) < 0 ? 0 : $request->get('minSellNum');
         //最低券金额筛选
-        $minCouponPrice = $request->get('minCouponPrice');
+        $minCouponPrice = $request->get('minCouponPrice', 0) < 0 ? 0 : $request->get('minCouponPrice');
         //最高券金额筛选
-        $maxCouponPrice = $request->get('maxCouponPrice');
+        $maxCouponPrice = $request->get('maxCouponPrice', 0) < 0 ? 0 : $request->get('maxCouponPrice');
+        if ($maxCouponPrice < $minCouponPrice) {
+            $tmpCouponPrice = $maxCouponPrice;
+            $maxCouponPrice = $minCouponPrice;
+            $minCouponPrice = $tmpCouponPrice;
+        }
         //关键字
         $keyword = $request->get('keyword');
 
@@ -152,12 +154,12 @@ class GoodsController extends Controller
         } else {
             if (!(new ChannelColumnService())->getByCode($columnCode)) {
 //                return $this->ajaxError("栏目不存在");
-                return view('web.404');
+                throw new NotFoundHttpException('404');
             }
         }
         $params = $request->all();
         $params['column_code'] = $columnCode;
-
+        $screenStrArr = ['minCouponPrice' => $minCouponPrice, 'maxCouponPrice' => $maxCouponPrice, 'minPrice' => $minPrice, 'maxPrice' => $maxPrice, 'minCommission' => $minCommission, 'minSellNum' => $minSellNum];
 
         if (!$list = CacheHelper::getCache($params) && !empty($list)) {
             /**
@@ -194,15 +196,50 @@ class GoodsController extends Controller
         $categorys = (new CategoryService())->getAllCategory();
         $active_category = empty($category) ? '' : $category;
         $active = ['active_category' => $active_category, 'active_sort' => $sort, 'active_column_code' => $columnCode];
-        $inputCheckbox=[
-            'today'=>$today,
-    'isTmall'=>$isTmall,'isJpseller'=>$isJpseller,'isQjd'=>$isQjd,
-    'isTaoqianggou'=>$isTaoqianggou,'isJuhuashuan'=>$isJuhuashuan,
-    'isNine'=>$isNine,'isTwenty'=>$isTwenty,
-    'isJyj'=>$isJyj,'isHaitao'=>$isHaitao,
-    'isYfx'=>$isYfx
+        $inputCheckbox = [
+            'today' => $today,
+            'isTmall' => $isTmall, 'isJpseller' => $isJpseller, 'isQjd' => $isQjd,
+            'isTaoqianggou' => $isTaoqianggou, 'isJuhuashuan' => $isJuhuashuan,
+            'isNine' => $isNine, 'isTwenty' => $isTwenty,
+            'isJyj' => $isJyj, 'isHaitao' => $isHaitao,
+            'isYfx' => $isYfx
         ];
-        return view('web.push_list', compact('list', 'title', 'categorys', 'active', 'keyword','inputCheckbox'));
+
+
+        return view('web.push_list', compact('list', 'title', 'categorys', 'active', 'keyword', 'inputCheckbox', 'screenStrArr'));
+    }
+
+
+    private function  _defaultTimeStep()
+    {
+        return [
+            [
+                'time' => '8:00:00',
+                'active_time' => date('Y-m-d') . ' 8:00:00',
+                'status' => '即将开始',
+            ],
+            [
+                'time' => '10:00:00',
+                'active_time' => date('Y-m-d') . ' 10:00:00',
+                'status' => '即将开始',
+            ]
+            , [
+                'time' => '12:00:00',
+                'active_time' => date('Y-m-d') . ' 12:00:00',
+                'status' => '即将开始',
+            ],
+            [
+                'time' => '15:00:00',
+                'active_time' => date('Y-m-d') . ' 15:00:00',
+                'status' => '即将开始',
+            ],
+            [
+                'time' => '20:00:00',
+                'active_time' => date('Y-m-d') . ' 20:00:00',
+                'status' => '即将开始',
+            ]
+
+        ];
     }
 
     /**
@@ -213,15 +250,16 @@ class GoodsController extends Controller
     public function getMiaoshaGoods(Request $request)
     {
         $time_step = $this->getTimes();
+        $columnCode = 'zhengdianmiaosha';
+        $titles = ['today_tui' => '今日必推', 'today_jing' => '今日精选', 'xiaoliangbaokuan' => '爆款专区',
+            'zhengdianmiaosha' => '限时快抢', 'meishijingxuan' => '美食精选', 'jiajujingxuan' => '家居精选'];
+        $title = $titles[$columnCode];
 
         if (empty($time_step)) {
             $list = [];
-            $columnCode = 'zhengdianmiaosha';
-            $titles = ['today_tui' => '今日必推', 'today_jing' => '今日精选', 'xiaoliangbaokuan' => '爆款专区',
-                'zhengdianmiaosha' => '限时快抢', 'meishijingxuan' => '美食精选', 'jiajujingxuan' => '家居精选'];
-            $title = $titles[$columnCode];
+            $time_step = $this->_defaultTimeStep();
             $active = ['active_column_code' => $columnCode];
-            return view('web.zhengdianmiaosha', compact('list', 'title', 'active'));
+            return view('web.zhengdianmiaosha', compact('list', 'title', 'active', 'time_step'));
         }
         $active_time = null;
         foreach ($time_step as $key => $val) {
@@ -248,10 +286,7 @@ class GoodsController extends Controller
             CacheHelper::setCache($list, 5, $params);
         }
 
-        $columnCode = 'zhengdianmiaosha';
-        $titles = ['today_tui' => '今日必推', 'today_jing' => '今日精选', 'xiaoliangbaokuan' => '爆款专区',
-            'zhengdianmiaosha' => '限时快抢', 'meishijingxuan' => '美食精选', 'jiajujingxuan' => '家居精选'];
-        $title = $titles[$columnCode];
+
         $active = ['active_column_code' => $columnCode, 'active_time' => $activeTime];
         return view('web.zhengdianmiaosha', compact('list', 'title', 'active', 'time_step'));
 

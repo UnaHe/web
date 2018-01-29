@@ -116,8 +116,9 @@
     </div>
     <!-- 删除Modal -->
     <div class="mtk_pyt" id="myModal_remove">
-    <div id='sc'>
+        <div id='sc'>
             <h4 class="modal-title" id="myModalLabel_remove">信息</h4>
+
             <div class="modal_body">
                 <p class="again_sure">确定删除该授权信息</p>
             </div>
@@ -125,10 +126,10 @@
                 <button data-dismiss="modal" class="cancel">取消</button>
                 <button data-dismiss="modal" class="cancel_sure">确定</button>
             </div>
-               <p class='closes'  id='cc'><span class='glyphicon glyphicon-remove'></span></p>
-          </div>
-            </div>
+            <p class='closes' id='cc'><span class='glyphicon glyphicon-remove'></span></p>
         </div>
+    </div>
+</div>
 </body>
 <script src="/web/lib/jquery/dist/jquery.js"></script>
 <script src="/js/layer/layer.js"></script>
@@ -139,6 +140,10 @@
 <script>
     var formPost = "{{url('updateAuth')}}";
     var delUrl = "{{url('delAuth')}}";
-    var authUrl="{{url('auth')}}";
+    var authUrl = "{{url('auth')}}";
+    var redirectUrl = "{{ url('taobaoCode')}}";
+    var appkey = "{{config("taobao.appkey")}}";
+    var authUrl = "https://oauth.taobao.com/authorize?response_type=code&client_id=" + appkey + "&redirect_uri=" + redirectUrl + "&state=1212&view=web";
+
 </script>
 </html>
