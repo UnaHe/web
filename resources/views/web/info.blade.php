@@ -161,7 +161,7 @@
             <div class="pro_list">
                 <div class="tab_nav">
                     <span>推荐商品</span>
-                    <span class="look_more">查看更多</span>
+                    <span class="look_more"><a href="{{url('/columns/'.'today_tui'.'/goods')}}"  class="click_open">查看更多</a></span>
                 </div>
 
                 @foreach($list as $k => $v)
