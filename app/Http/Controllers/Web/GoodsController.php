@@ -105,12 +105,15 @@ class GoodsController extends Controller
     public function columnGoods(Request $request, $columnCode)
     {
 
+//        echo "<pre>";
+//        var_dump($request->all());
+//        exit;
         //商品分类
         $category = $request->get('category');
         //商品排序
         $sort = $request->get('sort');
         //只看今天
-        if ($request->get('today')) {
+        if ($today=$request->get('today',0)) {
             $sort = 2;
         }
         //天猫筛选
@@ -121,15 +124,17 @@ class GoodsController extends Controller
         $isJyj = $request->get('isJyj', 0);
         $isYfx = $request->get('isYfx', 0);
         //淘抢购筛选
-        $isTaoqianggou = $request->get('isTaoqianggou');
+        $isTaoqianggou = $request->get('isTaoqianggou',0);
         //聚划算筛选
-        $isJuhuashuan = $request->get('isJuhuashuan');
+        $isJuhuashuan = $request->get('isJuhuashuan',0);
         //最低价格筛选
         $minPrice = $request->get('minPrice');
         //最高价格筛选
         $maxPrice = $request->get('maxPrice');
-        $maxPrice = $request->get('isNine') ? 9.9 : $maxPrice;
-        $maxPrice = $request->get('isTwenty') ? 20 : $maxPrice;
+        $isNine=$request->get('isNine',0);
+        $maxPrice = $isNine ? 9.9 : $maxPrice;
+        $isTwenty=$request->get('isTwenty',0);
+        $maxPrice = $isTwenty ? 20 : $maxPrice;
 
         //最低佣金筛选
         $minCommission = $request->get('minCommission', 0);
@@ -189,7 +194,15 @@ class GoodsController extends Controller
         $categorys = (new CategoryService())->getAllCategory();
         $active_category = empty($category) ? '' : $category;
         $active = ['active_category' => $active_category, 'active_sort' => $sort, 'active_column_code' => $columnCode];
-        return view('web.push_list', compact('list', 'title', 'categorys', 'active', 'keyword'));
+        $inputCheckbox=[
+            'today'=>$today,
+    'isTmall'=>$isTmall,'isJpseller'=>$isJpseller,'isQjd'=>$isQjd,
+    'isTaoqianggou'=>$isTaoqianggou,'isJuhuashuan'=>$isJuhuashuan,
+    'isNine'=>$isNine,'isTwenty'=>$isTwenty,
+    'isJyj'=>$isJyj,'isHaitao'=>$isHaitao,
+    'isYfx'=>$isYfx
+        ];
+        return view('web.push_list', compact('list', 'title', 'categorys', 'active', 'keyword','inputCheckbox'));
     }
 
     /**

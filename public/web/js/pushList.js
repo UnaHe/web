@@ -61,13 +61,34 @@ $(function(){
     });
 
 
-    //$('.inputs').click(function(){
-    //    $.each($('.inputs'),function($key,$val){
-    //        $($val).prop('checked',false);
-    //    })
-    //    $(this).prop('checked',true);
-    //});
 
+
+    $('.team2').click(function(){
+            $.each($('.team2'),function($key,$val){
+                $($val).prop('checked',false);
+            })
+            $(this).prop('checked',true);
+    });
+
+    $('.team3').click(function(){
+        $.each($('.team3'),function($key,$val){
+            $($val).prop('checked',false);
+        })
+        $(this).prop('checked',true);
+    });
+
+    $('.team4').click(function(){
+        $.each($('.team4'),function($key,$val){
+            $($val).prop('checked',false);
+        })
+        $(this).prop('checked',true);
+    });
+    $('.team5').click(function(){
+        $.each($('.team5'),function($key,$val){
+            $($val).prop('checked',false);
+        })
+        $(this).prop('checked',true);
+    });
 
 
 
