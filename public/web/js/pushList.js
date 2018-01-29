@@ -33,16 +33,14 @@ $(function(){
                             function removeAllSpace(short_title) {
                                 return short_title.replace(/\s+/g, "");
                             }
-                            if (short_title.length > 13) {
-                                short_title = short_title.substr(0, 13) + '...'
-                            }
+
                             var coupon_price = $val.coupon_price;
                             var sell_num = $val.sell_num;
                             var price = $val.price;
                             var commission_finally = $val.commission_finally;
                             var is_tmall = $val.is_tmall !== 0 ? '/web/images/tmail.png' : '/web/images/taobao.png';
                             html += "<div class='single'> <a href='" + val_url + "'target='_blank'> " +
-                                "<img src='/web/images/mrtp.jpg' data-img='"+pic+"' title='"+short_title+"' class='img_size lazy'/> </a> " +
+                                "<img src='/web/images/mrtp.jpg' data-img='"+pic+".jpg"+"' title='"+short_title+"' class='img_size lazy'/> </a> " +
                                 "<div class='price_introduce'> <p class='title'><a href='" + val_url + "'target='_blank' class='click_open'>" + short_title + "</a> </p>" +
                                 "<p class='discount'><span class='coupun'>券</span>"+"<span class='prc_pyt'>"+coupon_price+"元</span></p> <p class='mouth_num'>月销：<span>" + sell_num + "</span></p>" +
                                 "<p class='coupon_back'><span class='small_word small_color'>券后</span><span class='small_word'>￥</span><span>" + price + "</span></p>" +

@@ -62,8 +62,7 @@ Route::match(['get', 'post'], '/updatePwd', 'Web\UserController@updatePwd');
     Route::post( '/updateAuth', 'Web\UserController@updateAuth');
     //删除用户授权
     Route::get('/delAuth', 'Web\UserController@delAuth');
-    //跳转用户登录授权页面
-    Route::get('/auth', 'Web\UserController@auth');
+
     //商品详情
     Route::get('/goods/{goodsId}', "Web\GoodsController@detail")->where('goodsId', '[0-9]+');
     //生成连接

@@ -53,7 +53,7 @@
 //
 // });
 
-$('#form_submit').on("click",function(){
+$('#form_submit').on("click",function(e){
     var user=$("#user").val();
     var password=$("#password").val();
   if(user!=''&&password!=''){

@@ -22,18 +22,21 @@ $(function () {
             success: function (data) {
                 if (data.code == 200) {
                     var msg = data.data.message == '' ? '操作成功' : data.data.message;
-                    layer.alert(msg, {
-                        skin: 'layui-layer-lan' //样式类名
-                        , closeBtn: 0
-                    }, function () {
-                        window.location.reload();
-                    });
+                    //layer.alert(msg, {
+                    //    skin: 'layui-layer-lan' //样式类名
+                    //    , closeBtn: 0
+                    //}, function () {
+                    //    window.location.reload();
+                    //});
+                    alert(msg);
+                    window.location.reload();
                 } else {
                     var msg = data.msg.msg == '' ? '操作失败' : data.msg.msg;
-                    layer.alert(msg, {
-                        skin: 'layui-layer-lan' //样式类名
-                        , closeBtn: 0
-                    });
+                    //layer.alert(msg, {
+                    //    skin: 'layui-layer-lan' //样式类名
+                    //    , closeBtn: 0
+                    //});
+                    alert(msg);
                     $(this).attr('disabled', false);
                 }
             }
@@ -72,6 +75,10 @@ $(function () {
             }
         });
     });
+
+
+
+
 
     //登录授权
     $('.auth-login').click(function () {
