@@ -52,6 +52,9 @@ body{
 .navbar-nav>li>a{
     line-height: 12px;
 }
+.nav .first_li>a{
+    padding-left: 0px;
+}
 .navbar-default .navbar-nav>li>a:hover{
     color: #E0AB4A;
 }
@@ -450,4 +453,6 @@ button{
 .img_foods{
     margin-top: -1px;
 }
-
+.modal-backdrop{
+    background-color: transparent;
+}

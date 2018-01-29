@@ -39,6 +39,7 @@ Common = {
             });
     },
 
+
     submit: function (e) {
         $(e).attr('disabled',true);
         $.ajax({
@@ -74,4 +75,7 @@ Common = {
     }
 
 }
+
+
+
 

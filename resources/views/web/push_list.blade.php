@@ -50,9 +50,10 @@
 
                     <div class="scree_box">
                         <ul class=" margin_right">
-                            <li><input type="checkbox" name="today" value="1" id='chechboxs' class='inputs'/><label
+                            <li><input type="radio" name="today" value="1" id='chechboxs' class='inputs'/><label
                                         class='hiddens' for="chechboxs"></label><span class='show_title'>今日新品</span>
                             </li>
+
                             <li><input type="checkbox" name="isTmall" value="1" id='chechboxs1'
                                        class='inputs team2'/><label
                                         class='hiddens ' for="chechboxs1"></label><span class='show_title'>只看天猫</span>
@@ -84,8 +85,9 @@
                             </li>
                             <li><input type="checkbox" name="isHaitao" value="1" id='chechboxs9'
                                        class='inputs team5'/><label
+
                                         class='hiddens' for="chechboxs9"></label><span class='show_title'>海淘</span></li>
-                            <li class="margin0"><input type="checkbox" name="isYfx" value="1" id='chechboxs10'
+                            <li class="margin0"><input type="radio" name="isYfx" value="1" id='chechboxs10'
                                                        class='inputs'/><label class='hiddens' for="chechboxs10"></label><span
                                         class='show_title'>运费险</span></li>
                         </ul>
@@ -207,9 +209,9 @@
     var goods_url_head = "{{url('/goods/')}}";
     var goods_url_ext = "{{'?columnCode='.$active['active_column_code']}}";
     @foreach($inputCheckbox as $key=>$val)
-        var team="{{$key}}";
-        var  team_val="{{$val}}"==0?false:true;
-        $("input:checkbox[name='"+team+"']").prop('checked',team_val);
+                var team = "{{$key}}";
+    var team_val = "{{$val}}" == 0 ? false : true;
+    $("input:checkbox[name='" + team + "']").prop('checked', team_val);
     @endforeach
 </script>
 </html>

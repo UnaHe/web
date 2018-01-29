@@ -44,20 +44,11 @@
     <div class="clear"></div>
     <!--页脚-->
     @include('web.layouts.footer')
-
-
-    <!--模态框-->
-    <!-- Modal -->
-
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">提示</h4>
-                </div>
-                <div class="modal-body">
+   !--模态框-->
+    <div class="mtk_pyt" id="myModal">
+<div class='marginTOP200'>
+                    <p class="header_pyt">修改密码</p>
+                <div class="mtk_body">
                     <form>
                         <p class="change_password">
                             <span class="text">预留手机号：</span>
@@ -75,22 +66,20 @@
                             <span class="text">新密码：</span>
                             <input  type="password" name="password"/>
                         </p>
-
                         <p class="change_password">
                             <span class="text">确认密码：</span>
                             <input type="password" name="password_confirmation"/>
                         </p>
-
                         <p class="change_password">
                             <span class="sub_btn" >提交</span>
                         </p>
-
                     </form>
+                    <p class='closes'  id='cc'><span>cha</span></p>
+                </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
+
+
 
 </body>
 
@@ -103,5 +92,9 @@
 <script>
     var getCodeUrl = "{{url('getCode')}}";
     var formPost = "{{url('accountUpdatePwd')}}";
+
+
+
+
 </script>
 </html>
