@@ -423,6 +423,7 @@ class GoodsService
      * 商品分享描述
      * @param $shareData
      * @return mixed|null
+     * @throws \Exception
      */
     public function getShareDesc($shareData){
         $shareDesc = (new SysConfigService())->get("share_desc");
