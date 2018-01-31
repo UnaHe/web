@@ -5,7 +5,7 @@
 @stop
 
 @section('css')
-    <link rel="stylesheet" href="/web/lib/bootstrap/font-awesome/css/font-awesome.min.css">
+
     <link rel="stylesheet" href="/web/css/reset.css"/>
     <link rel="stylesheet" href="/web/css/com.css"/>
     <link rel="stylesheet" href="/web/css/choiceness.css"/>
@@ -160,17 +160,16 @@
 
                     @foreach($list as $k => $v)
                         <div class="single">
-
-                            <img src='/web/images/mrtp.jpg' data-img="{{ $v['pic'] }}" alt="..." class="img_size lazy">
+                        <a href="{{url('/goods/'. $v['id']).'?columnCode='.$active['active_column_code']}}"
+                       target="_blank" class="click_open">
+                            <img src='/web/images/mrtp.jpg' data-img="{{ $v['pic'] }}.jpg" alt="..." class="img_size lazy">
 
                             <div class="price_introduce">
                                 <p class="title">
-                                    <a href="{{url('/goods/'. $v['id']).'?columnCode='.$active['active_column_code']}}"
-                                       class="click_open">
                                         {{$v['short_title']}}
-                                    </a></p>
+                                   </p>
 
-                                <p class="discount margin_top148"><span class="coupun">券</span> {{ $v['coupon_price']}}元
+                                <p class="discount margin_top148"><span class="coupun">券</span> <span class='prc_pyt'>{{ $v['coupon_price']}}元</span>
                                 </p>
 
                                 <p class="mouth_num">月销：<span>{{ $v['sell_num'] }}</span></p>
@@ -193,6 +192,7 @@
                                     @endif
                                 </p>
                             </div>
+                            </a>
                         </div>
                     @endforeach
 

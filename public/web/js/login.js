@@ -1,9 +1,198 @@
 /**
  * Created by tk on 2018/1/26.
  */
+//查看本地存储
+// var local_username = localStorage["username"];//获取用户名
+// var local_password = localStorage["password"];//获取密码
+// console.log(local_username,local_password)
+// var local_data=[];
+// var local_pas=[];
+// if(local_username ){
+//     local_data.push(local_username)
+// }
+// if(local_password){
+//     local_pas.push(local_password)
+// }
+// console.log(local_data,local_pas)
+//手机号有效性验证
+//手机号输入框失去焦点
+    //获取输入的手机号
+var user_yz=document.getElementById('user');
+user_yz.onblur = function(){
+    var tv = this.value;
+    var reg = /^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\d{8}$/;
+    if (reg.test(tv)){
+        var show_user=document.getElementById('show_user')
+        show_user.style.display='none'
+    }else{
+        var show_user=document.getElementById('show_user')
+        show_user.style.display='block'
+    }
+}
+var password_yz=document.getElementById('password');
+password_yz.onblur = function(){
+    var tv = this.value;
+    console.log(tv)
+    var reg = /^[\w]{6,12}$/;
+    if (reg.test(tv)){
+        var show_pas=document.getElementById('show_pas');
+        show_pas.style.display='none'
+    }else{
+        var show_pas=document.getElementById('show_pas');
+        show_pas.style.display='block'
+    }
+}
+//密码验证
 
 
-    //       $(function () {
+$('#form_submit').on("click",function (e){
+    var index = layer.load(1, {
+        shade: [0.1,'rgba(224,171,74,1)'],
+    });
+    //获取输入的手机号
+    var user=$("#user").val();
+    //获取输入的密码
+    var password=$("#password").val();
+    if(user!=''&&password!=''){
+        $(e).attr('disabled', true);
+        $.ajax({
+            type: "POST",
+            url: formPost,
+            data: $('form').serialize(),
+            dataType: "json",
+            success: function (data) {
+                if (data.code == 200) {
+                    var msg = data.data.message;
+                    msg = msg ? msg : '登录成功';
+                    layer.msg(msg);
+                    window.location.href = url;
+                    //    本地存储用户名和密码
+                    // localStorage.setItem("username",user)
+                    // localStorage.setItem("password",password)
+                    // console.log(window.localStorage)
+                }else{
+                    var show_pas= document.getElementById('show_pas');
+                    show_pas.style.display='block'
+                }
+            }
+        });
+    }
+    if(user==''){
+        var show_user=document.getElementById('show_user')
+        show_user.style.display='block'
+        layer.close(index);
+    }else{
+        var reg = /^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\d{8}$/;
+        if (reg.test(user)){
+            var show_user=document.getElementById('show_user');
+            show_user.style.display='none'
+            layer.close(index);
+        }else{
+            var show_user=document.getElementById('show_user');
+            show_user.style.display='block'
+            layer.close(index);
+        }
+    }
+    if(password==''){
+        var show_pas=document.getElementById('show_pas');
+        show_pas.style.display='block'
+        layer.close(index);
+    }else{
+        var reg = /^[\w]{6,12}$/;
+        if (reg.test(password)){
+            var show_pas=document.getElementById('show_pas');
+            show_pas.style.display='none'
+            layer.close(index);
+        }else{
+            var show_pas=document.getElementById('show_pas');
+            show_pas.style.display='block'
+            layer.close(index);
+        }
+    }
+})
+document.onkeydown=function(e){
+    var keycode=document.all?event.keyCode:e.which;
+    if(keycode==13){
+        var index = layer.load(1, {
+            shade: [0.1,'rgba(224,171,74,1)'],
+        });
+            var user=$("#user").val();
+            var password=$("#password").val();
+            if(user!=''&&password!=''){
+                var index = layer.load(1, {
+                    shade: [0.1,'rgba(224,171,74,1)'],
+                });
+                $(e).attr('disabled', true);
+                $.ajax({
+                    type: "POST",
+                    url: formPost,
+                    data: $('form').serialize(),
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.code == 200) {
+                            var msg = data.data.message;
+                            msg = msg ? msg : '登录成功';
+                            layer.msg(msg);
+                            window.location.href = url;
+                            layer.close(index);
+
+                        //    本地存储用户名和密码
+                        //     localStorage.setItem("username",user)
+                        //     localStorage.setItem("password",password)
+                        //     console.log(window.localStorage)
+
+
+
+                        }else{
+                            var show_pas= document.getElementById('show_pas');
+                            show_pas.style.display='block'
+                            layer.close(index);
+
+                        }
+                    }
+                });
+            }
+        if(user==''){
+            var show_user=document.getElementById('show_user')
+            show_user.style.display='block'
+            layer.close(index);
+        }else{
+            var reg = /^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\d{8}$/;
+            if (reg.test(user)){
+                var show_user=document.getElementById('show_user');
+                show_user.style.display='none'
+                layer.close(index);
+            }else{
+                var show_user=document.getElementById('show_user');
+                show_user.style.display='block'
+                layer.close(index);
+            }
+        }
+        if(password==''){
+            var show_pas=document.getElementById('show_pas');
+            show_pas.style.display='block'
+            layer.close(index);
+        }else{
+            var reg = /^[\w]{6,12}$/;
+            if (reg.test(password)){
+                var show_pas=document.getElementById('show_pas');
+                show_pas.style.display='none'
+                layer.close(index);
+            }else{
+                var show_pas=document.getElementById('show_pas');
+                show_pas.style.display='block'
+                layer.close(index);
+            }
+        }
+        }
+
+}
+
+
+
+
+
+//       $(function () {
 //           $('form').bootstrapValidator({
 //               message: 'This value is not valid',
 //               feedbackIcons: {
@@ -53,50 +242,4 @@
 //
 // });
 
-$('#form_submit').on("click",function(e){
-    var user=$("#user").val();
-    var password=$("#password").val();
-  if(user!=''&&password!=''){
-      $(e).attr('disabled', true);
-      $.ajax({
-          type: "POST",
-          url: formPost,
-          data: $('form').serialize(),
-          dataType: "json",
-          success: function (data) {
-              if (data.code == 200) {
-                  var msg = data.data.message;
-                  msg = msg ? msg : '操作成功';
-                  layer.alert(msg, {
-                      skin: 'layui-layer-lan' //样式类名
-                      , closeBtn: 0
-                  }, function () {
-                      window.location.href = url;
-                  });
-
-              } else {
-                  layer.alert(data.msg.msg, {
-                      skin: 'layui-layer-lan' //样式类名
-                      , closeBtn: 0
-                  });
-                  $(e).attr('disabled', false);
-              }
-          }
-      });
-    }
-    if(user==''){
-        var show_user=document.getElementById('show_user')
-        show_user.style.display='block'
-    }else{
-        var show_user=document.getElementById('show_user');
-        show_user.style.display='none'
-    }
-    if(password==''){
-        var show_pas=document.getElementById('show_pas');
-        show_pas.style.display='block'
-    }else{
-        var show_pas=document.getElementById('show_pas');
-        show_pas.style.display='block'
-    }
-})
 

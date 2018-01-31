@@ -32,6 +32,9 @@ a {
     color: #000;
     text-decoration: none;
 }
+a:hover{
+    color:rgba(224,171,74,1);
+}
 
 hr {
     margin: 5px 5px
@@ -163,7 +166,7 @@ input:-webkit-autofill {
     padding-left: 10px;
     border: 1px solid #eee;
     background: #fff;
-    color: #0e90d2;
+    /*color: #0e90d2;*/
 }
 
 .am-btn-group span {
@@ -217,7 +220,7 @@ input#code {
 
 .am-nav-tabs.am-nav-justify > .am-active > a, .am-nav-tabs.am-nav-justify > .am-active > a:focus, .am-nav-tabs.am-nav-justify > .am-active > a:hover, .am-nav-tabs > li.am-active > a, .am-nav-tabs > li.am-active > a:focus, .am-nav-tabs > li.am-active > a:hover {
     margin-right: 0px;
-    border-bottom: 1px solid #0e90d2;
+    /*border-bottom: 1px solid #0e90d2;*/
     border-radius: 0px;
 }
 
@@ -332,25 +335,33 @@ input#code {
 .avtive {
     color: rgba(224,171,74,1);
 }
-
+.am-btn-primary{
+    box-shadow: none;
+}
 /*密码输入框样式*/
 .user-pass {
     margin-top: 22px;
 }
 
 /*验证输入框字体样式*/
-.am-input-group-label, .am-form-field {
+.am-input-group-label, .am-form-fields {
     font-size: 18px;
 }
 
 /*验证码输入框样式*/
-.login-box .am-form-field {
+.login-box .am-form-fields {
     border: none;
     width: 220px;
     margin-right: 35px;
     border: 1px solid rgba(220, 220, 220, 1);
 }
-
+.am-btn-primary{
+    border: none;
+    background: transparent;
+}
+.user-pass{
+    margin-top: 22px;
+}
 /*验证码输入框按钮样式*/
 .login-box .am-input-group-label:last-child {
     border: 1px solid #ccc;
@@ -361,7 +372,7 @@ input#code {
 
 }
 /*验证码输入框样式*/
-.login-box .input-captcha {
+.login-box .input-captchas {
     height: 50px;
 }
 /*竖线样式*/
@@ -373,7 +384,7 @@ input#code {
     display: inline;
 }
 /*按钮样式*/
-.login-box .am-cf input {
+.login-box .am-cf button {
     line-height: 1.1;margin-top: 10px;background:rgba(224,171,74,1);border-color: rgba(224,171,74,1);
 }
 /*忘记密码字体颜色*/
@@ -387,10 +398,45 @@ form input{
     border: 1px solid rgba(220, 220, 220, 1);
 }
 /*验证样式*/
-.color_tishi{
+.color_tishi,.other_ts{
     color:rgba(225, 176, 90, 1);
     margin-left: 34px;
     display: none;
+    font-size: 14px;
+
+}
+
+
+ /*获取验证码样式*/
+#clocks{
+    cursor: pointer;
+}
+ #vld-tooltip {
+     position: absolute;
+     z-index: 1000;
+     padding: 5px 10px;
+     background: #F37B1D;
+     min-width: 150px;
+     color: #fff;
+     transition: all 0.15s;
+     box-shadow: 0 0 5px rgba(0,0,0,.15);
+     display: none;
+ }
+
+#vld-tooltip:before {
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    width: 0;
+    height: 0;
+    margin-left: -8px;
+    content: "";
+    border-width: 0 8px 8px;
+    border-color: transparent transparent #F37B1D;
+    border-style: none inset solid;
+}
+button,input{
+    outline: none;
 }
 
 

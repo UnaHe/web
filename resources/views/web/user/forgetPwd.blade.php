@@ -14,7 +14,7 @@
                 <input type="hidden" id="codeId" name="codeId" value="">
                 <input type="text" name="username" id="username" placeholder="请输入手机号码">
                 {{--<input type="text" placeholder="验证码">--}}
-                 <p class='username_ts' id='username_ts'>请输入手机号</p>
+                 <p class='username_ts' id='show_username'>请输入手机号</p>
                 <div class="div-input-inline">
                     <input type="text" class="am-form-field input-captcha div-input-inline"
                            name="captcha" placeholder="验证码" id='new_id'>&nbsp;&nbsp;&nbsp;

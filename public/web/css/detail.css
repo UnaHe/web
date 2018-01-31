@@ -112,6 +112,7 @@ body{
     width: 48%;
     height:460px ;
     border: 1px solid #eee;
+    position: relative;
 }
 .template_banner .template_wx{
     float: right;
@@ -156,7 +157,8 @@ body{
     color: #fff;
     text-align: center;
     line-height: 40px;
-    margin-top: 92px;
+ position: absolute;
+    bottom: 1px;
 }
 .wx_creat{
     width: 100%;
@@ -355,7 +357,17 @@ body{
 .auth-login{
     color:rgba(225, 176, 90, 1);
 }
-
+.title{
+    color: #666;
+    font-family:NotoSansHans-Regular;
+    height: 20px;
+    width: 100%;
+    overflow: hidden;
+}
+.discount{
+    top: -6px;
+    position: relative;
+}
 
 
 

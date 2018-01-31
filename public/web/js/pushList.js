@@ -57,38 +57,71 @@ $(function(){
             });
         }
     });
+
+    //图片解析出错
     $("img").on("error", function () {
         $(this).attr("src", "/web/images/mrtp.jpg");
     });
 
 
+        var radioclick=1;
+    $(".team2").on('click',function(){
+        var team2=document.getElementsByClassName('team2');
+        if ($(this).prop('checked')) {
+            if (radioclick % 2 == 0) {
+                $(this).prop("checked", false);
+            }
+            radioclick++;
+        }else{
+            $(this).prop("checked", true);
+            radioclick++;
+        }
 
-    $('.team2').click(function(){
-            $.each($('.team2'),function($key,$val){
-                $($val).prop('checked',false);
-            })
-            $(this).prop('checked',true);
-    });
+    })
+    var radioclick1=1;
+    $(".team3").on('click',function(){
+        var team2=document.getElementsByClassName('team2');
+        if ($(this).prop('checked')) {
+            if (radioclick1 % 2 == 0) {
+                $(this).prop("checked", false);
+            }
+            radioclick1++;
+        }else{
+            $(this).prop("checked", true);
+            radioclick1++;
+        }
 
-    $('.team3').click(function(){
-        $.each($('.team3'),function($key,$val){
-            $($val).prop('checked',false);
-        })
-        $(this).prop('checked',true);
-    });
+    })
+    var radioclick2=1;
+    $(".team4").on('click',function(){
+        var team2=document.getElementsByClassName('team2');
+        if ($(this).prop('checked')) {
+            if (radioclick2 % 2 == 0) {
+                $(this).prop("checked", false);
+            }
+            radioclick2++;
+        }else{
+            $(this).prop("checked", true);
+            radioclick2++;
+        }
 
-    $('.team4').click(function(){
-        $.each($('.team4'),function($key,$val){
-            $($val).prop('checked',false);
-        })
-        $(this).prop('checked',true);
-    });
-    $('.team5').click(function(){
-        $.each($('.team5'),function($key,$val){
-            $($val).prop('checked',false);
-        })
-        $(this).prop('checked',true);
-    });
+    })
+    var radioclick3=1;
+    $(".team5").on('click',function(){
+        var team2=document.getElementsByClassName('team2');
+        if ($(this).prop('checked')) {
+            if (radioclick3 % 2 == 0) {
+                $(this).prop("checked", false);
+            }
+            radioclick3++;
+        }else{
+            $(this).prop("checked", true);
+            radioclick3++;
+        }
+
+    })
+
+
 
 
 

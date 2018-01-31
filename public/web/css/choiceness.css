@@ -90,7 +90,7 @@
     color: rgba(225, 176, 90, 1);
 }
 .coupon_back{
-    left: 6px;
+    left: 11px;
 }
 .size18{
     font-size: 18px;
@@ -139,10 +139,11 @@
     display: inline-block;
     width: 878px;
     color: #333;
-    float: left;
     font-size: 12px;
     -webkit-padding-start: 0px;
     margin-bottom: 0px;
+    position: relative;
+    left: 0px ;
     font-family: Simsun;
 }
 .margin_left4{
@@ -153,6 +154,15 @@
     margin-right: 40px;
     float: left;
     list-style-type:none;
+}
+/*输入框之间的横线*/
+.width1{
+    left: 78px;
+
+}
+.width2{
+    left: 200px;
+
 }
 .margin_right{
     border-bottom: 1px dashed #ddd;
@@ -182,7 +192,10 @@
 .inputs:checked + label {
     color: #E1B05A;
 }
-
+label{
+    mrgin-bottom:0px;
+    font-weight: 100;
+}
 .inputs:checked + label:after {
     content: '\2714'; //勾选符号
 position: absolute;
@@ -220,8 +233,68 @@ position: absolute;
     font-size: 12px;
 
 }
+.section_title1{
+    left: 40px;
+}
+.section_title2{
+    left: 100px;
+}
+.section_title3{
+    left: 140px;
+}
+.section_title4{
+    left: 530px;
+    top: 1px;
+}
+
+.in_clock,.in_clock0,.in_clock1,.in_clock2,.in_clock3,.in_clock4{
+     position: absolute;
+     left: 40px;
+     top: -24px;
+ }
+.in_clock0{
+
+    left: 110px;
+
+}
+.in_clock1{
+
+    left: 162px;
+
+}
+.in_clock2{
+
+    left: 232px;
+
+}
+.in_clock3{
+
+    left: 282px;
+
+}
+.in_clock4{
+
+    left: 330px;
+
+}
 .section_title span{
     color: #666;
+    position: absolute;
+    top: -18px;
+    display: inline-block;
+    width: 54px;
+}
+.title_in{
+    left: -6px;
+}
+.title1_in{
+    left:120px;
+}
+.title2_in{
+    left: 224px;
+}
+.title3_in{
+    left: 284px;
 }
 .section_title input{
     width: 60px;
@@ -230,8 +303,15 @@ position: absolute;
     border: 1px solid #ddd;
     padding-left: 4px;
     font-size: 14px;
-    color: #ddd;
+    line-height: 20px;
 }
+
+.section_title .two_clock{
+    position: absolute;
+    top: 2px;
+    right: 20px;
+}
+
 .section_title button{
     width: 44px;
     height: 20px;
@@ -283,7 +363,7 @@ input[type=checkbox]{
 }
 
 /*高级筛选*/
-.today_new_pro,.today_new_pro1,.today_new_pro2,.today_new_pro3,.today_new_pro4{
+.today_new_pro,.today_new_pro1,.today_new_pro2,.today_new_pro3,.today_new_pro4,.today_new_pro5{
     border-right: 1px solid #ddd;
     height: 16px;
     display: inline-block;
@@ -304,6 +384,9 @@ input[type=checkbox]{
 }
 .today_new_pro4{
     left: 50px;
+}
+.today_new_pro5{
+    left: 60px;
 }
 
 

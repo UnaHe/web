@@ -47,88 +47,92 @@
 
                     <div class="scree_box">
                         <ul class=" margin_right">
-                            <li><input type="radio" name="today" value="1" id='chechboxs' class='inputs'/><label
+                            <li><input type="checkbox" name="today" value="1" id='chechboxs' class='inputs'/><label
                                     class='hiddens' for="chechboxs"></label><span class='show_title'>今日新品</span>
                                      <p class='today_new_pro'></p>
                             </li>
 
-                            <li><input type="checkbox" name="isTmall" value="1" id='chechboxs1'
+                            <li><input type="radio" name="isTmall" value="1" id='chechboxs1'
                                        class='inputs team2'/><label
                                     class='hiddens ' for="chechboxs1"></label><span
                                     class='show_title'>只看天猫</span>
                             </li>
-                            <li><input type="checkbox" name="isJpseller" value="1" id='chechboxs2'
+                            <li><input type="radio" name="isTmall" value="1" id='chechboxs2'
                                        class='inputs team2'/><label class='hiddens' for="chechboxs2"></label><span
                                     class='show_title'>金牌卖家</span></li>
-                            <li><input type="checkbox" name="isQjd" value="1" id='chechboxs3'
+                            <li><input type="radio" name="isTmall" value="1" id='chechboxs3'
                                        class='inputs team2'/><label
                                     class='hiddens ' for="chechboxs3"></label><span
                                     class='show_title'>旗舰店</span>
                                      <p class='today_new_pro2'></p>
                             </li>
-                            <li><input type="checkbox" name="isTaoqianggou" value="1" id='chechboxs4'
+                            <li><input type="radio" name="isTaoqianggou" value="1" id='chechboxs4'
                                        class='inputs team3'/><label class='hiddens' for="chechboxs4"></label><span
                                     class='show_title'>淘抢购</span></li>
-                            <li><input type="checkbox" name="isJuhuashuan" value="1" id='chechboxs5'
+                            <li><input type="radio" name="isTaoqianggou" value="1" id='chechboxs5'
                                        class='inputs team3'/><label class='hiddens' for="chechboxs5"></label><span
-                                    class='show_title'>聚划算</span></li>
-                            <li><input type="checkbox" name="isNine" value="1" id='chechboxs6'
+                                    class='show_title'>聚划算</span>
+                                     <p class='today_new_pro5'></p></li>
+                            <li><input type="radio" name="isNine" value="1" id='chechboxs6'
                                        class='inputs team4'/><label
                                     class='hiddens' for="chechboxs6"></label><span
                                     class='show_title'>9.9包邮</span>
                             </li>
-                            <li><input type="checkbox" name="isTwenty" value="1" id='chechboxs7'
+                            <li><input type="radio" name="isNine" value="1" id='chechboxs7'
                                        class='inputs team4'/><label
                                     class='hiddens' for="chechboxs7"></label><span
                                     class='show_title'>20元封顶</span>
                                 <p class='today_new_pro3'></p>
                             </li>
-                            <li><input type="checkbox" name="isJyj" value="1" id='chechboxs8'
+                            <li><input type="radio" name="isJyj" value="1" id='chechboxs8'
                                        class='inputs team5'/><label
                                     class='hiddens' for="chechboxs8"></label><span class='show_title'>极有家</span>
                             </li>
-                            <li><input type="checkbox" name="isHaitao" value="1" id='chechboxs9'
+                            <li><input type="radio" name="isJyj" value="1" id='chechboxs9'
                                        class='inputs team5'/><label
 
                                     class='hiddens' for="chechboxs9"></label><span class='show_title'>海淘</span>
                                      <p class='today_new_pro4'></p>
                             </li>
-                            <li class="margin0"><input type="radio" name="isYfx" value="1" id='chechboxs10'
+                            <li class="margin0"><input type="checkbox" name="isYfx" value="1" id='chechboxs10'
                                                        class='inputs'/><label class='hiddens'
                                                                               for="chechboxs10"></label><span
                                     class='show_title'>运费险</span></li>
                         </ul>
-                        <div class="section">
+                        <div class="section in_clock_box">
                             <p class="section_title">
-                                <span>券区间</span>
-                                <input type="text" name="minCouponPrice" placeholder="¥"
-                                       value="{{$screenStrArr['minCouponPrice']==0?'':$screenStrArr['minCouponPrice']}}">
-                                -<input type="text" name="maxCouponPrice" placeholder="¥"
-                                        value="{{$screenStrArr['maxCouponPrice']==0?'':$screenStrArr['maxCouponPrice']}}">
+                                <span class='title_in'>券区间</span>
+
+                                <input type="text" name="minCouponPrice" placeholder="¥"  value="{{$screenStrArr['minCouponPrice']==0?'':$screenStrArr['minCouponPrice']}}" class='in_clock'>
+                                <input type="text" name="maxCouponPrice" placeholder="¥"
+                                        value="{{$screenStrArr['maxCouponPrice']==0?'':$screenStrArr['maxCouponPrice']}}" class='in_clock0'>
+                                        <span class='width1'>一</span>
+
                             </p>
 
-                            <p class="section_title">
-                                <span>价格</span>
+                            <p class="section_title1 section_title">
+                                <span class='title1_in'>价格</span>
                                 <input type="text" name="minPrice" placeholder="¥"
-                                       value="{{$screenStrArr['minPrice']==0?'':$screenStrArr['minPrice']}}">
-                                -<input type="text" name="maxPrice" placeholder="¥"
-                                        value="{{$screenStrArr['maxPrice']==0?'':$screenStrArr['maxPrice']}}">
+                                       value="{{$screenStrArr['minPrice']==0?'':$screenStrArr['minPrice']}}" class='in_clock1'>
+                                <input type="text" name="maxPrice" placeholder="¥"
+                                        value="{{$screenStrArr['maxPrice']==0?'':$screenStrArr['maxPrice']}}"  class='in_clock2'>
+                                           <span class='width2'>一</span>
                             </p>
 
-                            <p class="section_title">
-                                <span>佣金比例></span>
+                            <p class="section_title2 section_title">
+                                <span class='title2_in'>佣金比例></span>
                                 <input type="text" name="minCommission" placeholder="¥"
-                                       value="{{$screenStrArr['minCommission']==0?'':$screenStrArr['minCommission']}}">
+                                       value="{{$screenStrArr['minCommission']==0?'':$screenStrArr['minCommission']}}" class='in_clock3'>
                             </p>
 
-                            <p class="section_title">
-                                <span>销量></span>
+                            <p class="section_title3 section_title">
+                                <span class='title3_in'>销量></span>
                                 <input type="text" name="minSellNum" placeholder="¥"
-                                       value="{{$screenStrArr['minSellNum']==0?'':$screenStrArr['minSellNum']}}">
+                                       value="{{$screenStrArr['minSellNum']==0?'':$screenStrArr['minSellNum']}}" class='in_clock4'>
                             </p>
 
-                            <p class="section_title">
-                                <button type="button screen-btn">筛选</button>
+                            <p class="section_title4 section_title">
+                                <button type="button screen-btn"  >筛选</button>
                             </p>
                         </div>
                     </div>
@@ -163,18 +167,17 @@
                 @foreach($list as $k => $v)
                 <div class="single">
                     <a href="{{url('/goods/'. $v['id']).'?columnCode='.$active['active_column_code']}}"
-                       target="_blank">
+                       target="_blank" class="click_open">
 
-                        <img src='/web/images/mrtp.jpg' data-img="{{ $v['pic'] }}" class="img_size lazy">
+                        <img src='/web/images/mrtp.jpg' data-img="{{ $v['pic'] }}.jpg" class="img_size lazy">
 
-                    </a>
+
 
                     <div class="price_introduce">
                         <p class="title">
-                            <a href="{{url('/goods/'. $v['id']).'?columnCode='.$active['active_column_code']}}"
-                               target="_blank" class="click_open">
+
                                 {{$v['short_title']}}
-                            </a>
+
                         </p>
 
                         <p class="discount"><span class="coupun">券</span><span class='prc_pyt'>{{ $v['coupon_price']}}元</span></p>
@@ -199,6 +202,7 @@
                             @endif
                         </p>
                     </div>
+                       </a>
                 </div>
                 @endforeach
             </div>

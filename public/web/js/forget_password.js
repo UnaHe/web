@@ -12,28 +12,20 @@ $('#next_tip').click(function (e) {
                 if (data.code == 200) {
                     var msg = data.data.message;
                     msg = msg ? msg : '操作成功';
-                    layer.alert(msg, {
-                        skin: 'layui-layer-lan' //样式类名
-                        , closeBtn: 0
-                    }, function () {
-                        window.location.href = url;
-                    });
-
+                    layer.msg(msg);
+                    window.location.href = url;
                 } else {
-                    layer.alert(data.msg.msg, {
-                        skin: 'layui-layer-lan' //样式类名
-                        , closeBtn: 0
-                    });
+                    layer.msg(data.msg.msg);
                     $(e).attr('disabled', false);
                 }
             }
         });
     }
     if(username==''){
-        var username_ts=document.getElementById('username_ts')
+        var username_ts=document.getElementById('show_username')
         username_ts.style.display='block'
     }else{
-        var username_ts=document.getElementById('username_ts');
+        var username_ts=document.getElementById('show_username');
         username_ts.style.display='none'
     }
     if(new_id==''){
@@ -60,18 +52,10 @@ $('#next_tips').click(function (e) {
                 if (data.code == 200) {
                     var msg = data.data.message;
                     msg = msg ? msg : '操作成功';
-                    layer.alert(msg, {
-                        skin: 'layui-layer-lan' //样式类名
-                        , closeBtn: 0
-                    }, function () {
-                        window.location.href = url;
-                    });
-
+                    layer.msg(msg);
+                    window.location.href = url;
                 } else {
-                    layer.alert(data.msg.msg, {
-                        skin: 'layui-layer-lan' //样式类名
-                        , closeBtn: 0
-                    });
+                    layer.msg(data.msg.msg);
                     $(e).attr('disabled', false);
                 }
             }

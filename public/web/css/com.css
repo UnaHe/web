@@ -82,6 +82,9 @@ body{
     display: inline-block;
     width: 176px;
 }
+.navbar-default .pyt_font_size48:hover{
+    color:#E0AB4A ;
+}
 .line_pyt{
     display: inline-block;
     border: 1px solid #ddd;
@@ -459,3 +462,9 @@ button{
     display: none;
 
 }
+button{
+    outline: none;
+    box-shadow: none;
+}
+
+/*去除输入框背景色*/

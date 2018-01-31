@@ -8,23 +8,7 @@ $(function(){
         }
     });
 
-    $('#username').blur(function(){
-        var  phone=$('#username').val();
-        $.ajax({
-            type: "POST",
-            url: isExistUrl,
-            data: {phone:phone},
-            dataType: "json",
-            success: function (data) {
-                if (data.code!=200)  {
-                    layer.alert(data.msg.msg, {
-                        skin: 'layui-layer-lan' //样式类名
-                        ,closeBtn: 0
-                    });
-                }
-            }
-        });
-    })
+
 
 
 //        $(function () {
@@ -84,66 +68,97 @@ $(function(){
 
 
 });
-$('#form_submit').on("click",function(){
-    var username=$("#username").val();
-    var password=$("#password").val();
-    var new_password=$("#new_password").val();
-    var clock=$("#clock_id").val();
-    console.log(username,password,new_password,clock)
-    if(username!=''&&password!=''&&new_password!=''&&clock!=''){
-        $(e).attr('disabled', true);
-        $.ajax({
-            type: "POST",
-            url: formPost,
-            data: $('form').serialize(),
-            dataType: "json",
-            success: function (data) {
-                if (data.code == 200) {
-                    var msg = data.data.message;
-                    msg = msg ? msg : '操作成功';
-                    layer.alert(msg, {
-                        skin: 'layui-layer-lan' //样式类名
-                        , closeBtn: 0
-                    }, function () {
-                        window.location.href = url;
-                    });
 
-                } else {
-                    layer.alert(data.msg.msg, {
-                        skin: 'layui-layer-lan' //样式类名
-                        , closeBtn: 0
-                    });
-                    $(e).attr('disabled', false);
-                }
-            }
-        });
-    }
-    if(username==''){
+//手机号有效性验证
+//手机号输入框失去焦点
+//获取输入的手机号
+var username_yz=document.getElementById('username');
+username_yz.onblur = function(){
+    var tv = this.value;
+    var reg = /^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\d{8}$/;
+    if (reg.test(tv)){
+        var show_user=document.getElementById('show_username')
+        show_user.style.display='none'
+    }else{
         var show_user=document.getElementById('show_username')
         show_user.style.display='block'
-    }else{
-        var show_user=document.getElementById('show_username');
-        show_user.style.display='none'
     }
-    if(password==''){
+}
+var password_yz=document.getElementById('doc-vld-pwd-1-0');
+password_yz.onblur = function(){
+    var tv = this.value;
+    console.log(tv)
+    var reg = /^[\w]{6,12}$/;
+    if (reg.test(tv)){
+        var show_pas=document.getElementById('password_ts');
+        show_pas.style.display='none'
+    }else{
         var show_pas=document.getElementById('password_ts');
         show_pas.style.display='block'
-    }else{
-        var show_pas=document.getElementById('password_ts');
-        show_pas.style.display='block'
     }
-    if(new_password==''){
-        var new_passwords=document.getElementById('new_password_ts');
-        new_passwords.style.display='block'
-    }else{
-        var new_passwords=document.getElementById('new_password_ts');
-        new_passwords.style.display='block'
-    }
-    if( clock==''){
-        var clocks=document.getElementById('clock_idd');
-        clocks.style.display='block'
-    }else{
-        var clocks=document.getElementById('clock_idd');
-        clocks.style.display='block'
-    }
+}
+$('#form_submit').on("click",function(){
+    var username=$("#username").val();
+    var password=$("#doc-vld-pwd-1-0").val();
+    var new_password=$("#doc-vld-pwd-2").val();
+    var clock=$("#clock_id").val();
+
+    console.log(username,password,new_password,clock)
+ if(password==new_password){
+     var new_password_tsa=document.getElementById('new_password_tsa');
+     new_password_tsa.style.display='none'
+        if(username!=''&&password!=''&&new_password!=''&&clock!=''){
+            $.ajax({
+                type: "POST",
+                url: formPost,
+                data: $('form').serialize(),
+                dataType: "json",
+                success: function (data) {
+                    if (data.code == 200) {
+                        var msg = data.data.message;
+                        msg = msg ? msg : '操作成功';
+                        layer.msg(msg);
+                        window.location.href = url;
+                    } else {
+                        layer.msg(data.msg.msg);
+                    }
+                }
+            });
+        }
+ }else{
+        var new_password_tsa=document.getElementById('new_password_tsa');
+     new_password_tsa.style.display='block'
+ }
+        if(username==''){
+            var show_user=document.getElementById('show_username')
+            show_user.style.display='block'
+        }else{
+            var show_user=document.getElementById('show_username');
+            show_user.style.display='none'
+        }
+        if(password==''){
+            var show_pas=document.getElementById('password_ts');
+            show_pas.style.display='block'
+        }else{
+            var show_pas=document.getElementById('password_ts');
+            show_pas.style.display='none'
+        }
+        if(new_password==''){
+            var new_passwords=document.getElementById('new_password_ts');
+            new_passwords.style.display='block'
+        }else{
+            var new_passwords=document.getElementById('new_password_ts');
+            new_passwords.style.display='none'
+        }
+        if( clock==''){
+            var clocks=document.getElementById('clock_idd');
+            clocks.style.display='block'
+        }else{
+            var clocks=document.getElementById('clock_idd');
+            clocks.style.display='none'
+        }
+
 })
+
+
+
