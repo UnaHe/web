@@ -189,13 +189,13 @@
                         <p class="pyt_earnings">您从事淘宝客网络推广的收益</p>
                     </div>
                 </div>
-            </form>
-            <div class="form-group">
+              <div class="form-group">
                 <label class="col-sm-4 control-label"></label>
                 <div class="col-sm-8">
-                    <button type="button" class="pyt_sub">确认并保存</button>
+                    <button type="submit" class="pyt_sub">确认并保存</button>
                 </div>
             </div>
+            </form>
         </div>
 
     </seation>

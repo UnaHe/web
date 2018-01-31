@@ -31,7 +31,6 @@ $(function(){
 
         if (birthday != '' && address != '' && pyt_nature != '' != department && earnings != '' && organization != '' && QQnum != '') {
             //    发请求
-
             $.ajax({
                 type: "POST",
                 url: formPost,
@@ -40,24 +39,15 @@ $(function(){
                 success: function (data) {
                     if (data.code == 200) {
                         if (data.data.message) {
-                            layer.alert(data.data.message, {
-                                skin: 'layui-layer-lan' //样式类名
-                                , closeBtn: 0
-                            }, function () {
-                                window.location.reload()
-                            });
+                            layer.msg(data.data.message);
+                            window.location.reload()
                         }
                     } else {
-                        layer.alert(data.msg.msg, {
-                            skin: 'layui-layer-lan' //样式类名
-                            , closeBtn: 0
-                        });
+                        layer.msg(data.msg.msg);
                         $(e).attr('disabled', false);
                     }
                 }
             });
-
-
         }
     })
 //表单验证
