@@ -18,14 +18,13 @@
                 <?php $active_column_code = 'today_tui' ?>
             @endif
             <form class="navbar-form navbar-left"
-                  action="{{url('/columns/'.$active_column_code.'/goods')}}" method="get" onsubmit="return false;">
+                  action="{{url('/columns/'.$active_column_code.'/goods')}}" method="get">
                 <div class="form-group">
                     <ul class="nav navbar-nav navbar-left">
                         <li class="pyt_searchAll">综合搜索</li>
                     </ul>
                     <input type="text" class="form-control" placeholder="搜索标题、商品ID、商品链接" name="keyword"
-                           value="@if(isset($keyword)){{$keyword }} @endif" id='search_value' autocomplete="off">
-
+                           value="@if(isset($keyword)){{$keyword }} @endif" id='search_value' >
                 </div>
                 <div  class="btn btn-C"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></div>
             </form>

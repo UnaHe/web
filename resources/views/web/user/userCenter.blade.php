@@ -84,6 +84,7 @@
                     <div class="col-sm-8">
                         <input type="text" class="form-control QQnum" name="qq_id"
                                value="@if($user_info){{$user_info->qq_id}}@endif" placeholder="请输入QQ号">
+                               <p class=''>请输入QQ号</p>
                     </div>
                 </div>
                 <div class="form-group">

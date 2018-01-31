@@ -124,11 +124,11 @@ $(function () {
       console.log(search_url)
       if(input_value!=''){
           console.log("1111111111222222222222")
-          $.get({
+          $.ajax({
               type:"GET",
-              url:search_url,
-              data:{keyword:input_value},
-              dataType:"json",
+              url:'goods/'+"?keyword="+input_value,
+
+              dataType:"JSON",
               success:function(data){
                   console.log("1111111111")
                   console.log(data)
@@ -138,12 +138,7 @@ $(function () {
       }else{
           layer.msg("请输入搜索词")
       }
-
-
     })
-
-
-
     /**
      *获取手机验证码
      */

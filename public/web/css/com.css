@@ -432,14 +432,15 @@ input[type=checkbox]{
     margin-right: 0px;
 }
 .single_pyt:checked + label:after {
-    content: '\2714'; //勾选符号
+    content: '\2022'; //圆点符号
 position: absolute;
     top: 0px;
     left: 0px;
     color: #E1B05A;
     text-align: center;
     line-height: 10px;
-    font-size: 12px;
+    font-size: 22px;
+    margin-left:1px;
     vertical-align: text-top;
     width: 100%;
 }
