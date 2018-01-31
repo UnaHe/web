@@ -15,6 +15,7 @@ Route::get('/wx2/{id}', 'WechatPageController@page2')->where('id', '[0-9]+');
 Route::get('/', 'Web\IndexController@index');
 Route::get('/business ', 'Web\IndexController@business');
 Route::get('/logout', 'Web\UserController@logout');
+
 /**
  * 用户路由
  */
@@ -31,24 +32,30 @@ Route::post('/getCode', 'Web\UserController@getCode');
 //获取授权code
 Route::any('/taobaoCode', 'Web\UserController@taobaoCode');
 
-
-
 /**
- * 今日必推列表
+ * 栏目商品列表
  */
 Route::get('/columns/{code}/goods', 'Web\GoodsController@columnGoods');
+/**
+ * 商品列表
+ */
+Route::get('/goods', "Web\GoodsController@goodList");
+
+/**
+ * 热搜词
+ */
+Route::get('/hotKeyword', "Web\GoodsController@hotKeyWord");
+
 /**
  * 限时抢购
  */
 Route::get('/miaosha/goods', 'Web\GoodsController@getMiaoshaGoods');
 
-
-
 Route::group(['middleware' => 'auth'], function () {
     //忘记密码=>修改密码
-Route::match(['get', 'post'], '/updatePwd', 'Web\UserController@updatePwd');
+    Route::match(['get', 'post'], '/updatePwd', 'Web\UserController@updatePwd');
     //忘记密码=>修改密码成功
-        Route::match(['get', 'post'], '/updatePwdSucc', 'Web\UserController@updatePwdSucc');
+    Route::match(['get', 'post'], '/updatePwdSucc', 'Web\UserController@updatePwdSucc');
 
     //用户中心
     Route::match(['get', 'post'], '/userCenter', 'Web\UserController@userCenter');
