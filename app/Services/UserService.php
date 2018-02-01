@@ -24,18 +24,18 @@ class UserService
      * @throws \Exception
      */
     public function registerUser($userName, $password, $inviteCode){
+        $User = new User();
+        $InviteCode = new InviteCode();
+        $query = $InviteCode->from($InviteCode->getTable()." as invite")->where([
+            ["invite.invite_code", $inviteCode],
+            ["invite.status", InviteCode::STATUS_UNUSE],
+        ]);
+        $query->leftjoin($User->getTable()." as user", "user.id", '=', "invite.user_id");
+        $query->select(["user.id", "user.grade", "user.path", "invite.effective_days"]);
+        $inviteCodeInfo = $query->first();
+
         DB::beginTransaction();
         try{
-            $User = new User();
-            $InviteCode = new InviteCode();
-            $query = $InviteCode->from($InviteCode->getTable()." as invite")->where([
-                ["invite.invite_code", $inviteCode],
-                ["invite.status", InviteCode::STATUS_UNUSE],
-            ]);
-            $query->leftjoin($User->getTable()." as user", "user.id", '=', "invite.user_id");
-            $query->select(["user.id", "user.grade", "user.path", "invite.effective_days"]);
-            $inviteCodeInfo = $query->first();
-
             //使用邀请码
             if(!(new InviteCode())->useCode($inviteCode)){
                 throw new \LogicException("邀请码无效");
