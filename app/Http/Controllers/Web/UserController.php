@@ -170,7 +170,7 @@ class UserController extends Controller
     /**
      * 修改密码
      * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return UserController
      */
     public function updatePwd(Request $request)
     {
@@ -328,9 +328,9 @@ class UserController extends Controller
 
     /**
      * 授权管理
-     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function accountAuth(Request $request)
+    public function accountAuth()
     {
         $title = '授权管理';
         $user = Auth::user();
@@ -358,13 +358,12 @@ class UserController extends Controller
     }
 
 
-
-
     /**
      * 获得了code后再去获取用户的信息
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      * @throws \Exception
+     * @throws Exception
      */
     public function taobaoCode(Request $request)
     {
@@ -413,7 +412,7 @@ class UserController extends Controller
      * @param $url
      * @param null $postFields
      * @return mixed
-     * @throws Exception
+     * @throws \Exception
      */
     public function curl($url, $postFields = null)
     {
@@ -451,11 +450,11 @@ class UserController extends Controller
         $reponse = curl_exec($ch);
 
         if (curl_errno($ch)) {
-            throw new Exception(curl_error($ch), 0);
+            throw new \Exception(curl_error($ch), 0);
         } else {
             $httpStatusCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
             if (200 !== $httpStatusCode) {
-                throw new Exception($reponse, $httpStatusCode);
+                throw new \Exception($reponse, $httpStatusCode);
             }
         }
         curl_close($ch);

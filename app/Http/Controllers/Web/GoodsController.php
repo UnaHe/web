@@ -26,9 +26,102 @@ use Symfony\Component\HttpKernel\Tests\Exception\HttpExceptionTest;
 class GoodsController extends Controller
 {
     /**
+     * 获取商品列表
+     */
+    public function goodList(Request $request){
+        //商品分类
+        $category = $request->get('category');
+        //商品排序
+        $sort = $request->get('sort');
+        //只看今天
+        if ($today = $request->get('today', 0)) {
+            $sort = 2;
+        }
+        //天猫筛选
+        $isTmall = $request->get('isTmall', 0);
+        $isJpseller = $request->get('isJpseller', 0);
+        $isQjd = $request->get('isQjd', 0);
+        $isHaitao = $request->get('isHaitao', 0);
+        $isJyj = $request->get('isJyj', 0);
+        $isYfx = $request->get('isYfx', 0);
+        //淘抢购筛选
+        $isTaoqianggou = $request->get('isTaoqianggou', 0);
+        //聚划算筛选
+        $isJuhuashuan = $request->get('isJuhuashuan', 0);
+        //最低价格筛选
+        $minPrice = $request->get('minPrice', 0) < 0 ? 0 : $request->get('minPrice');
+        //最高价格筛选
+        $maxPrice = $request->get('maxPrice', 0) < 0 ? 0 : $request->get('maxPrice');
+        $isNine = $request->get('isNine', 0);
+        $maxPrice = $isNine ? 9.9 : $maxPrice;
+        $isTwenty = $request->get('isTwenty', 0);
+        $maxPrice = $isTwenty ? 20 : $maxPrice;
+        if ($maxPrice < $minPrice) {
+            $tmpPrice = $maxPrice;
+            $maxPrice = $minPrice;
+            $minPrice = $tmpPrice;
+        }
+        //最低佣金筛选
+        $minCommission = $request->get('minCommission', 0) < 0 ? 0 : $request->get('minCommission');
+        //最低销量筛选
+        $minSellNum = $request->get('minSellNum', 0) < 0 ? 0 : $request->get('minSellNum');
+        //最低券金额筛选
+        $minCouponPrice = $request->get('minCouponPrice', 0) < 0 ? 0 : $request->get('minCouponPrice');
+        //最高券金额筛选
+        $maxCouponPrice = $request->get('maxCouponPrice', 0) < 0 ? 0 : $request->get('maxCouponPrice');
+        if ($maxCouponPrice < $minCouponPrice) {
+            $tmpCouponPrice = $maxCouponPrice;
+            $maxCouponPrice = $minCouponPrice;
+            $minCouponPrice = $tmpCouponPrice;
+        }
+        //关键字
+        $keyword = $request->get('keyword');
+
+        $userId = 0;
+        $list = (new GoodsService())->goodList($category, $sort, $keyword, $isTaoqianggou, $isJuhuashuan, $minPrice, $maxPrice, $isTmall, $minCommission, $minSellNum, $minCouponPrice, $maxCouponPrice, $isJpseller, $isQjd, $isHaitao, $isJyj, $isYfx, $userId);
+        if($list){
+            foreach ($list as &$item){
+                $keys = ['is_jpseller', 'is_qjd', 'is_haitao', 'is_tmallgj', 'is_jyjseller', 'is_freight_insurance'];
+                foreach ($keys as $key){
+                    $value = $item[$key];
+                    if($value == 1){
+                        $item[$key] = 0;
+                    }else if($value == 2){
+                        $item[$key] = 1;
+                    }
+                }
+            }
+            $list = (new GoodsHelper())->resizeGoodsListPic($list, ['pic'=>'240x240']);
+        }
+        $this->commissionHandler($list);
+
+        /**
+         * ajax加载更多
+         */
+        if ($request->ajax() && !empty($request->input('page'))) {
+            return $this->ajaxSuccess($list);
+        }
+
+        $title = '综合搜索';
+        $categorys = (new CategoryService())->getAllCategory();
+        $active_category = empty($category) ? '' : $category;
+        $active = ['active_category' => $active_category, 'active_sort' => $sort];
+        $inputCheckbox = [
+            'today' => $today,
+            'isTmall' => $isTmall, 'isJpseller' => $isJpseller, 'isQjd' => $isQjd,
+            'isTaoqianggou' => $isTaoqianggou, 'isJuhuashuan' => $isJuhuashuan,
+            'isNine' => $isNine, 'isTwenty' => $isTwenty,
+            'isJyj' => $isJyj, 'isHaitao' => $isHaitao,
+            'isYfx' => $isYfx
+        ];
+        $screenStrArr = ['minCouponPrice' => $minCouponPrice, 'maxCouponPrice' => $maxCouponPrice, 'minPrice' => $minPrice, 'maxPrice' => $maxPrice, 'minCommission' => $minCommission, 'minSellNum' => $minSellNum];
+        return view('web.search', compact('list', 'title', 'categorys', 'active', 'keyword', 'inputCheckbox', 'screenStrArr'));
+    }
+
+    /**
      * 推荐商品列表
      * @param Request $request
-     * @return static
+     * @return array
      */
     public function recommendGoods(Request $request)
     {
@@ -132,7 +225,6 @@ class GoodsController extends Controller
             $maxPrice = $minPrice;
             $minPrice = $tmpPrice;
         }
-
         //最低佣金筛选
         $minCommission = $request->get('minCommission', 0) < 0 ? 0 : $request->get('minCommission');
         //最低销量筛选
@@ -153,7 +245,6 @@ class GoodsController extends Controller
             $category = $columnCode == 'meishijingxuan' ? 6 : 4;
         } else {
             if (!(new ChannelColumnService())->getByCode($columnCode)) {
-//                return $this->ajaxError("栏目不存在");
                 throw new NotFoundHttpException('404');
             }
         }
@@ -166,9 +257,7 @@ class GoodsController extends Controller
              *
              * 有条件的走goodList,美食精选和家居精选因为没有栏目字段,所以所以走该逻辑
              */
-            if (!empty($keyword) || !empty($isJpseller) || !empty($isQjd) || !empty($isHaitao) || !empty($isJyj) || !empty($isYfx)
-                || $columnCode == 'meishijingxuan' || $columnCode == 'jiajujingxuan'
-            ) {
+            if (!empty($keyword) || !empty($isJpseller) || !empty($isQjd) || !empty($isHaitao) || !empty($isJyj) || !empty($isYfx) || $columnCode == 'meishijingxuan' || $columnCode == 'jiajujingxuan') {
                 $list = (new GoodsService())->goodList($category, $sort, $keyword, $isTaoqianggou, $isJuhuashuan, $minPrice, $maxPrice, $isTmall, $minCommission, $minSellNum, $minCouponPrice, $maxCouponPrice, $isJpseller, $isQjd, $isHaitao, $isJyj, $isYfx, 0);
                 $list = (new GoodsHelper())->resizeGoodsListPic($list, ['pic' => '240x240']);
             } else {
@@ -190,8 +279,7 @@ class GoodsController extends Controller
             return $this->ajaxSuccess($list);
         }
 
-        $titles = ['today_tui' => '今日必推', 'today_jing' => '今日精选', 'xiaoliangbaokuan' => '爆款专区',
-            'zhengdianmiaosha' => '限时快抢', 'meishijingxuan' => '美食精选', 'jiajujingxuan' => '家居精选'];
+        $titles = ['today_tui' => '今日必推', 'today_jing' => '今日精选', 'xiaoliangbaokuan' => '爆款专区', 'zhengdianmiaosha' => '限时快抢', 'meishijingxuan' => '美食精选', 'jiajujingxuan' => '家居精选'];
         $title = $titles[$columnCode];
         $categorys = (new CategoryService())->getAllCategory();
         $active_category = empty($category) ? '' : $category;
@@ -204,7 +292,6 @@ class GoodsController extends Controller
             'isJyj' => $isJyj, 'isHaitao' => $isHaitao,
             'isYfx' => $isYfx
         ];
-
 
         return view('web.push_list', compact('list', 'title', 'categorys', 'active', 'keyword', 'inputCheckbox', 'screenStrArr'));
     }
@@ -333,7 +420,6 @@ class GoodsController extends Controller
         $data = ['耳机', '面膜', '口红', '保温杯', '卫衣', '毛衣女', '睡衣', '女鞋', '洗面奶', '充电宝'];
         return $this->ajaxSuccess($data);
     }
-
 
     /**
      * 转链接
