@@ -118,26 +118,27 @@ $(function () {
 //     })
 
     $(".btn-C").on('click',function(){
-      var input_value=document.getElementById('search_value').value;
-      var search_url=document.getElementsByTagName('form');
-      search_url=search_url[0].action;
-      console.log(search_url)
-      if(input_value!=''){
-          console.log("1111111111222222222222")
-          $.ajax({
-              type:"GET",
-              url:'goods/'+"?keyword="+input_value,
-
-              dataType:"JSON",
-              success:function(data){
-                  console.log("1111111111")
-                  console.log(data)
-              }
-          })
-          console.log("00000000000000")
-      }else{
-          layer.msg("请输入搜索词")
-      }
+        $("#searchForm").submit()
+      // var input_value=document.getElementById('search_value').value;
+      // var search_url=document.getElementsByTagName('form');
+      // search_url=search_url[0].action;
+      // console.log(search_url)
+      // if(input_value!=''){
+      //     console.log("1111111111222222222222")
+      //     $.ajax({
+      //         type:"GET",
+      //         url:'goods/'+"?keyword="+input_value,
+      //
+      //         dataType:"JSON",
+      //         success:function(data){
+      //             console.log("1111111111")
+      //             console.log(data)
+      //         }
+      //     })
+      //     console.log("00000000000000")
+      // }else{
+      //     layer.msg("请输入搜索词")
+      // }
     })
     /**
      *获取手机验证码

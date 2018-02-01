@@ -18,7 +18,7 @@
                 <?php $active_column_code = 'today_tui' ?>
             @endif
             <form class="navbar-form navbar-left"
-                  action="{{url('/columns/'.$active_column_code.'/goods')}}" method="get">
+                  action="{{url('/columns/'.$active_column_code.'/goods')}}" method="get" id='searchForm'>
                 <div class="form-group">
                     <ul class="nav navbar-nav navbar-left">
                         <li class="pyt_searchAll">综合搜索</li>
