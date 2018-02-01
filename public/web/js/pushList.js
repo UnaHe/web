@@ -13,7 +13,7 @@ $(function(){
         var scrollHeight = $(document).height();
         var windowHeight = $(this).height();
         if(window.location.search!=''){
-        if(scrollHeight-scrollTop-windowHeight <=10){
+        if(scrollHeight-scrollTop-windowHeight <=30){
             //请求
             next_page += 1
             if (flag) {
@@ -133,7 +133,7 @@ $(function(){
             });
         }
         }else{
-            if(scrollHeight-scrollTop-windowHeight <=10){
+            if(scrollHeight-scrollTop-windowHeight <=30){
                 //请求
                 next_page += 1
                 if (flag) {
@@ -341,14 +341,14 @@ $(".common").on("click",function(){
     console.log(this)
     var nav_tab=$('.tab_nav span');
     console.log(nav_tab)
-    var sort;
-    for(var i=0;i<nav_tab.length;i++){
-        if(nav_tab[i].className = 'tab_nav_active'){
-            sort=this.id;
-        }
-    }
+    // var sort;
+    // for(var i=0;i<nav_tab.length;i++){
+    //     if(nav_tab[i].className = 'tab_nav_active'){
+    //         sort=this.id;
+    //     }
+    // }
     //获取分类
-    var active_category=$(".active");
+    var active_category=$(".active")[0].id;
          console.log(active_category)
     //    获取搜索词
     var keyword=$('#search_value').val();
@@ -403,7 +403,7 @@ $(".common").on("click",function(){
         minCommission:minCommission,
         minSellNum: minSellNum,
         keyword:keyword,
-        sort:sort,
+        // sort:sort,
         page:1,
         today:today,
         isTmall:isTmall,
@@ -415,7 +415,8 @@ $(".common").on("click",function(){
         isTwenty:isTwenty,
         isJyj:isJyj,
         isHaitao: isHaitao,
-        isYfx:isYfx
+        isYfx:isYfx,
+        category:active_category
     }
     //    发送请求获取数据
     $.get({

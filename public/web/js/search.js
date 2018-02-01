@@ -1,5 +1,4 @@
 $(function(){
-
     lazyload.init();
     var next_page = 1;
     var limit = 20;
@@ -9,12 +8,8 @@ $(function(){
         var scrollTop = $(this).scrollTop();
         var scrollHeight = $(document).height();
         var windowHeight = $(this).height();
-        console.log(window.search)
-        var add_in=document.getElementById('add_in');
-        console.log(add_in)
-        add_in.style.display='block'
         if(window.location.search!=''){
-            if(scrollHeight-scrollTop-windowHeight <=20){
+            if(scrollHeight-scrollTop-windowHeight <=30){
                 //请求
                 next_page += 1
                 if (flag) {
@@ -23,9 +18,8 @@ $(function(){
                 var sendData={};
                 console.log("11111111111111")
                 console.log(this)
-//         var sort=document.getElementsByClassName(".tab_nav_active");
-//
-// console.log(sort)
+                //获取排序
+
                 //    获取搜索词
                 var keyword=$('#search_value').val();
                 console.log(keyword)
@@ -227,9 +221,6 @@ $(function(){
 });
 
     $(".common").on("click",function(){
-        if (flag) {
-            return false;
-        }
         var sendData={};
         console.log("11111111111111")
         console.log(this)
@@ -339,7 +330,6 @@ $(function(){
                     document.getElementById("goods-list").innerHTML=html;
                     $("img").on("error", function () { $(this).attr("src", "/web/images/mrtp.jpg"); });
                 } else if(data.data.length <0){
-                    flag = true;
                     layer.msg('加载完了,以后我们努力给你更多!');
                 }
             }
@@ -349,9 +339,6 @@ $(function(){
     //tab栏获取数据
 
     $(".tab_nav span").on('click',function(){
-        if (flag) {
-            return false;
-        }
         var sendData={};
         console.log("11111111111111")
         console.log(this)
@@ -464,7 +451,6 @@ $(function(){
                     document.getElementById("goods-list").innerHTML=html;
                     $("img").on("error", function () { $(this).attr("src", "/web/images/mrtp.jpg"); });
                 } else if(data.data.length <0){
-                    flag = true;
                     layer.msg('加载完了,以后我们努力给你更多!');
                 }
             }

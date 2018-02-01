@@ -136,7 +136,7 @@
                 @if(!empty($list))
                 <!--商品列表-->
                  <div class="tab_nav">
-                   <span class="tab_nav_active">综合</span>
+                   <span class="tab_nav_active" id=''>综合</span>
                    <span id="2">最新</span>
                    <span id="3">销量</span>
                    <span id="1">人气</span>
