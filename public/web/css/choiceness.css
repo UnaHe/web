@@ -21,7 +21,6 @@
 
 .pro_list{
     width:1100px;
-    margin-top: 10px;
 }
 .single{
     width: 204px;
@@ -36,7 +35,7 @@
     cursor: pointer;
     border: 1px solid #E1B05A ;
 }
-.pro_list .single:nth-child(5n+1){
+.pro_list .single:nth-child(5n){
     margin-right: 0px;
 }
 .img_size{
@@ -326,6 +325,7 @@ position: absolute;
     background: #fff;
     color: #666;
     line-height: 40px;
+    margin-top: 10px;
     border: 1px solid #ddd;
 }
 .tab_nav span{
@@ -339,6 +339,9 @@ position: absolute;
     color:#E1B05A ;
     height: 38px;
     border-bottom: 1px solid #E1B05A ;
+}
+.tab_nav span:hover,.prod_type_list li:hover{
+    cursor: pointer;
 }
 
 /*食物和家具*/
@@ -388,7 +391,16 @@ input[type=checkbox]{
 .today_new_pro5{
     left: 60px;
 }
-
+/*加载完成*/
+#add_in{
+    color:#E0AB4A;
+    font-size: 16px;
+    width: 100%;
+    text-align: center;
+    float: left;
+    margin-top: 16px;
+    display: none;
+}
 
 
 

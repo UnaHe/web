@@ -64,6 +64,7 @@
                     <div class="col-sm-8">
                         <input type="date" class="form-control birthday" placeholder="请选择生日" name="birthday"
                                value="@if($user_info){{ $user_info->birthday}}@endif"/>
+                                  <p class='active_ts' id='birth'>请选择出生日期</p>
                     </div>
                 </div>
                 <div class="form-group">
@@ -84,7 +85,7 @@
                     <div class="col-sm-8">
                         <input type="text" class="form-control QQnum" name="qq_id"
                                value="@if($user_info){{$user_info->qq_id}}@endif" placeholder="请输入QQ号">
-                               <p class=''>请输入QQ号</p>
+                               <p class='active_ts' id='QQ'>请输入QQ号</p>
                     </div>
                 </div>
                 <div class="form-group">
@@ -114,6 +115,7 @@
                     <div class="col-sm-8">
                         <input type="text" class="form-control organization" name="company"
                                value="@if($user_info){{$user_info->company}}@endif" placeholder="请输入单位名称">
+                                <p class='active_ts' id='company'>请输入单位名称</p>
                     </div>
                 </div>
                 <div class="form-group">
@@ -122,6 +124,7 @@
                     <div class="col-sm-8">
                         <input type="text" class="form-control department" name="department"
                                value="@if($user_info){{$user_info->department}}@endif" placeholder="请输入部门和职位">
+                                <p class='active_ts' id='position'>请说出你的部门或职位</p>
                     </div>
                 </div>
                 <div class="form-group">
@@ -172,8 +175,9 @@
                             <input type="checkbox" class=" inputs" name="promotion[]" value="6" id='chechboxs5'/><label class='hiddens'for="chechboxs5"></label>
                             <span class='pyt_span'>线下推广</span>
                         </li>
-
+ <p class='active_ts' id='popularize'>请选择推广方式</p>
                     </ul>
+
                 </div>
                 <div class="form-group">
                     <label class="col-sm-4 control-label">推广收益：</label>
@@ -193,7 +197,7 @@
               <div class="form-group">
                 <label class="col-sm-4 control-label"></label>
                 <div class="col-sm-8">
-                    <button type="submit" class="pyt_sub">确认并保存</button>
+                    <button type="button" class="pyt_sub">确认并保存</button>
                 </div>
             </div>
             </form>

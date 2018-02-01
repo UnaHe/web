@@ -135,14 +135,15 @@
                 <div class="clear"></div>
                 @if(!empty($list))
                 <!--商品列表-->
-                    <div class="pro_list  goods-list">
-                        <div class="tab_nav">
-                            <span class="@if($active['active_sort']=='') tab_nav_active @endif sorts common">综合</span>
-                            <span class="@if($active['active_sort']==2) tab_nav_active @endif sorts common" value="2">最新</span>
-                            <span class="@if($active['active_sort']==3) tab_nav_active @endif sorts common" value="3">销量</span>
-                            <span class="@if($active['active_sort']==1) tab_nav_active @endif sorts common" value="1">人气</span>
-                            <span class="@if($active['active_sort']==-4) tab_nav_active @endif sorts common" value="-1">价格</span>
-                        </div>
+                 <div class="tab_nav">
+                   <span class="tab_nav_active">综合</span>
+                   <span id="2">最新</span>
+                   <span id="3">销量</span>
+                   <span id="1">人气</span>
+                   <span  id="-1">价格</span>
+               </div>
+                    <div class="pro_list  goods-list" id='goods-list'>
+
                         @foreach($list as $k => $v)
                             <div class="single">
                                 <a href="{{url('/goods/'. $v['id'])}}" target="_blank" class="click_open">
@@ -174,6 +175,7 @@
                                 </a>
                             </div>
                         @endforeach
+                        <p id='add_in'>--加载更多--</p>
                     </div>
                 @else
                     <div class="kong"><img src="/web/images/kong.png"></div>

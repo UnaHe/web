@@ -88,3 +88,10 @@ label{
     margin-left: 14px;
 }
 
+.active_ts{
+    color: rgba(225,176,90,1);
+    padding-left:8px;
+    display: none;
+
+}
+

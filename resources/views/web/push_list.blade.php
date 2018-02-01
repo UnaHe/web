@@ -29,12 +29,10 @@
                 <p class="prod_type">商品分类：</p>
                 <ul class="prod_type_list margin_left4">
                     <a href="{{url('/columns/'.$active['active_column_code'].'/goods')}}" class="click_open">
-                        <li class="@if($active['active_category']=='') active @endif">全部</li>
+                        <li class="@if($active['active_category']=='') active @endif common" id=''>全部</li>
                     </a>
-                    @foreach($categorys as $v)
-                    <a href="{{url('/columns/'.$active['active_column_code'].'/goods').'?category='.$v->id}}" class="click_open">
-                        <li class="@if($active['active_category']==$v->id) active @endif">{{$v->name}}</li>
-                    </a>
+                    @foreach($categorys as $k=>$v)
+                        <li id='{{$v->id}}'>{{$v->name}}</li>
                     @endforeach
                 </ul>
             </div>
@@ -126,7 +124,7 @@
                                 <input type="text" name="minSellNum" placeholder="¥" value="{{$screenStrArr['minSellNum']==0?'':$screenStrArr['minSellNum']}}" class='in_clock4'>
                             </p>
                             <p class="section_title4 section_title">
-                                <button type="button " class='screen-btn' id='screen-btn'>筛选</button>
+                                <button type="button " class='screen-btn common' id='screen-btn'>筛选</button>
                             </p>
                         </div>
                     </div>
@@ -135,28 +133,14 @@
             <div class="clear"></div>
             @if(!empty($list))
             <!--商品列表-->
-            <div class="pro_list  goods-list">
-                <div class="tab_nav">
-                    <a href="{{url('/columns/'.$active['active_column_code'].'/goods')}}" class="click_open">
-                        <span class=" @if($active['active_sort']=='') tab_nav_active @endif">综合</span>
-                    </a>
-                    <a href="{{url('/columns/'.$active['active_column_code'].'/goods').'?sort=2'}}"
-
-                        <span class=" @if($active['active_sort']==2) tab_nav_active @endif">最新</span>
-                    </a>
-                    <a href="{{url('/columns/'.$active['active_column_code'].'/goods').'?sort=3'}}"
-                       class="click_open">
-                        <span class=" @if($active['active_sort']==3) tab_nav_active @endif">销量</span>
-                    </a>
-                    <a href="{{url('/columns/'.$active['active_column_code'].'/goods').'?sort=1'}}"
-                       class="click_open">
-                        <span class=" @if($active['active_sort']==1) tab_nav_active @endif">人气</span>
-                    </a>
-                    <a href="{{url('/columns/'.$active['active_column_code'].'/goods').'?sort=-4'}}"
-                       class="click_open">
-                        <span class=" @if($active['active_sort']==-4) tab_nav_active @endif">价格</span>
-                    </a>
-                </div>
+                 <div class="tab_nav">
+                      <span class="tab_nav_active" id=''>综合</span>
+                      <span id="2">最新</span>
+                      <span id="3">销量</span>
+                      <span id="1">人气</span>
+                      <span  id="-1">价格</span>
+                  </div>
+            <div class="pro_list  goods-list" id='goods-list'>
                 @foreach($list as $k => $v)
                 <div class="single">
                     <a href="{{url('/goods/'. $v['id']).'?columnCode='.$active['active_column_code']}}" target="_blank" class="click_open">
@@ -188,6 +172,7 @@
                    </a>
                 </div>
                 @endforeach
+                <p id='add_in'>--加载更多--</p>
             </div>
             @else
             <div class="kong"><img src="/web/images/kong.png"></div>
