@@ -150,61 +150,81 @@ $(function(){
     var radioclick=1;
     $(".team2").on('click',function(){
         var team2=document.getElementsByClassName('team2');
+        for(var i=0;i<team2.length;i++){
+            team2[i].checked = false;
+        }
+        this.checked = true;
         if ($(this).prop('checked')) {
             if (radioclick % 2 == 0) {
                 $(this).prop("checked", false);
             }
             radioclick++;
-        }else{
-            $(this).prop("checked", true);
-            radioclick++;
         }
-
     })
     var radioclick1=1;
     $(".team3").on('click',function(){
-        var team2=document.getElementsByClassName('team2');
+        var team3=document.getElementsByClassName('team3');
+        for(var i=0;i<team3.length;i++){
+            team3[i].checked = false;
+        }
+        this.checked = true;
         if ($(this).prop('checked')) {
             if (radioclick1 % 2 == 0) {
                 $(this).prop("checked", false);
+                console.log(this.value)
+                this.value='0'
+                console.log(this.value)
+            }else{
+                this.value='1'
             }
             radioclick1++;
-        }else{
-            $(this).prop("checked", true);
-            radioclick1++;
         }
-
     })
     var radioclick2=1;
     $(".team4").on('click',function(){
-        var team2=document.getElementsByClassName('team2');
+        var team4=document.getElementsByClassName('team4');
+        for(var i=0;i<team4.length;i++){
+            team4[i].checked = false;
+        }
+        this.checked = true;
         if ($(this).prop('checked')) {
             if (radioclick2 % 2 == 0) {
                 $(this).prop("checked", false);
+                console.log(this.value)
+                this.value='0'
+                console.log(this.value)
+            }else{
+                console.log(this.value)
+                this.value='1'
+                console.log(this.value)
             }
-            radioclick2++;
-        }else{
-            $(this).prop("checked", true);
             radioclick2++;
         }
 
     })
     var radioclick3=1;
     $(".team5").on('click',function(){
-        var team2=document.getElementsByClassName('team2');
+        console.log(111111111111111111111111)
+        var team5=document.getElementsByClassName('team5');
+        for(var i=0;i<team5.length;i++){
+            team5[i].checked = false;
+        }
+        this.checked = true;
         if ($(this).prop('checked')) {
             if (radioclick3 % 2 == 0) {
                 $(this).prop("checked", false);
+                console.log(this.value)
+                this.value='0'
+                console.log(this.value)
+
+            }else{
+                this.value='1'
             }
             radioclick3++;
-        }else{
-            $(this).prop("checked", true);
-            radioclick3++;
         }
-
     })
 
-
+});
 
     $(".common").on("click",function(){
         if (flag) {
@@ -453,4 +473,3 @@ $(function(){
 
     })
 
-});

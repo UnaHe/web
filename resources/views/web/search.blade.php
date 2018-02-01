@@ -44,66 +44,66 @@
                         {{csrf_field()}}
                         <p class="prod_type">高级筛选：</p>
                         <div class="scree_box">
-                            <ul class=" margin_right">
-                                <li>
-                                    <input type="checkbox" name="today" value="1" id='today' class='inputs'/>
-                                    <label class='hiddens' for="today"></label>
-                                    <span class='show_title'>今日新品</span>
-                                    <p class='today_new_pro'></p>
-                                </li>
-                                <li>
-                                    <input type="checkbox" name="isTmall" value="1" id='isTmall' class='inputs team2'/>
-                                    <label class='hiddens ' for="isTmall"></label>
-                                    <span class='show_title'>只看天猫</span>
-                                </li>
-                                <li>
-                                    <input type="checkbox" name="isJpseller" value="1" id='isJpseller' class='inputs team2'/>
-                                    <label class='hiddens' for="isJpseller"></label><span class='show_title'>金牌卖家</span>
-                                </li>
-                                <li>
-                                    <input type="checkbox" name="isQjd" value="1" id='isQjd' class='inputs team2'/>
-                                    <label class='hiddens ' for="isQjd"></label>
-                                    <span class='show_title'>旗舰店</span>
-                                    <p class='today_new_pro2'></p>
-                                </li>
-                                <li>
-                                    <input type="checkbox" name="isTaoqianggou" value="1" id='isTaoqianggou' class='inputs team3'/>
-                                    <label class='hiddens' for="isTaoqianggou"></label>
-                                    <span class='show_title'>淘抢购</span></li>
-                                <li>
-                                    <input type="checkbox" name="isJuhuashuan" value="1" id='chechboxs5' class='inputs team3'/>
-                                    <label class='hiddens' for="chechboxs5"></label>
-                                    <span class='show_title'>聚划算</span>
-                                    <p class='today_new_pro5'></p>
-                                </li>
-                                <li>
-                                    <input type="checkbox" name="isNine" value="1" id='chechboxs6' class='inputs team4'/>
-                                    <label class='hiddens' for="chechboxs6"></label>
-                                    <span class='show_title'>9.9包邮</span>
-                                </li>
-                                <li>
-                                    <input type="checkbox" name="isTwenty" value="1" id='chechboxs7' class='inputs team4'/>
-                                    <label class='hiddens' for="chechboxs7"></label>
-                                    <span class='show_title'>20元封顶</span>
-                                    <p class='today_new_pro3'></p>
-                                </li>
-                                <li>
-                                    <input type="checkbox" name="isJyj" value="1" id='chechboxs8' class='inputs team5'/>
-                                    <label class='hiddens' for="chechboxs8"></label>
-                                    <span class='show_title'>极有家</span>
-                                </li>
-                                <li>
-                                    <input type="checkbox" name="isHaitao" value="1" id='chechboxs9' class='inputs team5'/>
-                                    <label class='hiddens' for="chechboxs9"></label>
-                                    <span class='show_title'>海淘</span>
-                                    <p class='today_new_pro4'></p>
-                                </li>
-                                <li class="margin0">
-                                    <input type="checkbox" name="isYfx" value="1" id='chechboxs10' class='inputs'/>
-                                    <label class='hiddens' for="chechboxs10"></label>
-                                    <span class='show_title'>运费险</span>
-                                </li>
-                            </ul>
+                           <ul class=" margin_right">
+                                             <li>
+                                                 <input type="checkbox" name="today" value="1" id='today' class='inputs'/>
+                                                 <label class='hiddens' for="today"></label>
+                                                 <span class='show_title'>今日新品</span>
+                                                 <p class='today_new_pro'></p>
+                                             </li>
+                                             <li>
+                                                 <input type="checkbox" name="isTmall" value="1" id='isTmall' class='inputs team2'/>
+                                                 <label class='hiddens ' for="isTmall"></label>
+                                                 <span class='show_title'>只看天猫</span>
+                                             </li>
+                                             <li>
+                                                 <input type="checkbox" name="isJpseller" value="1" id='isJpseller' class='inputs team2'/>
+                                                 <label class='hiddens' for="isJpseller"></label><span class='show_title'>金牌卖家</span>
+                                             </li>
+                                             <li>
+                                                 <input type="checkbox" name="isQjd" value="1" id='isQjd' class='inputs team2'/>
+                                                 <label class='hiddens ' for="isQjd"></label>
+                                                 <span class='show_title'>旗舰店</span>
+                                                 <p class='today_new_pro2'></p>
+                                             </li>
+                                             <li>
+                                                 <input type="checkbox" name="isTaoqianggou" value="1" id='isTaoqianggou' class='inputs team3'/>
+                                                 <label class='hiddens' for="isTaoqianggou"></label>
+                                                 <span class='show_title'>淘抢购</span></li>
+                                             <li>
+                                                 <input type="checkbox" name="isJuhuashuan" value="1" id='chechboxs5' class='inputs team3'/>
+                                                 <label class='hiddens' for="chechboxs5"></label>
+                                                 <span class='show_title'>聚划算</span>
+                                                 <p class='today_new_pro5'></p>
+                                             </li>
+                                             <li>
+                                                 <input type="checkbox" name="isNine" value="1" id='chechboxs6' class='inputs team4'/>
+                                                 <label class='hiddens' for="chechboxs6"></label>
+                                                 <span class='show_title'>9.9包邮</span>
+                                             </li>
+                                             <li>
+                                                 <input type="checkbox" name="isTwenty" value="1" id='chechboxs7' class='inputs team4'/>
+                                                 <label class='hiddens' for="chechboxs7"></label>
+                                                 <span class='show_title'>20元封顶</span>
+                                                 <p class='today_new_pro3'></p>
+                                             </li>
+                                             <li>
+                                                 <input type="checkbox" name="isJyj" value="1" id='chechboxs8' class='inputs team5'/>
+                                                 <label class='hiddens' for="chechboxs8"></label>
+                                                 <span class='show_title'>极有家</span>
+                                             </li>
+                                             <li>
+                                                 <input type="checkbox" name="isHaitao" value="1" id='chechboxs9' class='inputs team5'/>
+                                                 <label class='hiddens' for="chechboxs9"></label>
+                                                 <span class='show_title'>海淘</span>
+                                                 <p class='today_new_pro4'></p>
+                                             </li>
+                                             <li class="margin0">
+                                                 <input type="checkbox" name="isYfx" value="1" id='chechboxs10' class='inputs'/>
+                                                 <label class='hiddens' for="chechboxs10"></label>
+                                                 <span class='show_title'>运费险</span>
+                                             </li>
+                                         </ul>
                             <div class="section in_clock_box">
                                 <p class="section_title">
                                     <span class='title_in'>券区间</span>
