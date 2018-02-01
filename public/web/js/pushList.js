@@ -12,7 +12,8 @@ $(function(){
         var scrollTop = $(this).scrollTop();
         var scrollHeight = $(document).height();
         var windowHeight = $(this).height();
-        if(window.location.search!=''){
+        var single_num=document.getElementsByTagName('single_num');
+        if(window.location.search!=''&&single_num.length>20){
         if(scrollHeight-scrollTop-windowHeight <=30){
             //请求
             next_page += 1
@@ -25,6 +26,9 @@ $(function(){
 //         var sort=document.getElementsByClassName(".tab_nav_active");
 //
 // console.log(sort)
+            //获取分类
+            var active_category=$(".active")[0].id;
+            console.log(active_category)
             //    获取搜索词
             var keyword=$('#search_value').val();
             console.log(keyword)
@@ -62,6 +66,9 @@ $(function(){
                 }
             }
             // console.log(newArr)
+            //获取分类
+            var active_category=$(".active")[0].id;
+            console.log(active_category)
             //    获取券区间筛选条件
             var minCouponPrice=$(".in_clock").val();
             var maxCouponPrice=$(".in_clock0").val();
@@ -91,7 +98,8 @@ $(function(){
                 isHaitao: isHaitao,
                 isYfx:isYfx,
                 page: next_page,
-                limit: limit
+                limit: limit,
+            category:active_category
             }
             $.get({
                 type: "GET",
@@ -132,7 +140,8 @@ $(function(){
                 }
             });
         }
-        }else{
+        }else if(single_num.length>20){
+            console.log(window)
             if(scrollHeight-scrollTop-windowHeight <=30){
                 //请求
                 next_page += 1
@@ -208,7 +217,8 @@ $(function(){
                     isHaitao: isHaitao,
                     isYfx:isYfx,
                     page: next_page,
-                    limit: limit
+                    limit: limit,
+                    category:active_category
                 }
                 $.get({
                     type: "GET",
