@@ -127,7 +127,7 @@ $(function(){
                         $("img").on("error", function () { $(this).attr("src", "/web/images/mrtp.jpg"); });
                     } else{
                         flag = true;
-                        layer.msg('加载完了,以后我们努力给你更多!')
+
                     }
                 }
             });

@@ -126,7 +126,7 @@ $(function(){
                             $("img").on("error", function () { $(this).attr("src", "/web/images/mrtp.jpg"); });
                         } else if(data.data.length <0){
                             flag = true;
-                            layer.msg('加载完了,以后我们努力给你更多!');
+
                         }
                     }
                 });
@@ -451,7 +451,7 @@ $(function(){
                     document.getElementById("goods-list").innerHTML=html;
                     $("img").on("error", function () { $(this).attr("src", "/web/images/mrtp.jpg"); });
                 } else if(data.data.length <0){
-                    layer.msg('加载完了,以后我们努力给你更多!');
+
                 }
             }
         })
