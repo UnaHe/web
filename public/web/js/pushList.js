@@ -13,7 +13,7 @@ $(function(){
         var scrollHeight = $(document).height();
         var windowHeight = $(this).height();
         var single_num=document.getElementsByTagName('single_num');
-        if(window.location.search!=''&&single_num.length>20){
+        if(window.location.search!=''&&single_num.length>18){
         if(scrollHeight-scrollTop-windowHeight <=30){
             //请求
             next_page += 1
@@ -140,7 +140,7 @@ $(function(){
                 }
             });
         }
-        }else if(single_num.length>20){
+        }else if(single_num.length>18){
             console.log(window)
             if(scrollHeight-scrollTop-windowHeight <=30){
                 //请求
@@ -344,7 +344,6 @@ $(function(){
 });
 
 //高级筛选
-
 $(".common").on("click",function(){
     var sendData={};
     console.log("11111111111111")
@@ -442,7 +441,6 @@ $(".common").on("click",function(){
                 $.each(data.data, function ($key, $val) {
                     var val_url = goods_url_head + '/' + $val.id;
                     var pic = $val.pic;
-
                     var short_title = $val.short_title;
                     function removeAllSpace(short_title) {
                         return short_title.replace(/\s+/g, "");
@@ -469,11 +467,7 @@ $(".common").on("click",function(){
         }
     })
 })
-
-
-
 //tab栏获取数据
-
 $(".prod_type_box li").on('click',function(){
     var sendData={};
     console.log("11111111111111")
@@ -606,9 +600,6 @@ $(".prod_type_box li").on('click',function(){
 
 
 })
-
-
-
 //分类栏获取数据
 $(".tab_nav span").on('click',function(){
     var sendData={};
@@ -619,8 +610,6 @@ $(".tab_nav span").on('click',function(){
         console.log(nav_tab[i])
         nav_tab[i].className = '';
     }
-
-
     this.className = 'tab_nav_active';
     var sort=this.id;
     //获取分类
@@ -728,7 +717,7 @@ $(".tab_nav span").on('click',function(){
                 document.getElementById("goods-list").innerHTML=html;
                 $("img").on("error", function () { $(this).attr("src", "/web/images/mrtp.jpg"); });
             } else if(data.data.length <0){
-                layer.msg('加载完了,以后我们努力给你更多!');
+                // layer.msg('加载完了,以后我们努力给你更多!');
             }
         }
     })
