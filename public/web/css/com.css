@@ -157,6 +157,7 @@ body{
     float: left;
     border-bottom: 1px solid #eee;
     width: 100%;
+    padding-left: 0px;
 }
 .pyt_footer li{
     float: left;
@@ -168,6 +169,9 @@ body{
     margin-bottom: 6px;
     text-align: center;
     color: #999999 ;
+}
+.pyt_footer li:first-child{
+    margin-left: -10px;
 }
 .footer_line{
     display: inline-block;
@@ -197,7 +201,6 @@ body{
 .pyt_remark{
     color:rgba(153,153,153,1);
     font-size:14px;
-    padding-left: 12px;
     margin-bottom: 10px;
     margin-top: 8px;
 }
