@@ -7,9 +7,9 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right nav_line">
                     @if(\Illuminate\Support\Facades\Auth::check())
-                        <li class="dropdown-toggle last_li "><a
-                                    href="#" class='login_color'>{{\Illuminate\Support\Facades\Auth::user()->phone}}</a>
-                                    <span class="arr_down"></span>
+                        <li class="dropdown-toggle last_li ">
+                            <a href="#" class='login_color'>{{\Illuminate\Support\Facades\Auth::user()->phone}}</a>
+                            <span class="arr_down"></span>
                         </li>
                         <ul class="dropdown-menu">
                             <li><a href="{{url('/userCenter')}}" class="user_menu">个人中心</a></li>

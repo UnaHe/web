@@ -8,6 +8,7 @@
     <!-- 设置主题样式-->
     <link rel="stylesheet" href="/web/lib/bootstrap/dist/css/bootstrap.min.css"/>
     <!-- 引入字体样式-->
+      <link rel="stylesheet" href="/web/css/reset.css">
     <link rel="stylesheet" href="/web/lib/bootstrap/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="/web/css/com.css"/>
     <link rel="stylesheet" href="/web/css/business.css"/>

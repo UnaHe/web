@@ -89,6 +89,9 @@ a,a:hover{
     -moz-animation: fadeInUps .5s 1,fadeInss_text 1s 1;
     animation:fadeInUps .5s 1,fadeInss_text 1s 1;
 }
+#app_explain img{
+    margin-left: 40px;
+}
 /*各栏目文字的显隐效果*/
 @keyframes fadeIns
 {
@@ -816,7 +819,7 @@ animation: fadeInUp .4s 1,fadeInss_text .4s 1;
 /*页脚*/
 .pyt_footer{
     border: none;
-    margin-left: 410px;
+    margin-left: 374px;
 }
 .pyt_footer_box{
     position: absolute;
@@ -837,7 +840,7 @@ animation: fadeInUp .4s 1,fadeInss_text .4s 1;
 .pyt_remark{
     font-size: 12px;
     color: rgba(153, 153, 153, 1);
-    margin-left: 456px;
+    margin-left: 410px;
     padding-left: 0px;
     width: 1100px;
     padding-top: 18px;

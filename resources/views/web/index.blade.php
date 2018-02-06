@@ -16,31 +16,7 @@
 <body>
 <!--头部-->
 <div class="container-fluid">
-    <header class="pyt_header pyt_hearder_color">
-        <nav class="navbar navbar-default  container pyt_hearder_color">
-            <div class="container-fluid">
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        <li class="first_li"><a href="#">给你的不仅仅是优惠</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class="dropdown1">1888********
-                        </li>
-                        <ul class="menu2" id="menu2">
-                            <li><a href="personal_center.html">个人中心</a></li>
-                            <li><a href="pyt_land.html">授权管理</a></li>
-                            <li><a href="account.html">账号安全</a></li>
-                            <li><a href="#">退出</a></li>
-                        </ul>
-                        <li><a href="#">注册</a></li>
-                        <li><a href="#">企业官网</a></li>
-                        <li><a href="#">商务合作</a></li>
-                        <li class="last_li"><a href="#">微信交流群</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
+@include('web.layouts.header')
 
 <!--banner部分-->
 <nav class="pyt_nav" id="pyt_nav">
@@ -56,8 +32,7 @@
         </ul>
         <div class="clear"></div>
         <p id="app_explain" class="fadenum">
-            <span class="tuike">创新推客</span>
-            <span>精品打磨</span>
+            <img src="/images/web/banner_biaoyu.png">
         </p>
         <p id="souye_x">
             <img src="/images/web/souye_x.png" alt="">

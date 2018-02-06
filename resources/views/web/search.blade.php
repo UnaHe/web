@@ -5,6 +5,7 @@
 @stop
 
 @section('css')
+  <link rel="stylesheet" href="/web/css/reset.css">
     <link rel="stylesheet" href="/web/css/choiceness.css"/>
 @stop
 
