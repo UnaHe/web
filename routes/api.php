@@ -173,6 +173,11 @@ Route::domain(config('domains.api_domain'))->middleware(\App\Http\Middleware\Api
          */
         Route::get('/share/referralCode', "ShareController@getReferralCode");
 
+        /**
+         * 获取活动
+         */
+        Route::get('/share/activity', "ShareController@getActivity");
+
     });
 
 });
