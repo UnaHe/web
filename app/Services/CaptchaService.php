@@ -50,12 +50,13 @@ class CaptchaService
 
     /**
      * 验证注册验证码
+     * @param $mobile
      * @param $codeId
      * @param $code
      * @return bool
      */
-    public function checkSmsCode($codeId, $code){
-        $cacheKey = "smsCode.".$codeId;
+    public function checkSmsCode($mobile, $codeId, $code){
+        $cacheKey = "smsCode.".$mobile.".".$codeId;
 
         if(Cache::get($cacheKey) == $code){
             return true;

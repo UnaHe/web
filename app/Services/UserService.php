@@ -12,7 +12,10 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Models\InviteCode;
 use App\Models\User;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Request;
+use GuzzleHttp\Client;
 
 class UserService
 {
@@ -23,8 +26,33 @@ class UserService
      * @param $inviteCode
      * @throws \Exception
      */
-    public function registerUser($userName, $password, $inviteCode){
+    public function registerUser($inviteCode, $userName, $password, $codeId, $captcha){
+        // 请求注册服务器.
+        $response = (new Client())->post(config('app.usercenter_host')."/api/register", [
+            'form_params' => [
+                'username' => $userName,
+                'password' => $password,
+                'codeId' => $codeId,
+                'captcha' => $captcha,
+            ]
+        ])->getBody()->getContents();
+
+        if(!$response){
+            Log::error("注册服务器错误");
+            throw new \Exception("注册服务器错误");
+        }
+        $result = json_decode($response, true);
+        if($result['code'] == 300){
+            throw new \Exception("注册失败");
+        }
+
         $User = new User();
+        $regUser = $User->where('phone', $userName)->first();
+        if($regUser === NULL){
+            throw new \Exception("注册失败");
+        }
+
+        // 邀请码信息.
         $InviteCode = new InviteCode();
         $query = $InviteCode->from($InviteCode->getTable()." as invite")->where([
             ["invite.invite_code", $inviteCode],
@@ -34,6 +62,23 @@ class UserService
         $query->select(["user.id", "user.grade", "user.path", "invite.effective_days"]);
         $inviteCodeInfo = $query->first();
 
+        // 计算用户path.
+        $masterId = $inviteCodeInfo['id'];
+        $masterGrade = $inviteCodeInfo['grade'] ? $inviteCodeInfo['grade'] : 1;
+        $masterPath = $inviteCodeInfo['path'];
+        if ($masterGrade === 3) {
+            $path = $masterId.':';
+        } else {
+            $path = $masterPath.$masterId.':';
+        }
+
+        //有效期
+        $effectiveDay = $inviteCodeInfo['effective_days'];
+        $expireTime = null;
+        if($effectiveDay>0){
+            $expireTime = (new Carbon())->addDay($effectiveDay)->endOfDay();
+        }
+
         DB::beginTransaction();
         try{
             //使用邀请码
@@ -41,31 +86,9 @@ class UserService
                 throw new \LogicException("邀请码无效");
             }
 
-            // 计算用户path.
-            $masterId = $inviteCodeInfo['id'];
-            $masterGrade = $inviteCodeInfo['grade'] ? $inviteCodeInfo['grade'] : 1;
-            $masterPath = $inviteCodeInfo['path'];
-
-            if ($masterGrade === 3) {
-                $path = $masterId.':';
-            } else {
-                $path = $masterPath.$masterId.':';
-            }
-
-            //有效期
-            $effectiveDay = $inviteCodeInfo['effective_days'];
-            $expireTime = null;
-            if($effectiveDay>0){
-                $expireTime = (new Carbon())->addDay($effectiveDay)->endOfDay();
-            }
-
             //创建用户
-            $isSuccess = User::create([
-                'phone' => $userName,
-                'password' => bcrypt($password),
+            $isSuccess = $regUser->update([
                 'invite_code' => $inviteCode,
-                'reg_time' => date('Y-m-d H:i:s'),
-                'reg_ip' => Request::ip(),
                 'expiry_time' => $expireTime,
                 'path' => $path,
             ]);
@@ -73,6 +96,9 @@ class UserService
             if(!$isSuccess){
                 throw new \LogicException("注册失败");
             }
+
+            // 存入注册列表.
+            Redis::lpush('manager:queue:complete_reg_info', $inviteCode);
             DB::commit();
         }catch (\Exception $e){
             DB::rollBack();

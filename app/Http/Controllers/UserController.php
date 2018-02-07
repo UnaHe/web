@@ -10,6 +10,8 @@ class UserController extends Controller
 {
     /**
      * 用户注册
+     * @param Request $request
+     * @return UserController
      */
     public function register(Request $request){
         $inviteCode = $request->post('invite_code');
@@ -21,19 +23,21 @@ class UserController extends Controller
         if(!$inviteCode || !$userName || !$password || !$codeId){
             return $this->ajaxError("参数错误");
         }
+        if(!preg_match('/^\w{1,6}$/', $inviteCode)){
+            return $this->ajaxError('邀请码格式错误');
+        }
         if(!preg_match('/^1\d{10}$/', $userName)){
             return $this->ajaxError('请输入正确的手机号码');
         }
         if(strlen($password) < 6){
             return $this->ajaxError('密码长度至少为6位');
         }
-
-        if(!(new CaptchaService())->checkSmsCode($codeId, $captcha)){
+        if(!(new CaptchaService())->checkSmsCode($userName, $codeId, $captcha)){
             return $this->ajaxError("验证码错误");
         }
 
         try{
-            (new UserService())->registerUser($userName, $password, $inviteCode);
+            (new UserService())->registerUser($inviteCode, $userName, $password, $codeId, $captcha);
         }catch (\Exception $e){
             return $this->ajaxError($e->getMessage());
         }
