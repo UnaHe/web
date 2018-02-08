@@ -130,11 +130,14 @@ a{
 }
 /*海报*/
 #haibao{
+    /*background: rgba(0,0,0,.6);*/
     background: url("../img/shengchenghaibao.jpg") no-repeat;
     background-size: cover;
     display: none;
     width: 100%;
     height:100%;
+    display: flex;
+    flex: 1;
     position: absolute;
     z-index: 2;
 
@@ -151,7 +154,7 @@ a{
     line-height: 1rem;
     font-size: .3rem;
     color: rgba(51, 51, 51, 1);
-    top: 14rem;
+    top: 15.4rem;
     left:3rem;
     position: absolute;
 }
@@ -159,8 +162,8 @@ a{
     width: .4rem;
     height: .4rem;
     position: absolute;
-    top:10rem;
-    left: 3.2rem;
+    top:10.3rem;
+    left: 3rem;
 }
 .width{
     width: 3rem;
