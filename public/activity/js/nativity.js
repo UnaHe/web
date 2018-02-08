@@ -106,14 +106,19 @@ $('#new_pic').on('click',function(){
     loadUserLinkInfo(pid,function(info){
         var hb=document.getElementById('haibao');
         hb.style.display='block';
-        $("#code").qrcode({
-            render:"table",
-            width:150,
-            height:150,
-            text:info.shortUrl
-        });
-        // qrcode.clear();
-        // qrcode.makeCode("new content")
+            // $("#code").remove();
+            if($("#code")){
+                console.log($("#code").children());
+                $("#code").children().remove();
+                console.log(111111111111111111111111111111)
+                $("#code").qrcode({
+                    render:"table",
+                    width:150,
+                    height:150,
+                    text:"$WRFjn$"
+                });
+                $("table").addClass('width')
+            }
     });
 
 });
