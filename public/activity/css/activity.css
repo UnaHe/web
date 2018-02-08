@@ -153,12 +153,12 @@ a{
     color: rgba(51, 51, 51, 1);
     top: 14rem;
     left:3rem;
-    position: fixed;
+    position: absolute;
 }
 #code{
     width: .4rem;
     height: .4rem;
     position: absolute;
-    top:8.8rem;
+    top:9rem;
     left: 3.2rem;
 }
