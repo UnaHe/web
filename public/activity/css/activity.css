@@ -11,68 +11,74 @@ header{
 }
 body{
     width: 100%;
-    background: url("../img/beijing.png");
-    background-size: cover;
+    height: 100%;
+    background: url("../img/beijing.png") no-repeat;
+    background-size: contain;
     display: flex;
     flex: 1;
 }
 #biaoyu{
     margin-top: 368px;
-    margin-left:94px ;
+    margin-left:.8rem ;
     display: block;
     width: 80%;
     height: 100%;
-    margin-top:226px;
+    margin-top:1rem;
 }
 nav{
     width: 100%;
     height:100%;
 }
 #activity_data,#activity_datas{
-    width:408px ;
-    height: 50px;
-    border-radius: 25px;
-    background:rgba(252,204,39,1);
-    text-align: center;
-    line-height: 50px;
-    font-size: 22px;
+    padding-left: 1.6rem;
+    line-height: 1rem;
+    font-size: .35rem;
+    line-height: .8rem;
     margin: auto;
+}
+#activity_datas{
+    padding-left: 3rem;
+    font-size: .5rem;
 }
 /*弹框*/
 #ball_box,#ball_boxs{
-    width: 600px;
-    height: 465px;
+    width: 100%;
+    height: 7.2rem;
     margin: auto;
-    background: url("../img/tanchuang.png");
-    background-size: 100% 100%;
-    margin-top: 120px;
+    margin-left: .5rem;
+    background: url("../img/tanchuang.png") no-repeat;
+    background-size: 90% 100%;
+    margin-top: 1rem;
 }
+
 #ball_boxs{
     position: fixed;
-    top:590px ;
-    left: 188px;
+    top:4.65rem;
+    left: -.2rem;
 }
 #activity_content,#activity_contents{
-    width:527px;
-    height:230px;
-    font-size:26px;
+    width:75%;
+    font-size:.4rem;
     font-family:DengXian-Regular;
     color:rgba(51,51,51,1);
-    margin: 50px auto 50px;
-    letter-spacing: 3px;
+    margin-left: .7rem;
+    margin-top: .2rem;
+    letter-spacing: .1rem;
+    margin-bottom:1rem;
+}
+#activity_contents{
+    margin-top: .5rem;
 }
 #share_btn,#share_btns{
-    width:360px;
-    height:90px;
-    font-size: 34px;
+    font-size: .5rem;
     color: rgba(51,51,51,1);
-    text-align: center;
-    line-height: 90px;
-    background:rgba(252,204,39,1);
-    border-radius: 45px;
+    padding-left: 3.4rem;
     margin: auto;
-    margin-top: 0px;
-    border: 6px solid rgba(252, 164, 39, 1);
+    display: inline-block;
+}
+#share_btns{
+    font-size: .5rem;
+    margin-top: .2rem;
 }
 #mengcheng{
     width: 100%;
@@ -80,29 +86,28 @@ nav{
     background-color: rgba(0,0,0,.4);
     position: fixed;
     z-index: 2;
-    margin-top: 138px;
     display: none;
 }
 #together{
-    width:270px;
-    height:26px;
-    font-size:28px;
+    font-size:.4rem;
     font-family:DengXian-Regular;
     color:rgba(255,255,255,1);
-    line-height:72px;
+    line-height:1rem;
     margin: auto;
-    margin-top: 266px;
+    margin-left: 3rem;
+    margin-top: 1.4rem;
 }
 .footer_nav{
-    width: 110px;
+    width: 20%;
     text-align: center;
-    margin-top:124px ;
-    margin-left: 466px;
+    margin-top:.3rem;
+    margin-left: 1.8rem;
     display: inline-block;
+    margin-bottom: .2rem;
 }
 .footer_nav p{
-    margin-top:20px ;
-    font-size: 24px;
+    margin-top:.1rem;
+    font-size: .3rem;
     color: rgba(255, 255, 255, 1);
 }
 a{
@@ -113,34 +118,36 @@ a{
 }
 /*海报*/
 #haibao{
-    width: 100%;
-    position: fixed;
-    top: 133px;
-    z-index: 5555;
-    /*left: 140px;*/
-    height: 100%;
-    background: #f4f4f4;
+
+    background: url("../img/shengchenghaibao.jpg") no-repeat;
+    background-size: contain;
     display: none;
+    width: 100%;
+    height:100%;
+    position: fixed;
+    z-index: 2;
 
 }
-.bac_fff{
-    background: #f4f4f4;
-}
-#haibao img{
-    height: 70%;
-    margin-left: 112px;
-    margin-top: 100px;
+.footer_nav img{
+    width: 1.4rem;
 }
 #save_pic{
-    width:500px;
-    height:80px;
+    width:40%;
+    height:1rem;
     background:rgba(246,174,35,1);
     border-radius: 40px;
     text-align: center;
-    line-height: 80px;
-    font-size: 28px;
+    line-height: 1rem;
+    font-size: .3rem;
     color: rgba(51, 51, 51, 1);
-    margin-top: 60px;
-    left:210px;
+    top: 16rem;
+    left:3rem;
     position: fixed;
+}
+#code{
+    width: .4rem;
+    height: .4rem;
+    position: absolute;
+    top:10.7rem;
+    left: 3.2rem;
 }

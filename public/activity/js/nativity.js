@@ -1,5 +1,10 @@
 $("#share_btn").on("click",function(){
-    var layer=document.getElementById('mengcheng');
+
+
+    setTimeout(function () {
+        var layer=document.getElementById('mengcheng');
+        layer.style.display='block'
+    },1500)
     var pid=window.location.href.split('=');
     pid=pid[5];
     // pid='mm_0_0_0';
@@ -14,14 +19,14 @@ $("#share_btn").on("click",function(){
             if(code===200){
                 var info = data.data;
                 $("#shorturl").html(info.shortUrl);
-                $('#taocode').html(info.taoCode);
+                $("#taocode").html(info.taoCode);
             }else{
                 alert('请求分享数据信息失败');
             }
 
         }
     })
-    layer.style.display='block'
+
 })
 
 //跳转到支付宝
@@ -59,6 +64,9 @@ $("#share_btns").on("click",function (e) {
 $('#new_pic').on('click',function(){
     var hb=document.getElementById('haibao');
     hb.style.display='block';
+    setTimeout(function () {
+        alert("请手机截屏！")
+    },1000);
 });
 $('#save_pic').on('click',function(){
 //     html2canvas($("#ee"), {
