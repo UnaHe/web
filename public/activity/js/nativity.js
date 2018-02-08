@@ -3,25 +3,24 @@ var userShareInfo = null;
 $("#share_btn").on("click",function(){
 
 
-    setTimeout(function () {
+    // setTimeout(function () {
         var layer=document.getElementById('mengcheng');
         layer.style.display='block'
-    },1500)
+    // },1500)
     var pid=window.location.href.split('=');
-    pid=pid[5];
-    // pid='mm_0_0_0';
+    pid=pid[1];
     loadUserLinkInfo(pid,function(info){
         $("#shorturl").html(info.shortUrl);
         $("#taocode").html(info.taoCode);
     });
 });
-
 //跳转到支付宝
 $("#zfb").on("click",function(){
    //  var pid='y_index/index.html?pid=qwqwq';
    // console.log(pid.split('=')[1])
-   var pid=window.location.href.split('=');
-    pid=pid[1];
+   var pid=window.location.href.split('pid=');
+    pid=pid[1].split('&');
+    pid=pid[0];
     window.location.href='https://mos.m.taobao.com/activity_newer?from=tool&sight=pytk&pid='+pid
 })
 //设置一键复制
@@ -40,7 +39,6 @@ var copyFunction = function (copyBtn,text, copyMsg) {
         });
         layer.open({
             content: copyMsg,
-            // btn: '重载',
             yes: function () {
                 location.reload();
             }
@@ -72,8 +70,12 @@ function loadUserLinkInfo(pid,cb){
                     var info = data.data;
                     userShareInfo = info;
                     cb(info);
-                    // qrcode.clear();
-                    // qrcode.makeCode("new content")
+                    $("#code").qrcode({
+                        render:"table",
+                        width:140,
+                        height:140,
+                        text:info.shortUrl
+                    });
                 } else {
                     layer.closeAll();
                     layer.open({
@@ -100,8 +102,9 @@ function loadUserLinkInfo(pid,cb){
 }
 //点击生成海报
 $('#new_pic').on('click',function(){
-    var pid=window.location.href.split('=');
-    pid=pid[1];
+    var pid=window.location.href.split('pid=');
+    pid=pid[1].split('&');
+    pid=pid[0];
     // pid='mm_0_0_0';
     loadUserLinkInfo(pid,function(info){
         var hb=document.getElementById('haibao');
@@ -109,16 +112,15 @@ $('#new_pic').on('click',function(){
             // $("#code").remove();
             if($("#code")){
                 console.log($("#code").children());
-                $("#code").children().remove();
-                console.log(111111111111111111111111111111)
-                $("#code").qrcode({
-                    render:"table",
-                    width:140,
-                    height:140,
-                    text:"$WRFjn$"
-                });
-                $("table").addClass('width')
+                // $("#code").children().remove();
             }
+        layer.closeAll();
+        // layer.open({
+        //     content: '请使用手机截屏',
+        //     yes: function () {
+        //         location.reload();
+        //     }
+        // });
     });
 
 });
