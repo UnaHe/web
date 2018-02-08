@@ -38,10 +38,20 @@ class TaobaoService
 
         $token = TaobaoToken::where("user_id", $userId)->first();
         if(!$token){
+            if(TaobaoToken::where("taobao_user_id", $tokens['taobao_user_id'])->exists()){
+                throw new \Exception("该淘宝账号已授权其他账号，请更换淘宝账号重新授权！", 202);
+            }
+
             $token = new TaobaoToken();
             $token['create_time'] = $now;
             $token['user_id'] = $userId;
+        }else{
+            if($token['taobao_user_id'] != $tokens['taobao_user_id']){
+                throw new \Exception("一个账号只能授权一个淘宝账号哦，请使用绑定的淘宝账号重新授权！", 202);
+            }
         }
+
+
         try{
             $token['access_token'] = $tokens['access_token'];
             $token['token_type'] = $tokens['token_type'];
@@ -218,7 +228,7 @@ class TaobaoService
             throw new \Exception("您可能没有阿里妈妈账户哦", 201);
         }
         if(strpos($defautPidInfo['ret'][0], "FAIL_SYS_SESSION_EXPIRED") !== false){
-            throw new \Exception("cookie过期", 201);
+            throw new \Exception("cookie过期", 300);
         }
         if(!isset($defautPidInfo['data'])){
             throw new \Exception("cookie无效", 300);
