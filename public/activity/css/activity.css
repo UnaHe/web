@@ -134,8 +134,8 @@ a{
     background-size: cover;
     display: none;
     width: 100%;
-    height:100%;
-    position: fixed;
+    height:87%;
+    position: absolute;
     z-index: 2;
 
 }
@@ -151,7 +151,7 @@ a{
     line-height: 1rem;
     font-size: .3rem;
     color: rgba(51, 51, 51, 1);
-    top: 16rem;
+    top: 14rem;
     left:3rem;
     position: fixed;
 }
@@ -159,6 +159,6 @@ a{
     width: .4rem;
     height: .4rem;
     position: absolute;
-    top:10.2rem;
+    top:8.8rem;
     left: 3.2rem;
 }
