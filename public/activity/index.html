@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="./css/activity.css">
+    <link rel="stylesheet" href="./plugins/layer/need/layer.css">
 </head>
 <body>
     <nav id="navs">
@@ -16,7 +17,7 @@
             <div id="activity_content">
                 <p>新年新气象，红包抽奖享不停！邀新人赚赏金188元大礼包，超值好货0元购！【活动链接】｛选择分享渠道后自动生成链接｝ ------------------------------ 复制本段文字， {￥选择分享渠道后自动生成淘口令｝,打开[手淘]领红包</p>
             </div>
-            <div id="share_btn">分享赚钱</div>
+            <div class="share_btn"><img src="./img/fxzq.png" alt="" id="share_btn"></div>
         </div>
         <p id="together">邀请好友 一起来抽奖</p>
         <div class="footer_nav" id="zfb">
@@ -34,7 +35,7 @@
             <div id="activity_contents">
                 <p id="copy_text">新年新气象，红包抽奖享不停！邀新人赚赏金188元大礼包，超值好货0元购！【活动链接】｛<sapn id="shorturl"></sapn>｝ ------------------------ 复制本段文字,{<sapn id="taocode"></sapn>｝,打开[手淘]领红包</p>
             </div>
-            <div id="share_btns">去微信粘贴</div>
+            <div class="share_btns"><img src="./img/wxzt.png" alt="" id="share_btns"></div>
         </div>
     </div>
 <!--生成图片-->
@@ -46,6 +47,7 @@
 </div>
 </body>
 <script src="js/jquery.min.js"></script>
+<script src="plugins/layer/layer.js"></script>
 <script src="js/clip-board.min.js"></script>
 <script src="js/nativity.js"></script>
 <script src="https://cdn.bootcss.com/html2canvas/0.4.1/html2canvas.js"></script>
@@ -53,12 +55,12 @@
 <script src="http://g.tbcdn.cn/mtb/lib-flexible/0.3.4/??flexible_css.js,flexible.js"></script>
 
 <script>
-    $("#code").qrcode({
-        render:"table",
-        width:150,
-        height:150,
-        text:"$WRFjn$"
-    });
+    // $("#code").qrcode({
+    //     render:"table",
+    //     width:150,
+    //     height:150,
+    //     text:"$WRFjn$"
+    // });
     // qrcode.clear();
     // qrcode.makeCode("new content")
 </script>
