@@ -113,8 +113,8 @@ $('#new_pic').on('click',function(){
                 console.log(111111111111111111111111111111)
                 $("#code").qrcode({
                     render:"table",
-                    width:150,
-                    height:150,
+                    width:140,
+                    height:140,
                     text:"$WRFjn$"
                 });
                 $("table").addClass('width')
