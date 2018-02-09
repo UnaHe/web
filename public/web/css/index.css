@@ -227,9 +227,8 @@ animation: fadeInUp .4s 1,fadeInss_text .4s 1;
     background-color: #fff;
     box-shadow: 1px 10px 49px rgba(0, 0, 0, 0.1);
     cursor: pointer;
-     transform: translateY(-2px);
-     transition:all .2s linear 0s ;
-
+     /*transform: translateY(-2px);*/
+     transition:all .6s linear .2s ;
 }
 #column_all_box .margin-right0{
     margin-right: 0;
@@ -424,6 +423,7 @@ animation: fadeInUp .4s 1,fadeInss_text .4s 1;
 .friends_box:hover{
     cursor: pointer;
     box-shadow: 1px 10px 35px rgba(175, 230, 171, 0.45);
+    transition:all .4s linear 0s ;
 }
 #liuxing{
     position: absolute;
@@ -503,6 +503,7 @@ animation: fadeInUp .4s 1,fadeInss_text .4s 1;
 /*进度条*/
 .bar_color,.bar_color_2,.bar_color_3,.bar_color_4{
     width: 10px;
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#5AE0B9, endColorstr=#A4D767);
     background: -webkit-linear-gradient(top,rgba(90, 224, 185, .6), rgba(164, 215, 103, .6));
     background: -o-linear-gradient(top,rgba(90, 224, 185, .6), rgba(164, 215, 103, .6));
     background: -moz-linear-gradient(top,rgba(90, 224, 185, .6), rgba(164, 215, 103, .6));
@@ -556,6 +557,7 @@ animation: fadeInUp .4s 1,fadeInss_text .4s 1;
     background: -o-linear-gradient(top,rgba(250, 108, 84,  .6),rgba(250, 143, 84,  .6));
     background: -moz-linear-gradient(top,rgba(250, 108, 84,  .6),rgba(250, 143, 84,  .6));
     background: linear-gradient(top,rgba(250, 108, 84,  .6),rgba(250, 143, 84,  .6));
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#FA6C54, endColorstr=#FA8F54);
     -webkit-animation: fadeInsss 1s 1;
     -moz-animation: fadeInsss 1s 1;
     animation:fadeInsss 1s 1;
@@ -590,6 +592,7 @@ animation: fadeInUp .4s 1,fadeInss_text .4s 1;
     background: -o-linear-gradient(top,rgba(152, 154, 255, .6),rgba(139, 84, 250,  .6));
     background: -moz-linear-gradient(top,rgba(152, 154, 255, .6),rgba(139, 84, 250, .6));
     background: linear-gradient(top,rgba(152, 154, 255, .6),rgba(139, 84, 250, .6));
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#989AFF, endColorstr=#8B54FA);
     -webkit-animation: fadeInsss 1s 1;
     -moz-animation: fadeInsss 1s 1;
     animation:fadeInsss 1s 1;
@@ -605,6 +608,7 @@ animation: fadeInUp .4s 1,fadeInss_text .4s 1;
     background: -o-linear-gradient(top,rgba(255, 216, 147,  .6),rgba(225, 176, 90,  .6));
     background: -moz-linear-gradient(top,rgba(255, 216, 147,  .6),rgba(225, 176, 90,  .6));
     background: linear-gradient(top,rgba(255, 216, 147,  .6),rgba(225, 176, 90, .6));
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#FFD893, endColorstr=#E1B05A);
     -webkit-animation: fadeInsss 1s 1;
     -moz-animation: fadeInsss 1s 1;
     animation:fadeInsss 1s 1;

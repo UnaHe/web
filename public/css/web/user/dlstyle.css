@@ -207,26 +207,19 @@ input#code {
 .am-tabs-bd {
     border: none;
 }
-
 .am-nav-tabs.am-nav-justify li {
     padding: 5px;
 }
-
 .am-nav-tabs > li > a, .am-nav-tabs.am-nav-justify > li > a, .am-nav-tabs.am-nav-justify > .am-active > a, .am-nav-tabs > li.am-active > a, .am-nav-tabs > li.am-active > a:focus, .am-nav-tabs > li.am-active > a:hover {
     border: none;
     color: #000;
     font-weight: 600;
 }
-
 .am-nav-tabs.am-nav-justify > .am-active > a, .am-nav-tabs.am-nav-justify > .am-active > a:focus, .am-nav-tabs.am-nav-justify > .am-active > a:hover, .am-nav-tabs > li.am-active > a, .am-nav-tabs > li.am-active > a:focus, .am-nav-tabs > li.am-active > a:hover {
     margin-right: 0px;
     /*border-bottom: 1px solid #0e90d2;*/
     border-radius: 0px;
 }
-
-
-
-
 @media screen and (min-width: 640px) {
     form, .am-cf, .partner {
         max-width: 640px;
@@ -267,6 +260,8 @@ input#code {
         margin-top: 79px;
         margin-left: 880px;
         background:rgba(255, 255, 255, 1);
+        opacity: .92;
+        /*background: #fff;*/
         padding: 10px 20px;
         border: 1px solid rgba(204, 204, 204, 1);
     }
@@ -385,7 +380,11 @@ input#code {
 }
 /*按钮样式*/
 .login-box .am-cf button {
-    line-height: 1.1;margin-top: 10px;background:rgba(224,171,74,1);border-color: rgba(224,171,74,1);
+    line-height: 1.1;
+    margin-top: 10px;
+    background:rgba(224,171,74,1);
+    border-color: rgba(224,171,74,1);
+    opacity: 1;
 }
 /*忘记密码字体颜色*/
 .login-links a{

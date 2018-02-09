@@ -11,14 +11,9 @@
 .kong {
     margin-left: 32% ;margin-top:10%;
 }
-
-
-
 .btn{
     right: 30px;
 }
-
-
 .pro_list{
     width:1100px;
 }
@@ -59,7 +54,7 @@
 .title{
     color: #666;
     font-family:NotoSansHans-Regular;
-    height: 22px;
+    height: 19px;
     width: 100%;
     overflow: hidden;
 }
@@ -73,7 +68,7 @@
     position: absolute;
 }
 .discount{
-    top: -17px;
+    top: -4px;
     position: relative;
 }
 .mouth_num{
@@ -98,7 +93,7 @@
     right: 6px;
 }
 .log_pro{
-    bottom: 0px;
+    bottom: 6px;
     right: 10px;
 }
 .small_word{

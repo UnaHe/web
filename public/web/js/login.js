@@ -20,27 +20,44 @@
 var user_yz=document.getElementById('user');
 user_yz.onblur = function(){
     var tv = this.value;
-    var reg = /^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\d{8}$/;
-    if (reg.test(tv)){
-        var show_user=document.getElementById('show_user')
-        show_user.style.display='none'
-    }else{
-        var show_user=document.getElementById('show_user')
+    if(tv==''){
+        var show_user=document.getElementById('show_user_s')
         show_user.style.display='block'
+    }else{
+        var show_user=document.getElementById('show_user_s')
+        show_user.style.display='none'
+        var reg = /^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\d{8}$/;
+        if (reg.test(tv)){
+            var show_user=document.getElementById('show_user')
+            show_user.style.display='none'
+        }else{
+            var show_user=document.getElementById('show_user')
+            show_user.style.display='block'
+        }
     }
 }
 var password_yz=document.getElementById('password');
 password_yz.onblur = function(){
     var tv = this.value;
     console.log(tv)
-    var reg = /^[\w]{6,12}$/;
-    if (reg.test(tv)){
-        var show_pas=document.getElementById('show_pas');
-        show_pas.style.display='none'
-    }else{
-        var show_pas=document.getElementById('show_pas');
+    if(tv==''){
+        var show_pas=document.getElementById('show_pas_s');
         show_pas.style.display='block'
-    }
+    } else{
+        var show_pas=document.getElementById('show_pas_s');
+        show_pas.style.display='none'
+            var reg = /^[\w]{6,12}$/;
+            if (reg.test(tv)){
+                var show_pas=document.getElementById('show_pas');
+                show_pas.style.display='none'
+            }else{
+                var show_pas=document.getElementById('show_pas');
+                show_pas.style.display='block'
+            }
+        }
+
+
+
 }
 //密码验证
 
@@ -77,38 +94,6 @@ $('#form_submit').on("click",function (e){
             }
         });
     }
-    if(user==''){
-        var show_user=document.getElementById('show_user')
-        show_user.style.display='block'
-        layer.close(index);
-    }else{
-        var reg = /^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\d{8}$/;
-        if (reg.test(user)){
-            var show_user=document.getElementById('show_user');
-            show_user.style.display='none'
-            layer.close(index);
-        }else{
-            var show_user=document.getElementById('show_user');
-            show_user.style.display='block'
-            layer.close(index);
-        }
-    }
-    if(password==''){
-        var show_pas=document.getElementById('show_pas');
-        show_pas.style.display='block'
-        layer.close(index);
-    }else{
-        var reg = /^[\w]{6,12}$/;
-        if (reg.test(password)){
-            var show_pas=document.getElementById('show_pas');
-            show_pas.style.display='none'
-            layer.close(index);
-        }else{
-            var show_pas=document.getElementById('show_pas');
-            show_pas.style.display='block'
-            layer.close(index);
-        }
-    }
 })
 document.onkeydown=function(e){
     var keycode=document.all?event.keyCode:e.which;
@@ -130,60 +115,22 @@ document.onkeydown=function(e){
                     dataType: "json",
                     success: function (data) {
                         if (data.code == 200) {
-                            var msg = data.data.message;
-                            msg = msg ? msg : '登录成功';
-                            layer.msg(msg);
                             window.location.href = url;
                             layer.close(index);
-
                         //    本地存储用户名和密码
                         //     localStorage.setItem("username",user)
                         //     localStorage.setItem("password",password)
                         //     console.log(window.localStorage)
-
-
-
-                        }else{
+                        }else if(data.code!='200'){
+                            layer.close(index);
+                            console.log(111111111)
                             var show_pas= document.getElementById('show_pas');
                             show_pas.style.display='block'
-                            layer.close(index);
 
                         }
                     }
                 });
             }
-        if(user==''){
-            var show_user=document.getElementById('show_user')
-            show_user.style.display='block'
-            layer.close(index);
-        }else{
-            var reg = /^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\d{8}$/;
-            if (reg.test(user)){
-                var show_user=document.getElementById('show_user');
-                show_user.style.display='none'
-                layer.close(index);
-            }else{
-                var show_user=document.getElementById('show_user');
-                show_user.style.display='block'
-                layer.close(index);
-            }
-        }
-        if(password==''){
-            var show_pas=document.getElementById('show_pas');
-            show_pas.style.display='block'
-            layer.close(index);
-        }else{
-            var reg = /^[\w]{6,12}$/;
-            if (reg.test(password)){
-                var show_pas=document.getElementById('show_pas');
-                show_pas.style.display='none'
-                layer.close(index);
-            }else{
-                var show_pas=document.getElementById('show_pas');
-                show_pas.style.display='block'
-                layer.close(index);
-            }
-        }
         }
 
 }

@@ -33,7 +33,7 @@ $(".solve_single_box4").hover(function(){
 },function(){
     $(".checked_box4").removeClass('active_bar4');
 });
-//    主打栏目阴影延迟加载
+   // 主打栏目阴影延迟加载
 $('.column_single_box').hover(function(){
     var $this=$(this)
     setTimeout(function () {

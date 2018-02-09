@@ -141,8 +141,8 @@
                                             </div>
                                         </div>
                                         <p class="wx_creat transfer_wx_link">一键生成</p>
-                                        <!-- <p class="wx_creat long_pic  weixin-transfer-long-pic " id="transfer-long-pic"
-                                            data-target="#create-pic-tpl-box">生成长图</p>-->
+                                       <p class=" long_pic  weixin-transfer-long-pic " id="transfer-long-pic"
+                                            data-target="#create-pic-tpl-box">生成长图</p>
 
                                     </div>
                                 </div>
@@ -228,7 +228,7 @@
                 </div>
 
                 <div id="area-right">
-                    <img src="/web/images/1.jpg" alt="">
+                   <div id="code"></div>
 
                     <p>长按识别二维码</p>
                 </div>
@@ -261,13 +261,20 @@
     <script src="https://cdn.bootcss.com/html2canvas/0.4.1/html2canvas.js"></script>
     <script src="/js/imgLazy.js"></script>
     <script type="text/javascript" src="/js/web/clipboard.js"></script>
+     <script src="/web/js/jquery.qrcode.min.js"></script>
     <script src="/web/js/info.js"></script>
     <script type="text/javascript">
         var transfer_link_url = "{{url('transferLinkWeb')}}";
         var redirectUrl = "{{ url('taobaoCode')}}";
         var appkey = "{{config("taobao.appkey")}}";
         var authUrl = "https://oauth.taobao.com/authorize?response_type=code&client_id=" + appkey + "&redirect_uri=" + redirectUrl + "&state=1212&view=web";
-
+  $("#code").qrcode({
+        render:"table",
+        width:80,
+        height:80,
+        typeNumber  : -1,
+        text:"$WRFjn$"
+    });
         /**
          * 设置主图
          */

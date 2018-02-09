@@ -1,16 +1,13 @@
 @extends('web.layouts.com')
-
 @section('title')
     限时抢购
     @stop
-
     @section('css')
+            <!-- 引入字体样式-->
     <link rel="stylesheet" href="/web/css/reset.css"/>
 
     <link rel="stylesheet" href="/web/css/flash_sale.css"/>
 @stop
-
-
 @section('main')
     <div class="container-fluid">
         @include('web.layouts.header')
@@ -22,7 +19,7 @@
         <seation class="pyt-seation container-fluid">
             <div class="row  container">
                 @if(!empty($list))
-                <!-- 中心内容-->
+                        <!-- 中心内容-->
                 <!--时间点-->
                 <p class="left_arr">
                     <span class="glyphicon glyphicon-menu-left prev" aria-hidden="true"></span>
@@ -32,7 +29,7 @@
                         @foreach($time_step as $v)
                             <a href="{{url('/miaosha/goods').'?active_time='.$v['active_time']}}">
                                 <li class="@if($v['active_time']==$active['active_time']) time_active @endif">
-                                    <p>{{$v['active_time']}}</p>
+                                    <p>{{$v['time']}}</p>
                                     <p>{{$v['status']}}</p>
                                 </li>
                             </a>
@@ -47,39 +44,36 @@
                         <div class="img_left">
                             <a href="{{url('/goods/'. $val['id']).'?columnCode='.$active['active_column_code']}} "
                                target="_blank" class="click_open">
-                                 <img src='/web/images/mrtp.jpg' data-img="{{$val['pic']}}.jpg" class="img_size lazy">
+                                <image src="{{$val['pic']}}"></image>
                             </a>
                         </div>
                         <div class="text_right">
-                            <a href="{{url('/goods/'. $val['id']).'?columnCode='.$active['active_column_code']}} "
-                               target="_blank" class="click_open">
+                            <a href="{{url('/goods/'. $val['id']).'?columnCode='.$active['active_column_code']}} " target="_blank" class="click_open">
                                 <p class="title"> {{str_limit($val['short_title'], $limit = 39, $end = '...')}}</p>
                                 <p class="full_name">{{str_limit($val['des'], $limit = 120, $end = '...')}}</p>
                             </a>
-                             <p class="discount"><span class="coupun">券</span><span class='prc_pyt'>{{ $val['coupon_price']}}元</span></p>
-                             <div class="pyt_price">
-                               <p class="floor_price">
-                                    <span class="floor_price_title">券后价</span>
-                                    <span class="price ">￥{{ $val['price']}}</span>
-                               </p>
-                               <p class="floor_price floor_price_right ">
-                                   <span class="floor_price_earnings">预计收益</span>
-                                   <span class="price prices_right">￥{{ $val['commission_finally']}}</span>
-                               </p>
-                           </div>
-                            <p class="quick">
-                                <p class='replace'>
-                                 <span class="sale_num">{{ $val['sell_num']}}</span>已售
+                               <p class="discount"><span class="coupun">券</span><span class='prc_pyt'>{{ $val['coupon_price']}}元</span></p>
+                            <div class="pyt_price">
+                                <p class="floor_price">
+                                     <span class="floor_price_title">券后价</span>
+                                     <span class="price ">￥{{ $val['price']}}</span>
                                 </p>
-                                <a href="{{url('/goods/'. $val['id']).'?columnCode='.$active['active_column_code']}}" target="_blank" class="click_open">
-                                    <button class="sale_quick">马上推</button>
+                                <p class="floor_price floor_price_right ">
+                                    <span class="floor_price_earnings">预计收益</span>
+                                    <span class="price prices_right">￥{{ $val['commission_finally']}}</span>
+                                </p>
+                            </div>
+                            <p class="quick"><span class="sale_num">  {{ $val['sell_num']}}</span>已售
+                                <a href="{{url('/goods/'. $val['id']).'?columnCode='.$active['active_column_code']}} "
+                                   target="_blank" class="click_open">
+                                    <span class="sale_quick">马上推</span>
                                 </a>
                             </p>
                         </div>
                     </lable>
                     @endforeach
                     @else
-                    <!--时间点-->
+                            <!--时间点-->
                     <p class="left_arr">
                         <span class="glyphicon glyphicon-menu-left prev" aria-hidden="true"></span>
                     </p>
@@ -89,6 +83,7 @@
                                 <a href="{{url('/miaosha/goods').'?active_time='.$v['active_time']}}">
                                     <li class="">
                                         <p>{{$v['time']}}</p>
+
                                         <p>{{$v['status']}}</p>
                                     </li>
                                 </a>
@@ -108,6 +103,5 @@
     </div>
 @stop
 @section('js')
-    <script src="/js/imgLazy.js"></script>
     <script src="/web/js/zhengdianmiaosha.js"></script>
 @stop
