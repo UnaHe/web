@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Models\InviteCode;
 use App\Models\User;
+use App\Models\CodePrice;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Request;
@@ -59,7 +60,7 @@ class UserService
             ["invite.status", InviteCode::STATUS_UNUSE],
         ]);
         $query->leftjoin($User->getTable()." as user", "user.id", '=', "invite.user_id");
-        $query->select(["user.id", "user.grade", "user.path", "invite.effective_days"]);
+        $query->select(["user.id", "user.grade", "user.path", "invite.effective_days", 'invite.code_type']);
         $inviteCodeInfo = $query->first();
 
         // 计算用户path.
@@ -79,6 +80,21 @@ class UserService
             $expireTime = (new Carbon())->addDay($effectiveDay)->endOfDay();
         }
 
+        // Redis 队列.
+        $types = $inviteCodeInfo['effective_days'];
+        $unit_price = CodePrice::where('duration', $types)->pluck('code_price')->first();
+        $codeUserId = $inviteCodeInfo['id'];
+        $hphg = ($inviteCodeInfo['code_type'] === 0) ? 0 : 1;
+        $redisParams = [
+            'type' => 1,
+            'code' => $inviteCode,
+            'uprice' => $unit_price,
+            'userId' => $codeUserId,
+            'effdays' => $effectiveDay,
+            'hphg' => $hphg,
+        ];
+        $redisParamsJson = json_encode($redisParams);
+
         DB::beginTransaction();
         try{
             //使用邀请码
@@ -96,10 +112,10 @@ class UserService
             if(!$isSuccess){
                 throw new \LogicException("注册失败");
             }
-
-            // 存入注册列表.
-            Redis::lpush('manager:queue:complete_reg_info', $inviteCode);
             DB::commit();
+            
+            // 存入注册列表.
+            Redis::lpush('manager:queue:complate_order_info', $redisParamsJson);
         }catch (\Exception $e){
             DB::rollBack();
             $error = "注册失败";
