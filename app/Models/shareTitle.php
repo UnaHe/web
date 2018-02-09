@@ -13,5 +13,4 @@ class shareTitle extends Model
 {
     protected $table = "xmt_share_title";
     protected $guarded = ['id'];
-
 }

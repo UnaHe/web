@@ -51,7 +51,7 @@ class TaobaoController extends Controller
         }catch (\Exception $e){
             $message = "绑定淘宝账号失败";
             $code = $e->getCode();
-            if($e->getCode() == 300 || $e->getCode() == 201){
+            if($code != 300 && $code != 0){
                 $message = $e->getMessage();
             }
             $code = $code ?: 300;

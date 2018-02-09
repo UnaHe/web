@@ -17,7 +17,6 @@ use App\Models\TaobaoToken;
 use App\Services\Requests\CouponGet;
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class TaobaoService
@@ -33,18 +32,27 @@ class TaobaoService
      * @param $userId
      * @param $tokens
      */
-    public function saveAuthToken($userId, $tokens, $cookie)
-    {
+    public function saveAuthToken($userId, $tokens, $cookie){
         $time = time();
         $now = date('Y-m-d H:i:s', $time);
 
         $token = TaobaoToken::where("user_id", $userId)->first();
-        if (!$token) {
+        if(!$token){
+            if(TaobaoToken::where("taobao_user_id", $tokens['taobao_user_id'])->exists()){
+                throw new \Exception("该淘宝账号已授权其他账号，请更换淘宝账号重新授权！", 202);
+            }
+
             $token = new TaobaoToken();
             $token['create_time'] = $now;
             $token['user_id'] = $userId;
+        }else{
+            if($token['taobao_user_id'] != $tokens['taobao_user_id']){
+                throw new \Exception("一个账号只能授权一个淘宝账号哦，请使用绑定的淘宝账号重新授权！", 202);
+            }
         }
-        try {
+
+
+        try{
             $token['access_token'] = $tokens['access_token'];
             $token['token_type'] = $tokens['token_type'];
             $token['expires_at'] = date('Y-m-d H:i:s', $time + $tokens['expires_in']);
@@ -227,8 +235,13 @@ class TaobaoService
         if (strpos($defautPidInfo['ret'][0], "ERROR_NOT_EXISTS_MAMA") !== false) {
             throw new \Exception("您可能没有阿里妈妈账户哦", 201);
         }
+<<<<<<< HEAD
         if (strpos($defautPidInfo['ret'][0], "FAIL_SYS_SESSION_EXPIRED") !== false) {
             throw new \Exception("cookie过期", 201);
+=======
+        if(strpos($defautPidInfo['ret'][0], "FAIL_SYS_SESSION_EXPIRED") !== false){
+            throw new \Exception("cookie过期", 300);
+>>>>>>> master
         }
         if (!isset($defautPidInfo['data'])) {
             throw new \Exception("cookie无效", 300);
