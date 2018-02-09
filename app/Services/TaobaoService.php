@@ -235,13 +235,8 @@ class TaobaoService
         if (strpos($defautPidInfo['ret'][0], "ERROR_NOT_EXISTS_MAMA") !== false) {
             throw new \Exception("您可能没有阿里妈妈账户哦", 201);
         }
-<<<<<<< HEAD
-        if (strpos($defautPidInfo['ret'][0], "FAIL_SYS_SESSION_EXPIRED") !== false) {
-            throw new \Exception("cookie过期", 201);
-=======
         if(strpos($defautPidInfo['ret'][0], "FAIL_SYS_SESSION_EXPIRED") !== false){
             throw new \Exception("cookie过期", 300);
->>>>>>> master
         }
         if (!isset($defautPidInfo['data'])) {
             throw new \Exception("cookie无效", 300);
