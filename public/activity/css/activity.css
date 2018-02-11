@@ -21,6 +21,7 @@ header{
     bottom: 0;
     left: 0;
     right: 0;
+    /*background: yellow;*/
 }
 #biaoyu{
     margin-top: 368px;
@@ -33,6 +34,13 @@ header{
 nav{
     width: 100%;
     height:100%;
+    /*position: absolute;*/
+    /*top: 0;*/
+    /*bottom: 0;*/
+    /*left: 0;*/
+    /*right: 0;*/
+    /*background: red;*/
+
 }
 #activity_data,#activity_datas{
     padding-left: 1.5rem;
@@ -46,6 +54,7 @@ nav{
     padding-left: 2.4rem;
     font-size: .5rem;
 }
+
 /*弹框*/
 .ball_box{
     height: 7.2rem;
@@ -56,7 +65,7 @@ nav{
     margin-top: 1rem;
 }
 .ball_boxs{
-    position: absolute;
+    position: fixed;
     top:3.8rem;
     height: 7.2rem;
     margin: auto;
@@ -64,6 +73,8 @@ nav{
     background: url("../img/qzt.png") no-repeat;
     background-size: 90% 100%;
     margin-top: 0rem;
+    /*background: url("../img/qzt.png") no-repeat;*/
+    /*left: -.2rem;*/
 }
 .activity_content,.activity_contents{
     width:75%;
@@ -78,6 +89,21 @@ nav{
 .activity_contents{
     margin-top: .5rem;
 }
+/*.share_btn,.share_btns{*/
+    /*font-size: .5rem;*/
+    /*color: rgba(51,51,51,1);*/
+    /*padding-left: 1.2rem;*/
+    /*margin: auto;*/
+    /*display: inline-block;*/
+/*}*/
+/*.share_btns{*/
+    /*font-size: .5rem;*/
+    /*margin-top: -.1rem;*/
+/*}*/
+/*.share_btn img,.share_btns img{*/
+    /*width: 6rem;*/
+    /*margin-top: -.3rem;*/
+/*}*/
 #mengcheng{
     width: 100%;
     height:100%;
@@ -119,6 +145,7 @@ a{
 }
 /*海报*/
 #haibao{
+    /*background: rgba(0,0,0,.6);*/
     background: url("../img/shengchenghaibao.jpg") no-repeat;
     background-size: cover;
     display: none;
@@ -130,6 +157,7 @@ a{
     bottom: 0;
     left: 0;
     z-index: 222;
+
 }
 .footer_nav img{
     width: 1.4rem;
