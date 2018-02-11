@@ -1,20 +1,6 @@
 var userShareInfo = null;
-
-$("#share_btn").on("click",function(){
-    var pid=window.location.href.split('pid=');
-    pid=pid[1].split('&');
-    pid=pid[0];
-    var layer=document.getElementById('mengcheng');
-    layer.style.display='block';
-     loadUserLinkInfo(pid,function(info){
-        $("#shorturl").html(info.shortUrl);
-        $("#taocode").html(info.taoCode);
-    });
-});
 //跳转到支付宝
 $("#zfb").on("click",function(){
-   //  var pid='y_index/index.html?pid=qwqwq';
-   // console.log(pid.split('=')[1])
    var pid=window.location.href.split('pid=');
     pid=pid[1].split('&');
     pid=pid[0];
@@ -48,7 +34,6 @@ $("#share_btns").on("click",function (e) {
     var layer=document.getElementById('mengcheng');
     layer.style.display='none'
 });
-
 function loadUserLinkInfo(pid,cb){
     if(userShareInfo){
         cb(userShareInfo);
@@ -96,44 +81,33 @@ function loadUserLinkInfo(pid,cb){
             }
         });
     }
-}
-//点击生成海报
-$('#new_pic').on('click',function(){
+};
+$("#share_btn").on("click",function(){
     var pid=window.location.href.split('pid=');
     pid=pid[1].split('&');
     pid=pid[0];
-    // pid='mm_0_0_0';
+    loadUserLinkInfo(pid,function(info){
+        var hbs=document.getElementById('mengcheng');
+        hbs.style.display='block';
+        $("#shorturl").html(info.shortUrl);
+        $("#taocode").html(info.taoCode);
+        layer.closeAll();
+    });
+});
+//点击生成海报
+$('#new_pic').on('click',function(){
+    console.log(111111111111111)
+    var pid=window.location.href.split('pid=');
+    pid=pid[1].split('&');
+    pid=pid[0];
     loadUserLinkInfo(pid,function(info){
         var hb=document.getElementById('haibao');
         hb.style.display='block';
-            // $("#code").remove();
-            if($("#code")){
-                console.log($("#code").children());
-                // $("#code").children().remove();
-            }
         layer.closeAll();
-        // layer.open({
-        //     content: '请使用手机截屏',
-        //     yes: function () {
-        //         location.reload();
-        //     }
-        // });
     });
 
 });
 $('#save_pic').on('click',function(){
-//     html2canvas($("#ee"), {
-//         onrendered: function(canvas) {
-//     https://mos.m.taobao.com/activity_newer?from=tool&sight=pytk&pid=mm_0_0_0
-//             //把截取到的图片替换到a标签的路径下载
-//             $("#download").attr('href',canvas.toDataURL());
-//             console.log('1111111111111111111111111111111111111111111111-----------------------',canvas.toDataURL())
-//             //下载下来的图片名字
-//             $("#download").attr('download','share.png') ;
-//             document.body.appendChild(canvas);
-//         }
-// //可以带上宽高截取你所需要的部分内容
-//     });
     var hb=document.getElementById('haibao');
     hb.style.display='none';
 });
@@ -142,5 +116,4 @@ $("#mengcheng").on("click",function(){
     var layer=document.getElementById('mengcheng');
     layer.style.display='none'
 })
-//发请求传pid
 
