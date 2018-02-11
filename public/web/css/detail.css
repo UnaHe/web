@@ -243,8 +243,8 @@ body{
     top: 0px;
     padding-top: 130px;
     position: fixed;
-    z-index: 8888;
-    display: none;
+    z-index: 3334;
+    /*display: none;*/
 }
 .discount{
     margin-top: 186px;
@@ -253,18 +253,19 @@ body{
     margin-top: 16px;
 }
 #create-pic-view-area{
-    width: 50%;
+    width: 632px;
     height:574px ;
     background: #fff;
     margin: auto;
+    position: relative;
 }
 #area-left{
     width: 46%;
-    height: 98%;
+    height: 96%;
     display: inline-block;
     border: 1px solid #ddd;
-    margin-left: 4px;
-    margin-top: 4px;
+    margin-left: 10px;
+    margin-top: 10px;
 }
 #area-left .title{
     width: 66%;
@@ -275,18 +276,25 @@ body{
 }
 #area-left .title .title_zw{
     font-size: 14px;
+    position: absolute;
+    z-index: 9999;
+    margin-top: 10px;
 }
+
 .area_all_price{
-    font-size: 13px;
+    font-size: 14px;
     color: #999;
     margin-top: 30px;
+    position: absolute;
+    z-index: 9999;
+    top: 76px;
 }
 .area_all_price span:first-of-type{
     margin-right: 16px;
 }
 .big_pic{
     color:#E1B05A ;
-    font-size: 30px;
+    font-size: 20px;
 }
 /*二维码*/
 #area-right{
@@ -316,12 +324,14 @@ body{
     line-height:20px ;
     font-size: 14px;
     padding-left: 10px;
+    margin-top: 100px;
 }
 .reco img{
     display: inline-block;
-    width: 100%;
-    height: 100%;
-    margin-top: 34px;
+    width: 99%;
+    height: 95%;
+    margin-left:.5%;
+    margin-top: 30px;
 }
 #area_right_box_btn{
     width: 48%;
@@ -329,7 +339,7 @@ body{
 }
 #area_right_box_btn .pic_sec{
     width:128px ;
-    margin-left: 34%;
+    margin-left: 30%;
     margin-top: 60px;
 }
 #area_right_box_btn .pic_sec span{
@@ -340,7 +350,7 @@ body{
     height: 40px;
     color: #E1B05A ;
     border: 1px solid #E1B05A;
-    margin-left: 30%;
+    margin-left: 25%;
     margin-top: 100px;
     text-align: center;
     line-height: 40px;
@@ -358,9 +368,10 @@ body{
     height: 40px;
     color: #fff ;
     background:#E1B05A  ;
-    margin-left: 30%;
-    border: 1px solid red;
-    left: 200px;
+    border: 1px solid rgba(225, 176, 90, 1);
+    position: absolute;
+    right: 46px;
+    top: 300px;
     z-index: 66666;
     margin-top: 20px;
     text-align: center;
@@ -368,8 +379,9 @@ body{
     display: inline-block;
 }
 #area_right_box_btn .pic_save .btn{
-   right: 672px;
-   top: 484px;
+   /*right: 34px;*/
+   /*top: 84px;*/
+    /*color: #333;*/
 }
 .log_pro{
     bottom: 6px;
@@ -384,9 +396,11 @@ body{
     width: 100%;
     overflow: hidden;
 }
-.discount{
-    top: -6px;
-    position: relative;
+.discounts{
+    position: absolute;
+    z-index: 9999;
+    top:68px;
+    left: 20px;
 }
 
 

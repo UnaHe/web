@@ -211,12 +211,14 @@ animation: fadeInUp .4s 1,fadeInss_text .4s 1;
     left: 28px;
     position: absolute;
     text-align: center;
+    width: 98%;
     margin-bottom: 80px;
     display: none;
 }
  .column_single_box{
     display: inline-block;
-    width: 350px;
+    /*width: 350px;*/
+     width: 19%;
     height: 466px;
     margin-right: 20px;
     float: left;
@@ -295,7 +297,8 @@ animation: fadeInUp .4s 1,fadeInss_text .4s 1;
     left: 2%;
 }
 #product_all_box{
-    margin-left: 410px;
+    /*margin-left: 410px;*/
+    margin-left:22%;
     position: absolute;
     top: 258px;
     display: none;

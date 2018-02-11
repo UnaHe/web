@@ -9,28 +9,25 @@ $(function(){
     $("#transfer-long-pic").click(function () {
         var mtk = document.getElementById('create-pic-tpl-box');
         mtk.style.display = 'block';
-        // setTimeout(function(){
-            html2canvas($("#area-left"), {
-                onrendered: function (canvas) {
-                    //把截取到的图片替换到a标签的路径下载
-                    $("#download").attr('href', canvas.toDataURL());
-
-                    //下载下来的图片名字
-                    $("#download").attr('download', 'share.jpg');
-//                $('#can_img').attr('src', canvas.toDataURL())
-                    document.body.appendChild(canvas);
-                    var canvas_s=document.getElementsByTagName("canvas");
-                    console.log(canvas_s)
-                    // canvas_s[0].style.display='none'
-                },
-                backgroundColor: '#FFF',
-            });
-        // },1500)
-
+//             html2canvas($("#area-left"), {
+//                 onrendered: function (canvas) {
+//                     //把截取到的图片替换到a标签的路径下载
+//                     $("#download").attr('href', canvas.toDataURL());
+//
+//                     //下载下来的图片名字
+//                     $("#download").attr('download', 'share.jpg');
+// //                $('#can_img').attr('src', canvas.toDataURL())
+//                     document.body.appendChild(canvas);
+//                     var canvas_s=document.getElementsByTagName("canvas");
+//                     console.log(canvas_s)
+//                     canvas_s[0].style.display='none'
+//                 },
+//                 backgroundColor: '#FFF',
+//             });
     });
 //点击图片另存为时截取图片
 //     $("#pic_save").on('click',function(){
-//
+//     <img src='/images/web/gdjcICON.png' />
 //     })
 
 ///**

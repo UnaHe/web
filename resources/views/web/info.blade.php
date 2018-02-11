@@ -216,25 +216,24 @@
                         <img src="/web/images/taobao.png" alt="淘宝"/>
                     @endif
                     <span>{{str_limit($v['seller_name'], $limit = 40, $end = '...')}}</span>
-
-                    <p class="title_zw">{{str_limit($v['short_title'], $limit = 30, $end = '...')}} </p>
-
-                    <p class="discount"><span class="coupun">券</span> {{$good['coupon_price']}}元</p>
-
+                    <p class="title_zw">{{str_limit($v['short_title'], $limit = 24, $end = '...')}}</p>
+                      <p class="discount margin_top148 discounts">
+                      <span class="coupun">券</span>
+                      <span class='prc_pyt'>{{ $v['coupon_price']}}元</span>
+                      </p>
                     <p class="area_all_price">
                         <span>总价￥{{$good['price_full']}}</span>
                         <span>券后<span class="big_pic">￥{{$good['price']}}</span></span>
                     </p>
                 </div>
-
                 <div id="area-right">
                    <div id="code"></div>
-
                     <p>长按识别二维码</p>
                 </div>
                 <div class="reco">
                     <p>小编推荐：甜美粉色宽容，加绒软妹卫衣，女2017秋冬，新款连帽保暖，字母学生上衣，加绒内衬，下摆抽线字母装饰，袋鼠兜</p>
-                    <img src="{{$good['pic']}}" alt="">
+                   <img src="{{$good['pic']}}" alt="">
+
                 </div>
             </div>
             <!--右边布局-->
@@ -246,10 +245,9 @@
                 </p>
 
                 <p class="copy_btn" id="copy_btn">复制图片</p>
-
-                <p class="pic_save" id="pic_save">
-                    <a href="javascript:;" rel="external nofollow" class="btn" id="download">图片另存为</a>
-                </p>
+                <a href="javascript:;" rel="external nofollow" class="btn" id="download">
+                <p class="pic_save" id="pic_save">图片另存为</p>
+                </a>
             </div>
         </div>
     </div>
