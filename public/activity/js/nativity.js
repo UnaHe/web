@@ -90,8 +90,8 @@ $("#share_btn").on("click",function(){
         var hbs=document.getElementById('mengcheng');
         hbs.style.display='block';
         $("#shorturl").html(info.shortUrl);
-        $("#taocode").html(info.taoCode);
-        layer.closeAll();
+    $("#taocode").html(info.taoCode);
+    layer.closeAll();
     });
 });
 //点击生成海报
@@ -105,13 +105,11 @@ $('#new_pic').on('click',function(){
         hb.style.display='block';
         layer.closeAll();
     });
-
 });
 $('#save_pic').on('click',function(){
     var hb=document.getElementById('haibao');
     hb.style.display='none';
 });
-
 $("#mengcheng").on("click",function(){
     var layer=document.getElementById('mengcheng');
     layer.style.display='none'
