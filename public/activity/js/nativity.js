@@ -1,14 +1,11 @@
 var userShareInfo = null;
 
 $("#share_btn").on("click",function(){
-
-
-    // setTimeout(function () {
         var layer=document.getElementById('mengcheng');
         layer.style.display='block'
-    // },1500)
-    var pid=window.location.href.split('=');
-    pid=pid[1];
+    var pid=window.location.href.split('pid=');
+    pid=pid[1].split('&');
+    pid=pid[0];
     loadUserLinkInfo(pid,function(info){
         $("#shorturl").html(info.shortUrl);
         $("#taocode").html(info.taoCode);
@@ -16,8 +13,6 @@ $("#share_btn").on("click",function(){
 });
 //跳转到支付宝
 $("#zfb").on("click",function(){
-   //  var pid='y_index/index.html?pid=qwqwq';
-   // console.log(pid.split('=')[1])
    var pid=window.location.href.split('pid=');
     pid=pid[1].split('&');
     pid=pid[0];
@@ -145,5 +140,4 @@ $("#mengcheng").on("click",function(){
     var layer=document.getElementById('mengcheng');
     layer.style.display='none'
 })
-//发请求传pid
 
