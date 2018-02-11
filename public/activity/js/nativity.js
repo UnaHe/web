@@ -84,10 +84,10 @@ function loadUserLinkInfo(pid,cb){
 };
 $("#share_btn").on("click",function(){
     var pid=window.location.href.split('pid=');
-    pid=pid[1].split('&');
-    pid=pid[0];
-    loadUserLinkInfo(pid,function(info){
-        var hb=document.getElementById('haibao');
+        pid=pid[1].split('&');
+        pid=pid[0];
+        loadUserLinkInfo(pid,function(info){
+        var hb=document.getElementById('mengcheng');
         hb.style.display='block';
         $("#shorturl").html(info.shortUrl);
     $("#taocode").html(info.taoCode);
