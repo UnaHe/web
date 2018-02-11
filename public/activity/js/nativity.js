@@ -87,8 +87,8 @@ $("#share_btn").on("click",function(){
     pid=pid[1].split('&');
     pid=pid[0];
     loadUserLinkInfo(pid,function(info){
-        var hbs=document.getElementById('mengcheng');
-        hbs.style.display='block';
+        var hb=document.getElementById('haibao');
+        hb.style.display='block';
         $("#shorturl").html(info.shortUrl);
     $("#taocode").html(info.taoCode);
     layer.closeAll();
