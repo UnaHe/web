@@ -1,16 +1,29 @@
 var userShareInfo = null;
-
+// var href='activity_index/index.html?pid=12313wsqa&name=sdeswds'
 $("#share_btn").on("click",function(){
-        var layer=document.getElementById('mengcheng');
-        layer.style.display='block'
+    console.log(111111111111)
+        var layers=document.getElementById('mengcheng');
+        layers.style.display='block';
     var pid=window.location.href.split('pid=');
-    pid=pid[1].split('&');
-    pid=pid[0];
+    // var pid=href.split('pid=');
+         pid=pid[1].split('&');
+         pid=pid[0];
     loadUserLinkInfo(pid,function(info){
         $("#shorturl").html(info.shortUrl);
         $("#taocode").html(info.taoCode);
     });
 });
+// $('#new_pic').on('click',function(){
+//     var pid=window.location.href.split('pid=');
+//     // var pid=href.split('pid=');
+//     pid=pid[1].split('&');
+//     pid=pid[0];
+//     loadUserLinkInfo(pid,function(info){
+//         var hb=document.getElementById('haibao');
+//         hb.style.display='block';
+//         layer.closeAll();
+//     });
+// });
 //跳转到支付宝
 $("#zfb").on("click",function(){
    var pid=window.location.href.split('pid=');
@@ -22,7 +35,7 @@ $("#zfb").on("click",function(){
 var copyFunction = function (copyBtn,text, copyMsg) {
     console.log(text)
         var clipboard = new Clipboard(copyBtn, {
-            text: function(){
+            trigger: function(){
                return text;
             }
         });
@@ -100,24 +113,11 @@ $('#new_pic').on('click',function(){
     var pid=window.location.href.split('pid=');
     pid=pid[1].split('&');
     pid=pid[0];
-    // pid='mm_0_0_0';
     loadUserLinkInfo(pid,function(info){
         var hb=document.getElementById('haibao');
         hb.style.display='block';
-            // $("#code").remove();
-            if($("#code")){
-                console.log($("#code").children());
-                // $("#code").children().remove();
-            }
         layer.closeAll();
-        // layer.open({
-        //     content: '请使用手机截屏',
-        //     yes: function () {
-        //         location.reload();
-        //     }
-        // });
     });
-
 });
 $('#save_pic').on('click',function(){
 //     html2canvas($("#ee"), {
