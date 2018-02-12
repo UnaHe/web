@@ -244,7 +244,7 @@ body{
     padding-top: 130px;
     position: fixed;
     z-index: 3334;
-    /*display: none;*/
+    display: none;
 }
 .discount{
     margin-top: 186px;
@@ -370,18 +370,13 @@ body{
     background:#E1B05A  ;
     border: 1px solid rgba(225, 176, 90, 1);
     position: absolute;
-    right: 46px;
-    top: 300px;
+    right: 78px;
+    top: 320px;
     z-index: 66666;
     margin-top: 20px;
     text-align: center;
     line-height: 40px;
     display: inline-block;
-}
-#area_right_box_btn .pic_save .btn{
-   /*right: 34px;*/
-   /*top: 84px;*/
-    /*color: #333;*/
 }
 .log_pro{
     bottom: 6px;
@@ -402,7 +397,17 @@ body{
     top:68px;
     left: 20px;
 }
+.tuttonss{
+    top: 2px;
+    left: 26px;
+    color: #fff;
 
+}
+.tuttonss:hover{
+    cursor: pointer;
+    color: #fff;
+    text-decoration: none;
+}
 
 
 

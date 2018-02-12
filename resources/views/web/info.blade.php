@@ -140,7 +140,7 @@
                                                 <img src="/web/images/WX.png" alt="微信">
                                             </div>
                                         </div>
-                                        <p class="wx_creat transfer_wx_link">一键生成</p>
+                                        <p class="wx_creat transfer_wx_link" id='wx-before-btn'>一键生成</p>
                                        <p class=" long_pic  weixin-transfer-long-pic " id="transfer-long-pic"
                                             data-target="#create-pic-tpl-box">生成长图</p>
 
@@ -207,33 +207,35 @@
     </div>
     <!--模态框-->
     <div id="create-pic-tpl-box">
-        <div id="create-pic-view-area" class="fl" data-ready="fall">
+        <div id="create-pic-view-area" class="fl long-pic-small" data-ready="fall">
             <div id="area-left">
+            <div id='pic_long'>
                 <div class="title">
                     @if ($good['is_tmall'] !== 0)
                         <img src="/web/images/tmail.png" alt="天猫"/>
                     @else
                         <img src="/web/images/taobao.png" alt="淘宝"/>
                     @endif
-                    <span>{{str_limit($v['seller_name'], $limit = 40, $end = '...')}}</span>
+                    <span id='title_merchant'>{{str_limit($v['seller_name'], $limit = 40, $end = '...')}}</span>
                     <p class="title_zw">{{str_limit($v['short_title'], $limit = 24, $end = '...')}}</p>
                       <p class="discount margin_top148 discounts">
                       <span class="coupun">券</span>
                       <span class='prc_pyt'>{{ $v['coupon_price']}}元</span>
                       </p>
                     <p class="area_all_price">
-                        <span>总价￥{{$good['price_full']}}</span>
-                        <span>券后<span class="big_pic">￥{{$good['price']}}</span></span>
+                        <span id='used_price'>总价￥{{$good['price_full']}}</span>
+                        <span>券后<span class="big_pic"  id='now_price'>￥{{$good['price']}}</span></span>
                     </p>
                 </div>
                 <div id="area-right">
                    <div id="code"></div>
+                   <div id="create-long-pic-qrcode"></div>
                     <p>长按识别二维码</p>
                 </div>
                 <div class="reco">
-                    <p>小编推荐：甜美粉色宽容，加绒软妹卫衣，女2017秋冬，新款连帽保暖，字母学生上衣，加绒内衬，下摆抽线字母装饰，袋鼠兜</p>
-                   <img src="{{$good['pic']}}" alt="">
-
+                    <p id='wenan'>小编推荐：甜美粉色宽容，加绒软妹卫衣，女2017秋冬，新款连帽保暖，字母学生上衣，加绒内衬，下摆抽线字母装饰，袋鼠兜</p>
+                   <img src="{{$good['pic']}}" alt="" id='img_src'>
+                </div>
                 </div>
             </div>
             <!--右边布局-->
@@ -245,9 +247,10 @@
                 </p>
 
                 <p class="copy_btn" id="copy_btn">复制图片</p>
-                <a href="javascript:;" rel="external nofollow" class="btn" id="download">
-                <p class="pic_save" id="pic_save">图片另存为</p>
-                </a>
+
+                <p class="pic_save" id="pic_save">
+                  <a href="javascript:;" rel="external nofollow" class="btn tuttonss" id="download"> 图片另存为</a>
+                </p>
             </div>
         </div>
     </div>
@@ -260,6 +263,8 @@
     <script src="/js/imgLazy.js"></script>
     <script type="text/javascript" src="/js/web/clipboard.js"></script>
      <script src="/web/js/jquery.qrcode.min.js"></script>
+      <script src="/web/js/dom-to-image.min.js"></script>
+        <script src="/web/js/pako.min.js"></script>
     <script src="/web/js/info.js"></script>
     <script type="text/javascript">
         var transfer_link_url = "{{url('transferLinkWeb')}}";
@@ -273,6 +278,32 @@
         typeNumber  : -1,
         text:"$WRFjn$"
     });
+     var ImgBasc64Fun = {
+            jsSaveImg:function(imgBasc64,callback,errF){
+                imgBasc64 = imgBasc64.replace(/data:image\/(jpeg|png);base64,(.*)/,"$2");
+                console.log(imgBasc64+"diyige")
+                imgBasc64 = zip(imgBasc64);
+                console.log(imgBasc64)
+                $.ajax({
+                    url: 'http://thumbnailapi.qingtaoke.com/index.php?r=base-save/save',
+                    dataType: 'json',
+                    type: 'post',
+                    data: {
+                        content: imgBasc64,
+                        projectName:'qtkwww',
+                    },
+                    success: function (res) {
+                        callback(res);
+                    },
+                    error: function (err) {
+                        errF(err);
+                    }
+                })
+            },
+            show:function(url){
+                return 'http://thumbnail.qingtaoke.com/img/'+url;
+            }
+        };
         /**
          * 设置主图
          */
