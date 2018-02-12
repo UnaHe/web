@@ -5,11 +5,9 @@
     <title>首页</title>
     <!--设置视口-->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,user-sclable=0">
-
     <!--引入重置样式-->
     <link rel="stylesheet" href="/web/lib/bootstrap/dist/css/bootstrap.min.css"/>
      <link rel="stylesheet" href="/web/css/reset.css">
-
         <link rel="stylesheet" href="/web/css/com.css"/>
         <link rel="stylesheet" href="/web/css/index.css"/>
 </head>

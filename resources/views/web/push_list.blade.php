@@ -39,7 +39,7 @@
             </div>
             @endif
             <div class="prod_type_box line_30">
-                <form method="get" action="{{url('/columns/'.$active['active_column_code'].'/goods')}}" >
+                <form method="get" action="{{url('/columns/'.$active['active_column_code'].'/goods')}}" onsubmit='return false'>
                     {{csrf_field()}}
                     <p class="prod_type">高级筛选：</p>
                     <div class="scree_box">
@@ -173,7 +173,6 @@
                    </a>
                 </div>
                 @endforeach
-                <p id='add_in'>--加载更多--</p>
             </div>
             @else
             <div class="kong"><img src="/web/images/kong.png"></div>

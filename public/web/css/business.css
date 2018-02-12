@@ -1,206 +1,407 @@
-/*a标签样式*/
-.click_open:link,.click_open:visited{
-    color:#E8E8E8;text-decoration:none;
-}
-.click_open:hover{
-    color:#E8E8E8;
-}
-
-
-.search_nav{
-    min-height: 90px;
-    padding-top: 30px;
-    padding-bottom: 40px;
-    background: #fff;
-}
-
-.navbar-form .form-control{
-    padding-left: 80px;
-}
 body{
     background: #fff;
+    font-family:NotoSansHans-Regular;
+    overflow-x:hidden;
+}
+.navbar-nav>li{
+    color: #fff;
+}
+.navbar-nav>.dropdown1{
+    margin-top: 6px;
+}
+.navbar-nav>.dropdown1:hover{
+    cursor: pointer;
+    color: #e1b05a;
+}
+a,a:hover{
+    color: #fff;
+    text-decoration: none;
+}
+.menu2{
+    position: absolute;
+    top: 28px;
+    z-index: 3;
+    width: 78px;
+    right: 296px;
+    background-color: #fff;
+    text-align: center;
+    border: 1px solid #fff;
+    border-radius: 2px ;
+    display: none;
+}
+.menu2 li{
+    line-height: 26px;
+}
+.menu2 a{
+    color: #000;
+}
+
+/*头部*/
+.pyt_hearder_color{
+    background-color:#111 ;
+}
+.navbar-default .navbar-nav>li>a{
+    color:#fff;
+    font-size: 12px;
 }
 .row{
     border: none;
 }
-
-.banner_bag{
-    background-image:url("../images/bjt.png");
+#pyt_nav{
+    background-image:url("../../images/web/_banner.png");
+    color: #fff;
     width: 100%;
-    height: 610px;
+    height: 600px;
     background-size: 100% 100%;
     -moz-background-size: 100% 100%;
     -webkit-background-size: 100% 100%;
 }
-.open_btn{
-    width: 9%;
-    heigth:48px;
-    border:3px solid #E0AB4A ;
+/*招募合伙人*/
+#jion_people{
+    padding-top: 194px;
+    margin-left:42%;
+    font-size:30px;
+    letter-spacing: 24px;
+    font-family:NotoSansHans-Regular;
+    color:rgba(255,255,255,.7);
+}
+/*风险投资*/
+#advantage{
+    color:rgba(181, 136, 54, .8);
+    font-size: 40px;
+    margin-top: 60px;
+    margin-left: 32%;
+}
+#advantage span{
+    color:rgba(153, 153, 153, 1);
+}
+/*省钱还能赚钱*/
+#save_money{
+    color: rgba(255, 255, 255, .7);
     font-size: 30px;
-    color: #fff;
-    font-weight: bold;
+    font-family:NotoSansHans-Regular;
+    margin-top: 60px;
+    letter-spacing: 28px;
+    margin-left: 40%;
+}
+
+.background_column{
+    width:194px ;
+    height: 6px;
+    background-color:rgba(225, 176, 90, 1);
+    position: absolute;
+    top: 28px;
+    z-index: -1;
+}
+.left45{
+    position: absolute;
+    z-index: 4;
+    width: 200px;
+}
+.left44{
+    width: 274px;
+}
+.font-size20px{
+    font-size: 20px;
+    margin-left:-18px;
+    color: rgba(187, 187, 187, 1);
+}
+#column_all_box{
+    top: 260px;
+    left: 28px;
+    position: absolute;
     text-align: center;
-    position: absolute;
-    top: 570px;
-    left: 49%;
-}
-.open_btn:hover{
-    cursor: pointer;
-}
-#bs-example-navbar-collapse-1{
-    width: 1100px;
-}
-.navbar-collapse{
-    padding-left:0px;
-    padding-right:0px;
-}
-.navbar-nav .pyt_searchAll{
-    margin-left: -99px;
-    border-right: 1px solid #ddd;
-}
+    width: 98%;
+    margin-bottom: 80px;
 
-::-moz-placeholder { /* Mozilla Firefox 19+ */
-    color: #ddd;
 }
-input::-webkit-input-placeholder{
-    color: #ddd;
+.column_single_box{
+    display: inline-block;
+    width: 19%;
+    height: 466px;
+    margin-right: 20px;
+    float: left;
+    background-color:rgba(251, 251, 251, 1) ;
 }
-
-input:-ms-input-placeholder{
-    color: #ddd;
-}
-.navbar-left{
-    position: absolute;
-    left: 100px;
-    width: 750px;
-}
-.btn{
-    top: 18px;
-    right: -82px;
-}
-/*中心内容文字*/
-#line{
+/*整合10万品牌商家提供数据和营销服务*/
+#product_column{
     width: 100%;
-    padding-bottom: 20px;
-    border-bottom: 2px solid #E0AB4A;
+    height: 704px;
+    background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    -webkit-background-size: 100% 100%;
+    position:relative;
 }
-#sever_business .hearder_title{
-    color: #333;
-    font-size: 34px;
-    font-family: Microsoft YaHei;
-    margin-top:30px ;
-    margin-bottom: 20px;
-    margin-left: 26%;
-
-}
-#sever_business p span{
-    color:#E1B05A ;
-    font-size: 46px;
-}
-.infor_logo{
+#pruduct_column_title{
+    left: 32%;
+    position: absolute;
     text-align: center;
+    font-size: 40px;
+    margin: 120px auto 60px;
 }
-.infor_logo p{
-    color: #333;
-    font-size: 19px;
-    margin-top: 38px;
+#pruduct_column_title span{
+    color: rgba(241, 193, 109, 1);
 }
-.infor_logo .margin_20{
-    margin-top: 52px;
+.background_column_line{
+    z-index:  3;
+    left: -7%;
+    width: 294px;
+}
+.left45{
+    z-index: 4;
+    position: absolute;
+}
+.left44{
+    top: 56px;
+    position: absolute;
+    left: 2%;
+}
+#product_all_box{
+    margin-left:22%;
+    position: absolute;
+    top: 258px;
+}
+.product_single_box{
+    width: 354px;
+    height: 466px;
+    background-color:rgba(251, 251, 251, 1);
+    margin-right: 20px;
+    float: left;
+}
+.auto{
+    margin-left: 108px;
+    margin-top: 106px;
+}
+.slash img{
+    margin-left: 146px;
+    margin-top: 70px;
+}
+.move_people{
+    color: rgba(51, 51, 51, 1);
+    font-family:NotoSansHans-Regular;
+    font-size: 20px;
+    margin-top: 36px;
+    margin-left: 24%;
+}
+.move_peoples{
+    margin-left: 32%;
 }
 /*企业生态链*/
-.chain{
-    color: #333;
-    font-size: 34px;
-    margin-left: 43%;
-    margin-top: 20px;
+#list_column{
+    position: relative;
+    top: 80px;
+    width: 100%;
+    height: 790px;
+    background-image: url("../../images/web/qiyeshengtailian.png");
+    background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    -webkit-background-size: 100% 100%;
 }
-.chain_english{
-    color: #333;
-    font-size: 22px;
-    margin-left: 39%;
-    margin-top: 10px;
+#list_column_title{
+    left: 45.5%;
+    position: absolute;
+    top: 120px;
 }
-.com_img{
-    margin-top: 30px;
+.left3{
+    left: -24px;
+    width:260px;
+    z-index: 0;
+}
+.fontSize40{
+    font-size:40px;
+    z-index: 1;
+}
+/*矩阵排版*/
+#matrix{
+    width: 1100px;
+    position: absolute;
+    left: 22%;
+    top: 114px;
+    z-index: 5;
+}
+#xuxian{
+    position: absolute;
+    top: 240px;
+    left: 18%;
+}
+#tuikeLOGO{
+    position: absolute;
+    top: 192px;
+    left: 42%;
+}
+#tuikelM{
+    margin-left: 35%;
+    padding-top:144px ;
+}
+.circle{
+    width: 100px;
+    height: 100px;
+    font-size: 18px;
+    color: rgba(102, 102, 102, 1);
+    display: inline-block;
+    text-align: center;
+    line-height: 100px;
+    border: 2px dashed rgba(253, 203, 114, 1);
+    border-radius: 50% 50%;
+    position: absolute;
+    z-index: 66;
+}
+.circle_one{
+    top:138px;
+    left: 34%;
+}
+.circle_two{
+    top:350px ;
+    left: 24%;
+}
+.circle_three{
+    top:210px ;
+    left: 9.1%;
+}
+.circle_four{
+    top:462px ;
+    left: 46%;
+}
+.circle_five{
+    top:194px ;
+    left: 60.8%;
+}
+.circle_six{
+    top:238px ;
+    left: 84.2%;
+}
+.circle_seven{
+    top:360px ;
+    left:74%;
+}
+.friends_box:hover{
+    cursor: pointer;
+    box-shadow: 1px 10px 35px rgba(175, 230, 171, 0.45);
+    transition:all .4s linear 0s ;
+}
+#liuxing{
+    position: absolute;
+    top: 120px;
+    left: 28px;
+    z-index: -1;
 }
 
+/*加入我们*/
+#solve{
+    position: relative;
+    width: 100%;
+    height:706px;
+}
+.left6{
+    width: 194px;
+    left: -16px;
+}
+#solve_title{
+    position: absolute;
+    width:194px ;
+    top:186px ;
+    left: 45%;
+}
+.left5{
+    z-index: 2;
+    left: -16px;
+}
+.z_index3{
+    z-index: 5;
+    position: absolute;
+}
+.left_10{
+    left: 42px;
+}
+#test{
+    margin-left: 24%;
+    padding-top: 176px;
+    font-size: 20px;
+    color: rgba(102, 102, 102, 1);
+}
+.let,.scan{
+    position: absolute;
+    top:340px;
+    left: 42.5%;
+}
+.scan{
+    top: 370px;
+    left: 43%;
+}
+#tuileQRcode{
+    position: absolute;
+    bottom: 80px;
+    left: 44%;
+}
 /*页脚*/
-.pyt_footer_box{
-    background:#333 ;
-    color: #fff;
-}
-#footer_join{
-    margin-left: 34%;
-}
-#footer_join .family{
-    font-size:34px ;
-    margin-left: 14%;
-    margin-top: 20px;
-}
-#footer_join .join_us{
-    font-size: 26px;
-    font-family:MicrosoftYaHei;
-    margin-left: 20%;
-    margin-top: 10px;
-}
-#footer_join .footer_logo{
-    margin-left: 21%;
-    margin-top: 20px;
-}
-#footer_join .relation,#footer_join .advantage{
-    font-size: 18px;
-    margin-left: 9%;
-    margin-top: 20px;
-}
-#footer_join .advantage{
-    margin-left: 11%;
-}
-#footer_join .register{
-    width:158px;
-    height:58px;
-    border: none;
-    margin-bottom: 20px;
-    margin-left: 18%;
-    margin-top: 12px;
-    background:rgba(224,171,74,1);
-    border-radius: 10px ;
-    font-size: 28px;
-    font-family:MicrosoftYaHei;
-}
 .pyt_footer{
-    border-bottom: none;
-    border-top: 1px solid #eee;
-    width: 90%;
-    margin-left: 6%;
-    padding-left: 0px;
-}
-input{ outline:medium;}
-.pyt_footer li{
-    margin-bottom: 0px;
-    margin-top:10px;
-    margin-left: -19px;
-    width: 96px;
-    padding-left: 24px;
-}
-.footer_line{
-    margin-top: 16px;
-}
-.pyt_remark{
-    margin-top: 2px;
-}
-.pyt_footer li:nth-of-type(1){
-    padding-left: 8px;
-}
-.pyt_remark {
-    margin-left: 1.5%;
-}
-body{
-    background: #fff;
-}
-.row{
     border: none;
+    margin-left: 374px;
+}
+.pyt_footer_box{
+    position: absolute;
+    top: 2840px;
+    z-index: -4;
+    width: 100%;
+}
+.pyt_footer li{
+    margin-top: 22px;
+    margin-bottom: 16px;
+    font-size: 12px;
+    color: rgba(153, 153, 153, 1);
+    width: 140px;
+    border-right: 1px solid rgba(153, 153, 153, 1);
+    padding: 0px 4px 0px;
+    line-height: 10px;
 }
 .pyt_remark{
-    padding-left: 54px;
+    font-size: 12px;
+    color: rgba(153, 153, 153, 1);
+    margin-left: 410px;
+    padding-left: 0px;
+    width: 1100px;
+    padding-top: 18px;
+    padding-bottom: 20px;
+    border-top: 1px solid rgba(238, 238, 238, 1);
+}
+/*圆圈旋转动画*/
+.circle:hover{
+    animation: round 2s linear infinite;
+}
+.span1,.span2,.span3,.span4,.span5,.span6,.span7{
+    position: absolute;
+    z-index: 3;
+    display: inline-block;
+    width: 100%;
+    left: 10%;
+    top: 248px;
+    font-size: 18px;
+}
+.span2{
+    top:390px ;
+    left: 25.5%;
+}
+.span3{
+    left: 35.5%;
+    top: 178px;
+}
+.span4{
+    left: 48.2%;
+    top: 496px;
+}
+.span5{
+    left: 64%;
+    top: 232px;
+}
+.span6{
+    left: 76.5%;
+    top: 390px;
+}
+.span7{
+    left: 86.5%;
+    top: 278px;
+}
+@keyframes round {
+    from {transform: rotate(0deg);}
+    to {transform: rotate(360deg);}
 }

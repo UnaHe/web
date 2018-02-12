@@ -99,9 +99,8 @@
                         </div>
                     </form>
                     <p class="notice notice_color">注意：请登录当前授权的联盟账号查询PID</p>
-                    <a href="http://pub.alimama.com/myunion.htm#!/manage/zone/zone?tab=3" target="_blank"><p
-                                class="notice al_PID">查询阿里妈妈的PID</p></a>
-                    <button class="save stb-btn sub_btn" data-dismiss="modal">保存</button>
+                    <a href="http://pub.alimama.com/myunion.htm#!/manage/zone/zone?tab=3" target="_blank"><p class="notice al_PID">查询阿里妈妈的PID</p></a>
+                    <button class="save stb-btn sub_btn" data-dismiss="modal" id='save'>保存</button>
                       <p class='closes'  id='cc'><span class='glyphicon glyphicon-remove'></span></p>
                 </div>
                 </div>

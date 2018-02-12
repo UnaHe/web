@@ -3,18 +3,6 @@
  */
 
 $(function () {
-
-    // 模态框
-    // $('#scsq').on('shown.bs.modal', function () {
-    //    var choice= $(".auth_id");
-    //     for(var i=0;i<choice.length;i++){
-    //         if($(choice[i]).prop('checked')){
-    //             $('#myInput').focus()
-    //         }
-    //     }
-    //
-    //
-    // })
     //删除模态框
     $("#amyModal_remove").on("click",function(){
         var choice= $(".xz");
@@ -96,4 +84,21 @@ $(function () {
     })
 
 });
+
+//保存pid
+$("#save").on('click',function() {
+    var QQ_value = $(".QQ").val();
+    var WX_value = $(".WX").val();
+    console.log(QQ_value,WX_value)
+    //    发送请求
+    $.ajax({
+        type: "GET",
+        url: formPost,
+        data: '',
+        dataType: "json",
+        success: function (data) {
+            console.log(data)
+        }
+    })
+})
 

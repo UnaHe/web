@@ -23,12 +23,10 @@
         </div>
 
         <div class="user-pass-confirmation  am-form-group">
-            <input type="password" name="password_confirmation" id="doc-vld-pwd-2" placeholder="请与上面输入的值一致" data-equal-to="#doc-vld-pwd-1" required />
+            <input type="password" name="password_confirmation" id="doc-vld-pwd-2" placeholder="输入的密码一致" data-equal-to="#doc-vld-pwd-1" required />
                 <p class='color_tishi' id='new_password_ts'>请再次输入密码<p>
                  <p class='color_tishi' id='new_password_tsa'>输入密码不一致<p>
-
         </div>
-
     </form>
     <div class="am-cf">
         {{--<input type="button" name="" onclick="Common.submit(this)" value="注 册" class="am-btn am-btn-primary am-btn-sm">--}}

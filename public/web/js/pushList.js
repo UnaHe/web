@@ -108,9 +108,6 @@ $(function(){
                             if (data.code == 200) {
                                 if (data.data.length > 0) {
                                     layer.closeAll('loading');
-                                    var add_in = document.getElementById('add_in');
-                                    console.log(add_in)
-                                    add_in.style.display = 'none'
                                     console.log(data.data)
                                     var html = '';
                                     $.each(data.data, function ($key, $val) {
@@ -239,12 +236,6 @@ $(".common").on("click",function(){
     console.log(this)
     var nav_tab=$('.tab_nav span');
     console.log(nav_tab)
-    // var sort;
-    // for(var i=0;i<nav_tab.length;i++){
-    //     if(nav_tab[i].className = 'tab_nav_active'){
-    //         sort=this.id;
-    //     }
-    // }
     //获取分类
     var active_category=$(".active")[0].id;
          console.log(active_category)
@@ -301,7 +292,6 @@ $(".common").on("click",function(){
         minCommission:minCommission,
         minSellNum: minSellNum,
         keyword:keyword,
-        // sort:sort,
         page:1,
         today:today,
         isTmall:isTmall,
@@ -319,11 +309,11 @@ $(".common").on("click",function(){
     //    发送请求获取数据
     $.get({
         type: "GET",
-        url: '/goods',
+        url: getListUrl,
         data:sendData,
         dataType: "json",
         success:function(data){
-            console.log(data.data)
+            console.log(data.data+11111)
             if (data.data.length > 0) {
                 var html = '';
                 console.log(html)
