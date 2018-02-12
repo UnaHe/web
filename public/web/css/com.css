@@ -359,7 +359,7 @@ input{outline:none; !important}
     border-bottom:1px solid   #E1B05A;
     position: absolute;
     top: 0px;
-    left: 98px;
+    right: 2px;
     transform:rotate(45deg);
     -ms-transform:rotate(45deg); 	/* IE 9 */
     -moz-transform:rotate(45deg); 	/* Firefox */

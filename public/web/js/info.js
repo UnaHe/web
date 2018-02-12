@@ -210,61 +210,6 @@ $(function(){
 //    $('#img-show').attr('src', src);
 //})
 
-    //生成图片测试
-    $("#transfer-long-pic").click(function () {
-        var mtk = document.getElementById('create-pic-tpl-box');
-        mtk.style.display = 'block';
-        var node = document.getElementById('pic_long');
-        console.log(node)
-        // setTimeout(function(){
-            domtoimage.toPng(node)
-                .then(function (dataUrl) {
-                    var img = new Image();
-                    img.src = dataUrl;
-                    console.log(img.src)
-                    document.body.appendChild(img);
-                    console.log(img)
-                    $("#download").attr('href', dataUrl);
-                    $("#download").attr('download', 'share.jpg');
-                });
-        // },1000);
-
-        })
-// $("#download").on('click',function(){
-//     //下载图片
-//     domtoimage.toBlob(document.getElementById('pic_long'))
-//         .then(function (blob) {
-//             window.saveAs(blob, 'my-node.png');
-//         });
-// })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -313,7 +258,67 @@ $(function(){
         });
 
     })
+    //生成图片测试
+    //做了授权验证
 
+    // $("#transfer-long-pic").click(function () {
+    //     $.ajax({
+    //         type: "POST",
+    //         url: transfer_link_url,
+    //         data: $('.qq_form').serialize(),
+    //         dataType: "json",
+    //         success: function (data) {
+    //             if (data.code == 200) {
+    //                 var mtk = document.getElementById('create-pic-tpl-box');
+    //                 mtk.style.display = 'block';
+    //                 var node = document.getElementById('pic_long');
+    //                 console.log(node)
+    //                 domtoimage.toPng(node)
+    //                     .then(function (dataUrl) {
+    //                         var img = new Image();
+    //                         img.src = dataUrl;
+    //                         console.log(img.src)
+    //                         document.body.appendChild(img);
+    //                         console.log(img)
+    //                         $("#download").attr('href', dataUrl);
+    //                         $("#download").attr('download', 'share.jpg');
+    //                     });
+    //             } else {
+    //                 share_error = '链接转换失败或请授权';
+    //                 layer.msg(share_error);
+    //                 return false;
+    //             }
+    //         }
+    //     });
+    //
+    // });
+    //点击标题跳转淘宝页面
+    // $(".short_title").on('click',function(){
+    //     window.location.href='https://detail.tmall.com/item.htm?id=42966407474'
+    // })
+    //修改生成图片背景代码测试
+    $("#transfer-long-pic").click(function () {
+        var mtk = document.getElementById('create-pic-tpl-box');
+        mtk.style.display = 'block';
+        var node = document.getElementById('pic_long');
+        console.log(node)
+        domtoimage.toSvg(node,{ quality: 1 })
+            .then(function (dataUrl) {
+                var img = new Image();
+                img.src = dataUrl;
+                console.log(img.src)
+                document.body.appendChild(img);
+                console.log(img)
+                $("#download").attr('href', dataUrl);
+                $("#download").attr('download', 'share.jpg');
+            });
+    })
+
+//    点击模态框任意地方关闭模态框
+    $("#create-pic-tpl-box").on('click',function(){
+        var mtk = document.getElementById('create-pic-tpl-box');
+        mtk.style.display = 'none';
+    })
 //一键复制QQ文案
     $('.transfer_link').click(function (e) {
         if (share_error != '') {

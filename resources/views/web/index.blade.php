@@ -22,8 +22,8 @@
 <nav class="pyt_nav" id="pyt_nav">
     <div class="container">
         <ul id="nav_pro">
-            <li class="active_index">首页</li>
-            <li>优品汇</li>
+           <a href="{{url('/')}}"> <li class="active_index">首页</li></a>
+            <a href="{{url('/columns/today_jing/goods')}}"><li>优品汇</li></a>
             <li>产品全链</li>
             <li>粉丝营销</li>
             <li>推客商学院</li>
@@ -54,11 +54,6 @@
             <p class="font-size20px">Important section</p>
         </div>
         <div id="column_all_box">
-            <div class="column_single_box">
-                <img src="/images/web/muyinjinxuan.png" alt="">
-                <p class="color_blue font-size24">母婴精选</p>
-                <p class="expect">敬请期待</p>
-            </div>
              <a href="{{url('/columns/today_jing/goods')}}">
                 <div class="column_single_box">
                     <img src="/images/web/jinri%20jingxuan.png" alt="">
@@ -83,6 +78,11 @@
             <div class="column_single_box margin-right0">
                 <img src="/images/web/nvzhuangjingxuan.png" alt="">
                 <p class="color_girl font-size24">女装精选</p>
+                <p class="expect">敬请期待</p>
+            </div>
+              <div class="column_single_box">
+                <img src="/images/web/muyinjinxuan.png" alt="">
+                <p class="color_blue font-size24">母婴精选</p>
                 <p class="expect">敬请期待</p>
             </div>
         </div>

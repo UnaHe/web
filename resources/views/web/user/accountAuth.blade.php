@@ -68,7 +68,7 @@
                 @endif
                 <p class="state">说明：</p>
 
-                <p class="state states">1.使用高效廉洁，需要登录你的淘宝账号进行授权！</p>
+                <p class="state states">1.使用高效链接，需要登录你的淘宝账号进行授权！</p>
 
                 <p class="state states">2.一般授权时间为30天，如果中途失败，会提示重新授权！</p>
 
@@ -110,19 +110,13 @@
     <div class="mtk_pyt" id="myModal_remove">
         <div id='sc'>
             <h4 class="modal-title" id="myModalLabel_remove">信息</h4>
-<<<<<<< HEAD
             <div class="modal_body modal_body_box">
-=======
-
-            <div class="modal_body">
->>>>>>> 62905e2d6bb09b0645200442284138a78e448609
                 <p class="again_sure">确定删除该授权信息</p>
             </div>
             <div class="modal_footer">
                 <button data-dismiss="modal" class="cancel">取消</button>
                 <button data-dismiss="modal" class="cancel_sure">确定</button>
             </div>
-<<<<<<< HEAD
                <p class='closes'  id='ccc'><span class='glyphicon glyphicon-remove'></span></p>
           </div>
             </div>
@@ -132,12 +126,6 @@
         <!--提示框-->
         <div id='xgzh'>请选择你要修改的账号</div>
          <div id='xgzhs'>请选择你要删除的账号</div>
-=======
-            <p class='closes' id='cc'><span class='glyphicon glyphicon-remove'></span></p>
-        </div>
-    </div>
-</div>
->>>>>>> 62905e2d6bb09b0645200442284138a78e448609
 </body>
 <script src="/web/lib/jquery/dist/jquery.js"></script>
 <script src="/js/layer/layer.js"></script>

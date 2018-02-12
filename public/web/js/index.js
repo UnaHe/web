@@ -37,12 +37,14 @@ $(".solve_single_box4").hover(function(){
 $('.column_single_box').hover(function(){
     var $this=$(this)
     setTimeout(function () {
+        // $this.removeClass('active_leave');
         $this.addClass('active_hover');
-    },200)
+    },100)
 },function(){
     var $this=$(this)
     setTimeout(function () {
         $this.removeClass('active_hover');
+        // $this.addClass('active_leave');
     },200)
 })
 //    获取顶部位置

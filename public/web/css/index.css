@@ -230,7 +230,20 @@ animation: fadeInUp .4s 1,fadeInss_text .4s 1;
     box-shadow: 1px 10px 49px rgba(0, 0, 0, 0.1);
     cursor: pointer;
      /*transform: translateY(-2px);*/
-     transition:all .6s linear .2s ;
+     transition:all .6s linear 0s ;
+}
+.active_leave{
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#fff, endColorstr=#FBFBFB);
+    background: -webkit-linear-gradient(top,#fff, #FBFBFB);
+    background: -o-linear-gradient(top,#fff, #FBFBFB);
+    background: -moz-linear-gradient(top,#fff, #FBFBFB);
+    background: linear-gradient(top,#fff, #FBFBFB);
+    transition:all 1s linear 0s ;
+    -webkit-animation: fadeInsss 1s 1;
+    -moz-animation: fadeInsss 1s 1;
+    animation:fadeInsss 1s 1;
+    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.1);
+    background-color:rgba(251, 251, 251, 1) ;
 }
 #column_all_box .margin-right0{
     margin-right: 0;

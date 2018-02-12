@@ -30,38 +30,28 @@
                 <div id="detail">
                     <div class="detail_left">
                         <a href="{{$good['goods_url']}}">
-                            <img src="{{$good['pic']}}" alt="{{$good['short_title']}}"
-                                 title="{{$good['short_title']}}"/>
+                            <img src="{{$good['pic']}}" alt="{{$good['short_title']}}" title="{{$good['short_title']}}"/>
                         </a>
-
                         <div>
                             <div class="detail_small_pic">
                                 <img src="{{$good['pic']}}" alt="">
-                                @foreach($good['caijiPics'] as $v)
-                                    <img src="{{$v->pic}}" alt="">
-                                @endforeach
                             </div>
                         </div>
-
                     </div>
                     <!--右边详情-->
                     <div class="detail_right">
                         <p class="short_title">
-                            <a href="{{$good['goods_url']}}" class="click_open">
+                            <a href="{{$good['goods_url']}}" class="click_open" target='_blank'>
                                 {{$good['short_title']}}
                             </a>
                         </p>
-
                         <p class="long_title">{{$good['des']}}</p>
-
                         <p class="price_color">
                             <span class="price_color_qh">券后</span><span class="price_num">￥{{$good['price']}}</span>
-                            <span class="price_color_qh margin_left">佣金</span><span
-                                    class="price_num">￥{{$good['commission_finally']}}</span>
+                            <span class="price_color_qh margin_left">佣金</span><span class="price_num">￥{{$good['commission_finally']}}</span>
                             <sapn class="price_color_qh">月销量{{$good['sell_num']}}</sapn>
                         </p>
-
-                        <!--截图末班框-->
+                        <!--截图模板框-->
                         <div class="template_box">
                             <!--模板头部-->
                             <div class="template_header">
@@ -69,8 +59,7 @@
                                 @if($taobao_user_nick)
                                     <p class="template_header_right"><span>{{$taobao_user_nick}}</span></p>
                                 @else
-                                    <p class="template_header_right">请<span><a href="javascript:;" class="auth-login"
-                                                                               target="_blank">登录</a></span>授权</p>
+                                    <p class="template_header_right">请<span><a href="javascript:;" class="auth-login" target="_blank">登录</a></span>授权</p>
                                 @endif
                             </div>
                             <div class="clear"></div>
@@ -79,21 +68,15 @@
                                 <!--QQ模板-->
                                 <div class="template_QQ">
                                     <p class="QQ_title">QQ文案</p>
-
                                     <div class="chat">
                                         <div class="chat_left" id="qq-copy-main">
                                             <img src="{{$good['pic']}}" alt="商品图片"/>
                                             {{--<img src="/web/images/1.jpg" alt="商品图片"/>--}}
                                             {{--<img src="http://imgproxy.ffquan.cn/imgextra/i4/884909271/*t*b2cif4m*dn*i8*k*jj*sszb*x*xb4*k*f*xa_!!884909271.jpg" alt="商品图片"/>--}}
                                             <p>{{$good['short_title']}}</p>
-
                                             <p> 领券下单链接 <span class="share_qq_url">【请转换QQ二合一】</span></p>
-
                                             <p>{{$good['des']}}</p>
-
-
                                             {{--<p>甜美粉色宽松，加绒内衬，下摆抽绳字母装饰，袋鼠兜，</p>--}}
-
                                             {{--<p>本群专享优惠！已抢104件！</p>--}}
                                         </div>
                                         <div class="chat_right">
@@ -115,7 +98,6 @@
                                 <!--微信模板-->
                                 <div class="template_QQ template_wx">
                                     <p class="QQ_title ">微信文案</p>
-
                                     <div class="chat">
                                         <div class='screen_short' id="wx-copy-main">
                                             <div class="wx_pic_box">
@@ -123,11 +105,9 @@
                                             </div>
                                             <div class="chat_left chat_wx_right">
                                                 <p>{{$good['short_title']}}</p>
-
                                                 <p> 领券下单链接 <span class="share_wx_url">
                                                 【请转换QQ二合一】
                                             </span></p>
-
                                                 <p>{{$good['des']}}</p>
                                             </div>
                                         </div>
@@ -135,15 +115,12 @@
                                             <div class="chat_right chart_right_wx">
                                                 <img src="/web/images/WX.png" alt="微信">
                                             </div>
-
                                             <div class="chat_right chart_right_wx_down">
                                                 <img src="/web/images/WX.png" alt="微信">
                                             </div>
                                         </div>
                                         <p class="wx_creat transfer_wx_link" id='wx-before-btn'>一键生成</p>
-                                       <p class=" long_pic  weixin-transfer-long-pic " id="transfer-long-pic"
-                                            data-target="#create-pic-tpl-box">生成长图</p>
-
+                                       <p class=" long_pic  weixin-transfer-long-pic " id="transfer-long-pic" data-target="#create-pic-tpl-box">生成长图</p>
                                     </div>
                                 </div>
                             </div>
@@ -154,34 +131,25 @@
                 <div class="pro_list">
                     <div class="tab_nav">
                         <span>推荐商品</span>
-                    <span class="look_more"><a href="{{url('/columns/'.'today_tui'.'/goods')}}"
-                                               class="click_open">查看更多</a></span>
+                    <span class="look_more"><a href="{{url('/columns/'.'today_tui'.'/goods')}}" class="click_open">查看更多</a></span>
                     </div>
-
                     @foreach($list as $k => $v)
                         <div class="single">
                         <a href="{{url('/goods/'. $v['id']).'?columnCode='.$active['active_column_code']}}"
                        target="_blank" class="click_open">
                             <img src='/web/images/mrtp.jpg' data-img="{{ $v['pic'] }}.jpg" alt="..." class="img_size lazy">
-
                             <div class="price_introduce">
                                 <p class="title">
                                         {{$v['short_title']}}
                                    </p>
-
                                 <p class="discount margin_top148"><span class="coupun">券</span> <span class='prc_pyt'>{{ $v['coupon_price']}}元</span>
                                 </p>
-
                                 <p class="mouth_num">月销：<span>{{ $v['sell_num'] }}</span></p>
-
                                 <p class="coupon_back">
-                                    <span class="small_word small_color">券后</span><span
-                                            class="small_word">￥</span><span>{{ $v['price'] }}</span>
+                                    <span class="small_word small_color">券后</span><span class="small_word">￥</span><span>{{ $v['price'] }}</span>
                                 </p>
-
                                 <p class="commission">
-                                    <span class="small_word small_color">佣金</span><span
-                                            class="small_word">￥</span><span>{{$v['commission_finally']}}</span>
+                                    <span class="small_word small_color">佣金</span><span class="small_word">￥</span><span>{{$v['commission_finally']}}</span>
                                 </p>
                                 <!--商品所属图标-->
                                 <p class="log_pro">
@@ -195,15 +163,12 @@
                             </a>
                         </div>
                     @endforeach
-
-
                 </div>
             </div>
         </seation>
         <div class="clear"></div>
         <!--页脚-->
         @include('web.layouts.footer')
-
     </div>
     <!--模态框-->
     <div id="create-pic-tpl-box">
