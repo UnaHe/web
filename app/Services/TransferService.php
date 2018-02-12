@@ -312,6 +312,7 @@ class TransferService
             if(!$couponId){
                 $url = (new CouponGet())->initWithUlandUrl($url)->getItemClickUrl();
             }
+            $url .= "&from=tool&sight=pytk";
             $url = UrlHelper::fixUrlPrefix($url);
             $slickUrl = $this->transferSclick($url);
             $taoCode = $this->transferTaoCode($title, $slickUrl, $pic);
