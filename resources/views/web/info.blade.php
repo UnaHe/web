@@ -92,7 +92,8 @@
                                             <input type="hidden" name="couponPrice" value="{{$good['coupon_price']}}"/>
                                             <input type="hidden" name="sell_num" value="{{$good['sell_num']}}"/>
                                         </form>
-                                        <div class="creat_pic transfer_link">一键生成</div>
+                                        <div class="creat_pic transfer_link" id='transfer_links'>一键生成</div>
+                                        <div class="creat_pics transfer_link" id='transfer_link'>一键复制</div>
                                     </div>
                                 </div>
                                 <!--微信模板-->
@@ -120,6 +121,7 @@
                                             </div>
                                         </div>
                                         <p class="wx_creat transfer_wx_link" id='wx-before-btn'>一键生成</p>
+                                        <p class="wx_creats transfer_wx_link" id='wx-before-btns'>复制文案</p>
                                        <p class=" long_pic  weixin-transfer-long-pic " id="transfer-long-pic" data-target="#create-pic-tpl-box">生成长图</p>
                                     </div>
                                 </div>
