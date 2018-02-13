@@ -95,7 +95,7 @@ class UserService
             'uprice' => $unit_price,
             'userId' => $codeUserId,
             'effdays' => $types,
-            'hphg' => $codeType,
+            'codetype' => $codeType,
         ];
         $redisParamsJson = json_encode($redisParams, JSON_FORCE_OBJECT);
 
@@ -195,7 +195,7 @@ class UserService
                     'uprice' => $unit_price,
                     'userId' => $codeUserId,
                     'effdays' => $effectiveDay,
-                    'hphg' => $codeType,
+                    'codetype' => $codeType,
                 ];
                 $redisParamsJson = json_encode($redisParams, JSON_FORCE_OBJECT);
                 Redis::lPush('manager:queue:complate_order_info', $redisParamsJson);
