@@ -63,6 +63,10 @@ class UserService
         $query->select(["user.id", "user.grade", "user.path", "invite.effective_days", 'invite.code_type']);
         $inviteCodeInfo = $query->first();
 
+        if(!$inviteCodeInfo){
+            throw new \LogicException("邀请码无效");
+        }
+
         // 计算用户path.
         $masterId = $inviteCodeInfo['id'];
         $masterGrade = $inviteCodeInfo['grade'] ? $inviteCodeInfo['grade'] : 1;
@@ -84,16 +88,16 @@ class UserService
         $types = $inviteCodeInfo['effective_days'];
         $unit_price = CodePrice::where('duration', $types)->pluck('code_price')->first();
         $codeUserId = $inviteCodeInfo['id'];
-        $hphg = ($inviteCodeInfo['code_type'] === 0) ? 0 : 1;
+        $codeType = $inviteCodeInfo['code_type'];
         $redisParams = [
             'type' => 1,
             'code' => $inviteCode,
             'uprice' => $unit_price,
             'userId' => $codeUserId,
-            'effdays' => $effectiveDay,
-            'hphg' => $hphg,
+            'effdays' => $types,
+            'hphg' => $codeType,
         ];
-        $redisParamsJson = json_encode($redisParams);
+        $redisParamsJson = json_encode($redisParams, JSON_FORCE_OBJECT);
 
         DB::beginTransaction();
         try{
@@ -113,9 +117,12 @@ class UserService
                 throw new \LogicException("注册失败");
             }
             DB::commit();
-            
-            // 存入注册列表.
-            Redis::lpush('manager:queue:complate_order_info', $redisParamsJson);
+
+            if ($effectiveDay == -1) {
+                // 终身码注册,存入注册列表.
+                Redis::lPush('manager:queue:complate_order_info', $redisParamsJson);
+                Redis::hSet('manager:hash:reginvitereluser:'.$codeUserId, $inviteCode, 1);
+            }
         }catch (\Exception $e){
             DB::rollBack();
             $error = "注册失败";
@@ -128,6 +135,76 @@ class UserService
             }
             throw new \Exception($error);
         }
+    }
+
+    public function generate_code($length = 9) {
+        return rand(pow(10,($length-1)), pow(10,$length)-1);
+    }
+
+    /**
+     * @param $codes
+     * @return string
+     */
+    public function reg($codes) {
+        $InviteCode = new InviteCode();
+        $User = new User();
+        $query = $InviteCode->from($InviteCode->getTable()." as invite")->where([
+            ["invite.invite_code", $codes[0]],
+            ["invite.status", InviteCode::STATUS_UNUSE],
+        ]);
+        $query->leftjoin($User->getTable()." as user", "user.id", '=', "invite.user_id");
+        $query->select(["user.id", "user.grade", "user.path", "invite.effective_days", 'invite.code_type']);
+        $inviteCodeInfo = $query->first();
+
+        if(!$inviteCodeInfo){
+            throw new \LogicException("邀请码无效");
+        }
+        // 计算用户path.
+        $masterId = $inviteCodeInfo['id'];
+        $masterGrade = $inviteCodeInfo['grade'] ? $inviteCodeInfo['grade'] : 1;
+        $masterPath = $inviteCodeInfo['path'];
+        if ($masterGrade === 3) {
+            $path = $masterId.':';
+        } else {
+            $path = $masterPath.$masterId.':';
+        }
+
+        $effectiveDay = $inviteCodeInfo['effective_days'];
+        // Redis 队列.
+        $types = $inviteCodeInfo['effective_days'];
+        $unit_price = CodePrice::where('duration', $types)->pluck('code_price')->first();
+        $codeUserId = $inviteCodeInfo['id'];
+        $codeType = $inviteCodeInfo['code_type'];
+
+        $sql = '';
+        $pwd = '$2y$10$UIrysYMy3Tq2k3Cxc/v4i.vdC3aIpwRuq5CsogyingRX2G89AdsA.';
+        foreach($codes as $k=>$v){
+            $name = '12'.$this->generate_code();
+            $sql .= "('$name','$pwd','$v','$path'),";
+        }
+        $sql = rtrim($sql,",");
+        $res = DB::insert(DB::raw('INSERT INTO xmt_user (phone,password,invite_code,path) VALUES '.$sql));
+
+        if($res){
+            $ress  = $InviteCode->whereIn("invite_code", $codes)->where("status", InviteCode::STATUS_UNUSE)->update(["status"=>InviteCode::STATUS_USED]);
+            $arr = [];
+            foreach($codes as $k=>$v){
+                $redisParams = [
+                    'type' => 1,
+                    'code' => $v,
+                    'uprice' => $unit_price,
+                    'userId' => $codeUserId,
+                    'effdays' => $effectiveDay,
+                    'hphg' => $codeType,
+                ];
+                $redisParamsJson = json_encode($redisParams, JSON_FORCE_OBJECT);
+                Redis::lPush('manager:queue:complate_order_info', $redisParamsJson);
+                $arr[$v] = 1;
+            }
+            Redis::hMset('manager:hash:reginvitereluser:'.$codeUserId, $arr);
+        }
+
+        return $res.'|'.$ress;
     }
 
     /**

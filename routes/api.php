@@ -36,6 +36,11 @@ Route::domain(config('domains.api_domain'))->middleware(\App\Http\Middleware\Api
     Route::post('/register', "UserController@register");
 
     /**
+     * 注册
+     */
+    Route::post('/reg', "UserController@reg");
+
+    /**
      * 注册验证码
      */
     Route::post('/captcha/registerSms', "UserController@registerSms");

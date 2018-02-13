@@ -46,6 +46,23 @@ class UserController extends Controller
     }
 
     /**
+     * @param Request $request
+     * @return UserController
+     */
+    function reg(Request $request) {
+        $code = $request->post('invite_code');
+        $codes = explode(' ', $code);
+
+        try{
+            $data = (new UserService())->reg($codes);
+        }catch (\Exception $e){
+            return $this->ajaxError($e->getMessage());
+        }
+
+        return $this->ajaxSuccess($data);
+    }
+
+    /**
      * 发送注册验证码
      * @param Request $request
      * @return static
@@ -104,7 +121,7 @@ class UserController extends Controller
             return $this->ajaxError('密码长度至少为6位');
         }
 
-        if(!(new CaptchaService())->checkSmsCode($codeId, $captcha)){
+        if(!(new CaptchaService())->checkSmsCode($userName, $codeId, $captcha)){
             return $this->ajaxError("验证码错误");
         }
 
