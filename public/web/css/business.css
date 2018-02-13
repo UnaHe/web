@@ -173,7 +173,7 @@ a,a:hover{
     margin-top: 106px;
 }
 .slash img{
-    margin-left: 146px;
+    margin-left: 166px;
     margin-top: 70px;
 }
 .move_people{
@@ -184,7 +184,7 @@ a,a:hover{
     margin-left: 24%;
 }
 .move_peoples{
-    margin-left: 32%;
+    margin-left: 34%;
 }
 /*企业生态链*/
 #list_column{
@@ -311,7 +311,7 @@ a,a:hover{
     position: absolute;
 }
 .left_10{
-    left: 42px;
+    left: 72px;
 }
 #test{
     margin-left: 24%;
@@ -366,7 +366,7 @@ a,a:hover{
 }
 /*圆圈旋转动画*/
 .circle:hover{
-    animation: round 2s linear infinite;
+    animation: round 5s linear infinite;
 }
 .span1,.span2,.span3,.span4,.span5,.span6,.span7{
     position: absolute;

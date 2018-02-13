@@ -48,7 +48,7 @@
                             </tr>
                             <tr>
                                 <td><input type="checkbox" class="auth_id  xz"/></td>
-                                <td>{{$authInfo['taobao_user_nick']}}</td>
+                                <td class='userid'>{{$authInfo['taobao_user_nick']}}</td>
                                 <td>{{$authInfo['pids']['qq']==''?'未设置':$authInfo['pids']['qq']}}</td>
                                 <td>{{$authInfo['pids']['weixin']==''?'未设置':$authInfo['pids']['weixin']}}</td>
                                 <td>{{$authInfo['auth_expire_time']}}</td>
@@ -72,7 +72,7 @@
 
                 <p class="state states">2.一般授权时间为30天，如果中途失败，会提示重新授权！</p>
 
-                <p class="spal_state states">3.注意：转换时，务必使用授权的联盟账号中的PID，若PID在授权账号不存在，会廉洁失败。</p>
+                <p class="spal_state states">3.注意：转换时，务必使用授权的联盟账号中的PID，若PID在授权账号不存在，会链接失败。</p>
 
             </div>
         </div>
@@ -120,8 +120,6 @@
           </div>
             </div>
         </div>
-
-
         <!--提示框-->
         <div id='xgzh'>请选择你要修改的账号</div>
          <div id='xgzhs'>请选择你要删除的账号</div>

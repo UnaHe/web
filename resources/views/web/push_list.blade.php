@@ -26,11 +26,11 @@
                 <img src="/web/images/push_banner.png" alt="...">
             </div>
             @if($active['active_column_code']!='meishijingxuan' && $active['active_column_code']!='jiajujingxuan')
-            <div class="prod_type_box ">
+            <div class="prod_type_boxs ">
                 <p class="prod_type">商品分类：</p>
                 <ul class="prod_type_list margin_left4">
                     <a href="{{url('/columns/'.$active['active_column_code'].'/goods')}}" class="click_open">
-                        <li class="@if($active['active_category']=='') active @endif common" id=''>全部</li>
+                        <li class="@if($active['active_category']=='') active @endif">全部</li>
                     </a>
                     @foreach($categorys as $k=>$v)
                         <li id='{{$v->id}}'>{{$v->name}}</li>
@@ -125,7 +125,7 @@
                                 <input type="text" name="minSellNum" placeholder="¥" value="{{$screenStrArr['minSellNum']==0?'':$screenStrArr['minSellNum']}}" class='in_clock4'>
                             </p>
                             <p class="section_title4 section_title">
-                                <button type="button " class='screen-btn common' id='screen-btn'>筛选</button>
+                                <button type="button " class='common'>筛选</button>
                             </p>
                         </div>
                     </div>
@@ -182,6 +182,7 @@
     <div class="clear"></div>
     <!--页脚-->
     @include('web.layouts.footer')
+    <img src='/images/web/back_TOP.png' id='back_top'>
 </div>
 @stop
 @section('js')

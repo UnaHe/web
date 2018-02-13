@@ -82,23 +82,22 @@ $(function () {
             }
         }
     })
-
 });
 
-//保存pid
-$("#save").on('click',function() {
-    var QQ_value = $(".QQ").val();
-    var WX_value = $(".WX").val();
-    console.log(QQ_value,WX_value)
-    //    发送请求
-    $.ajax({
-        type: "GET",
-        url: formPost,
-        data: '',
-        dataType: "json",
-        success: function (data) {
-            console.log(data)
-        }
-    })
-})
+// //保存pid   com.js中已经做过
+// $("#save").on('click',function() {
+//     var QQ_value = $(".QQ").val();
+//     var WX_value = $(".WX").val();
+//     console.log(QQ_value,WX_value)
+//     //    发送请求
+//     $.ajax({
+//         type: "POST",
+//         url: formPost,
+//         data: {weixin_pid:WX_value,qq_pid:QQ_value},
+//         dataType: "json",
+//         success: function (data) {
+//             console.log(data)
+//         }
+//     })
+// })
 

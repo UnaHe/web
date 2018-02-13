@@ -23,7 +23,7 @@
                     @endif
 
                     <li><a href="#">企业官网</a></li>
-                    <li><a href="{{url('/business')}}" class="@if(\Illuminate\Support\Facades\Request::getRequestUri()== '/business') header_active @endif ">商务合作</a></li>
+                    <li><a href="{{url('/business')}}" class="@if(\Illuminate\Support\Facades\Request::getRequestUri()== '/business') header_active @endif " target="_blank">商务合作</a></li>
                     <li><a href="#">微信交流群</a></li>
                 </ul>
             </div>

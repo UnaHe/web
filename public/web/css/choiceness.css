@@ -108,7 +108,7 @@
     display: inline-block;
 }
 /*条件排版*/
-.prod_type_box{
+.prod_type_box,.prod_type_boxs{
     width: 100%;
     text-align: center;
     border: 1px solid #ddd;
@@ -396,8 +396,13 @@ input[type=checkbox]{
     margin-top: 16px;
     display: none;
 }
-
-
+/*返回顶部按钮*/
+#back_top{
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    display: none;
+}
 
 
 
