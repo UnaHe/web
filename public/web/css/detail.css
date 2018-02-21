@@ -154,7 +154,7 @@ body{
     margin-bottom: 10px;
 }
 .chat_left p{
-    width: 84%;
+    width: 95%;
     line-height: 1.6rem;
 }
 .chat_left p span{
@@ -211,7 +211,6 @@ body{
 .chat_wx_right p{
     width: 100%;
 }
-
 /*图片详情图*/
 .detail_small_pic img
 {
@@ -224,7 +223,6 @@ body{
 .detail_small_pic .last_pic{
     margin-right: 0px;
 }
-
 .chat_right{
     display: inline-block;
     width: 10%;
@@ -286,7 +284,6 @@ body{
     z-index: 9999;
     margin-top: 10px;
 }
-
 .area_all_price{
     font-size: 14px;
     color: #999;
