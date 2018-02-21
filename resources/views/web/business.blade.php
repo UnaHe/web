@@ -27,7 +27,7 @@
     <seation class="pyt-seation container-fluid">
         <!--整合10万品牌商家提供数据和营销服务-->
         <div id="product_column">
-            <div id="pruduct_column_title">
+            <div id="pruduct_column_title" class='container'>
                 <p>整合<span>10万</span>品牌商家提供数据和营销服务</p>
             </div>
             <div id="product_all_box">
@@ -62,7 +62,8 @@
                 <p class="font-size20px left44">Enterprise ecological chain</p>
             </div>
             <!--矩阵排版-->
-            <div id="matrix">
+            <div id="matrix" class='container'>
+              <div id='null_box'>
                 <img src="/images/web/xuxian.png" alt="" id="xuxian">
                 <img src="/images/web/tuikeLOGO.png" alt="" id="tuikeLOGO">
                 <p class="circle circle_three"></p>
@@ -79,6 +80,7 @@
                    <span class="circle_seven span6">朋友推</span>
                 <p class="circle circle_six"></p>
                 <span class="circle_six span7">朋友淘</span>
+               </div>
             </div>
         </div>
 

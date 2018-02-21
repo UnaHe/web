@@ -80,7 +80,7 @@
     <div class="clear"></div>
     <!--页脚-->
     @include('web.layouts.footer')
-            <!--模态框-->
+
     <!-- Modal -->
     <div class="modals" id="myModals" >
     <div class='pyt_boxMtk'>

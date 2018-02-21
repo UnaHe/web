@@ -402,14 +402,31 @@ animation: fadeInUp .4s 1,fadeInss_text .4s 1;
 /*矩阵排版*/
 .matrix{
     position: absolute;
-    left: 22%;
+    left: 10%;
     top: 84px;
+    /*width: 100%;*/
 }
 .matrix1{
     left: 12%;
 }
+.matrix2{
+    left: 13%;
+}
+.matrix3{
+    left: 14%;
+}
+.matrix4{
+    left: 18%;
+}
+.matrix5{
+     left: 18%;
+ }
+.matrix6{
+      left: 3%;
+  }
 #none_matrix{
     display: none;
+    margin-left: 10%;
 }
 #tuikelM{
     margin-left: 35%;
@@ -424,35 +441,35 @@ animation: fadeInUp .4s 1,fadeInss_text .4s 1;
     border: 1px solid rgba(140, 223, 161, 1);
     line-height: 40px;
     position: absolute;
-    z-index: 111111;
+    z-index: 1111;
 }
 .friend_one{
     top:206px ;
-    left: 160px;
+    left: 25%;
 }
 .friend_two{
     top:330px ;
-    left: 270px;
+    left:30%;
 }
 .friend_three{
     top:398px ;
-    left: 90px;
+    left: 20%;
 }
 .friend_four{
     top:94px ;
-    left: 558px;
+    left: 57%;
 }
 .friend_five{
     top:136px ;
-    left: 766px;
+    left: 76%;
 }
 .friend_six{
     top:292px ;
-    left: 714px;
+    left: 70%;
 }
 .friend_seven{
     top:398px ;
-    left: 854px;
+    left: 86%;
  }
 .friends_box:hover{
     cursor: pointer;
@@ -462,7 +479,7 @@ animation: fadeInUp .4s 1,fadeInss_text .4s 1;
 #liuxing{
     position: absolute;
     top: 120px;
-    left: 28px;
+    left: 8%;
     z-index: -1;
 }
 
@@ -809,7 +826,7 @@ animation: fadeInUp .4s 1,fadeInss_text .4s 1;
     position: absolute;
     width:20px;
     height: 10px;
-    left: 536px;
+    left: 55.5%;
     top: 446px;
     -webkit-border-radius: 220px;
     -moz-border-radius: 220px;
@@ -827,7 +844,7 @@ animation: fadeInUp .4s 1,fadeInss_text .4s 1;
     position: absolute;
     width: 1100px;
     height: 142px;
-    left:0px;
+    left:6%;
     top: 380px;
     border: 4px solid rgba(138, 222, 160, 1);
     -webkit-border-radius: 220px;
@@ -847,7 +864,7 @@ animation: fadeInUp .4s 1,fadeInss_text .4s 1;
     position: absolute;
     width:800px;
     height: 142px;
-    left:150px;
+    left:20%;
     top: 380px;
     box-shadow: 1px 6px 220px rgba(138, 222, 160, 1);
     border: 4px solid rgba(138, 222, 160, 1);

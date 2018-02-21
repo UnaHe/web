@@ -71,7 +71,6 @@
                                     <div class="chat">
                                         <div class="chat_left" id="qq-copy-main">
                                             <img src="{{$good['pic']}}" alt="商品图片"/>
-                                             <p id='qq_url'><p>
                                              <p id='qq_taoCode'><p>
                                              <p id='qq_wechatUrl'><p>
                                             <p id='share_desc'>{{$good['short_title']}}</p>
@@ -104,7 +103,6 @@
                                                 <img src="{{$good['pic']}}" alt="商品图片"/>
                                             </div>
                                             <div class="chat_left chat_wx_right">
-                                                <p id='wx_url'><p>
                                                 <p id='wx_taoCode'><p>
                                                 <p id='wx_wechatUrl'><p>
                                                 <p id='wx_share'>{{$good['short_title']}}</p>

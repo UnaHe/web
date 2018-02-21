@@ -63,8 +63,23 @@ $(window).scroll(function(){
         $("#list_column_title").addClass('show_fadeinUp')
         $('#matrix').addClass('show2');
         console.log(window.innerWidth)
-        if(window.innerWidth<1268){
+        if(window.innerWidth>1468){
             $('#matrix').addClass('matrix1');
+        }
+        // if(window.innerWidth>1268){
+        //     $('#matrix').addClass('matrix5');
+        // }
+        if(window.innerWidth<1268){
+            $('#matrix').addClass('matrix6');
+        }
+        if(window.innerWidth>1586){
+            $('#matrix').addClass('matrix2');
+        }
+        if(window.innerWidth>1768){
+            $('#matrix').addClass('matrix3');
+        }
+        if(window.innerWidth>1800){
+            $('#matrix').addClass('matrix4');
         }
     }
     if(scroll>2450){
@@ -159,7 +174,7 @@ function stopEventBubble(event){
 
 
 // //轮播
-// $(function(){
+$(function(){
 //     var i=0;
 //     var timer=null;
 //     // var firstimg=$('.solve_single_box').first().clone(); //复制第一张图片
@@ -194,11 +209,10 @@ function stopEventBubble(event){
 //     })
 //
 //     //光圈
-//     setTimeout(function () {
-//         $("#pulse1").addClass('pulse1')
-//     },700)
-//
-// })
+    setTimeout(function () {
+        $("#pulse1").addClass('pulse1')
+    },700)
+})
 //    头部选中
 $("#nav_pro li").hover(function () {
     var active_li=$("#nav_pro li");

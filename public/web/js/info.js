@@ -71,7 +71,6 @@ $(function(){
 //     }
     //生成图片测试
     //做了授权验证
-
     $("#transfer-long-pic").click(function () {
         $.ajax({
             type: "POST",
@@ -133,8 +132,6 @@ $(function(){
             type: "post",
             url: transfer_link_url,
             data: $('.qq_form').serialize(),
-            // data:{"taobaoId":'42966407474',"couponId":'b257bb8b4304498d80c57b2c501750ac',"title":'珍视明蒸汽热敷眼罩睡眠 发热加热护眼缓解眼疲劳眼贴近视黑眼圈',"description":'缓解疲劳，保护视力，滋润眼球，促进眼部血液循环，为双眼来场spa。',"pic":'http://img.alicdn.com/imgextra/i1/822280525/TB290W8crBmpuFjSZFAXXaQ0pXa_!!822280525.jpg_480x480',"priceFull":'49',"sell_num":'120206',"couponPrice":'10.00'},
-            // data:{"taobaoId":taobaoId,"couponId":couponId,"title":title,"description":description,"pic":pic,"priceFull":priceFull,"sell_num":sell_num,"couponPrice":couponPrice },
             dataType: "json",
             success: function (data) {
                 console.log(data)
@@ -148,16 +145,12 @@ $(function(){
                     tao_code = data.data.tao_code;
                     long_url = data.data.url;
                     $("#wx_share").html(share_desc);
-                    $("#wx_url").html(long_url);
                     $("#wx_taoCode").html(tao_code);
                     $("#wx_wechatUrl").html(wechat_url);
                     $("#wx_hidden").html('');
                     share_error = '';
                 } else {
                     share_error = '链接转换失败或请授权';
-                    console.log(123232131)
-                    $("#wx_share").html("111111");
-                    $("#wx_hidden").html('');
                 }
             }
         });
@@ -171,8 +164,6 @@ $(function(){
             type: "post",
             url: transfer_link_url,
             data: $('.qq_form').serialize(),
-            // data:{"taobaoId":'42966407474',"couponId":'b257bb8b4304498d80c57b2c501750ac',"title":'珍视明蒸汽热敷眼罩睡眠 发热加热护眼缓解眼疲劳眼贴近视黑眼圈',"description":'缓解疲劳，保护视力，滋润眼球，促进眼部血液循环，为双眼来场spa。',"pic":'http://img.alicdn.com/imgextra/i1/822280525/TB290W8crBmpuFjSZFAXXaQ0pXa_!!822280525.jpg_480x480',"priceFull":'49',"sell_num":'120206',"couponPrice":'10.00'},
-            // data:{"taobaoId":taobaoId,"couponId":couponId,"title":title,"description":description,"pic":pic,"priceFull":priceFull,"sell_num":sell_num,"couponPrice":couponPrice },
             dataType: "json",
             success: function (data) {
                 console.log(data)
@@ -186,16 +177,12 @@ $(function(){
                     tao_code = data.data.tao_code;
                     long_url = data.data.url;
                     $("#share_desc").html(share_desc);
-                    $("#qq_url").html(long_url);
                     $("#qq_taoCode").html(tao_code);
                     $("#qq_wechatUrl").html(wechat_url);
                     $("#hidden_text").html('');
                     share_error = '';
                 } else {
                     share_error = '链接转换失败或请授权';
-                    console.log(123232131)
-                    $("#share_desc").html("111111");
-                    $("#hidden_text").html('');
                 }
             }
         });
