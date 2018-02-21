@@ -169,7 +169,7 @@ $(function(){
                 console.log(data)
                 if (data.code == 200) {
                     var s_url = data.data.s_url;
-                    share_qq_url = "<a href='" + s_url + "' target='_blank'> " + s_url + "</a>";
+                    share_qq_url = "<a href='" + s_url + "' target='_blank'> " + s_url + "</a>"; 
                     var wechat_url = data.data.wechat_url;
                     share_wx_url = "<a href='" + wechat_url + "' target='_blank'> " + wechat_url + "</a>";
                     goods_id = data.data.goods_id;
