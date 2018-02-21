@@ -13,18 +13,18 @@ $(function () {
     $('.sub_btn').click(function () {
         $(this).attr('disabled', true);
         console.log(11111)
-        // var qq_pid=$(".QQ").val();
-        // var weixin_pid=$(".WX").val();
-        // console.log(qq_pid,weixin_pid)
         $.ajax({
             type: "post",
             url: formPost,
-            data:$('form').serialize() ,
+            data:$('form').serialize(),
             dataType: "json",
             success: function (data) {
                 if (data.code == 200) {
                     var msg = data.data.message == '' ? '操作成功' : data.data.message;
                     layer.msg(msg);
+                    var qq_pid=$(".QQ").val("");
+                    var weixin_pid=$(".WX").val("");
+                    console.log(qq_pid,weixin_pid)
                     window.location.reload();
                 } else {
                     var msg = data.msg.msg == '' ? '操作失败' : data.msg.msg;
