@@ -36,16 +36,10 @@ $(".solve_single_box4").hover(function(){
    // 主打栏目阴影延迟加载
 $('.column_single_box').hover(function(){
     var $this=$(this)
-    setTimeout(function () {
-        // $this.removeClass('active_leave');
         $this.addClass('active_hover');
-    },100)
 },function(){
     var $this=$(this)
-    setTimeout(function () {
         $this.removeClass('active_hover');
-        // $this.addClass('active_leave');
-    },200)
 })
 //    获取顶部位置
 $(window).scroll(function(){
@@ -68,10 +62,12 @@ $(window).scroll(function(){
         show_allBox.style.display='block'
         $("#list_column_title").addClass('show_fadeinUp')
         $('#matrix').addClass('show2');
+        console.log(window.innerWidth)
+        if(window.innerWidth<1268){
+            $('#matrix').addClass('matrix1');
+        }
     }
     if(scroll>2450){
-        // var show_allBox=document.getElementById('solve_all_box');
-        // show_allBox.style.display='block'
         $("#solve_title").addClass('show_fadeinUp')
         $('#inner').addClass('show3');
     }
@@ -162,47 +158,47 @@ function stopEventBubble(event){
 };
 
 
-//轮播
-$(function(){
-    var i=0;
-    var timer=null;
-    // var firstimg=$('.solve_single_box').first().clone(); //复制第一张图片
-    var width=$('.solve_single_box').length;
-    $('#solve_all_box').width((width-2)*($('.solve_single_box').width())); //将第一张图片放到最后一张图片后，设置ul的宽度为图片张数*图片宽度
-
-//定时器自动播放
-    timer=setInterval(function(){
-        i++;
-        if (i==$('.solve_single_box').length-3) {
-            i=1;
-            $('#solve_all_box').css({left:0});
-        };
-        console.log($('.solve_single_box').length)
-        $('#solve_all_box').stop().animate({left:-i*560},2900);
-        // var firstimg=$('.solve_single_box').first().hide();
-    },3000)
-//鼠标移入，暂停自动播放，移出，开始自动播放
-    $('.solve_single_box').hover(function(){
-        console.log(1111111111111111111)
-        clearInterval(timer);
-    },function(){
-        timer=setInterval(function(){
-            i++;
-            if (i==$('.solve_single_box').length-3) {
-                i=1;
-                $('#solve_all_box').css({left:0});
-            };
-            console.log($('.solve_single_box').length)
-            $('#solve_all_box').stop().animate({left:-i*560},2900);
-        },3000)
-    })
-
-    //光圈
-    setTimeout(function () {
-        $("#pulse1").addClass('pulse1')
-    },700)
-
-})
+// //轮播
+// $(function(){
+//     var i=0;
+//     var timer=null;
+//     // var firstimg=$('.solve_single_box').first().clone(); //复制第一张图片
+//     var width=$('.solve_single_box').length;
+//     $('#solve_all_box').width((width-2)*($('.solve_single_box').width())); //将第一张图片放到最后一张图片后，设置ul的宽度为图片张数*图片宽度
+//
+// //定时器自动播放
+//     timer=setInterval(function(){
+//         i++;
+//         if (i==$('.solve_single_box').length-3) {
+//             i=1;
+//             $('#solve_all_box').css({left:0});
+//         };
+//         console.log($('.solve_single_box').length)
+//         $('#solve_all_box').stop().animate({left:-i*560},2900);
+//         // var firstimg=$('.solve_single_box').first().hide();
+//     },3000)
+// //鼠标移入，暂停自动播放，移出，开始自动播放
+//     $('.solve_single_box').hover(function(){
+//         console.log(1111111111111111111)
+//         clearInterval(timer);
+//     },function(){
+//         timer=setInterval(function(){
+//             i++;
+//             if (i==$('.solve_single_box').length-3) {
+//                 i=1;
+//                 $('#solve_all_box').css({left:0});
+//             };
+//             console.log($('.solve_single_box').length)
+//             $('#solve_all_box').stop().animate({left:-i*560},2900);
+//         },3000)
+//     })
+//
+//     //光圈
+//     setTimeout(function () {
+//         $("#pulse1").addClass('pulse1')
+//     },700)
+//
+// })
 //    头部选中
 $("#nav_pro li").hover(function () {
     var active_li=$("#nav_pro li");
@@ -210,9 +206,9 @@ $("#nav_pro li").hover(function () {
         active_li[i].className='';
         active_li[active_li.length-1].className='open_terrace'
     }
-    $(this).addClass('active_index')
+    $(this).addClass('active_index1')
 },function () {
     var active_li=$("#nav_pro li");
-    $(this).removeClass('active_index');
+    $(this).removeClass('active_index1');
     active_li[0].className='active_index'
 })

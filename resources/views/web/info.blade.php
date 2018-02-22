@@ -71,26 +71,25 @@
                                     <div class="chat">
                                         <div class="chat_left" id="qq-copy-main">
                                             <img src="{{$good['pic']}}" alt="商品图片"/>
-                                            {{--<img src="/web/images/1.jpg" alt="商品图片"/>--}}
-                                            {{--<img src="http://imgproxy.ffquan.cn/imgextra/i4/884909271/*t*b2cif4m*dn*i8*k*jj*sszb*x*xb4*k*f*xa_!!884909271.jpg" alt="商品图片"/>--}}
-                                            <p>{{$good['short_title']}}</p>
+                                             <p id='qq_url'><p>
+                                             <p id='qq_taoCode'><p>
+                                             <p id='qq_wechatUrl'><p>
+                                            <p id='share_desc'>{{$good['short_title']}}</p>
                                             <p> 领券下单链接 <span class="share_qq_url">【请转换QQ二合一】</span></p>
-                                            <p>{{$good['des']}}</p>
-                                            {{--<p>甜美粉色宽松，加绒内衬，下摆抽绳字母装饰，袋鼠兜，</p>--}}
-                                            {{--<p>本群专享优惠！已抢104件！</p>--}}
+                                            <p id='hidden_text'>{{$good['des']}}</p>
                                         </div>
                                         <div class="chat_right">
                                             <img src="/web/images/QQ.png" alt="QQ">
                                         </div>
                                         <form class="qq_form">
-                                            <input type="hidden" name="taobaoId" value="{{$good['goodsid']}}"/>
-                                            <input type="hidden" name="couponId" value="{{$good['coupon_id']}}"/>
-                                            <input type="hidden" name="title" value="{{$good['title']}}"/>
-                                            <input type="hidden" name="description" value="{{$good['des']}}"/>
-                                            <input type="hidden" name="pic" value="{{$good['pic']}}"/>
-                                            <input type="hidden" name="priceFull" value="{{$good['price_full']}}"/>
-                                            <input type="hidden" name="couponPrice" value="{{$good['coupon_price']}}"/>
-                                            <input type="hidden" name="sell_num" value="{{$good['sell_num']}}"/>
+                                            <input type="hidden"  name="taobaoId" value="{{$good['goodsid']}}" class="taobaoId"/>
+                                            <input type="hidden" name="couponId" value="{{$good['coupon_id']}}" class='couponId'/>
+                                            <input type="hidden" name="title" value="{{$good['title']}}" class='title'/>
+                                            <input type="hidden" name="description" value="{{$good['des']}}" class='description'/>
+                                            <input type="hidden" name="pic" value="{{$good['pic']}}" class='pic'/>
+                                            <input type="hidden" name="priceFull" value="{{$good['price_full']}}" class='priceFull'/>
+                                            <input type="hidden" name="couponPrice" value="{{$good['coupon_price']}}" class='couponPrice'/>
+                                            <input type="hidden" name="sell_num" value="{{$good['sell_num']}}" class='sell_num'/>
                                         </form>
                                         <div class="creat_pic transfer_link" id='transfer_links'>一键生成</div>
                                         <div class="creat_pics transfer_link" id='transfer_link'>一键复制</div>
@@ -105,11 +104,14 @@
                                                 <img src="{{$good['pic']}}" alt="商品图片"/>
                                             </div>
                                             <div class="chat_left chat_wx_right">
-                                                <p>{{$good['short_title']}}</p>
+                                                <p id='wx_url'><p>
+                                                <p id='wx_taoCode'><p>
+                                                <p id='wx_wechatUrl'><p>
+                                                <p id='wx_share'>{{$good['short_title']}}</p>
                                                 <p> 领券下单链接 <span class="share_wx_url">
                                                 【请转换QQ二合一】
                                             </span></p>
-                                                <p>{{$good['des']}}</p>
+                                                <p id='wx_hidden'>{{$good['des']}}</p>
                                             </div>
                                         </div>
                                         <div class="chat_right">
@@ -121,7 +123,7 @@
                                             </div>
                                         </div>
                                         <p class="wx_creat transfer_wx_link" id='wx-before-btn'>一键生成</p>
-                                        <p class="wx_creats transfer_wx_link" id='wx-before-btns'>复制文案</p>
+                                        <p class="wx_creats transfer_wx_link" id='wx-before-btns'>一键复制</p>
                                        <p class=" long_pic  weixin-transfer-long-pic " id="transfer-long-pic" data-target="#create-pic-tpl-box">生成长图</p>
                                     </div>
                                 </div>

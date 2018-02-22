@@ -254,11 +254,6 @@ body{
 .container-fluid{
     padding: 0px;
 }
-/*.clear:after {*/
-/*display: block;*/
-/*content: "";*/
-/*clear: both;*/
-/*}*/
 input{outline:none; !important}
 .btn-C{
     color: #fff;
@@ -275,22 +270,19 @@ input{outline:none; !important}
     border: 1px solid #ddd;
     border-radius: 0px;
 }
-
 /*头部二级菜单*/
 .navbar-right .dropdown-menu{
-    right: 252px;
+    right: 253px;
     top: 24px;
-
 }
 .dropdown-menu{
-    min-width: 109px;
+    min-width: 108px;
     text-align: center;
     border: none;
 }
 .navbar-default .navbar-nav>li>.active_nav{
     color: #E1B05A;
 }
-
 /*个人中心*/
 .row #tab_personal{
     width: 100%;

@@ -29,15 +29,15 @@
             <li class="open_terrace">开放平台</li>
         </ul>
         <div class="clear"></div>
-        <p id="app_explain" class="fadenum">
+        <p id="app_explain" class="fadenum container">
             <img src="/images/web/banner_biaoyu.png">
         </p>
-        <p id="souye_x">
+        <p id="souye_x" class='container'>
             <img src="/images/web/souye_x.png" alt="">
         </p>
-        <p id="invite">邀您携手同行</p>
+        <p id="invite" class='container'>邀您携手同行</p>
         <a href="{{url('/columns/today_tui/goods')}}" class="click_open">
-            <div class="open_btn">立即开启</div>
+            <div class="open_btn container">立即开启</div>
         </a>
     </div>
 </nav>
@@ -73,12 +73,12 @@
                     <p class="expect">打造你的空间</p>
                 </div>
             </a>
-            <div class="column_single_box margin-right0">
+            <div class="column_single_box">
                 <img src="/images/web/nvzhuangjingxuan.png" alt="">
                 <p class="color_girl font-size24">女装精选</p>
                 <p class="expect">敬请期待</p>
             </div>
-              <div class="column_single_box">
+              <div class="column_single_box margin-right0">
                 <img src="/images/web/muyinjinxuan.png" alt="">
                 <p class="color_blue font-size24">母婴精选</p>
                 <p class="expect">敬请期待</p>
@@ -131,7 +131,7 @@
             <p class="font-size20px">Product matrix</p>
         </div>
         <!--矩阵排版-->
-        <div id="matrix">
+        <div id="matrix" class="container matrix">
         <div id="none_matrix">
             <img src="/images/web/tuikelianmeng.png" alt="" id="tuikelM">
             <!--相关产品布局-->
@@ -229,70 +229,6 @@
                 <img src="/images/web/tianmao_jiejuefangan.png" alt="" class="solve_img"/>
                 <img src="/images/web/yamaxun.png" alt="" class="solve_img_ymx">
             </div>
-                    <div class="solve_single_box solve_single_box1">
-                        <p class="sales">智能导购</p>
-                        <ul class="list_three">
-                            <li>·随时随地，更新第一手隐藏优惠券，一键开启智能导购模式</li>
-                            <li>·智能化导购模式实现用户自助找券下单</li>
-                            <li>·提高用户的购买体验和转化率，精简成本，缩短时间</li>
-                        </ul>
-                        <!--条纹布局-->
-                        <p class="bar_one bar_color checked_box1"></p>
-                        <p class="bar_two bar_color checked_box1"></p>
-                        <p class="bar_three bar_color checked_box1"></p>
-                        <p class="bar_four bar_color checked_box1"></p>
-                        <p class="bar_five bar_color checked_box1"></p>
-                        <p class="bar_six bar_color checked_box1"></p>
-                        <img src="/images/web/jiejuefangan.png" alt="" class="solve_img"/>
-                        <img src="/images/web/xcx_jiejuefangan.png" alt="" class="solve_img_wx">
-                    </div>
-                    <div class="solve_single_box solve_single_box2">
-                        <p class="sales">推客助手</p>
-                        <ul class="list_three">
-                            <li>·全后台，商家用户管理神器</li>
-                            <li>·消息定时群发，解放双手</li>
-                        </ul>
-                        <!--条纹布局-->
-                        <p class="bar_one bar_color_2 bar_one_2 checked_box2"></p>
-                        <p class="bar_two bar_color_2 bar_two_2 checked_box2"></p>
-                        <p class="bar_three bar_color_2 bar_three_2 checked_box2"></p>
-                        <p class="bar_four bar_color_2 bar_four_2 checked_box2"></p>
-                        <p class="bar_five bar_color_2 bar_five_2 checked_box2"></p>
-                        <p class="bar_six bar_color_2 bar_six_2 checked_box2"></p>
-                        <img src="/images/web/wx_jiejuefangan.png" alt="" class="solve_img_wxw">
-                    </div>
-                    <div class="solve_single_box solve_single_box3">
-                        <p class="sales">推客生态</p>
-                        <ul class="list_three">
-                            <li>·跟随趋势，汇选优品</li>
-                            <li>·多人群定位精准推荐，帮助破解流量定位困难</li>
-                            <li>·多个特色楼层，实现收益最大化</li>
-                        </ul>
-                        <!--条纹布局-->
-                        <p class="bar_one bar_color_3 bar_one_2 checked_box3"></p>
-                        <p class="bar_two bar_color_3 bar_two_2 checked_box3"></p>
-                        <p class="bar_three bar_color_3 bar_three_2 checked_box3"></p>
-                        <p class="bar_four bar_color_3 bar_four_2 checked_box3"></p>
-                        <p class="bar_five bar_color_3 bar_five_2 checked_box3"></p>
-                        <p class="bar_six bar_color_3 bar_six_2 checked_box3"></p>
-                        <img src="/images/web/jiejuefanganshengtai.png" alt="" class="solve_img_wx3">
-                    </div>
-                    <div class="solve_single_box solve_single_box4">
-                        <p class="sales">优质品库</p>
-                        <ul class="list_three">
-                            <li>·丰富的选品库淘宝，京东，蘑菇街，亚马逊等多平台入驻</li>
-                            <li>·全网数据，锁定高佣，高效率分析</li>
-                        </ul>
-                        <!--条纹布局-->
-                        <p class="bar_one bar_color_4 checked_box4"></p>
-                        <p class="bar_two bar_color_4 checked_box4"></p>
-                        <p class="bar_three bar_color_4 checked_box4"></p>
-                        <p class="bar_four bar_color_4 checked_box4"></p>
-                        <p class="bar_five bar_color_4 checked_box4"></p>
-                        <p class="bar_six bar_color_4 checked_box4"></p>
-                        <img src="/images/web/tianmao_jiejuefangan.png" alt="" class="solve_img"/>
-                        <img src="/images/web/yamaxun.png" alt="" class="solve_img_ymx">
-                    </div>
         </div>
             </div>
             </div>
@@ -303,8 +239,6 @@
                 </div>
             </div>
         </div>
-
-
     </div>
 </seation>
     <div class="clear"></div>

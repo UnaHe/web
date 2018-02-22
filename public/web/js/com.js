@@ -9,15 +9,17 @@ $(function () {
         }
     });
 
-    /**
-     * 主要的POST提交请求
-     */
+    /*修改pid提交*/
     $('.sub_btn').click(function () {
         $(this).attr('disabled', true);
+        console.log(11111)
+        // var qq_pid=$(".QQ").val();
+        // var weixin_pid=$(".WX").val();
+        // console.log(qq_pid,weixin_pid)
         $.ajax({
-            type: "POST",
+            type: "post",
             url: formPost,
-            data: $('form').serialize(),
+            data:$('form').serialize() ,
             dataType: "json",
             success: function (data) {
                 if (data.code == 200) {
@@ -38,7 +40,7 @@ $(function () {
     $('.am-btn-sm').click(function (e) {
         $(e).attr('disabled', true);
         $.ajax({
-            type: "POST",
+            type: "post",
             url: formPost,
             data: $('form').serialize(),
             dataType: "json",

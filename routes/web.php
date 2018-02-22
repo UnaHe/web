@@ -66,7 +66,7 @@ Route::group(['middleware' => 'auth'], function () {
     //授权管理
     Route::get('/accountAuth', 'Web\UserController@accountAuth');
     //授权管理
-    Route::post( '/updateAuth', 'Web\UserController@updateAuth');
+    Route::post('/updateAuth', 'Web\UserController@updateAuth');
     //删除用户授权
     Route::get('/delAuth', 'Web\UserController@delAuth');
 

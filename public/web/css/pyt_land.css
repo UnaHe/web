@@ -2,6 +2,7 @@
     margin-top: 40px;
     font-size: 14px;
     padding: 0 100px;
+    padding-right: 80px;
 }
 .pyt_ID{
     color: #999;
@@ -15,7 +16,7 @@
 }
 .change_password{
     color:#5A8BE1 ;
-    margin-right: 20px;
+    margin-right: 4px;
 }
 .remove_auth{
     color:#E16D5A;
@@ -93,7 +94,7 @@
     border-radius: 2px;
     text-align: center;
     line-height: 30px;
-    margin-left: 246px;
+    margin-left: 260px;
 }
 .modal-header{
     border-bottom: none;

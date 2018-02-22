@@ -19,6 +19,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
+
 class TaobaoService
 {
     private $appKey = 12574478;
@@ -447,7 +448,6 @@ class TaobaoService
      */
     public function updateAuth($userId, $data)
     {
-        try {
             DB::beginTransaction();
             $token = $this->getToken($userId);
             $time = date('Y-m-d H:i:m', time());
@@ -488,11 +488,7 @@ class TaobaoService
 
             DB::commit();
             return ['success' => true];
-        } catch (\Exception  $e) {
-            DB::rollback();
-            $error = $e->getMessage();
-            return ['success' => false, 'msg' => $error];
-        }
+
     }
 
     /**

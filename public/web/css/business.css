@@ -158,22 +158,24 @@ a,a:hover{
 }
 #product_all_box{
     margin-left:22%;
+    width: 100%;
     position: absolute;
     top: 258px;
 }
 .product_single_box{
-    width: 354px;
+    width: 18%;
     height: 466px;
     background-color:rgba(251, 251, 251, 1);
     margin-right: 20px;
     float: left;
 }
 .auto{
-    margin-left: 108px;
+    margin-left: 28%;
     margin-top: 106px;
+    width: 40%;
 }
 .slash img{
-    margin-left: 166px;
+    margin-left: 20%;
     margin-top: 70px;
 }
 .move_people{
