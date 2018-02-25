@@ -131,7 +131,7 @@
             <p class="font-size20px">Product matrix</p>
         </div>
         <!--矩阵排版-->
-        <div id="matrix" class="matrix">
+        <div id="matrix" class="container matrix">
         <div id="none_matrix">
             <img src="/images/web/tuikelianmeng.png" alt="" id="tuikelM">
             <!--相关产品布局-->
