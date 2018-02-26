@@ -44,7 +44,6 @@
     <div class="clear"></div>
     <!--页脚-->
     @include('web.layouts.footer')
-   !--模态框-->
     <div class="mtk_pyt" id="myModal">
 <div class='marginTOP200'>
                     <p class="header_pyt">修改密码</p>

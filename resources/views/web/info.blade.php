@@ -14,8 +14,8 @@
 
 
 @section('main')
-    <div class="container-fluid big_big_box">
-        @include('web.layouts.header')
+    <div class="container-fluid">
+    @include('web.layouts.header')
 
                 <!--搜索导航栏-->
         @include('web.layouts.search')
@@ -229,9 +229,10 @@
     <script src="https://cdn.bootcss.com/html2canvas/0.4.1/html2canvas.js"></script>
     <script src="/js/imgLazy.js"></script>
     <script type="text/javascript" src="/js/web/clipboard.js"></script>
-     <script src="/web/js/jquery.qrcode.min.js"></script>
-      <script src="/web/js/dom-to-image.min.js"></script>
-        <script src="/web/js/pako.min.js"></script>
+    <script src="/web/js/jquery.qrcode.min.js"></script>
+    <script src="/web/js/dom-to-image.min.js"></script>
+    <script src="/web/js/pako.min.js"></script>
+    <script src="/web/js/com.js"></script>
     <script src="/web/js/info.js"></script>
     <script type="text/javascript">
         var transfer_link_url = "{{url('transferLinkWeb')}}";

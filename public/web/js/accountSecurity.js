@@ -33,8 +33,14 @@ if(pas_agin!=''&&pas!=''&&yzm!=''){
                 layer.msg(msg)
                 window.location.reload();
                 var mtk = document.getElementById('myModal');
-                 mtk.style.display = 'none'
+                 mtk.style.display = 'none';
+                var yzm= $("#yzm").val('');
+                var pas=$("#pas").val('');
+                var pas_agin=$("#pas_agin").val('');
             } else {
+                var yzm= $("#yzm").val('');
+                var pas=$("#pas").val('');
+                var pas_agin=$("#pas_agin").val('');
                 var msg = data.msg.msg == '' ? '操作失败' : data.msg.msg;
                 layer.msg(msg)
                 $(this).attr('disabled', false);

@@ -175,6 +175,7 @@ body{
 }
 .wx_creat,.wx_creats{
     width: 100%;
+    /*width: 50%;*/
     height: 40px;
     color: #fff;
     display: inline-block;
@@ -210,6 +211,10 @@ body{
 }
 .chat_wx_right p{
     width: 100%;
+}
+.chat{
+   max-height: 360px;
+    overflow: hidden;
 }
 /*图片详情图*/
 .detail_small_pic img

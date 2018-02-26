@@ -20,7 +20,7 @@
 
 <body>
 <div class="header">
-    <div><a href="#"><img alt="logo" src="/images/web/logo.png"/></a>
+    <div id="width_header"><a href="#"><img alt="logo" src="/images/web/logo.png"/></a>
 
         <div>
             <div class="header-nav">

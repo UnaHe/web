@@ -399,7 +399,7 @@ input[type=checkbox]{
 /*返回顶部按钮*/
 #back_top{
     position: fixed;
-    bottom: 40px;
+    bottom: 100px;
     right: 40px;
     display: none;
 }

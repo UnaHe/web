@@ -56,21 +56,10 @@
 
 <div class="footer">
     <!--公共底部 start-->
-    <div class="footer-hd center-block">
-        <p class="mod_copyright_links">
-            <a href="" target="_blank">公司官网</a>
-            <span class="mod_copyright_split">|</span>
-            <a href="" target="_blank">公司网站2</a>
-            <span class="mod_copyright_split">|</span>
-            <a href="" target="_blank">合作伙伴</a>
-            <span class="mod_copyright_split">|</span>
-            <a href="" target="_blank">合作伙伴2</a>
-        </p>
-    </div>
     <div class="footer-in"></div>
     <div class="footer-bd center-block">
         <p class="mod_copyright_links">
-            <em>&copy; 2017-{{date("Y",time())}} 推客版权所有</em>
+            <em>2017 www.tuike198.com蜀CP备170234号-1 四川推客互动有限责任公司</em>
         </p>
     </div>
     <!--公共底部 end-->

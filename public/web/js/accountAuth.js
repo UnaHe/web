@@ -45,7 +45,7 @@ $(function () {
             success: function (data) {
                 if (data.code == 200) {
                     var msg = data.data.message == '' ? '操作成功' : data.data.message;
-                    layer.alert(msg, {
+                    layer.msg(msg, {
                         skin: 'layui-layer-lan' //样式类名
                         , closeBtn: 0
                     }, function () {
@@ -65,6 +65,8 @@ $(function () {
                 }
             }
         });
+        var mtk = document.getElementById('myModal_remove');
+        mtk.style.display = 'none'
     })
 // 修改模态框
     $("#amyModal").on("click",function(){
@@ -84,7 +86,7 @@ $(function () {
     })
 });
 
-// //保存pid   com.js中已经做过
+// // //保存pid   com.js中已经做过
 // $("#save").on('click',function() {
 //     var QQ_value = $(".QQ").val();
 //     var WX_value = $(".WX").val();

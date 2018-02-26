@@ -26,7 +26,7 @@
                 <img src="/web/images/push_banner.png" alt="...">
             </div>
             @if($active['active_column_code']!='meishijingxuan' && $active['active_column_code']!='jiajujingxuan')
-            <div class="prod_type_boxs ">
+            <div class="prod_type_boxs click_li">
                 <p class="prod_type">商品分类：</p>
                 <ul class="prod_type_list margin_left4">
                     <a href="{{url('/columns/'.$active['active_column_code'].'/goods')}}" class="click_open">

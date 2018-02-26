@@ -11,28 +11,37 @@ $(function () {
 
     /*修改pid提交*/
     $('.sub_btn').click(function () {
-        $(this).attr('disabled', true);
+        // $(this).attr('disabled', true);
         console.log(11111)
-        $.ajax({
-            type: "post",
-            url: formPost,
-            data:$('form').serialize(),
-            dataType: "json",
-            success: function (data) {
-                if (data.code == 200) {
-                    var msg = data.data.message == '' ? '操作成功' : data.data.message;
-                    layer.msg(msg);
-                    var qq_pid=$(".QQ").val("");
-                    var weixin_pid=$(".WX").val("");
-                    console.log(qq_pid,weixin_pid)
-                    window.location.reload();
-                } else {
-                    var msg = data.msg.msg == '' ? '操作失败' : data.msg.msg;
-                    layer.msg(msg);
-                    $(this).attr('disabled', false);
+        var QQ_value = $(".QQ").val();
+        var WX_value = $(".WX").val();
+        console.log(QQ_value,WX_value)
+        if(QQ_value!=''&&WX_value!=''){
+            $.ajax({
+                type: "post",
+                url: formPost,
+                data:$('form').serialize(),
+                dataType: "json",
+                success: function (data) {
+                    if (data.code == 200) {
+                        var msg = data.data.message == '' ? '操作成功' : data.data.message;
+                        layer.msg(msg);
+                        var qq_pid=$(".QQ").val("");
+                        var weixin_pid=$(".WX").val("");
+                        console.log(qq_pid,weixin_pid);
+                        var mtk = document.getElementById('myModals');
+                        mtk.style.display = 'none'
+                        window.location.reload();
+                    } else {
+                        var msg = data.msg.msg == '' ? '操作失败' : data.msg.msg;
+                        layer.msg(msg);
+                        // $(this).attr('disabled', false);
+                    }
                 }
-            }
-        });
+            });
+        }else{
+            layer.msg("请输入渠道PID")
+        }
     });
     /**
      * 需要跳转的ajax请求
@@ -60,11 +69,6 @@ $(function () {
             }
         });
     });
-
-
-
-
-
     //登录授权
     $('.auth-login').click(function () {
         e = layer.open({
@@ -75,172 +79,24 @@ $(function () {
             area: ['760px', '550px'],
             content: authUrl, //iframe的url
         });
-
     });
-
-
     //头部登录下拉菜单点击后样式修改
     $('.user_menu').click(function () {
         $(this).css('color', '#E1B05A')
     });
-
-
     //头部登录下拉菜单
     $(".dropdown-toggle").on("click", function () {
         $(".dropdown-menu").slideDown();
+        console.log($(this).hasClass('click_down'))
         if (!$(this).hasClass('click_down')) {
             $(this).addClass('click_down')
-        } else {
+        }else{
             $(".dropdown-menu").slideUp();
             $(this).removeClass('click_down')
         }
     });
-//兼容placeholder----------------------IE版
-//     $(function () {
-//         jQuery('[placeholder]').focus(function () {
-//             var input = jQuery(this);
-//             if (input.val() == input.attr('placeholder')) {
-//                 input.val('');
-//                 input.removeClass('placeholder');
-//             }
-//         }).blur(function () {
-//             var input = jQuery(this);
-//             if (input.val() == '' || input.val() == input.attr('placeholder')) {
-//                 input.addClass('placeholder');
-//                 input.val(input.attr('placeholder'));
-//             }
-//         }).blur().parents('form').submit(function () {
-//             jQuery(this).find('[placeholder]').each(function () {
-//                 var input = jQuery(this);
-//                 if (input.val() == input.attr('placeholder')) {
-//                     input.val('');
-//                 }
-//             })
-//         });
-//     })
-
     $(".btn-C").on('click',function(){
-
         $("#searchForm").submit()
-//         var keyword=$("#search_value").val();
-//         if(keyword!=''){
-//             var sendData={};
-//             console.log("11111111111111")
-//             console.log(this)
-// //         var sort=document.getElementsByClassName(".tab_nav_active");
-//             //    获取搜索词
-//             var keyword=$('#search_value').val();
-//             console.log(keyword)
-//             //    获取筛选条件
-//             var checked=document.getElementsByClassName('inputs');
-//             var isTmall,isYfx,isHaitao,isJyj,isTwenty,isNine,isJuhuashuan,isTaoqianggou,isQjd,isJpseller,today;
-//             //遍历选中框
-//             for (var i = 0; i < checked.length; i++) {
-//                 if ($(checked[i]).prop('checked')) {
-//                     var name=checked[i].name;
-//                     var value=checked[i].value;
-//                     if(name=='today'){
-//                         today=value
-//                     }else if(name=='isTmall'){
-//                         isTmall=value
-//                     }else if(name=='isJpseller'){
-//                         isJpseller=value
-//                     }else if(name=='isQjd'){
-//                         isQjd=value
-//                     }else if(name=='isTaoqianggou'){
-//                         isTaoqianggou=value
-//                     }else if(name=='isJuhuashuan'){
-//                         isJuhuashuan=value
-//                     }else if(name=='isNine'){
-//                         isNine=value
-//                     }else if(name=='isTwenty'){
-//                         isTwenty=value
-//                     }else if(name=='isJyj'){
-//                         isJyj=value
-//                     }else if(name=='isHaitao'){
-//                         isHaitao=value
-//                     }else if(name=='isYfx'){
-//                         isYfx=value
-//                     }
-//                 }
-//             }
-//             // console.log(newArr)
-//             //    获取券区间筛选条件
-//             var minCouponPrice=$(".in_clock").val();
-//             var maxCouponPrice=$(".in_clock0").val();
-//             var minPrice=$(".in_clock1").val();
-//             var maxPrice=$(".in_clock2").val();
-//             var minCommission=$(".in_clock3").val();
-//             var minSellNum=$(".in_clock4").val();
-//             console.log( minCouponPrice,maxCouponPrice,minPrice, maxPrice,minCommission,minSellNum)
-//             sendData= {
-//                 minCouponPrice: minCouponPrice,
-//                 maxCouponPrice: maxCouponPrice,
-//                 minPrice:minPrice,
-//                 maxPrice:maxPrice,
-//                 minCommission:minCommission,
-//                 minSellNum: minSellNum,
-//                 keyword:keyword,
-//                 // sort:sort,
-//                 page:1,
-//                 today:today,
-//                 isTmall:isTmall,
-//                 isJpseller:isJpseller,
-//                 isQjd:isQjd,
-//                 isTaoqianggou:isTaoqianggou,
-//                 isJuhuashuan:isJuhuashuan,
-//                 isNine: isNine,
-//                 isTwenty:isTwenty,
-//                 isJyj:isJyj,
-//                 isHaitao: isHaitao,
-//                 isYfx:isYfx
-//             }
-//             //    发送请求获取数据
-//             $.ajax({
-//                 type: "GET",
-//                 url: '/goods',
-//                 data:sendData,
-//                 dataType: "json",
-//                 success:function(data){
-//                     console.log(data.data)
-//                     if (data.data.length > 0) {
-//                         var html = '';
-//                         console.log(html)
-//                         $.each(data.data, function ($key, $val) {
-//                             var val_url = goods_url_head + '/' + $val.id;
-//                             var pic = $val.pic;
-//
-//                             var short_title = $val.short_title;
-//                             function removeAllSpace(short_title) {
-//                                 return short_title.replace(/\s+/g, "");
-//                             }
-//                             var coupon_price = $val.coupon_price;
-//                             var sell_num = $val.sell_num;
-//                             var price = $val.price;
-//                             var commission_finally = $val.commission_finally;
-//                             console.log(coupon_price,sell_num)
-//                             var is_tmall = $val.is_tmall !== 0 ? '/web/images/tmail.png' : '/web/images/taobao.png';
-//                             html += "<div class='single'> <a href='" + val_url + "'target='_blank'> " +
-//                                 "<img src='/web/images/mrtp.jpg' data-img='"+pic+".jpg"+"' title='"+short_title+"' class='img_size lazy'/> </a> " +
-//                                 "<div class='price_introduce'> <p class='title'><a href='" + val_url + "'target='_blank' class='click_open'>" + short_title + "</a> </p>" +
-//                                 "<p class='discount'><span class='coupun'>券</span>"+"<span class='prc_pyt'>"+coupon_price+"元</span></p> <p class='mouth_num'>月销：<span>" + sell_num + "</span></p>" +
-//                                 "<p class='coupon_back'><span class='small_word small_color'>券后</span><span class='small_word'>￥</span><span>" + price + "</span></p>" +
-//                                 " <p class='commission'><span class='small_word small_color'>佣金</span><spanclass='small_word'>￥</span>" +
-//                                 "<span>" + commission_finally + "</span></p> <p class='log_pro'><img src='" + is_tmall + "' alt='天猫'/></p></div></div>"
-//                         });
-//                         document.getElementById("goods-list").innerHTML=html;
-//                         $("img").on("error", function () { $(this).attr("src", "/web/images/mrtp.jpg"); });
-//                     } else if(data.data.length <0){
-//                         layer.closeAll('loading');
-//                         layer.msg('加载完了,以后我们努力给你更多!');
-//                     }
-//                 }
-//             })
-//         }else{
-//             layer.msg('请输入关键字')
-//         }
-
-
     })
     /**
      *获取手机验证码
@@ -248,9 +104,10 @@ $(function () {
     var time = 60;
     $("#clock").on("click",function(){
         var username=$("#username").val();
+        console.log(username)
         if(username!=''){
-            var show_user=document.getElementById('show_username');
-            show_user.style.display='none'
+            // var show_user=document.getElementById('show_username');
+            // show_user.style.display='none'
             if (time < 60) {
                 return false;
             }

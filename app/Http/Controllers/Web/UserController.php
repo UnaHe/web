@@ -397,7 +397,6 @@ class UserController extends Controller
             return redirect(url('accountSucc'));
         }
     }
-
     /**
      * 关闭layer第三方弹框
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View

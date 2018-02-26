@@ -7,7 +7,7 @@
 @section('content')
     <div class="content">
         <div class="step">
-            <img src="/images/web/step1.png">
+            <img src="/images/web/step1.png" class="bigwidth">
         </div>
         <div class="form-action">
             <form>

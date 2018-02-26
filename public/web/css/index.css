@@ -391,10 +391,14 @@ animation: fadeInUp .4s 1,fadeInss_text .4s 1;
     top: 900px;
     width: 100%;
     height: 790px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
 }
 #list_column_title{
     left: 47%;
     position: absolute;
+    top: 0;
 }
 .left3{
     left: -16px;
@@ -404,7 +408,7 @@ animation: fadeInUp .4s 1,fadeInss_text .4s 1;
     position: absolute;
     left: 10%;
     top: 84px;
-    /*width: 100%;*/
+    width: 1100px;
 }
 .matrix1{
     left: 12%;
@@ -912,5 +916,4 @@ animation: fadeInUp .4s 1,fadeInss_text .4s 1;
     width: 1100px;
     padding-top: 18px;
     padding-bottom: 20px;
-    border-top: 1px solid rgba(238, 238, 238, 1);
 }

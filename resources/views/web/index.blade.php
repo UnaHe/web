@@ -55,32 +55,32 @@
              <a href="{{url('/columns/today_jing/goods')}}">
                 <div class="column_single_box">
                     <img src="/images/web/jinri%20jingxuan.png" alt="">
-                    <p class="color_today font-size24">今日精选</p>
+                    <p class="color_today font-size24">今日臻选</p>
                     <p class="expect">严选商品 人工审核</p>
                 </div>
             </a>
              <a href="{{url('/columns/meishijingxuan/goods')}}">
                 <div class="column_single_box">
                     <img src="/images/web/meishi%20jingxuan.png" alt="">
-                    <p class="color_food font-size24">美食精选</p>
+                    <p class="color_food font-size24">美食臻选</p>
                     <p class="expect">休闲零食 地域美食想吃就吃</p>
                 </div>
             </a>
              <a href="{{url('/columns/jiajujingxuan/goods')}}">
                 <div class="column_single_box">
                     <img src="/images/web/jiajujingxuan.png" alt="">
-                    <p class="color_fit font-size24">家居精选</p>
+                    <p class="color_fit font-size24">家居臻选</p>
                     <p class="expect">打造你的空间</p>
                 </div>
             </a>
             <div class="column_single_box">
                 <img src="/images/web/nvzhuangjingxuan.png" alt="">
-                <p class="color_girl font-size24">女装精选</p>
+                <p class="color_girl font-size24">女装臻选</p>
                 <p class="expect">敬请期待</p>
             </div>
               <div class="column_single_box margin-right0">
                 <img src="/images/web/muyinjinxuan.png" alt="">
-                <p class="color_blue font-size24">母婴精选</p>
+                <p class="color_blue font-size24">母婴臻选</p>
                 <p class="expect">敬请期待</p>
             </div>
         </div>
@@ -135,10 +135,10 @@
         <div id="none_matrix">
             <img src="/images/web/tuikelianmeng.png" alt="" id="tuikelM">
             <!--相关产品布局-->
-            <p class="friends_box friend_one">朋友汇</p>
+            <p class="friends_box friend_one">朋友惠</p>
             <p class="friends_box friend_two">朋友聊</p>
-            <p class="friends_box friend_three">京东推</p>
-            <p class="friends_box friend_four">朋友商</p>
+            <p class="friends_box friend_three">推客工具</p>
+            <p class="friends_box friend_four">推客商盟</p>
             <p class="friends_box friend_five">朋友淘</p>
             <p class="friends_box friend_six">朋友头条</p>
             <p class="friends_box friend_seven">朋友助手</p>
@@ -245,14 +245,14 @@
 <!--页脚-->
 <footer class="container-fluid pyt_footer_box">
     <div class="container-fluid pyt_center_footer">
-        <ul class="pyt_footer">
-            <li>公司官网</li>
-            <li>公司网站</li>
-            <li>合作伙伴1</li>
-            <li>合作伙伴2</li>
-        </ul>
-        <div class="clear"></div>
-        <p class="pyt_remark">2017-2017 www.tkhd.com朋友推--蜀CP备170234号-1 成都推客互动</p>
+        {{--<ul class="pyt_footer">--}}
+            {{--<li>公司官网</li>--}}
+            {{--<li>公司网站</li>--}}
+            {{--<li>合作伙伴1</li>--}}
+            {{--<li>合作伙伴2</li>--}}
+        {{--</ul>--}}
+        {{--<div class="clear"></div>--}}
+        <p class="pyt_remark">2017 www.tuike198.com蜀CP备170234号-1 四川推客互动有限公司</p>
     </div>
 </footer>
 </div>
