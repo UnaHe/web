@@ -186,7 +186,8 @@ class UserService
         $res = DB::insert(DB::raw('INSERT INTO xmt_user (phone,password,invite_code,path) VALUES '.$sql));
 
         if($res){
-            $ress  = $InviteCode->whereIn("invite_code", $codes)->where("status", InviteCode::STATUS_UNUSE)->update(["status"=>InviteCode::STATUS_USED]);
+            $params = ["status"=>InviteCode::STATUS_USED, 'update_time' => date('Y-m-d H:i:s'), 'date' => date('Y-m-d')];
+            $ress  = $InviteCode->whereIn("invite_code", $codes)->where("status", InviteCode::STATUS_UNUSE)->update($params);
             $arr = [];
             foreach($codes as $k=>$v){
                 $redisParams = [
