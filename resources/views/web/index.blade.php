@@ -22,7 +22,7 @@
         <ul id="nav_pro">
            <a href="{{url('/')}}"> <li class="active_index">首页</li></a>
             <a href="{{url('/columns/today_jing/goods')}}"><li>臻品汇</li></a>
-            <li>产品矩阵</li>
+            <li onclick="javascript:document.getElementById('list_column').scrollIntoView()">产品矩阵</li>
             <li>粉丝营销</li>
             <li>推客商学院</li>
             <li>推客商盟</li>
