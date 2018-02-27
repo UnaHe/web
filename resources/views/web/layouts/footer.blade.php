@@ -7,6 +7,6 @@
             {{--<li>合作伙伴2</li>--}}
         {{--</ul>--}}
         {{--<div class="clear"></div>--}}
-        <p class="pyt_remark">2017 www.tuike198.com蜀CP备170234号-1 四川推客互动有限责任公司</p>
+        <p class="pyt_remark">&copy;2017 四川推客互动有限责任公司 蜀ICP备170234号-1 www.tuike198.com</p>
     </div>
 </footer>

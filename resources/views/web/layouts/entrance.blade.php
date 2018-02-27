@@ -59,7 +59,7 @@
     <div class="footer-in"></div>
     <div class="footer-bd center-block">
         <p class="mod_copyright_links">
-            <em>2017 www.tuike198.com蜀CP备170234号-1 四川推客互动有限责任公司</em>
+            <em>&copy;2017 四川推客互动有限责任公司 蜀ICP备170234号-1 www.tuike198.com</em>
         </p>
     </div>
     <!--公共底部 end-->
