@@ -271,22 +271,32 @@ input#code {
 
     .login-boxtitle {
         margin: 0px auto;
-        height: 160px;
+        height: 100px;
+        box-shadow:4px 6px 6px rgba(0,0,0,0.04)
     }
 
     .login-boxtitle img {
-        height: 60px;
-        margin-top: 104px;
-        margin-left: 4%;
+        position: absolute;
+        top: 25px;
+        left: 450px;
+    }
+
+    .login-boxtitle span {
+        height:19px;
+        font-size:20px;
+        color:rgba(51,51,51,1);
+        line-height:40px;
+        position: absolute;
+        top: 30px;
+        left: 660px;
     }
 
     .login-banner, .res-banner {
         width: 100%;
-        height: 599px;
+        height: 100%;
         background-image: url("/images/web/big.png");
-        background-size: 100% 100%;
-        -moz-background-size: 100% 100%;
-        -webkit-background-size: 100% 100%;
+        background-repeat:no-repeat;
+        background-position:450px 150px;
         margin-top: 20px
     }
 

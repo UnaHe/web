@@ -1,6 +1,6 @@
 @extends('web.layouts.entrance')
 @section('title')
-    注册
+    {{$title}}
 @stop
 
 @section('content')

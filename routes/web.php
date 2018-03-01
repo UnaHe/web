@@ -33,7 +33,7 @@ Route::get('/logout', 'Web\UserController@logout');
  * 用户路由
  */
 //用户注册
-Route::match(['get', 'post'], '/register', 'Web\UserController@register');
+//Route::match(['get', 'post'], '/register', 'Web\UserController@register');
 //用户是否存在
 Route::post( '/isExist', 'Web\UserController@isExist');
 //用户登录

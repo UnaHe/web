@@ -1,6 +1,6 @@
 @extends('web.layouts.entrance')
 @section('title')
-    登录
+    {{$title}}
 @stop
 @section('content')
     <form action="{{url('login')}}" method="post">

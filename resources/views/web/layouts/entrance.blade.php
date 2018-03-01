@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>
         
-        @yield('title')
+        @yield('title')-朋友惠
 
     </title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -28,7 +28,8 @@
 <body>
 
 <div class="login-boxtitle">
-    <a href="#"><img alt="logo"  src="/images/web/logo.png"/></a>
+    <a href="/"><img alt="logo"  src="/images/web/newLOGO.png"/></a>
+    <span>{{$msg}}</span>
 </div>
 
 <div class="login-banner">
@@ -39,9 +40,9 @@
         <div class="login-box">
             <h3 class="title">
                 <a href="{{url('login')}}"><span class="@if($active=='login') avtive @endif">欢迎登录</span></a>&nbsp;&nbsp; &nbsp;
-                <table class="line"><tr><td valign="top"></td></tr></table>
+                {{--<table class="line"><tr><td valign="top"></td></tr></table>--}}
                 &nbsp; &nbsp;
-                <a href="{{url('register')}}"> <span class="@if($active=='register') avtive @endif">免费注册</span></a>
+                {{--<a href="{{url('register')}}"> <span class="@if($active=='register') avtive @endif">免费注册</span></a>--}}
             </h3>
             <div class="clear"></div>
 

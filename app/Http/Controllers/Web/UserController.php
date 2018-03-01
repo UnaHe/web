@@ -31,9 +31,10 @@ class UserController extends Controller
             if(Auth::check()){
                 return redirect(url('/'));
             }
-            return view('web.user.login', [
-                'active' => 'login'
-            ]);
+            $title = '用户登录';
+            $msg = '欢迎登录';
+            $active = 'login';
+            return view('web.user.login', compact('title', 'msg', 'active'));
         }
     }
 
@@ -87,9 +88,10 @@ class UserController extends Controller
             }
             return $this->ajaxSuccess(['message' => '注册成功']);
         } elseif ($request->isMethod('get')) {
-            return view('web.user.register', [
-                'active' => 'register'
-            ]);
+            $title = '用户注册';
+            $msg = '欢迎注册';
+            $active = 'register';
+            return view('web.user.register', compact('title', 'msg', 'active'));
         }
     }
 

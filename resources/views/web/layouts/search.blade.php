@@ -10,7 +10,7 @@
             </button>
             {{--<a class="navbar-brand pyt_font_size48" href="{{url('/')}}">朋友惠</a><span class="line_pyt"></span>--}}
             {{--<a class="navbar-brand pyt_font_size48 pyt_color" href="{{url('/')}}">Tuike</a>--}}
-            <a href="{{url('/')}}"><img src="/images/web/searchLOGO.png" alt="..."></a>
+            <a href="{{url('/')}}"><img src="/images/web/newLOGO.png" alt="..."></a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
             @if(isset($active)&&!empty($active['active_column_code']))
