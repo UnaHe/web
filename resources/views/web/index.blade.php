@@ -2,7 +2,7 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title>首页</title>
+    <title>{{$title}}</title>
     <!--设置视口-->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,user-sclable=0">
     <!--引入重置样式-->
@@ -23,10 +23,10 @@
            <a href="{{url('/')}}"> <li class="active_index">首页</li></a>
             <a href="{{url('/columns/today_jing/goods')}}"><li>臻品汇</li></a>
             <li onclick="javascript:document.getElementById('list_column').scrollIntoView()">产品矩阵</li>
-            <li>粉丝营销</li>
-            <li>推客商学院</li>
-            <li>推客商盟</li>
-            <li class="open_terrace">开放平台</li>
+            <a href="{{url('/construction/c1')}}"><li>粉丝营销</li></a>
+            <a href="{{url('/construction/c2')}}"><li>推客商学院</li></a>
+            <a href="{{url('/construction/c3')}}"><li>推客商盟</li></a>
+            <a href="{{url('/construction/c4')}}"><li class="open_terrace">开放平台</li></a>
         </ul>
         <div class="clear"></div>
         <p id="app_explain" class="fadenum container">

@@ -10,10 +10,23 @@ Route::get('/wx/{id}', 'WechatPageController@page')->where('id', '[0-9]+');
 Route::get('/wx2/{id}', 'WechatPageController@page2')->where('id', '[0-9]+');
 
 /**
+ * 建设中
+ */
+Route::get('/construction/{name}', 'Web\IndexController@construction');
+
+/**
  * 首页
  */
 Route::get('/', 'Web\IndexController@index');
+
+/**
+ * 商务合作页
+ */
 Route::get('/business ', 'Web\IndexController@business');
+
+/**
+ * 退出登录
+ */
 Route::get('/logout', 'Web\UserController@logout');
 
 /**

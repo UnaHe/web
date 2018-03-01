@@ -3,7 +3,7 @@
         <div class="container-fluid">
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li class="first_li"><a href="#">给你的不仅仅是优惠</a></li>
+                    <li class="first_li"><a href="{{url('/')}}">给你的不仅仅是优惠</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right nav_line">
                     @if(\Illuminate\Support\Facades\Auth::check())

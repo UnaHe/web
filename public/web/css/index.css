@@ -151,6 +151,7 @@ a,a:hover{
     width: 150px;
     height: 40px;
     font-size: 12px;
+    font-weight:bold;
     position: absolute;
     top: 400px;
     left: 45.5%;
