@@ -669,10 +669,8 @@ class GoodsService
         if($user){
             $userId = $user->id;
         }else{
-            //随机获取一个未过期的用户
-            $userId = TaobaoToken::where([
-                ['expires_at', '>', Carbon::now()->addMinute(mt_rand(5, 100))]
-            ])->limit(1)->pluck("user_id")->first();
+            //随机获取一个用户
+            $userId = 56;
         }
 
         $commission = Goods::where([

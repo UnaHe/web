@@ -82,7 +82,10 @@ class TransferService
         //更新商品佣金
         if(isset($result['max_commission_rate'])){
             $time = Carbon::now();
-            Goods::where("goodsid", $taobaoGoodsId)->update([
+            Goods::where([
+                ["goodsid", "=", $taobaoGoodsId],
+                ["commission", "<", $result['max_commission_rate']]
+            ])->update([
                 'commission' => $result['max_commission_rate'],
                 'commission_update_time' => $time,
             ]);
