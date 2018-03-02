@@ -1,0 +1,188 @@
+header{
+    width: 100%;
+    height:136px;
+    background:rgba(255,255,255,1);
+    text-align: center;
+    font-size: 34px;
+    line-height: 158px;
+    color: rgba(51, 51, 51, 1);
+    position: fixed;
+    top: -2px;
+}
+#aaa{
+    width: 100%;
+    height: 100%;
+    background: url("../img/beijing.png") no-repeat;
+    background-size: cover;
+    display: flex;
+    flex: 1;
+    position: relative;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    /*background: yellow;*/
+}
+#biaoyu{
+    margin-top: 368px;
+    margin-left:.8rem ;
+    display: block;
+    width: 80%;
+    height: 100%;
+    margin-top:1.3rem;
+}
+nav{
+    width: 100%;
+    height:100%;
+    /*position: absolute;*/
+    /*top: 0;*/
+    /*bottom: 0;*/
+    /*left: 0;*/
+    /*right: 0;*/
+    /*background: red;*/
+
+}
+#activity_data,#activity_datas{
+    padding-left: 1.5rem;
+    line-height: 1rem;
+    font-size: .3rem;
+    line-height: .8rem;
+    margin: auto;
+    display: inline-block;
+}
+#activity_datas{
+    padding-left: 2.4rem;
+    font-size: .5rem;
+}
+
+/*弹框*/
+.ball_box{
+    height: 7.2rem;
+    margin: auto;
+    margin-left: .8rem;
+    background: url("../img/tanchuang1.png") no-repeat;
+    background-size: 90% 100%;
+    margin-top: 1rem;
+}
+.ball_boxs{
+    position: fixed;
+    top:3.8rem;
+    height: 7.2rem;
+    margin: auto;
+    margin-left: .8rem;
+    background: url("../img/qzt.png") no-repeat;
+    background-size: 90% 100%;
+    margin-top: 0rem;
+    /*background: url("../img/qzt.png") no-repeat;*/
+    /*left: -.2rem;*/
+}
+.activity_content,.activity_contents{
+    width:75%;
+    font-size:.38rem;
+    font-family:DengXian-Regular;
+    color:rgba(51,51,51,1);
+    margin-left: .7rem;
+    padding-top: 1rem;
+    letter-spacing: .1rem;
+    margin-bottom:.8rem;
+}
+.activity_contents{
+    margin-top: .5rem;
+}
+/*.share_btn,.share_btns{*/
+    /*font-size: .5rem;*/
+    /*color: rgba(51,51,51,1);*/
+    /*padding-left: 1.2rem;*/
+    /*margin: auto;*/
+    /*display: inline-block;*/
+/*}*/
+/*.share_btns{*/
+    /*font-size: .5rem;*/
+    /*margin-top: -.1rem;*/
+/*}*/
+/*.share_btn img,.share_btns img{*/
+    /*width: 6rem;*/
+    /*margin-top: -.3rem;*/
+/*}*/
+#mengcheng{
+    width: 100%;
+    height:100%;
+    background-color: rgba(0,0,0,.4);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    display: none;
+}
+#together{
+    font-size:.4rem;
+    font-family:DengXian-Regular;
+    color:rgba(255,255,255,1);
+    line-height:1rem;
+    margin: auto;
+    margin-left: 3rem;
+    margin-top: 1.4rem;
+    display: inline-block;
+}
+.footer_nav{
+    width: 20%;
+    text-align: center;
+    margin-top:.3rem;
+    margin-left: 1.8rem;
+    display: inline-block;
+    margin-bottom: .2rem;
+}
+.footer_nav p{
+    margin-top:.1rem;
+    font-size: .3rem;
+    color: rgba(255, 255, 255, 1);
+}
+a{
+    color: rgba(255, 255, 255, 1);
+}
+#input{
+    display: none;
+}
+/*海报*/
+#haibao{
+    /*background: rgba(0,0,0,.6);*/
+    background: url("../img/shengchenghaibao.jpg") no-repeat;
+    background-size: cover;
+    display: none;
+    width: 100%;
+    height:100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 222;
+
+}
+.footer_nav img{
+    width: 1.4rem;
+}
+#save_pic{
+    width:40%;
+    height:1rem;
+    background:rgba(246,174,35,1);
+    border-radius: 40px;
+    text-align: center;
+    line-height: 1rem;
+    font-size: .3rem;
+    color: rgba(51, 51, 51, 1);
+    top: 15.4rem;
+    left:3rem;
+    position: absolute;
+}
+#code{
+    width: .4rem;
+    height: .4rem;
+    position: absolute;
+    top:10.1rem;
+    left: 3rem;
+}
+.width{
+    width: 3rem;
+    height: 3rem;
+}

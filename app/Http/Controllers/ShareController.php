@@ -6,6 +6,7 @@ use App\Services\UserService;
 use Illuminate\Http\Request;
 use App\Helpers\UrlHelper;
 use App\Models\shareTitle;
+use App\Services\TransferService;
 
 /**
  * 分享链接
@@ -57,4 +58,33 @@ class ShareController extends Controller
             'referral_code' => $code
         ]);
     }
+
+    /**
+     * 获取活动生成
+     * @throws \Exception
+     */
+    public function getActivity(Request $request) {
+        $pid = $request->input('pid');
+
+        // 活动链接.
+        $activityUrl = 'https://mos.m.taobao.com/activity_newer?from=tool&sight=pytk&pid=@pid@';
+
+        // 拼接PID.
+        $url = str_replace('@pid@', $pid, $activityUrl);
+
+        // 短链接.
+        $shortUrl = (new UrlHelper())->shortUrl($url);
+
+        // 淘口令.
+        $taoCode = (new TransferService())->transferTaoCode('拉新人拿高佣', $url);
+
+        $data = [
+            'longUrl' => $url,
+            'shortUrl' => $shortUrl,
+            'taoCode' => $taoCode
+        ];
+
+        return $this->ajaxSuccess($data);
+    }
+
 }
