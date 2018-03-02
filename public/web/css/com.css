@@ -273,7 +273,8 @@ input{outline:none; !important}
 }
 /*头部二级菜单*/
 .navbar-right .dropdown-menu{
-    right: 253px;
+    /*right: 253px;*/
+    right: 162px;
     top: 24px;
 }
 .dropdown-menu{

@@ -24,7 +24,7 @@
 
                     {{--<li><a href="#">企业官网</a></li>--}}
                     <li><a href="{{url('/business')}}" class="@if(\Illuminate\Support\Facades\Request::getRequestUri()== '/business') header_active @endif " target="_blank">商务合作</a></li>
-                    <li><a href="#">联系我们</a></li>
+                    <li><a href="{{url('/aboutUs')}}">关于我们</a></li>
                 </ul>
             </div>
         </div>

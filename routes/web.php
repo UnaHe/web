@@ -15,6 +15,11 @@ Route::get('/wx2/{id}', 'WechatPageController@page2')->where('id', '[0-9]+');
 Route::get('/construction/{name}', 'Web\IndexController@construction');
 
 /**
+ * 关于我们
+ */
+Route::get('/aboutUs', 'Web\IndexController@aboutUs');
+
+/**
  * 首页
  */
 Route::get('/', 'Web\IndexController@index');

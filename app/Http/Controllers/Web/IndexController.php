@@ -47,5 +47,17 @@ class IndexController extends Controller
         return view('web.construction', compact('title', 'active', 'name'));
     }
 
+    /**
+     * 网站建设中
+     * @return Factory|\Illuminate\View\View
+     */
+    public function aboutUs()
+    {
+        $name = 1;
+        $title = '关于我们';
+        $columnCode = 'today_tui';
+        $active = ['active_column_code' => $columnCode];
+        return view('web.about_us', compact('title', 'active', 'name'));
+    }
 
 }
