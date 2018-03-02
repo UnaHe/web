@@ -109,6 +109,7 @@ class UserService
             //创建用户
             $isSuccess = $regUser->update([
                 'invite_code' => $inviteCode,
+                'grade' => 1,
                 'expiry_time' => $expireTime,
                 'path' => $path,
             ]);
@@ -180,10 +181,10 @@ class UserService
         $pwd = '$2y$10$UIrysYMy3Tq2k3Cxc/v4i.vdC3aIpwRuq5CsogyingRX2G89AdsA.';
         foreach($codes as $k=>$v){
             $name = '12'.$this->generate_code();
-            $sql .= "('$name','$pwd','$v','$path'),";
+            $sql .= "('$name','$pwd','$v',1,'$path'),";
         }
         $sql = rtrim($sql,",");
-        $res = DB::insert(DB::raw('INSERT INTO xmt_user (phone,password,invite_code,path) VALUES '.$sql));
+        $res = DB::insert(DB::raw('INSERT INTO xmt_user (phone,password,invite_code,grade,path) VALUES '.$sql));
 
         if($res){
             $params = ["status"=>InviteCode::STATUS_USED, 'update_time' => date('Y-m-d H:i:s'), 'date' => date('Y-m-d')];
