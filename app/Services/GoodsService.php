@@ -665,13 +665,8 @@ class GoodsService
             return $cache;
         }
 
-        $user = Auth::guard('api')->user();
-        if($user){
-            $userId = $user->id;
-        }else{
-            //随机获取一个用户
-            $userId = 56;
-        }
+        //随机获取一个用户
+        $userId = 56;
 
         $commission = Goods::where([
             ['goodsid', '=', $goodsId],
