@@ -189,7 +189,6 @@ body{
     padding: 20px 0;
     background: #fff;
 }
-/*���İ�� */
 .row{
     margin: 0 auto;
     margin-top: 16px;
@@ -200,8 +199,6 @@ body{
     min-height: 700px;
 }
 .pyt_remark{
-    color:rgba(153,153,153,1);
-    font-size:14px;
     margin-bottom: 10px;
     margin-top: 6px;
 }

@@ -114,7 +114,6 @@
             <p class="pyt_remark">&copy;2017 四川推客互动有限责任公司 蜀ICP备170234号-1 www.tuike198.com</p>
         </div>
     </footer>
-
 </div>
 </body>
 <script src="/web/lib/jquery/dist/jquery.js"></script>

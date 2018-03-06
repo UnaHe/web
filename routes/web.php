@@ -20,6 +20,11 @@ Route::get('/construction/{name}', 'Web\IndexController@construction');
 Route::get('/aboutUs', 'Web\IndexController@aboutUs');
 
 /**
+ * 朋友淘
+ */
+Route::get('/pyTao', 'Web\IndexController@pyTao');
+
+/**
  * 首页
  */
 Route::get('/', 'Web\IndexController@index');

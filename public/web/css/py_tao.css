@@ -1,0 +1,89 @@
+body {
+    background: #fff;
+    font-family: NotoSansHans-Regular;
+    overflow-x: hidden;
+}
+
+/*头部*/
+.herder {
+    height:120px;
+    opacity:0.98;
+}
+
+.container {
+    height: 100%;
+    font-size:16px;
+    color:rgba(102,102,102,1);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.herder-left a {
+    color:rgba(102,102,102,1);
+    text-decoration: none;
+}
+
+.herder-left a:hover{
+    color:rgba(246,174,35,1);
+}
+
+.herder-left-title {
+    font-size:24px;
+    margin-left: 18px;
+}
+
+.herder-nav {
+    margin-left: 550px;
+}
+.herder-nav li {
+    float: left;
+    padding-left: 40px;
+}
+
+.herder-nav li a {
+    color:rgba(102,102,102,1);
+    text-decoration: none;
+}
+
+.herder-nav li a:hover{
+    color:rgba(246,174,35,1);
+}
+
+/*朋友淘*/
+.pytao {
+    width: 1100px;
+    height: 880px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 auto;
+}
+
+.font_size28 {
+    font-size: 28px;
+}
+
+.pytao-left p {
+    font-weight: bold;
+    line-height: 1.8em;
+}
+
+.pytao-left img {
+    margin: 20px 0;
+}
+
+.open_btn {
+    width: 200px;
+    height: 50px;
+    font-size:16px;
+    font-weight: bold;
+    text-align: center;
+    color:rgba(255,255,255,1);
+    line-height: 48px;
+    background-color: rgba(246,174,35,1);
+    border: 1px solid rgba(246,174,35,1);
+    border-radius: 2px;
+    margin: 20px 0;
+}

@@ -48,16 +48,27 @@ class IndexController extends Controller
     }
 
     /**
-     * 网站建设中
+     * 关于我们
      * @return Factory|\Illuminate\View\View
      */
     public function aboutUs()
     {
-        $name = 1;
         $title = '关于我们';
         $columnCode = 'today_tui';
         $active = ['active_column_code' => $columnCode];
-        return view('web.about_us', compact('title', 'active', 'name'));
+        return view('web.about_us', compact('title', 'active'));
+    }
+
+    /**
+     * 关于我们
+     * @return Factory|\Illuminate\View\View
+     */
+    public function pyTao()
+    {
+        $title = '朋友淘';
+        $columnCode = 'today_tui';
+        $active = ['active_column_code' => $columnCode];
+        return view('web.py_tao', compact('title', 'active'));
     }
 
 }
