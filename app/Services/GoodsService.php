@@ -714,4 +714,10 @@ class GoodsService
         return $result;
     }
 
+    public function getCaijiPics($goods_id)
+    {
+        $caijiPics = DB::table('xmt_caiji')->select('pic')->where('goods_id', '=', $goods_id)->limit(8)->get();
+        return $caijiPics;
+    }
+
 }

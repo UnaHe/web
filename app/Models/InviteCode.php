@@ -40,7 +40,8 @@ class InviteCode extends Model
      * @return mixed
      */
     public function useCode($code){
-        return $this->where("invite_code", $code)->where("status", self::STATUS_UNUSE)->update(["status"=>self::STATUS_USED]);
+        $params = ["status"=>InviteCode::STATUS_USED, 'update_time' => date('Y-m-d H:i:s'), 'date' => date('Y-m-d')];
+        return $this->where("invite_code", $code)->where("status", self::STATUS_UNUSE)->update($params);
     }
 
 }

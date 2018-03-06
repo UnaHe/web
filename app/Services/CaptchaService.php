@@ -15,6 +15,8 @@ class CaptchaService
     /**
      * 发送注册验证码
      * @param $mobile
+     * @return bool|string
+     * @throws \Exception
      */
     public function registerSms($mobile){
         return $this->sendCodeSms($mobile, 'SMS_105510071');
@@ -24,6 +26,7 @@ class CaptchaService
      * 修改密码验证码
      * @param $mobile
      * @return bool|string
+     * @throws \Exception
      */
     public function modifyPasswordSms($mobile){
         return $this->sendCodeSms($mobile, 'SMS_105895041');
@@ -34,13 +37,14 @@ class CaptchaService
      * @param $mobile
      * @param $templateCode
      * @return bool|string
+     * @throws \Exception
      */
     public function sendCodeSms($mobile, $templateCode){
         $code = mt_rand(1000, 9999);
         $codeId = md5(__METHOD__.uniqid().time());
-        $cacheKey = "smsCode.".$codeId;
-        $signname=config('sms.signname')?config('sms.signname'):'推单客';
-        if((new SmsHelper())->sms($mobile, $signname, $templateCode, ['code'=>$code])){
+        $cacheKey = "smsCode.".$mobile.".".$codeId;
+
+        if((new SmsHelper())->sms($mobile, config('sms.signname'), $templateCode, ['code'=>$code])){
             Cache::put($cacheKey, $code, config('sms.code_expire_time'));
             return $codeId;
         }
@@ -50,12 +54,13 @@ class CaptchaService
 
     /**
      * 验证注册验证码
+     * @param $mobile
      * @param $codeId
      * @param $code
      * @return bool
      */
-    public function checkSmsCode($codeId, $code){
-        $cacheKey = "smsCode.".$codeId;
+    public function checkSmsCode($mobile, $codeId, $code){
+        $cacheKey = "smsCode.".$mobile.".".$codeId;
 
         if(Cache::get($cacheKey) == $code){
             return true;

@@ -40,6 +40,11 @@ Route::middleware(\App\Http\Middleware\ApiLog::class)->namespace('App\Http\Contr
     Route::post('/register', "UserController@register");
 
     /**
+     * 注册
+     */
+    Route::post('/reg', "UserController@reg");
+
+    /**
      * 注册验证码
      */
     Route::post('/captcha/registerSms', "UserController@registerSms");

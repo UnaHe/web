@@ -17,10 +17,10 @@ class BannerController extends Controller
      */
     public function getBanner(Request $request, $position){
         $data = (new BannerService())->getBanner($position);
+        $userId = $request->user()->id;
+        $pid = (new TaobaoService())->getPid($userId);
         foreach ($data as $k=>$v) {
             if (!empty($v['click_url'])) {
-                $userId = $request->user()->id;
-                $pid = (new TaobaoService())->getPid($userId);
                 $data[$k]['click_url'] = str_replace('@userId@', $userId, $data[$k]['click_url']);
                 $data[$k]['click_url'] = str_replace('@pid@', $pid, $data[$k]['click_url']);
             }
