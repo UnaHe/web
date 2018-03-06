@@ -10,7 +10,7 @@
 |
 */
 
-Route::domain(config('domains.api_domain'))->middleware(\App\Http\Middleware\ApiLog::class)->namespace('App\Http\Controllers')->group(function (){
+Route::middleware(\App\Http\Middleware\ApiLog::class)->namespace('App\Http\Controllers')->group(function (){
     /**
      * 查询券信息, 工具验证券有效性调用
      */
@@ -21,6 +21,10 @@ Route::domain(config('domains.api_domain'))->middleware(\App\Http\Middleware\Api
      */
     Route::get('/commission', "GoodsController@commission");
 
+    /**
+     * 获取活动
+     */
+    Route::post('/share/activity', "ShareController@getActivity");
 
     /**
      * 授权登录

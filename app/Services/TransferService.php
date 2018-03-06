@@ -82,7 +82,10 @@ class TransferService
         //更新商品佣金
         if(isset($result['max_commission_rate'])){
             $time = Carbon::now();
-            Goods::where("goodsid", $taobaoGoodsId)->update([
+            Goods::where([
+                ["goodsid", "=", $taobaoGoodsId],
+                ["commission", "<", $result['max_commission_rate']]
+            ])->update([
                 'commission' => $result['max_commission_rate'],
                 'commission_update_time' => $time,
             ]);
@@ -312,6 +315,7 @@ class TransferService
             if(!$couponId){
                 $url = (new CouponGet())->initWithUlandUrl($url)->getItemClickUrl();
             }
+            $url .= "&from=tool&sight=pytk";
             $url = UrlHelper::fixUrlPrefix($url);
             $slickUrl = $this->transferSclick($url);
             $taoCode = $this->transferTaoCode($title, $slickUrl, $pic);
