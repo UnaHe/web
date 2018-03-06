@@ -1,7 +1,19 @@
 body {
     background: #fff;
-    font-family: NotoSansHans-Regular;
+    font-family: NotoSansHans-Medium;
     overflow-x: hidden;
+}
+
+.font_size16 {
+    font-size: 16px;
+}
+
+.font_size24 {
+    font-size: 24px;
+}
+
+.font_size28 {
+    font-size: 28px;
 }
 
 /*头部*/
@@ -61,10 +73,6 @@ body {
     margin: 0 auto;
 }
 
-.font_size28 {
-    font-size: 28px;
-}
-
 .pytao-left p {
     font-weight: bold;
     line-height: 1.8em;
@@ -72,6 +80,10 @@ body {
 
 .pytao-left img {
     margin: 20px 0;
+}
+
+.pytao-left a {
+    text-decoration: none;
 }
 
 .open_btn {
@@ -86,4 +98,305 @@ body {
     border: 1px solid rgba(246,174,35,1);
     border-radius: 2px;
     margin: 20px 0;
+}
+
+/*历史*/
+.history {
+    width: 100%;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#history_box_all {
+    color: rgba(255,255,255,1);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.history_box {
+    width: 640px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.history_bg_color1 {
+    background: rgba(246,174,35,1);
+}
+
+.history_bg_color2 {
+    background: rgba(51,51,51,1);
+}
+
+.history_bg_color3 {
+    background: rgba(119,92,212,1);
+}
+
+.history_box_img {
+    margin-top: 58px;
+}
+
+.history_box_title {
+    font-weight: bold;
+    margin-top: 40px;
+    margin-bottom: 30px;
+}
+
+.history_box_content {
+    line-height: 1.8em;
+}
+
+/*注册流程*/
+.reg {
+    width: 1100px;
+    height: 700px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 auto;
+}
+
+.reg-left a {
+    text-decoration: none;
+}
+
+.reg-left-title {
+    font-weight: bold;
+    margin-bottom: 16px;
+}
+
+.reg-left-des {
+    color: rgba(102,102,102,1);
+    margin-bottom: 40px;
+}
+
+.reg-left-content {
+    color: rgba(102,102,102,1);
+    margin-bottom: 30px;
+}
+
+.reg-left-content span {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    text-align: center;
+    line-height: 30px;
+    color: rgba(255,255,255,1);
+    background: rgba(246,174,35,1);
+    margin: 0px 14px;
+}
+
+/*分享赚钱*/
+.share {
+    height: 700px;
+    background:rgba(119,92,212,1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.share-box {
+    width: 1100px;
+    height: 100%;
+    color: rgba(255,255,255,1);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.share-left-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.share-left-des {
+    line-height: 1.8em;
+}
+
+.margin-bottom {
+    margin-bottom: 10px;
+}
+
+.share-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+    text-align: right;
+}
+
+.share-left-content {
+    margin: 16px 0;
+}
+
+.share-left-content span {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    text-align: center;
+    line-height: 30px;
+    color: rgba(255,255,255,1);
+    background: rgba(246,174,35,1);
+    margin: 0px 14px;
+}
+
+.share-right a {
+    text-decoration: none;
+}
+
+/*角色划分*/
+.character {
+    height: 700px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.character-title {
+    font-weight: bold;
+    margin-top: 118px;
+}
+
+.character-content {
+    margin-top: 14px;
+    margin-bottom: 40px;
+}
+
+#character-box-all {
+    width: 1100px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.character-box {
+    width: 32%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.character-box li {
+    text-align: center;
+}
+
+.character-box-title {
+    width: 100%;
+    height: 130px;
+    background: rgba(248,248,248,1);
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.character-box-content {
+    padding: 24px 0;
+}
+
+.character-box-subtitle {
+    font-style:italic;
+    color: rgba(162, 162, 162, 1);
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.disc {
+    display: inline-block;
+    width: 2px;
+    height: 2px;
+    border-radius: 2px;
+    background-color: rgba(246,174,35,1);
+    margin: 0 4px 4px 0;
+
+}
+
+.colorBlack {
+    color: rgba(51,51,51,1);
+}
+
+.colorOrange {
+    color: rgba(246,174,35,1);
+}
+
+.colorPurple {
+    color: rgba(119,92,212,1);
+}
+
+.border-top {
+    border-top: 1px solid rgba(238, 238, 238, 1);
+}
+
+.box-shadow {
+    box-shadow: 0 6px 0 rgba(246, 246, 246, 1);
+}
+
+/*赶快下载*/
+.download {
+    height: 400px;
+    color:rgba(255,255,255,1);
+    background: rgba(246,174,35,1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.download-box {
+    width: 1100px;
+    height: 200px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.download-content {
+    margin-top: 10px;
+}
+
+.download-cen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.download-btn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 36px;
+}
+
+.download-btn a {
+    text-decoration: none;
+}
+
+.download-btn1 {
+    background: rgba(119,92,212,1);
+    border-radius: 4px;
+}
+
+.download-btn2 {
+    background: rgba(34,34,34,1);
+    border-radius: 4px;
+    margin-left: 40px;
+}
+
+.download-right-pic {
+    margin-top: 150px;
 }
