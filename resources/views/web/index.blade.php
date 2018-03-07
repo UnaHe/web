@@ -135,13 +135,13 @@
         <div id="none_matrix">
             <img src="/images/web/tuikelianmeng.png" alt="" id="tuikelM">
             <!--相关产品布局-->
-            <p class="friends_box friend_one">朋友惠</p>
-            <p class="friends_box friend_two">朋友聊</p>
-            <p class="friends_box friend_three">推客工具</p>
-            <p class="friends_box friend_four">推客商盟</p>
-            <p class="friends_box friend_five">朋友淘</p>
-            <p class="friends_box friend_six">朋友头条</p>
-            <p class="friends_box friend_seven">朋友助手</p>
+            <a class="friends_box friend_one">朋友惠</a>
+            <a class="friends_box friend_two">朋友聊</a>
+            <a class="friends_box friend_three">推客工具</a>
+            <a class="friends_box friend_four">推客商盟</a>
+            <a href="{{url('/pyTao')}}" target="_blank" class="friends_box friend_five">朋友淘</a>
+            <a class="friends_box friend_six">朋友头条</a>
+            <a class="friends_box friend_seven">朋友助手</a>
             <!--流星布局-->
             <img src="/images/web/liuxin.png" alt="" id="liuxing">
         </div>

@@ -433,6 +433,10 @@ animation: fadeInUp .4s 1,fadeInss_text .4s 1;
     display: none;
     margin-left: 10%;
 }
+#none_matrix a {
+    color: rgba(140, 223, 161, 1);
+    text-decoration: none;
+}
 #tuikelM{
     margin-left: 35%;
     padding-top:144px ;
