@@ -20,11 +20,11 @@
                 <a href="/"><img alt="logo" src="/images/web/py_tao/py_tao_logo.png"/><span class="herder-left-title">朋友淘</span></a>
             </div>
             <ul class="herder-nav">
-                <li><a href="/">主页</a></li>
-                <li><a>关于我们</a></li>
-                <li><a>介绍</a></li>
-                <li><a>角色</a></li>
-                <li><a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.tuidanke.pytk" target="_blank">下载</a></li>
+                {{--<li><a>主页</a></li>--}}
+                {{--<li><a>关于我们</a></li>--}}
+                {{--<li><a>介绍</a></li>--}}
+                {{--<li><a>角色</a></li>--}}
+                {{--<li><a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.tuidanke.pytk" target="_blank">下载</a></li>--}}
             </ul>
         </div>
     </header>
@@ -160,7 +160,7 @@
                     </div>
                     <div class="download-btn">
                         <a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.tuidanke.pytk" target="_blank"><div class="open_btn download-btn1">安卓·Android</div></a>
-                        <a href="" style="cursor: not-allowed"><div class="open_btn download-btn2">苹果·App Store</div></a>
+                        <a href="" style="cursor: not-allowed" title="即将上线"><div class="open_btn download-btn2">苹果·App Store</div></a>
                     </div>
                 </div>
                 <div class="download-right-pic">
