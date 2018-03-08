@@ -5,7 +5,7 @@ $(function(){
         next_page=1;
     }
     //页面拉到底时自动加载更多
-    var next_page = 2;
+    var next_page = 1;
     var limit = 20;
     var flag = false;
     //页面拉到底时自动加载更多
@@ -89,7 +89,7 @@ $(function(){
                             minCommission: minCommission,
                             minSellNum: minSellNum,
                             keyword: keyword,
-                            page: 1,
+                            // page: 1,
                             today: today,
                             isTmall: isTmall,
                             isJpseller: isJpseller,
@@ -168,7 +168,7 @@ $(function(){
                             minCommission: minCommission,
                             minSellNum: minSellNum,
                             keyword: keyword,
-                            page: 1,
+                            // page: 1,
                             today: today,
                             isTmall: isTmall,
                             isJpseller: isJpseller,
@@ -441,7 +441,7 @@ $(".common").on("click",function(){
         })
     }else{
         //获取分类
-        var active_category = $(".active")[1].id;
+        var active_category = $(".active")[0].id;
         console.log(active_category)
         //    获取搜索词
         var keyword = $('#search_value').val();
@@ -586,7 +586,7 @@ $(".tab_nav span").on('click',function(){
     this.className = 'tab_nav_active';
     var sort=this.id;
     //获取分类
-    var active_category=$(".active")[1].id;
+    var active_category=$(".active")[0].id;
     console.log(active_category)
     //    获取搜索词
     var keyword=$('#search_value').val();
