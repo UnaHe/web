@@ -22,12 +22,12 @@ Route::get('/aboutUs', 'Web\IndexController@aboutUs');
 /**
  * 朋友淘
  */
-Route::get('/pyTao', 'Web\IndexController@pyTao');
+Route::get('/', 'Web\IndexController@pyTao');
 
 /**
  * 首页
  */
-Route::get('/', 'Web\IndexController@index');
+//Route::get('/', 'Web\IndexController@index');
 
 /**
  * 商务合作页

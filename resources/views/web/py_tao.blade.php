@@ -20,11 +20,11 @@
                 <a href="/"><img alt="logo" src="/images/web/py_tao/py_tao_logo.png"/><span class="herder-left-title">朋友淘</span></a>
             </div>
             <ul class="herder-nav">
-                <li><a>主页</a></li>
+                <li><a href="/">主页</a></li>
                 <li><a>关于我们</a></li>
                 <li><a>介绍</a></li>
                 <li><a>角色</a></li>
-                <li><a>下载</a></li>
+                <li><a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.tuidanke.pytk" target="_blank">下载</a></li>
             </ul>
         </div>
     </header>
@@ -39,7 +39,7 @@
                 <img src="/images/web/py_tao/py_tao_qr_code.png" />
                 <p class="font_size28">每天都是双十一</p>
                 <p class="font_size28">扫码关注官方微信公众号下载</p>
-                <a href=""><div class="open_btn">立即下载</div></a>
+                <a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.tuidanke.pytk" target="_blank"><div class="open_btn">立即下载</div></a>
             </div>
             <div class="pytao-right">
                 <img src="/images/web/py_tao/py_tao.png" />
@@ -80,7 +80,7 @@
                 <p class="font_size16 reg-left-des">朋友淘通过邀请注册，扫码确定关系终身不变，比亲妈还亲。</p>
                 <p class="font_size16 reg-left-content"><span>1</span>点击网页下载链接，下载注册朋友淘，填写邀请码4jdlka</p>
                 <p class="font_size16 reg-left-content"><span>2</span>登陆后.扫码添加微信客服，或者加alibabashuyao.回复手机后四位赠送代理</p>
-                <a href=""><div class="open_btn">立即下载</div></a>
+                <a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.tuidanke.pytk" target="_blank"><div class="open_btn">立即下载</div></a>
             </div>
             <div class="reg-right">
                 <img src="/images/web/py_tao/py_tao_reg.png" />
@@ -100,7 +100,7 @@
                     <p class="font_size16 share-left-content"><span>1</span>APP邀请推广</p>
                     <p class="font_size16 share-left-content"><span>2</span>商品分享推广</p>
                     <p class="font_size16 share-left-content"><span>3</span>多种方式推广</p>
-                    <a href=""><div class="open_btn">立即下载</div></a>
+                    <a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.tuidanke.pytk" target="_blank"><div class="open_btn">立即下载</div></a>
                 </div>
             </div>
         </div>
@@ -159,8 +159,8 @@
                         <p class="font_size16">高速下载通请点击下方下载</p>
                     </div>
                     <div class="download-btn">
-                        <a href=""><div class="open_btn download-btn1">安卓·Android</div></a>
-                        <a href=""><div class="open_btn download-btn2">苹果·App Store</div></a>
+                        <a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.tuidanke.pytk" target="_blank"><div class="open_btn download-btn1">安卓·Android</div></a>
+                        <a href="" style="cursor: not-allowed"><div class="open_btn download-btn2">苹果·App Store</div></a>
                     </div>
                 </div>
                 <div class="download-right-pic">
