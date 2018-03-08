@@ -23,7 +23,7 @@
             <!-- 中心内容-->
             <!--图片-->
             <div class="img_door">
-                <img src="/web/images/push_banner.png" alt="...">
+                <img src="/web/images/push_banner.jpg" alt="...">
             </div>
             @if($active['active_column_code']!='meishijingxuan' && $active['active_column_code']!='jiajujingxuan')
             <div class="prod_type_boxs click_li">

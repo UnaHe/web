@@ -150,7 +150,7 @@ $(function(){
                             }
                         });
                     }else{
-                        var active_category = $(".active")[1].id;
+                        var active_category = $(".active")[0].id;
                         console.log(active_category)
                         //    获取券区间筛选条件
                         var minCouponPrice = $(".in_clock").val();

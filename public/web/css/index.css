@@ -48,7 +48,7 @@ a,a:hover{
     border: none;
 }
 #pyt_nav{
-    background-image:url("../../images/web/souye_BANNER.png");
+    background-image:url("../../images/web/souye_BANNER.jpg");
     color: #fff;
     width: 100%;
     height: 600px;
@@ -297,7 +297,7 @@ animation: fadeInUp .4s 1,fadeInss_text .4s 1;
 #product_column{
     width: 100%;
     height: 704px;
-    background-image: url("../../images/web/chanpingjingxuanlanmu.png");
+    background-image: url("../../images/web/chanpingjingxuanlanmu.jpg");
     background-size: 100% 100%;
     -moz-background-size: 100% 100%;
     -webkit-background-size: 100% 100%;
