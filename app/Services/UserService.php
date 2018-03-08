@@ -235,6 +235,44 @@ class UserService
     }
 
     /**
+     * 通过个人中心修改部分信息
+     * @param $data
+     * @return mixed
+     * @throws \Exception
+     */
+    public function modifyUserInfo($data)
+    {
+        try {
+            $user = DB::table('xmt_pygj_user_info')->where('user_id', '=', $data['user_id'])->first();
+            if(!empty($data['promotion']) && is_array($data['promotion'])){
+                $data['promotion']=implode(',',$data['promotion']);
+            }else{
+                $data['promotion']='';
+            }
+            if (empty($user)) {//新增加
+                $bool = DB::table("xmt_pygj_user_info")->insert($data);
+            } else {//update
+                $bool = DB::table("xmt_pygj_user_info")->where('id', $user->id)->update($data);
+            }
+            return $bool;
+        } catch (\Exception $e) {
+            return $e;
+            return  false;
+        }
+    }
+
+    /**
+     * 获取用户个人中心信息
+     * @param $user_id
+     * @return mixed
+     */
+    public function getUserInfo($user_id)
+    {
+        $user = DB::table('xmt_pygj_user_info')->where('user_id', '=', $user_id)->first();
+        return $user;
+    }
+
+    /**
      * 获取推荐码
      * @param User $user
      * @return null
