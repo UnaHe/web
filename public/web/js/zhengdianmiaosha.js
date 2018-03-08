@@ -24,7 +24,6 @@ $(function () {
         }
     });
    var time_active=$(".time_active");
-    console.log(time_active.find('p')[1].innerHTML)
     if(time_active.find('p')[1].innerHTML=='即将开始'){
       var btnText=document.getElementsByClassName('replace');
       for(var i=0;i<btnText.length;i++){

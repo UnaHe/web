@@ -19,7 +19,6 @@ $('.sub_btns').click(function () {
     var yzm= $("#yzm").val();
     var pas=$("#pas").val();
     var pas_agin=$("#pas_agin").val();
-    console.log(yzm,pas,pas_agin)
 if(pas_agin!=''&&pas!=''&&yzm!=''){
     $(this).attr('disabled', true);
     $.ajax({

@@ -87,7 +87,6 @@ username_yz.onblur = function(){
 var password_yz=document.getElementById('doc-vld-pwd-1-0');
 password_yz.onblur = function(){
     var tv = this.value;
-    console.log(tv)
     var reg = /^[\w]{6,12}$/;
     if (reg.test(tv)){
         var show_pas=document.getElementById('password_ts');
@@ -103,7 +102,6 @@ $('#form_submit').on("click",function(){
     var new_password=$("#doc-vld-pwd-2").val();
     var clock=$("#clock_id").val();
 
-    console.log(username,password,new_password,clock)
  if(password==new_password){
      var new_password_tsa=document.getElementById('new_password_tsa');
      new_password_tsa.style.display='none'

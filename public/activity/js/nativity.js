@@ -8,7 +8,6 @@ $("#zfb").on("click",function(){
 })
 //设置一键复制
 var copyFunction = function (copyBtn,text, copyMsg) {
-    console.log(text)
         var clipboard = new Clipboard(copyBtn, {
             text: function(){
                return text;
@@ -45,7 +44,6 @@ function loadUserLinkInfo(pid,cb){
             data: {pid: pid},
             dataType: "json",
             success: function (data) {
-                console.log(data);
                 var code = data.code;
                 if (code === 200) {
                     layer.closeAll();
@@ -96,7 +94,6 @@ $("#share_btn").on("click",function(){
 });
 //点击生成海报
 $('#new_pic').on('click',function(){
-    console.log(111111111111111)
     var pid=window.location.href.split('pid=');
     pid=pid[1].split('&');
     pid=pid[0];

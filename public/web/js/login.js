@@ -39,7 +39,6 @@ user_yz.onblur = function(){
 var password_yz=document.getElementById('password');
 password_yz.onblur = function(){
     var tv = this.value;
-    console.log(tv)
     if(tv==''){
         var show_pas=document.getElementById('show_pas_s');
         show_pas.style.display='block'
@@ -123,7 +122,6 @@ document.onkeydown=function(e){
                         //     console.log(window.localStorage)
                         }else if(data.code!='200'){
                             layer.close(index);
-                            console.log(111111111)
                             var show_pas= document.getElementById('show_pas');
                             show_pas.style.display='block'
 

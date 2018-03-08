@@ -23,20 +23,15 @@ $(function(){
             if(scrollHeight-scrollTop-windowHeight <=1) {
                 //请求
                 var all_product = document.getElementsByClassName('single');
-                console.log(all_product)
                 if (all_product.length > 18) {
                     var index = layer.load(1);
-                    console.log('1111111111111111111')
                     next_page += 1
                     if (flag) {
                         return false;
                     }
                     var sendData = {};
-                    console.log("11111111111111")
-                    console.log(this)
                     //    获取搜索词
                     var keyword = $('#search_value').val();
-                    console.log(keyword)
                     //    获取筛选条件
                     var checked = document.getElementsByClassName('inputs');
                     var isTmall, isYfx, isHaitao, isJyj, isTwenty, isNine, isJuhuashuan, isTaoqianggou, isQjd,
@@ -73,14 +68,12 @@ $(function(){
                     }
                     if(window.goods_url_ext=='?columnCode=meishijingxuan'||window.goods_url_ext=='?columnCode=jiajujingxuan'){
                         //    获取券区间筛选条件
-                        console.log("11111111111111111111-------------------------------------------1")
                         var minCouponPrice = $(".in_clock").val();
                         var maxCouponPrice = $(".in_clock0").val();
                         var minPrice = $(".in_clock1").val();
                         var maxPrice = $(".in_clock2").val();
                         var minCommission = $(".in_clock3").val();
                         var minSellNum = $(".in_clock4").val();
-                        console.log(minCouponPrice, maxCouponPrice, minPrice, maxPrice, minCommission, minSellNum)
                         sendData = {
                             minCouponPrice: minCouponPrice,
                             maxCouponPrice: maxCouponPrice,
@@ -110,11 +103,9 @@ $(function(){
                             data: sendData,
                             dataType: "json",
                             success: function (data) {
-                                console.log(data)
                                 if (data.code == 200) {
                                     if (data.data.length > 0) {
                                         layer.closeAll('loading');
-                                        console.log(data.data)
                                         var html = '';
                                         $.each(data.data, function ($key, $val) {
                                             var val_url = goods_url_head + '/' + $val.id;
@@ -151,7 +142,6 @@ $(function(){
                         });
                     }else{
                         var active_category = $(".active")[0].id;
-                        console.log(active_category)
                         //    获取券区间筛选条件
                         var minCouponPrice = $(".in_clock").val();
                         var maxCouponPrice = $(".in_clock0").val();
@@ -159,7 +149,6 @@ $(function(){
                         var maxPrice = $(".in_clock2").val();
                         var minCommission = $(".in_clock3").val();
                         var minSellNum = $(".in_clock4").val();
-                        console.log(minCouponPrice, maxCouponPrice, minPrice, maxPrice, minCommission, minSellNum)
                         sendData = {
                             minCouponPrice: minCouponPrice,
                             maxCouponPrice: maxCouponPrice,
@@ -190,11 +179,9 @@ $(function(){
                             data: sendData,
                             dataType: "json",
                             success: function (data) {
-                                console.log(data)
                                 if (data.code == 200) {
                                     if (data.data.length > 0) {
                                         layer.closeAll('loading');
-                                        console.log(data.data)
                                         var html = '';
                                         $.each(data.data, function ($key, $val) {
                                             var val_url = goods_url_head + '/' + $val.id;
@@ -266,9 +253,7 @@ $(function(){
         if ($(this).prop('checked')) {
             if (radioclick1 % 2 == 0) {
                 $(this).prop("checked", false);
-                console.log(this.value)
                 this.value='0'
-                console.log(this.value)
             }else{
                 this.value='1'
             }
@@ -285,13 +270,9 @@ $(function(){
         if ($(this).prop('checked')) {
             if (radioclick2 % 2 == 0) {
                 $(this).prop("checked", false);
-                console.log(this.value)
                 this.value='0'
-                console.log(this.value)
             }else{
-                console.log(this.value)
                 this.value='1'
-                console.log(this.value)
             }
             radioclick2++;
         }
@@ -307,9 +288,7 @@ $(function(){
         if ($(this).prop('checked')) {
             if (radioclick3 % 2 == 0) {
                 $(this).prop("checked", false);
-                console.log(this.value)
                 this.value='0'
-                console.log(this.value)
 
             }else{
                 this.value='1'
@@ -322,8 +301,6 @@ $(function(){
 //高级筛选
 $(".common").on("click",function(){
     var sendData={};
-    console.log("11111111111111")
-    console.log(this)
     // var nav_tab=$('.tab_nav span');
     // console.log(nav_tab)
     if(window.goods_url_ext=='?columnCode=meishijingxuan'||window.goods_url_ext=='?columnCode=jiajujingxuan') {
@@ -332,7 +309,6 @@ $(".common").on("click",function(){
         // console.log(active_category)
         //    获取搜索词
         var keyword = $('#search_value').val();
-        console.log(keyword)
         //    获取筛选条件
         var checked = document.getElementsByClassName('inputs');
         var isTmall, isYfx, isHaitao, isJyj, isTwenty, isNine, isJuhuashuan, isTaoqianggou, isQjd, isJpseller, today;
@@ -374,7 +350,6 @@ $(".common").on("click",function(){
         var maxPrice = $(".in_clock2").val();
         var minCommission = $(".in_clock3").val();
         var minSellNum = $(".in_clock4").val();
-        console.log(minCouponPrice, maxCouponPrice, minPrice, maxPrice, minCommission, minSellNum)
         sendData = {
             minCouponPrice: minCouponPrice,
             maxCouponPrice: maxCouponPrice,
@@ -403,10 +378,8 @@ $(".common").on("click",function(){
             data: sendData,
             dataType: "json",
             success: function (data) {
-                console.log(data.data + 11111)
                 if (data.data.length > 0) {
                     var html = '';
-                    console.log(html)
                     $.each(data.data, function ($key, $val) {
                         var val_url = goods_url_head + '/' + $val.id;
                         var pic = $val.pic;
@@ -420,7 +393,6 @@ $(".common").on("click",function(){
                         var sell_num = $val.sell_num;
                         var price = $val.price;
                         var commission_finally = $val.commission_finally;
-                        console.log(coupon_price, sell_num)
                         var is_tmall = $val.is_tmall !== 0 ? '/web/images/tmail.png' : '/web/images/taobao.png';
                         html += "<div class='single'> <a href='" + val_url + "'target='_blank'> " +
                             "<img src='/web/images/mrtp.jpg' data-img='" + pic + ".jpg" + "' title='" + short_title + "' class='img_size lazy'/> </a> " +
@@ -442,10 +414,8 @@ $(".common").on("click",function(){
     }else{
         //获取分类
         var active_category = $(".active")[0].id;
-        console.log(active_category)
         //    获取搜索词
         var keyword = $('#search_value').val();
-        console.log(keyword)
         //    获取筛选条件
         var checked = document.getElementsByClassName('inputs');
         var isTmall, isYfx, isHaitao, isJyj, isTwenty, isNine, isJuhuashuan, isTaoqianggou, isQjd, isJpseller, today;
@@ -487,7 +457,6 @@ $(".common").on("click",function(){
         var maxPrice = $(".in_clock2").val();
         var minCommission = $(".in_clock3").val();
         var minSellNum = $(".in_clock4").val();
-        console.log(minCouponPrice, maxCouponPrice, minPrice, maxPrice, minCommission, minSellNum)
         sendData = {
             minCouponPrice: minCouponPrice,
             maxCouponPrice: maxCouponPrice,
@@ -517,10 +486,8 @@ $(".common").on("click",function(){
             data: sendData,
             dataType: "json",
             success: function (data) {
-                console.log(data.data + 11111)
                 if (data.data.length > 0) {
                     var html = '';
-                    console.log(html)
                     $.each(data.data, function ($key, $val) {
                         var val_url = goods_url_head + '/' + $val.id;
                         var pic = $val.pic;
@@ -534,7 +501,6 @@ $(".common").on("click",function(){
                         var sell_num = $val.sell_num;
                         var price = $val.price;
                         var commission_finally = $val.commission_finally;
-                        console.log(coupon_price, sell_num)
                         var is_tmall = $val.is_tmall !== 0 ? '/web/images/tmail.png' : '/web/images/taobao.png';
                         html += "<div class='single'> <a href='" + val_url + "'target='_blank'> " +
                             "<img src='/web/images/mrtp.jpg' data-img='" + pic + ".jpg" + "' title='" + short_title + "' class='img_size lazy'/> </a> " +
@@ -558,39 +524,28 @@ $(".common").on("click",function(){
 //商品分类选中
 $(".prod_type_boxs li").on('click',function(){
     var sendData={};
-    console.log("11111111111111")
-    console.log(this)
     var nav_tab=$('.prod_type_list li');
     var nav_tabs=$('.tab_nav span');
     nav_tabs =nav_tabs[0]
-    console.log(nav_tab)
     // nav_tabs.className = 'tab_nav_active';
-    console.log(nav_tab)
     for(var i=0;i<nav_tab.length;i++){
-        console.log(nav_tab[i])
         nav_tab[i].className = '';
     }
     this.className = 'active';
-    console.log(this)
 })
 //分类栏获取数据
 $(".tab_nav span").on('click',function(){
     var sendData={};
-    console.log("11111111111111")
     var nav_tab=$('.tab_nav span');
-    console.log(nav_tab)
     for(var i=0;i<nav_tab.length;i++){
-        console.log(nav_tab[i])
         nav_tab[i].className = '';
     }
     this.className = 'tab_nav_active';
     var sort=this.id;
     //获取分类
     var active_category=$(".active")[0].id;
-    console.log(active_category)
     //    获取搜索词
     var keyword=$('#search_value').val();
-    console.log(keyword)
     //    获取筛选条件
     var checked=document.getElementsByClassName('inputs');
     var isTmall,isYfx,isHaitao,isJyj,isTwenty,isNine,isJuhuashuan,isTaoqianggou,isQjd,isJpseller,today;
@@ -632,7 +587,6 @@ $(".tab_nav span").on('click',function(){
     var maxPrice=$(".in_clock2").val();
     var minCommission=$(".in_clock3").val();
     var minSellNum=$(".in_clock4").val();
-    console.log( minCouponPrice,maxCouponPrice,minPrice, maxPrice,minCommission,minSellNum)
     sendData= {
         minCouponPrice: minCouponPrice,
         maxCouponPrice: maxCouponPrice,
@@ -663,7 +617,6 @@ $(".tab_nav span").on('click',function(){
         data:sendData,
         dataType: "json",
         success:function(data){
-            console.log(data)
             if (data.data.length > 0) {
                 var html = '';
                 $.each(data.data, function ($key, $val) {
@@ -698,20 +651,15 @@ $(".tab_nav span").on('click',function(){
 //点击商品分类请求
 $(".click_li li").on('click',function(){
     var sendData={};
-    console.log("11111111111111")
     var nav_tab=$('.click_li li');
-    console.log(nav_tab)
     for(var i=0;i<nav_tab.length;i++){
-        console.log(nav_tab[i])
         nav_tab[i].className = '';
     }
     this.className = 'active';
     var active_category=this.id;
     //获取分类
-    console.log(active_category)
     //    获取搜索词
     var keyword=$('#search_value').val();
-    console.log(keyword)
     //    获取筛选条件
     var checked=document.getElementsByClassName('inputs');
     var isTmall,isYfx,isHaitao,isJyj,isTwenty,isNine,isJuhuashuan,isTaoqianggou,isQjd,isJpseller,today;
@@ -753,7 +701,6 @@ $(".click_li li").on('click',function(){
     var maxPrice=$(".in_clock2").val();
     var minCommission=$(".in_clock3").val();
     var minSellNum=$(".in_clock4").val();
-    console.log( minCouponPrice,maxCouponPrice,minPrice, maxPrice,minCommission,minSellNum)
     sendData= {
         minCouponPrice: minCouponPrice,
         maxCouponPrice: maxCouponPrice,
@@ -783,7 +730,6 @@ $(".click_li li").on('click',function(){
         data:sendData,
         dataType: "json",
         success:function(data){
-            console.log(data)
             if (data.data.length > 0) {
                 var html = '';
                 $.each(data.data, function ($key, $val) {

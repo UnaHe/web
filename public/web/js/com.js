@@ -12,10 +12,8 @@ $(function () {
     /*修改pid提交*/
     $('.sub_btn').click(function () {
         // $(this).attr('disabled', true);
-        console.log(11111)
         var QQ_value = $(".QQ").val();
         var WX_value = $(".WX").val();
-        console.log(QQ_value,WX_value)
         if(QQ_value!=''&&WX_value!=''){
             $.ajax({
                 type: "post",
@@ -28,7 +26,6 @@ $(function () {
                         layer.msg(msg);
                         var qq_pid=$(".QQ").val("");
                         var weixin_pid=$(".WX").val("");
-                        console.log(qq_pid,weixin_pid);
                         var mtk = document.getElementById('myModals');
                         mtk.style.display = 'none'
                         window.location.reload();
@@ -87,7 +84,6 @@ $(function () {
     //头部登录下拉菜单
     $(".dropdown-toggle").on("click", function () {
         $(".dropdown-menu").slideDown();
-        console.log($(this).hasClass('click_down'))
         if (!$(this).hasClass('click_down')) {
             $(this).addClass('click_down')
         }else{
@@ -104,7 +100,6 @@ $(function () {
     var time = 60;
     $("#clock").on("click",function(){
         var username=$("#username").val();
-        console.log(username)
         if(username!=''){
             // var show_user=document.getElementById('show_username');
             // show_user.style.display='none'

@@ -12,17 +12,13 @@ $(function(){
                 //请求
                 //判断页面中的商品数量
                 var all_product=document.getElementsByClassName('single');
-                console.log(all_product)
                 if(all_product.length>18){
                     var index = layer.load(1);
                     next_page += 1
                     var sendData={};
-                    console.log("11111111111111")
-                    console.log(this)
                     //获取排序
                     //    获取搜索词
                     var keyword=$('#search_value').val();
-                    console.log(keyword)
                     //    获取筛选条件
                     var checked=document.getElementsByClassName('inputs');
                     var isTmall,isYfx,isHaitao,isJyj,isTwenty,isNine,isJuhuashuan,isTaoqianggou,isQjd,isJpseller,today;
@@ -64,7 +60,6 @@ $(function(){
                     var maxPrice=$(".in_clock2").val();
                     var minCommission=$(".in_clock3").val();
                     var minSellNum=$(".in_clock4").val();
-                    console.log( minCouponPrice,maxCouponPrice,minPrice, maxPrice,minCommission,minSellNum)
                     sendData= {
                         minCouponPrice: minCouponPrice,
                         maxCouponPrice: maxCouponPrice,
@@ -99,9 +94,7 @@ $(function(){
                                 if (data.data.length > 0) {
                                     layer.closeAll('loading');
                                     var add_in = document.getElementById('add_in');
-                                    console.log(add_in)
                                     add_in.style.display ='none'
-                                    console.log(data.data)
                                     var html = '';
                                     $.each(data.data, function ($key, $val) {
                                         var val_url = goods_url_head + '/' + $val.id;
@@ -174,9 +167,7 @@ $(function(){
         if ($(this).prop('checked')) {
             if (radioclick1 % 2 == 0) {
                 $(this).prop("checked", false);
-                console.log(this.value)
                 this.value='0'
-                console.log(this.value)
             }else{
                 this.value='1'
             }
@@ -193,20 +184,15 @@ $(function(){
         if ($(this).prop('checked')) {
             if (radioclick2 % 2 == 0) {
                 $(this).prop("checked", false);
-                console.log(this.value)
                 this.value='0'
-                console.log(this.value)
             }else{
-                console.log(this.value)
                 this.value='1'
-                console.log(this.value)
             }
             radioclick2++;
         }
     })
     var radioclick3=1;
     $(".team5").on('click',function(){
-        console.log(111111111111111111111111)
         var team5=document.getElementsByClassName('team5');
         for(var i=0;i<team5.length;i++){
             team5[i].checked = false;
@@ -215,9 +201,7 @@ $(function(){
         if ($(this).prop('checked')) {
             if (radioclick3 % 2 == 0) {
                 $(this).prop("checked", false);
-                console.log(this.value)
                 this.value='0'
-                console.log(this.value)
             }else{
                 this.value='1'
             }
@@ -227,13 +211,10 @@ $(function(){
 });
     $(".common").on("click",function(){
         var sendData={};
-        console.log("11111111111111")
-        console.log(this)
 //         var sort=document.getElementsByClassName(".tab_nav_active");
 // console.log(sort)
         //    获取搜索词
         var keyword=$('#search_value').val();
-        console.log(keyword)
         //    获取筛选条件
         var checked=document.getElementsByClassName('inputs');
         var isTmall,isYfx,isHaitao,isJyj,isTwenty,isNine,isJuhuashuan,isTaoqianggou,isQjd,isJpseller,today;
@@ -275,7 +256,6 @@ $(function(){
         var maxPrice=$(".in_clock2").val();
         var minCommission=$(".in_clock3").val();
         var minSellNum=$(".in_clock4").val();
-        console.log( minCouponPrice,maxCouponPrice,minPrice, maxPrice,minCommission,minSellNum)
         sendData= {
             minCouponPrice: minCouponPrice,
             maxCouponPrice: maxCouponPrice,
@@ -304,10 +284,8 @@ $(function(){
             data:sendData,
             dataType: "json",
             success:function(data){
-                console.log(data.data)
                 if (data.data.length > 0) {
                     var html = '';
-                    console.log(html)
                     $.each(data.data, function ($key, $val) {
                         var val_url = goods_url_head + '/' + $val.id;
                         var pic = $val.pic;
@@ -319,7 +297,6 @@ $(function(){
                         var sell_num = $val.sell_num;
                         var price = $val.price;
                         var commission_finally = $val.commission_finally;
-                        console.log(coupon_price,sell_num)
                         var is_tmall = $val.is_tmall !== 0 ? '/web/images/tmail.png' : '/web/images/taobao.png';
                         html += "<div class='single'> <a href='" + val_url + "'target='_blank'> " +
                             "<img src='/web/images/mrtp.jpg' data-img='"+pic+".jpg"+"' title='"+short_title+"' class='img_size lazy'/> </a> " +
@@ -340,19 +317,14 @@ $(function(){
     //tab栏获取数据
     $(".tab_nav span").on('click',function(){
         var sendData={};
-        console.log("11111111111111")
-        console.log(this)
         var nav_tab=$('.tab_nav span');
-        console.log(nav_tab)
         for(var i=0;i<nav_tab.length;i++){
-            console.log(nav_tab[i])
             nav_tab[i].className = '';
         }
         this.className = 'tab_nav_active';
       var sort=this.id;
     //    获取搜索词
         var keyword=$('#search_value').val();
-        console.log(keyword)
     //    获取筛选条件
         var checked=document.getElementsByClassName('inputs');
       var isTmall,isYfx,isHaitao,isJyj,isTwenty,isNine,isJuhuashuan,isTaoqianggou,isQjd,isJpseller,today;
@@ -394,7 +366,6 @@ $(function(){
         var maxPrice=$(".in_clock2").val();
         var minCommission=$(".in_clock3").val();
         var minSellNum=$(".in_clock4").val();
-        console.log( minCouponPrice,maxCouponPrice,minPrice, maxPrice,minCommission,minSellNum)
         sendData= {
                     minCouponPrice: minCouponPrice,
                     maxCouponPrice: maxCouponPrice,
@@ -424,7 +395,6 @@ $(function(){
             data:sendData,
             dataType: "json",
             success:function(data){
-                console.log(data)
                 if (data.data.length > 0) {
                     var html = '';
                     $.each(data.data, function ($key, $val) {

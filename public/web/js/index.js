@@ -2,7 +2,6 @@
 var radioclick1=1;
 $(".dropdown1").on('click',function(){
     var menu2=document.getElementById('menu2');
-    console.log(menu2)
     menu2.style.display='block'
     if (radioclick1 % 2 == 0) {
         menu2.style.display='none'
@@ -44,7 +43,6 @@ $('.column_single_box').hover(function(){
 //    获取顶部位置
 $(window).scroll(function(){
     var scroll=$(window).scrollTop();
-    console.log(scroll);
     if(scroll>280){
         var show_allBox=document.getElementById('column_all_box');
         show_allBox.style.display='block'
@@ -62,7 +60,6 @@ $(window).scroll(function(){
         show_allBox.style.display='block'
         $("#list_column_title").addClass('show_fadeinUp')
         $('#matrix').addClass('show2');
-        console.log(window.innerWidth)
         if(window.innerWidth>1468){
             $('#matrix').addClass('matrix1');
         }

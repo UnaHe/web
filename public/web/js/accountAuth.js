@@ -6,7 +6,6 @@ $(function () {
     //删除模态框
     $("#amyModal_remove").on("click",function(){
         var choice= $(".xz");
-        console.log(choice)
             for(var i=0;i<choice.length;i++){
                 if($(choice[i]).prop('checked')){
                     var mtk = document.getElementById('myModal_remove');

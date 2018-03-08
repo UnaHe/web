@@ -9,7 +9,6 @@ var lazyload = {
                 realSrcAtr:"data-img"
             };
         // 合并对象，已有的{anim:true}+用户自定义对象。也就是op = op + opt
-        console.log(opt)
         $.extend(op,opt);
         // 调用lazyload.img.init(op)函数
         that.img.init(op);

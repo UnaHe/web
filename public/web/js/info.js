@@ -59,14 +59,11 @@ $(function(){
         var mtk = document.getElementById('create-pic-tpl-box');
         mtk.style.display = 'block';
         var node = document.getElementById('pic_long');
-        console.log(node)
         domtoimage.toPng(node,{ quality: 0 })
             .then(function (dataUrl) {
                 var img = new Image();
                 img.src = dataUrl;
-                console.log(img.src)
                 document.body.appendChild(img);
-                console.log(img)
                 $("#download").attr('href', dataUrl);
                 $("#download").attr('download', 'share.jpeg');
             });
@@ -86,7 +83,6 @@ $(function(){
         data: $('.qq_form').serialize(),
         dataType: "json",
         success: function (data) {
-            console.log(data)
             if (data.code == 200) {
                 //  显示一键复制
                 var wx_before_btns=document.getElementById('wx-before-btns');
@@ -105,7 +101,6 @@ $(function(){
                 $("#wx_hidden").html('');
                 share_error = '';
             } else if(data.code==3001){
-                console.log(1111111111111)
                 share_error = '链接转换失败或请授权';
                 layer.msg( share_error)
 
@@ -121,7 +116,6 @@ $(function(){
             data: $('.qq_form').serialize(),
             dataType: "json",
             success: function (data) {
-                console.log(data)
                 if (data.code == 200) {
                     var wx_before_btns=document.getElementById('transfer_link');
                     wx_before_btns .style.display='block'
@@ -151,7 +145,6 @@ $(function(){
             layer.msg(share_error);
             return false;
         }
-        console.log(111111111111111)
         $('.share_qq_url').html(share_qq_url);
         var copy = document.getElementById('qq-copy-main');
         copyFunction(copy, '#transfer_link', "QQ文案复制成功", e);

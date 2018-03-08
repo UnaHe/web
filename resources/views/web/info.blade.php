@@ -249,9 +249,7 @@
      var ImgBasc64Fun = {
             jsSaveImg:function(imgBasc64,callback,errF){
                 imgBasc64 = imgBasc64.replace(/data:image\/(jpeg|png);base64,(.*)/,"$2");
-                console.log(imgBasc64+"diyige")
                 imgBasc64 = zip(imgBasc64);
-                console.log(imgBasc64)
                 $.ajax({
                     url: 'http://thumbnailapi.qingtaoke.com/index.php?r=base-save/save',
                     dataType: 'json',
