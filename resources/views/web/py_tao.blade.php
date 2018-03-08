@@ -78,7 +78,7 @@
             <div class="reg-left">
                 <p class="font_size24 reg-left-title">朋友淘注册流程</p>
                 <p class="font_size16 reg-left-des">朋友淘通过邀请注册，扫码确定关系终身不变，比亲妈还亲。</p>
-                <p class="font_size16 reg-left-content"><span>1</span>点击网页下载链接，下载注册朋友淘，填写邀请码4jdlka</p>
+                <p class="font_size16 reg-left-content"><span>1</span>点击网页下载链接，下载注册朋友淘，填写邀请码 5SNUn4</p>
                 <p class="font_size16 reg-left-content"><span>2</span>登陆后.扫码添加微信客服，或者加alibabashuyao.回复手机后四位赠送代理</p>
                 <a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.tuidanke.pytk" target="_blank"><div class="open_btn">立即下载</div></a>
             </div>
